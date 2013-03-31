@@ -20,3 +20,4 @@ Content\Backgrounds\dirt_grass_large.xnb
 Content\Out Game\Main Menu\green_card.xnb
 Content\Out Game\Main Menu\red_card.xnb
 Content\Out Game\Main Menu\to_battle!-1.xnb
+Content\Shared\arrow_cursor.xnb

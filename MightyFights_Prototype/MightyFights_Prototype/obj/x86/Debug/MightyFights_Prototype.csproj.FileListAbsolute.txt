@@ -28,3 +28,4 @@ D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\Mighty
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Out Game\Main Menu\green_card.xnb
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Out Game\Main Menu\red_card.xnb
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Out Game\Main Menu\to_battle!-1.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Shared\arrow_cursor.xnb

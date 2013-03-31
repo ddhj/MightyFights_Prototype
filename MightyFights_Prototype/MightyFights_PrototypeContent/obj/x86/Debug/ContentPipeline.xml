@@ -199,6 +199,15 @@
       <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Out Game\Main Menu\to_battle!-1.xnb</Output>
       <Time>2013-03-30T18:19:09.6547817-05:00</Time>
     </Item>
+    <Item>
+      <Source>Shared\arrow_cursor.png</Source>
+      <Name>Shared\arrow_cursor</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Shared\arrow_cursor.xnb</Output>
+      <Time>2013-03-31T02:45:49.3622363-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

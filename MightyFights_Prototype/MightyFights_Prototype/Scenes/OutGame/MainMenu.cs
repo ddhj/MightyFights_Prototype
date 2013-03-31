@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 using MightyFights_Support;
 
@@ -22,7 +23,8 @@ namespace MightyFights_Prototype
 		SpriteBatch		_cBatch;
 		GraphicsDevice	_cGraphics;
 		BasicSprite		_cPlayer1, 
-						_cPlayer2;
+						_cPlayer2,
+						_cCursor;
 		
 		#region IGameScene Members
 
@@ -30,7 +32,8 @@ namespace MightyFights_Prototype
 
 		public void Update(GameTime cTime)
 		{
-			
+			MouseState cState = Mouse.GetState();
+			_cCursor.tPos = new Vector2(cState.X, cState.Y);
 		}
 
 		public void Draw(GameTime cTime)
@@ -48,6 +51,9 @@ namespace MightyFights_Prototype
 					_cPlayer1.cFrame.bRot ? -(float)Math.PI/2 : 0, _cPlayer1.cFrame.tTopLeft, 1, SpriteEffects.None, 0);
 				_cBatch.Draw(_cTrooperTex, _cPlayer2.tPos, _cPlayer2.cFrame.tRect, Color.White, 
 					_cPlayer2.cFrame.bRot ? -(float)Math.PI/2 : 0, _cPlayer2.cFrame.tTopLeft, 1, SpriteEffects.None, 0);
+			
+				// draw cursor
+				_cBatch.Draw(_cCursor.cTexRef, _cCursor.tPos, _cCursor.cFrame.tRect, Color.White);
 
 			_cBatch.End();
 		}
@@ -78,6 +84,12 @@ namespace MightyFights_Prototype
 				_cPlayer2.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + _cToBattle.Bounds.Width - _cCardP2.Width + 
 												_cPlayer2.cFrame.tRect.Width / 2, 400 + _cCardP2.Bounds.Width / 2 - 
 												_cPlayer2.cFrame.tRect.Height / 2);
+				
+				_cCursor = new BasicSprite();
+				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");
+				_cCursor.tPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+				_cCursor.cFrame = new Frame(_cCursor.cTexRef.Bounds, new Vector2(_cCursor.cTexRef.Bounds.Width / 2, _cCursor.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(_cCursor.cTexRef.Bounds.Width, _cCursor.cTexRef.Bounds.Height), null, false, false);
 
 				_cBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 
