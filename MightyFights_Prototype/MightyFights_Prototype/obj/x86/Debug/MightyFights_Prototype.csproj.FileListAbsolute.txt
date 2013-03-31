@@ -1,0 +1,30 @@
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\HalberdArray.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Front Facing\GuysArray.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fazure.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fbrown.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fgrey.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fgules.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fmidnight.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fpurple.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\frust.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fsable.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fsteel.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fstorm.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\ftenne.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fvert.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fvert2.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fzombie.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Front Facing\Guys.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\MightyFights_Prototype.exe
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\MightyFights_Prototype.pdb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\MightyFights_Support.dll
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\MightyFights_Support.pdb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\obj\x86\Debug\MightyFights_Prototype.csprojResolveAssemblyReference.cache
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\obj\x86\Debug\MightyFights_Prototype.exe
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\obj\x86\Debug\MightyFights_Prototype.pdb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Backgrounds\dirt_grass_large.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Out Game\Main Menu\green_card.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Out Game\Main Menu\red_card.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Out Game\Main Menu\to_battle!-1.xnb

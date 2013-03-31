@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\HalberdArray.json</Source>
+      <Name>Sprite Data\Troopers\Halberd\HalberdArray</Name>
+      <Importer>ContentImporter1</Importer>
+      <Processor>ContentProcessor1</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\HalberdArray.xnb</Output>
+      <Time>2013-03-23T02:15:27.2422703-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Front Facing\GuysArray.json</Source>
+      <Name>Sprite Data\Troopers\Halberd\Front Facing\GuysArray</Name>
+      <Importer>ContentImporter1</Importer>
+      <Processor>ContentProcessor1</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Front Facing\GuysArray.xnb</Output>
+      <Time>2013-03-30T17:33:32.7652826-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\fazure.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\fazure</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fazure.xnb</Output>
+      <Time>2013-03-23T02:16:27.2127004-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\fbrown.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\fbrown</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fbrown.xnb</Output>
+      <Time>2013-03-23T02:16:27.2117003-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\fcrimson.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\fcrimson</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.xnb</Output>
+      <Time>2013-03-23T02:16:27.2107003-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\fgrey.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\fgrey</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fgrey.xnb</Output>
+      <Time>2013-03-23T02:16:27.2097002-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\fgules.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\fgules</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fgules.xnb</Output>
+      <Time>2013-03-23T02:16:27.2087001-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\fmidnight.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\fmidnight</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fmidnight.xnb</Output>
+      <Time>2013-03-23T02:16:27.2077001-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\fpurple.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\fpurple</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fpurple.xnb</Output>
+      <Time>2013-03-23T02:16:27.2067-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\frust.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\frust</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\frust.xnb</Output>
+      <Time>2013-03-23T02:16:27.2057-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\fsable.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\fsable</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fsable.xnb</Output>
+      <Time>2013-03-23T02:16:27.2036999-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\fsteel.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\fsteel</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fsteel.xnb</Output>
+      <Time>2013-03-23T02:16:27.2026998-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\fstorm.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\fstorm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fstorm.xnb</Output>
+      <Time>2013-03-23T02:16:27.2016997-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\ftenne.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\ftenne</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\ftenne.xnb</Output>
+      <Time>2013-03-23T02:16:27.2006997-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\fvert.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\fvert</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fvert.xnb</Output>
+      <Time>2013-03-23T02:16:27.1996996-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\fvert2.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\fvert2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fvert2.xnb</Output>
+      <Time>2013-03-23T02:16:27.1986996-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Textures\fzombie.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Textures\fzombie</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Textures\fzombie.xnb</Output>
+      <Time>2013-03-23T02:16:27.1976995-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Front Facing\Guys.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Front Facing\Guys</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Front Facing\Guys.xnb</Output>
+      <Time>2013-03-30T17:33:23.3652695-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Backgrounds\dirt_grass_large.png</Source>
+      <Name>Backgrounds\dirt_grass_large</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Backgrounds\dirt_grass_large.xnb</Output>
+      <Time>2013-03-23T11:45:40.9611831-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Out Game\Main Menu\green_card.png</Source>
+      <Name>Out Game\Main Menu\green_card</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Out Game\Main Menu\green_card.xnb</Output>
+      <Time>2013-03-30T18:19:09.6547817-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Out Game\Main Menu\red_card.png</Source>
+      <Name>Out Game\Main Menu\red_card</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Out Game\Main Menu\red_card.xnb</Output>
+      <Time>2013-03-30T18:19:09.6547817-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Out Game\Main Menu\to_battle!-1.png</Source>
+      <Name>Out Game\Main Menu\to_battle!-1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Out Game\Main Menu\to_battle!-1.xnb</Output>
+      <Time>2013-03-30T18:19:09.6547817-05:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>HiDef</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_PrototypeContent\</RootDirectory>
+      <LoggerRootDirectory>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\</LoggerRootDirectory>
+      <IntermediateDirectory>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_PrototypeContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T13:41:18-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T13:41:18-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T13:41:18-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T13:41:18-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T13:41:18-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T13:41:18-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\AnimationDataEx\bin\x86\Debug\AnimationDataEx.dll</Key>
+        <Value>2013-03-30T18:05:56.7514707-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2013-03-03T12:47:33.9339496-06:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

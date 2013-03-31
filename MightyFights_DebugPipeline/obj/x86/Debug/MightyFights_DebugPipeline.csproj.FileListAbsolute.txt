@@ -1,0 +1,6 @@
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_DebugPipeline\bin\Debug\Targets\Debugging.targets
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_DebugPipeline\bin\Debug\MightyFights_DebugPipeline.exe.config
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_DebugPipeline\bin\Debug\MightyFights_DebugPipeline.exe
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_DebugPipeline\bin\Debug\MightyFights_DebugPipeline.pdb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_DebugPipeline\obj\x86\Debug\MightyFights_DebugPipeline.exe
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_DebugPipeline\obj\x86\Debug\MightyFights_DebugPipeline.pdb
