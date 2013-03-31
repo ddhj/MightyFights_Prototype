@@ -8,7 +8,7 @@
       <Processor>ContentProcessor1</Processor>
       <Options>None</Options>
       <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\HalberdArray.xnb</Output>
-      <Time>2013-03-23T02:15:27.2422703-05:00</Time>
+      <Time>2013-03-31T12:07:59.6248904-05:00</Time>
     </Item>
     <Item>
       <Source>Sprite Data\Troopers\Halberd\Front Facing\GuysArray.json</Source>
@@ -155,15 +155,6 @@
       <Time>2013-03-23T02:16:27.1976995-05:00</Time>
     </Item>
     <Item>
-      <Source>Sprite Data\Troopers\Halberd\Front Facing\Guys.png</Source>
-      <Name>Sprite Data\Troopers\Halberd\Front Facing\Guys</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Front Facing\Guys.xnb</Output>
-      <Time>2013-03-30T17:33:23.3652695-05:00</Time>
-    </Item>
-    <Item>
       <Source>Backgrounds\dirt_grass_large.png</Source>
       <Name>Backgrounds\dirt_grass_large</Name>
       <Importer>TextureImporter</Importer>
@@ -171,6 +162,15 @@
       <Options>None</Options>
       <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Backgrounds\dirt_grass_large.xnb</Output>
       <Time>2013-03-31T03:37:49.2876362-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Sprite Data\Troopers\Halberd\Front Facing\Guys.png</Source>
+      <Name>Sprite Data\Troopers\Halberd\Front Facing\Guys</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Sprite Data\Troopers\Halberd\Front Facing\Guys.xnb</Output>
+      <Time>2013-03-30T17:33:23.3652695-05:00</Time>
     </Item>
     <Item>
       <Source>Out Game\Main Menu\green_card.png</Source>
@@ -246,7 +246,7 @@
       </Assembly>
       <Assembly>
         <Key>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\AnimationDataEx\bin\x86\Debug\AnimationDataEx.dll</Key>
-        <Value>2013-03-30T18:05:56.7514707-05:00</Value>
+        <Value>2013-03-31T12:05:12.7284315-05:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>

@@ -17,6 +17,8 @@ namespace MightyFights_Prototype
 		Texture2D		_cBackground;
 		SpriteBatch		_cSpriteBatch;
 
+		// temp template for the basics of getting a guy up and moving about
+
 		#region IGameScene Members
 
 		public void Update(GameTime cTime)

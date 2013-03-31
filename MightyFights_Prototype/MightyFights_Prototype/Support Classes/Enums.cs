@@ -12,4 +12,14 @@ namespace MightyFights_Prototype
 		TransitionOut, 
 		Inactive
 	}
+
+	public enum EBattleAiStates
+	{
+		Attacking, 
+		Dying, 
+		Idle, 
+		Moving,
+		Dead,
+		Pursuit
+	}
 }

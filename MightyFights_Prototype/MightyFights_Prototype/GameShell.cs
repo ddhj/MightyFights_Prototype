@@ -42,6 +42,9 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cContent = Content;
 			DataStore.cInstance.cGraphics = GraphicsDevice;
 
+			// init the object manager
+			ObjectManager.cInstance.Init();
+
 			// set the scene manager
 			SceneManager	cManager = new SceneManager(this);
 

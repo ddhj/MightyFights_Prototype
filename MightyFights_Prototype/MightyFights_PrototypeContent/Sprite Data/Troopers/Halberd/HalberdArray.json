@@ -3,32 +3,32 @@
 	{	
 		"MainType": "Attack", 
 		"SubTypes": [
-			{ "Type": "Basic", "Actions": [ "low", "stab", "stick" ] }, 
-			{ "Type": "Critical", "Actions": [ "bigchop", "lunge" ] } ]
+			{ "Type": "Basic", "Actions": [ {"sAction":"low", "iIncrement":110}, {"sAction":"stab", "iIncrement":105}, {"sAction":"stick", "iIncrement":100} ] }, 
+			{ "Type": "Critical", "Actions": [ {"sAction":"bigchop", "iIncrement":100}, {"sAction":"lunge", "iIncrement":100} ] } ]
 	}, 
 	{	
 		"MainType": "Defend", 
 		"SubTypes": [
-			{ "Type": "Parry", "Actions": [ "lp", "sp" ] } ]
+			{ "Type": "Parry", "Actions": [ {"sAction":"lp", "iIncrement":105}, {"sAction":"sp", "iIncrement":110} ] } ]
 	}, 
 	{
 		"MainType": "Idle",
 		"SubTypes": [
-			{ "Type": "Normal", "Actions": [ "transition" ] },
-			{ "Type": "Pant", "Actions": [ "pant" ] },
-			{ "Type": "Victory", "Actions": [ "victory" ] } ]
+			{ "Type": "Normal", "Actions": [ {"sAction":"transition", "iIncrement":100} ] },
+			{ "Type": "Pant", "Actions": [ {"sAction":"pant", "iIncrement":100} ] },
+			{ "Type": "Victory", "Actions": [ {"sAction":"victory", "iIncrement":95} ] } ]
 	}, 
 	{ 
 		"MainType": "Death", 
 		"SubTypes": [
-			{ "Type": "Normal", "Actions": [ "death" ] } ]
+			{ "Type": "Normal", "Actions": [ {"sAction":"death", "iIncrement":95} ] } ]
 	}, 
 	{	
 		"MainType": "Move", 
 		"SubTypes": [
-			{ "Type": "Walk", "Actions": [ "walk" ] }, 
-			{ "Type": "Run", "Actions": [ "run" ] },
-			{ "Type": "Flee", "Actions": [ "retreat" ] } ]
+			{ "Type": "Walk", "Actions": [ {"sAction":"walk", "iIncrement":100} ] }, 
+			{ "Type": "Run", "Actions": [ {"sAction":"run", "iIncrement":100} ] },
+			{ "Type": "Flee", "Actions": [ {"sAction":"retreat", "iIncrement":100} ] } ]
 	}
 ], 
 "frames": [

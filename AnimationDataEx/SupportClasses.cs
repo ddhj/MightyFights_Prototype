@@ -36,10 +36,16 @@ namespace AnimationDataEx
 		public KeyFrame KeyFrame { get; set; }
 	}
 
+	internal class Animation
+	{
+		public string sAction { get; set;}
+		public int iIncrement { get; set;}
+	}
+
 	internal class Action
 	{
 		public string Type { get; set; }
-		public string[] Actions { get; set; }
+		public Animation[] Actions { get; set; }
 	}
 
 	internal class MainAction
@@ -112,12 +118,19 @@ namespace AnimationDataEx
 	public class ActionData 
 	{
 		int		_iMaxFrames,
-				_iStartIndex;
+				_iStartIndex, 
+				_iIncrement;
 
-		public int iMaxFrames  { get { return _iMaxFrames; } set { _iMaxFrames = value; } } 
-		public int iStartIndex { get { return _iStartIndex; } set { _iStartIndex = value; } }
+		public int iMaxFrames	{ get { return _iMaxFrames; } set { _iMaxFrames = value; }} 
+		public int iStartIndex	{ get { return _iStartIndex; } set { _iStartIndex = value; }}
+		public int iIncrement	{ get { return _iIncrement; } set { _iIncrement = value; }}
 
 		public ActionData(){}
+		public ActionData(int iIncrement)
+		{
+			_iIncrement = iIncrement;
+		}
+
 		public ActionData(int iMaxFrames, int iStartIndex) 
 		{
 			_iMaxFrames = iMaxFrames;
@@ -168,13 +181,13 @@ namespace AnimationDataEx
 		
 			foreach(MainAction cMainAction in cData.ActionTypes)
 				foreach(Action cAction in cMainAction.SubTypes) 
-					foreach(string sActionName in cAction.Actions) { 
-						cActionToMainAction.Add(sActionName, new KeyValuePair<string, string>(cMainAction.MainType, cAction.Type));
+					foreach(Animation cAnim in cAction.Actions) { 
+						cActionToMainAction.Add(cAnim.sAction, new KeyValuePair<string, string>(cMainAction.MainType, cAction.Type));
 						if(!cRefList.TryGetValue(cMainAction.MainType, out cSubRef)) 
 							cRefList.Add(cMainAction.MainType, cSubRef = new Dictionary<string, Dictionary<string, ActionData>>());
 						if(!cSubRef.TryGetValue(cAction.Type, out cRef))
 							cSubRef.Add(cAction.Type, cRef = new Dictionary<string,ActionData>());
-						cRef.Add(sActionName, new ActionData());
+						cRef.Add(cAnim.sAction, new ActionData(cAnim.iIncrement));
 					}
 
 			int iIndex = 0;

@@ -108,13 +108,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game Objects\BasicSprite.cs" />
+    <Compile Include="Game Objects\Trooper.cs" />
     <Compile Include="Management Classes\DataStore.cs" />
     <Compile Include="Management Classes\ObjectManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="GameShell.cs" />
     <Compile Include="Scenes\OutGame\MainMenu.cs" />
+    <Compile Include="Support Classes\Action Managers\TrooperActMgr.cs" />
+    <Compile Include="Support Classes\ActionManager.cs" />
     <Compile Include="Support Classes\AnimationProcessor.cs" />
+    <Compile Include="Support Classes\IAnimate.cs" />
+    <Compile Include="Support Classes\IBattleAi.cs" />
+    <Compile Include="Support Classes\IClickable.cs" />
     <Compile Include="Support Classes\IDrawable.cs" />
     <Compile Include="Support Classes\IGameScene.cs" />
     <Compile Include="Scenes\InGame\BattleGround_Basic.cs" />

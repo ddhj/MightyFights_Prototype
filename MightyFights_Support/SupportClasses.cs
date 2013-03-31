@@ -54,12 +54,19 @@ namespace MightyFights_Support
 	public class ActionData 
 	{
 		int		_iMaxFrames,
-				_iStartIndex;
+				_iStartIndex, 
+				_iIncrement;
 
-		public int iMaxFrames  { get { return _iMaxFrames; } set { _iMaxFrames = value; } } 
-		public int iStartIndex { get { return _iStartIndex; } set { _iStartIndex = value; } }
+		public int iMaxFrames	{ get { return _iMaxFrames; } set { _iMaxFrames = value; }} 
+		public int iStartIndex	{ get { return _iStartIndex; } set { _iStartIndex = value; }}
+		public int iIncrement	{ get { return _iIncrement; } set { _iIncrement = value; }}
 
 		public ActionData(){}
+		public ActionData(int iIncrement)
+		{
+			_iIncrement = iIncrement;
+		}
+
 		public ActionData(int iMaxFrames, int iStartIndex) 
 		{
 			_iMaxFrames = iMaxFrames;
