@@ -1,0 +1,236 @@
+{"frames": [
+
+{
+	"filename": "aqua.png",
+	"frame": {"x":2,"y":221,"w":21,"h":25},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "azure.png",
+	"frame": {"x":2,"y":194,"w":21,"h":25},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "berry.png",
+	"frame": {"x":2,"y":167,"w":21,"h":25},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "blood zombie.png",
+	"frame": {"x":2,"y":140,"w":21,"h":25},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "brown.png",
+	"frame": {"x":83,"y":117,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "coal.png",
+	"frame": {"x":56,"y":117,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "cobalt.png",
+	"frame": {"x":29,"y":117,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "crimson.png",
+	"frame": {"x":2,"y":117,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "dark zombie.png",
+	"frame": {"x":83,"y":94,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "evil zombie.png",
+	"frame": {"x":56,"y":94,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "face zombie.png",
+	"frame": {"x":29,"y":94,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "forest.png",
+	"frame": {"x":2,"y":94,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "front.png",
+	"frame": {"x":83,"y":71,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "grey.png",
+	"frame": {"x":56,"y":71,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "gules.png",
+	"frame": {"x":29,"y":71,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "marsh zombie.png",
+	"frame": {"x":2,"y":71,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "midnight.png",
+	"frame": {"x":83,"y":48,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "olive.png",
+	"frame": {"x":56,"y":48,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "purpure.png",
+	"frame": {"x":29,"y":48,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "rotten zombie.png",
+	"frame": {"x":2,"y":48,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "rust.png",
+	"frame": {"x":83,"y":25,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "sable.png",
+	"frame": {"x":56,"y":25,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "salmon.png",
+	"frame": {"x":29,"y":25,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "slate.png",
+	"frame": {"x":2,"y":25,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "steel.png",
+	"frame": {"x":83,"y":2,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "storm.png",
+	"frame": {"x":56,"y":2,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "tenne.png",
+	"frame": {"x":29,"y":2,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+},
+{
+	"filename": "violet.png",
+	"frame": {"x":2,"y":2,"w":21,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":21,"h":25},
+	"sourceSize": {"w":27,"h":29}
+}],
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "Guys.png",
+	"format": "RGBA8888",
+	"size": {"w":128,"h":256},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:99f75242b7ff2ca04471f05c3d5e09d9$"
+}
+}
