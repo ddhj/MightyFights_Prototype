@@ -32,8 +32,18 @@ namespace MightyFights_Prototype
 
 		public void Update(GameTime cTime)
 		{
-			MouseState cState = Mouse.GetState();
+			MouseState	cState = Mouse.GetState();
+			bool		bRes;
+			Point		tPoint = new Point(cState.X, cState.Y);
 			_cCursor.tPos = new Vector2(cState.X, cState.Y);
+
+			if(cState.LeftButton == ButtonState.Pressed) { 
+				_cCardP1.Bounds.Contains(ref tPoint, out bRes);
+				if(bRes) { 
+
+				}
+			}
+			
 		}
 
 		public void Draw(GameTime cTime)
