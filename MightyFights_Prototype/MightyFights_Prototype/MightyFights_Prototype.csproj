@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game Objects\BasicSprite.cs" />
     <Compile Include="Management Classes\DataStore.cs" />
     <Compile Include="Management Classes\ObjectManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="GameShell.cs" />
     <Compile Include="Scenes\OutGame\MainMenu.cs" />
     <Compile Include="Support Classes\AnimationProcessor.cs" />
+    <Compile Include="Support Classes\IDrawable.cs" />
     <Compile Include="Support Classes\IGameScene.cs" />
     <Compile Include="Scenes\InGame\BattleGround_Basic.cs" />
     <Compile Include="Management Classes\SceneManager.cs" />
