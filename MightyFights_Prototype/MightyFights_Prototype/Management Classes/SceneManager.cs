@@ -15,7 +15,6 @@ namespace MightyFights_Prototype
 		List<IGameScene>	_naSceneList = new List<IGameScene>();
 		Game				_cGameObj;
 
-
 		public SceneManager(Game cGame) : base(cGame) {}
 
 		public override void Initialize()
@@ -23,6 +22,7 @@ namespace MightyFights_Prototype
 			// set up the driver class data for the data store
 			DataStore.cInstance.cContent = Game.Content;
 			DataStore.cInstance.cGraphics = Game.GraphicsDevice;
+			DataStore.cInstance.cSceneMgr = this;
 
 			// 
 

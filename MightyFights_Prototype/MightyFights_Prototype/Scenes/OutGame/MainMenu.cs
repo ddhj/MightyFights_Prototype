@@ -38,9 +38,19 @@ namespace MightyFights_Prototype
 			_cCursor.tPos = new Vector2(cState.X, cState.Y);
 
 			if(cState.LeftButton == ButtonState.Pressed) { 
-				_cCardP1.Bounds.Contains(ref tPoint, out bRes);
-				if(bRes) { 
+				// check to see if we collide with our to battle
+				Rectangle tToBattle = new Rectangle();
+				tToBattle.X = _cGraphics.Viewport.Width / 2 - (_cToBattle.Bounds.Width / 2);
+				tToBattle.Y = 400 + _cCardP1.Bounds.Height / 2 - (_cToBattle.Bounds.Height / 2);
+				tToBattle.Width = _cToBattle.Bounds.Width;
+				tToBattle.Height = _cToBattle.Bounds.Height;
 
+				tToBattle.Contains(ref tPoint, out bRes);
+				if(bRes) { 
+					IGameScene nBattleGround = new BattleGround_Basic();
+					if(nBattleGround.Init()) { 
+						DataStore.cInstance.cSceneMgr.AddScene(nBattleGround);
+					}
 				}
 			}
 			

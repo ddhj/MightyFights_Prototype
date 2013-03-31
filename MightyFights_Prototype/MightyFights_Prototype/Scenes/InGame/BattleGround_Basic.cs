@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
 
 namespace MightyFights_Prototype
 {
@@ -13,11 +16,6 @@ namespace MightyFights_Prototype
 		ESceneStates	_eState;
 		Texture2D		_cBackground;
 		SpriteBatch		_cSpriteBatch;
-
-		public BattleGround_Basic(string sBackground)
-		{
-			DataStore.cInstance.cContent.Load<Texture2D>("dirt_grass_large");
-		}
 
 		#region IGameScene Members
 
@@ -37,6 +35,14 @@ namespace MightyFights_Prototype
 
 		public bool Init()
 		{
+			try { 
+				ContentManager	cContent = DataStore.cInstance.cContent;
+				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
+				_cBackground = cContent.Load<Texture2D>(@"Backgrounds\dirt_grass_large");
+			} catch(Exception xEx) { 
+				return false;
+			}
+
 			return true;
 		}
 
