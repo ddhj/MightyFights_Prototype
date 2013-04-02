@@ -15,6 +15,7 @@ namespace MightyFights_Prototype
 
 	public enum EBattleAiStates
 	{
+		Start,
 		Attacking, 
 		Dying, 
 		Idle, 

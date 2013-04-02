@@ -53,8 +53,7 @@ namespace MightyFights_Prototype
 			_cGraphics.Clear(Color.Black);
 
 			_cBatch.Begin(); { 
-				//spriteBatch.Draw(_cSpriteSheet, tVector, cFrame.tRect, Color.White, 
-				//    cFrame.bRot ? -(float)Math.PI/2 : 0, cFrame.tTopLeft, 1, SpriteEffects.None, 0);
+				// draw the cards and the to battle items
 				_cBatch.Draw(_cP1Card.cTexRef, _cP1Card.tPos, _cP1Card.cFrame.tRect, Color.White);
 				_cBatch.Draw(_cP2Card.cTexRef, _cP2Card.tPos, _cP2Card.cFrame.tRect, Color.White);
 				_cBatch.Draw(_cToBattle.cTexRef, _cToBattle.tPos, _cToBattle.cFrame.tRect, Color.White);

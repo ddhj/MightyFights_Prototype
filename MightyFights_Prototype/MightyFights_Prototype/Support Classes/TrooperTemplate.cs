@@ -11,5 +11,7 @@ namespace MightyFights_Prototype
 	{
 		public AnimationProcessor	cAnimProcessorRef	{ get; set; }
 		public Texture2D			cTextureRef			{ get; set; }
+		public ActionManager		cActionMgr			{ get; set; }
+		public Stats				cStats				{ get; set; }
 	}
 }

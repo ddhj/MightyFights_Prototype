@@ -26,8 +26,8 @@
 	{	
 		"MainType": "Move", 
 		"SubTypes": [
-			{ "Type": "Walk", "Actions": [ {"sAction":"walk", "iIncrement":100} ] }, 
-			{ "Type": "Run", "Actions": [ {"sAction":"run", "iIncrement":100} ] },
+			{ "Type": "Walk", "Actions": [ {"sAction":"walk", "iIncrement":500} ] }, 
+			{ "Type": "Run", "Actions": [ {"sAction":"run", "iIncrement":500} ] },
 			{ "Type": "Flee", "Actions": [ {"sAction":"retreat", "iIncrement":100} ] } ]
 	}
 ], 

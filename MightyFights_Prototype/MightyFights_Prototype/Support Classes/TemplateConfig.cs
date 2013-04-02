@@ -11,10 +11,11 @@ namespace MightyFights_Prototype
 					_sColor;
 
 		// this i am not 100% certian what I want to do yet 
-		Dictionary<string, float>		_cActionModifier;
+		Dictionary<string, float>		_cActionModifier = new Dictionary<string,float>();
 
 		public string sTrooperType		{ get { return _sTrooperType; }}
 		public string sColor			{ get { return _sColor; }}
+		public Stats cStats				{ get; set; }
 
 		public TemplateConfig(string sTrooperType, string sColor)
 		{

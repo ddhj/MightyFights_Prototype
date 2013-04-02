@@ -46,9 +46,13 @@ namespace MightyFights_Prototype
 				// add the texture to the reference list 
 				_cTextureList.Add(cTemplateData.sColor, cTexData = _cContent.Load<Texture2D>(cTemplateData.sColor));
 
+			// build in the systems for the trooper
 			cTemplate.cAnimProcessorRef = new AnimationProcessor(cAnimData, cTemplateData);
 			cTemplate.cTextureRef = cTexData;
 			
+			// set the stats for the 
+			cTemplate.cStats = cTemplateData.cStats;
+
 			return cTemplate;
 		}
 	}

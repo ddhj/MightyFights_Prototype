@@ -20,11 +20,9 @@ namespace MightyFights_Prototype
 		
 		#endregion
 
-		ContentManager	_cContent;
-		GraphicsDevice	_cGraphics;
-		
-		public SceneManager	cSceneMgr	{get; set;}
-		public ContentManager	cContent	{ get { return _cContent; } set { _cContent = value; }}
-		public GraphicsDevice	cGraphics	{ get { return _cGraphics; } set { _cGraphics = value; }}
+		public SceneManager		cSceneMgr	{ get; set; }
+		public ContentManager	cContent	{ get; set; }
+		public GraphicsDevice	cGraphics	{ get; set; }
+		public bool				bBattleActive	{ get; set; }
 	}
 }

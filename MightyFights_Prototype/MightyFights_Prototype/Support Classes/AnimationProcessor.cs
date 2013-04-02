@@ -16,8 +16,10 @@ namespace MightyFights_Prototype
 		Frame			_cCurFrame;
 		ActionData		_cCurAction;
 		int				_iCount, 
+						_iItteration,
 						_iCurIncrement,
-						_iCurFrameIdx;
+						_iCurFrameIdx,
+						_iCurFrame;
 		TimeSpan		_tTime;
 
 		Dictionary<string, int>		_cActionIncrement = new Dictionary<string,int>();
@@ -36,14 +38,26 @@ namespace MightyFights_Prototype
 			_cCurAction = _cAnimDataRef.cReferenceList[sActionType][sSubCat][sAction];
 			_iCount = iCount;
 			_iCurIncrement = _cCurAction.iIncrement;
-			_iCurFrameIdx = 0;
+			_iCurFrameIdx = _cCurAction.iStartIndex;
 			_cCurFrame = _cAnimDataRef.caFrameData[_cCurAction.iStartIndex];
+			bActive = true;
 		}
 
 		public KeyFrame Process(GameTime cTime)
 		{
-			if((_tTime += cTime.ElapsedGameTime) > TimeSpan.FromMilliseconds(_iCurIncrement))
-				_cCurFrame = _cAnimDataRef.caFrameData[++_iCurFrameIdx];
+			if(_iCount > -1) 
+				if(_iItteration++ == _iCount)
+					bActive = false;
+	
+			if(bActive) { 
+				_tTime += cTime.ElapsedGameTime;
+				if((_tTime += cTime.ElapsedGameTime) > TimeSpan.FromMilliseconds(_iCurIncrement)) { 
+					if(_iCurFrame < _cCurAction.iMaxFrames)
+						_cCurFrame = _cAnimDataRef.caFrameData[_iCurFrameIdx + _iCurFrame++];
+					else _iCurFrame = 0;
+					_tTime = TimeSpan.Zero;
+				}
+			}
 
 			return _cCurFrame.cKeyFrame;
 		}
