@@ -9,9 +9,9 @@ namespace MightyFights_Prototype
 {
 	public class TrooperTemplate
 	{
-		public AnimationProcessor	cAnimProcessorRef	{ get; set; }
-		public Texture2D			cTextureRef			{ get; set; }
-		public ActionManager		cActionMgr			{ get; set; }
-		public Stats				cStats				{ get; set; }
+		public AnimationProcessor		cAnimProcessorRef	{ get; set; }
+		public Texture2D				cTextureRef			{ get; set; }
+		public ActionManager<Trooper>	cActionMgr			{ get; set; }
+		public Stats					cStats				{ get; set; }
 	}
 }

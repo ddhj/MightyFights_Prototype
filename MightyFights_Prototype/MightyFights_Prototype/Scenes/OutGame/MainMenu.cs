@@ -112,14 +112,14 @@ namespace MightyFights_Prototype
 				_cTroopers = cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\GuysArray");
 
 				_cPlayer1 = new BasicSprite();
-				_cPlayer1.cFrame = _cTroopers.caFrameData[_cTroopers.cReferenceList["FrontFacing"]["Colors"]["azure"].iStartIndex];
+				_cPlayer1.cFrame = _cTroopers.caFrameData[_cTroopers.cReferenceList["Main"]["Sub"]["azure"].iStartIndex];
 				_cPlayer1.cTexRef = _cTrooperTex;
 				_cPlayer1.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - _cToBattle.cTexRef.Bounds.Width + 
 												_cP1Card.cTexRef.Bounds.Width / 2 - _cPlayer1.cFrame.tRect.Width / 2, 400 + _cP1Card.cTexRef.Bounds.Width / 2 - 
 												_cPlayer1.cFrame.tRect.Height / 2);
 
 				_cPlayer2 = new BasicSprite();
-				_cPlayer2.cFrame = _cTroopers.caFrameData[_cTroopers.cReferenceList["FrontFacing"]["Colors"]["blood zombie"].iStartIndex];
+				_cPlayer2.cFrame = _cTroopers.caFrameData[_cTroopers.cReferenceList["Main"]["Sub"]["blood zombie"].iStartIndex];
 				_cPlayer2.cTexRef = _cTrooperTex;
 				_cPlayer2.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + _cToBattle.cTexRef.Bounds.Width - _cP2Card.cTexRef.Bounds.Width + 
 												_cPlayer2.cFrame.tRect.Width / 2, 400 + _cP2Card.cTexRef.Bounds.Width / 2 - 

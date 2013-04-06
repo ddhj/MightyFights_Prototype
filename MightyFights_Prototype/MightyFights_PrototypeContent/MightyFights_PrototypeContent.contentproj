@@ -170,6 +170,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="In Game\Buffs\" />
+    <Folder Include="In Game\Hud\" />
     <Folder Include="Out Game\Template\" />
   </ItemGroup>
   <ItemGroup>

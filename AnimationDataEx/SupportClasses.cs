@@ -244,8 +244,8 @@ namespace AnimationDataEx
 			Dictionary<string, ActionData> cRef;
 			Dictionary<string,KeyValuePair<string, string>> cActionToMainAction = new Dictionary<string,KeyValuePair<string, string>>();
 
-			cRefList.Add("FrontFacing", cSubRef = new Dictionary<string,Dictionary<string,ActionData>>());
-			cSubRef.Add("Colors", cRef = new Dictionary<string,ActionData>());
+			cRefList.Add("Main", cSubRef = new Dictionary<string,Dictionary<string,ActionData>>());
+			cSubRef.Add("Sub", cRef = new Dictionary<string,ActionData>());
 
 			int iIndex = 0;
 			string	sSubString,

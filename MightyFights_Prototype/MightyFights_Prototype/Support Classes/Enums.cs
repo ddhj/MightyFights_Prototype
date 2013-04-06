@@ -23,4 +23,17 @@ namespace MightyFights_Prototype
 		Dead,
 		Pursuit
 	}
+
+	public enum EBattleInitState
+	{
+		Init,
+		Wait, 
+		Moving
+	}
+
+	public enum EConstants
+	{
+		HalberdHight = 64,
+		HalberdWidth = 100
+	}
 }

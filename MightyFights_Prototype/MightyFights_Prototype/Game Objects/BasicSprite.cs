@@ -30,7 +30,10 @@ namespace MightyFights_Prototype
 			return _cDrawnRect.Contains(tPoint);
 		}
 		
-		public void Draw(SpriteBatch cBatch) {}
+		public void Draw(SpriteBatch cBatch) 
+		{
+			cBatch.Draw(cTexRef, tPos, cFrame.tRect, Color.White);
+		}
 
 		public void Dispose()
 		{

@@ -24,5 +24,6 @@ namespace MightyFights_Prototype
 		public ContentManager	cContent	{ get; set; }
 		public GraphicsDevice	cGraphics	{ get; set; }
 		public bool				bBattleActive	{ get; set; }
+		public GameTime			cTime		{ get; set; }
 	}
 }

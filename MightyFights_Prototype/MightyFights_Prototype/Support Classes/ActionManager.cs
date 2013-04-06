@@ -3,15 +3,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Xna.Framework;
+
 namespace MightyFights_Prototype
 {
-	public abstract class ActionManager
+	public delegate bool DActionHuristic(Action cAction);
+
+	public abstract class ActionManager<T>
 	{
-		object _oData;
-		public abstract void Process();
-		public ActionManager(object oData)
+		T _cData;
+		internal List<Action>	_cActionQueue = new List<Action>();
+		internal List<Action>	_cPerminantActions = new List<Action>();
+		public abstract void Process(GameTime cTime);
+
+		public void AddAction(Action cAction)
+		{ 
+			_cActionQueue.Insert(_cActionQueue.Count, cAction);
+		}
+
+		public void AddPermAction(Action cAction)
 		{
+			_cPerminantActions.Add(cAction);
+		}
+	}
+
+	public class Action
+	{
+		DActionHuristic	_dHuristic;		
+		object			_oData,
+						_oCanvas;
+		bool			_bConditionNotMet;
+
+		public DActionHuristic dHuristic	{ get { return _dHuristic; } set { _dHuristic = value; }}
+		public bool bConditionNotMet	{ get { return _bConditionNotMet; } set { _bConditionNotMet = value; }}
+		public object oData				{ get { return _oData; } set { _oData = value; }}
+		public object oCanvas			{ get { return _oCanvas; } set { _oCanvas = value; }}
+		public bool bInit				{ get; set; }
+
+		public Action(DActionHuristic dHuristic, object oData, object oCanvas)
+		{
+			_dHuristic = dHuristic;
 			_oData = oData;
+			_oCanvas = oCanvas;
+			_bConditionNotMet = true;
+			bInit = true;
+		}
+
+		public void Process()
+		{
+			_bConditionNotMet = _dHuristic(this);
 		}
 	}
 }

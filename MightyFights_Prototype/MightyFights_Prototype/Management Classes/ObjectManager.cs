@@ -53,6 +53,9 @@ namespace MightyFights_Prototype
 			// set the stats for the 
 			cTemplate.cStats = cTemplateData.cStats;
 
+			// set the action manager, likely this will have some stuff from the template too
+			cTemplate.cActionMgr = new TrooperActMgr(cTemplate.cAnimProcessorRef);
+
 			return cTemplate;
 		}
 	}
