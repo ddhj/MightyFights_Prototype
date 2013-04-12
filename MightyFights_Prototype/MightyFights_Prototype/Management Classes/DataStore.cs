@@ -23,7 +23,7 @@ namespace MightyFights_Prototype
 		public SceneManager		cSceneMgr	{ get; set; }
 		public ContentManager	cContent	{ get; set; }
 		public GraphicsDevice	cGraphics	{ get; set; }
-		public bool				bBattleActive	{ get; set; }
+		public BattlegroundData	cBattleData	{ get; set; }
 		public GameTime			cTime		{ get; set; }
 	}
 }

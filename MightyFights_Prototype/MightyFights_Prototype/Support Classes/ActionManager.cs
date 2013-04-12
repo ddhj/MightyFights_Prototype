@@ -12,8 +12,11 @@ namespace MightyFights_Prototype
 	public abstract class ActionManager<T>
 	{
 		T _cData;
-		internal List<Action>	_cActionQueue = new List<Action>();
-		internal List<Action>	_cPerminantActions = new List<Action>();
+		List<Action>	_cActionQueue = new List<Action>();
+		List<Action>	_cPerminantActions = new List<Action>();
+		
+		public List<Action> cActionQueue	{ get { return _cActionQueue; } set { _cActionQueue = value; }}
+		public List<Action> cPerminantActions	{ get { return _cPerminantActions; } set { _cPerminantActions = value; }}
 		public abstract void Process(GameTime cTime);
 
 		public void AddAction(Action cAction)

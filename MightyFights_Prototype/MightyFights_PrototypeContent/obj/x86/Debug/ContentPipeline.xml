@@ -208,6 +208,15 @@
       <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Shared\arrow_cursor.xnb</Output>
       <Time>2013-03-31T02:45:49.3622363-05:00</Time>
     </Item>
+    <Item>
+      <Source>Shared\DebugFont.spritefont</Source>
+      <Name>Shared\DebugFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Shared\DebugFont.xnb</Output>
+      <Time>2013-04-07T13:55:47.6508969-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

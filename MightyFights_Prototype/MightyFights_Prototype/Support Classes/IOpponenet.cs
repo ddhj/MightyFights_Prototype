@@ -7,10 +7,13 @@ using Microsoft.Xna.Framework;
 
 namespace MightyFights_Prototype
 {
-	interface IOpponent
+	public interface ICombatant
 	{
+		AiBattleData cAiData	{ get; set; }
+		Vector2 tPos			{ get; set; }
+		ICombatant nOpponent	{ get; set; }
+
 		void DealDamage();
-		Vector2 tPos		{ get; set; }
 
 		// possible a list of attackers and their positions for the persuit method 
 		// in order to choose where to run s

@@ -13,7 +13,7 @@ namespace MightyFights_Prototype
 	public class BasicSprite : IDrawable, IClickable
 	{
 		Rectangle	_cDrawnRect;
-		Vector2		_tPos;
+		internal Vector2		_tPos;
 		Texture2D	_cTexRef;
 
 		public Texture2D cTexRef { get { return _cTexRef; } set { _cTexRef = value; }}

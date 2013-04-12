@@ -10,16 +10,19 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public partial class Trooper : IDrawable, IAnimate, IOpponent, IActive<Trooper>
+	public partial class Trooper : IDrawable, IAnimate, ICombatant, IActive<Trooper>
 	{
 		ActionManager<Trooper>		_cActionMgr;
 		AnimationProcessor			_cAnimProc;
 		Vector2						_tPos;
 		Texture2D					_cTexRef;
 		Stats						_cStats;
+
+		public bool bActive				{ get; set; }
+		public bool bDir				{ get; set; }
+		public ICombatant nOpponent		{ get; set; }
+		public AiBattleData cAiData		{ get; set; }
 		
-		public bool bActive { get; set; }
-		public bool bDir	{ get; set; }
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
 
 		public Trooper(TrooperTemplate cTemplate)
@@ -31,6 +34,17 @@ namespace MightyFights_Prototype
 			bActive	= true;
 
 			_cActionMgr.AddPermAction(new Action(this.TrooperUpkeep, null, null));
+
+			// use the template data to set up the huristics... 
+			//// there is a problem here since the object manager should have set this up but the huristics are methods on an instance of trooper,
+			//// considered static methods but I am not sure I like that solution
+			cAiData.cHurisitics[EBattleHuristics.Attack] = Attack_Basic;
+			cAiData.cHurisitics[EBattleHuristics.ChooseOpponent] = ChooseOpponent;
+			cAiData.cHurisitics[EBattleHuristics.Flee] = Flee;
+			cAiData.cHurisitics[EBattleHuristics.Idle] = Idle;
+			cAiData.cHurisitics[EBattleHuristics.Pant] = Pant;
+			cAiData.cHurisitics[EBattleHuristics.Persue] = Persue;
+	
 		}
 
 		#region IDrawable Members
@@ -47,7 +61,7 @@ namespace MightyFights_Prototype
 			// draw is pretty straight forward sans two issues 1: the rotation in the sprite sheet
 			cBatch.Draw(_cTexRef, _tPos, cCurFrame.tRect, Color.White, cCurFrame.bRot ? -(float)Math.PI/2 : 0, cCurFrame.tTopLeft, 1, 
 				// and 2: the direction vector
-				bDir == false ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+				bDir == false ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
 
 			// there may be other things to draw here like if we are in a dying state do we want to run a blink or not 
 

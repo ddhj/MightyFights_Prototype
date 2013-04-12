@@ -11,11 +11,8 @@ namespace MightyFights_Prototype
 {
 	public class TrooperActMgr : ActionManager<Trooper>
 	{
-		EBattleAiStates		_eState;
-		Trooper				_cTrooper;
-		IOpponent			_nOpponent;
+		ICombatant			_nOpponent;
 		AnimationProcessor	_cAnimProc;
-		Vector2				_tDir;
 		KeyFrame			_cKeyFrame;
 
 		public TrooperActMgr(AnimationProcessor cAnimProc)
@@ -33,22 +30,24 @@ namespace MightyFights_Prototype
 			List<Action>	cTmpActionList = new List<Action>();
 			Action			cCurAction; 
 
-			foreach(Action cAction in _cPerminantActions)
+			foreach(Action cAction in cPerminantActions)
 				cTmpActionList.Add(cAction);
 
 			// do the perminant actions (they are removable but the conditions are much longer term
 			foreach(Action cAction in cTmpActionList) {
 				if(cAction.bConditionNotMet)
 					cAction.dHuristic(cAction);
-				else _cPerminantActions.Remove(cAction);
+				else cPerminantActions.Remove(cAction);
 			}
 
 			// do the last item in the action list 
-			cCurAction = _cActionQueue[0];
-			if(cCurAction.bConditionNotMet)
-				cCurAction.dHuristic(cCurAction);
-			else _cActionQueue.RemoveAt(0);
-
+			if(cActionQueue.Count > 0) { 
+				cCurAction = cActionQueue[0];
+				if(cCurAction.bConditionNotMet)
+					cCurAction.dHuristic(cCurAction);
+				else cActionQueue.RemoveAt(0);
+			}
+			
 			// handle the animation 
 			//// ddhj: not sure I want this to be here ... but it is specific to the object type so it might be a good place for it ... 
 			if((_cKeyFrame = _cAnimProc.Process(cTime)) != null) 

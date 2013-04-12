@@ -34,6 +34,7 @@ namespace MightyFights_Prototype
 		{
 			TrooperTemplate	cTemplate = new TrooperTemplate();
 			AnimationData	cAnimData;
+			AiBattleData	cBattleAi;
 			Texture2D		cTexData;
 
 			// check to see if we are already referencing this animation 
@@ -55,6 +56,9 @@ namespace MightyFights_Prototype
 
 			// set the action manager, likely this will have some stuff from the template too
 			cTemplate.cActionMgr = new TrooperActMgr(cTemplate.cAnimProcessorRef);
+
+			// the battle huristics are also going to be set here or in some other area based on template config data
+			cBattleAi = new AiBattleData();
 
 			return cTemplate;
 		}

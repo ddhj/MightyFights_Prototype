@@ -21,14 +21,26 @@ namespace MightyFights_Prototype
 		Idle, 
 		Moving,
 		Dead,
-		Pursuit
+		Pursuit,
+		Panting,
+		Ready
 	}
 
-	public enum EBattleInitState
+	public enum EBattleHuristics
+	{
+		Idle,
+		Attack, 
+		Flee,
+		Persue,
+		Pant,
+		ChooseOpponent
+	}
+
+	public enum EBattlegroundState
 	{
 		Init,
-		Wait, 
-		Moving
+		Battle, 
+		Victory
 	}
 
 	public enum EConstants
