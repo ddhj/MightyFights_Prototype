@@ -49,6 +49,7 @@ namespace MightyFights_Prototype
 				}
 			// we are going to parry
 			} else { 
+				cAiData.eState = EBattleAiStates.Defending;
 				switch(cRand.Next(2)) { 
 					case 0: _cAnimProc.SetAnimationCriteria("Defend", "Parry", "lp", 1); break;
 					case 1: _cAnimProc.SetAnimationCriteria("Defend", "Parry", "sp", 1); break;

@@ -28,8 +28,8 @@ namespace MightyFights_Prototype
 		TimeSpan		_cTime = TimeSpan.Zero;
 		int				_iFrameRate = 0,
 						_iFrameCtr = 0,
-						iX = 4, 
-						iY = 18;
+						_iX = 4, 
+						_iY = 18;
 		SpriteFont		_cFont;
 
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
@@ -106,16 +106,16 @@ namespace MightyFights_Prototype
 		{
 			++_iFrameCtr;
 
-			_cSpriteBatch.Begin(); { 
-				_cSpriteBatch.Draw(_cBackground, _cBackground.Bounds, Color.White);
-
+			_cSpriteBatch.Begin(SpriteSortMode.BackToFront, null); { 
+				_cSpriteBatch.Draw(_cBackground, new Vector2(112, 84), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, 1); 
+			
 				// draw all the troopers based on their texture 
 				foreach(KeyValuePair<string, List<IDrawable>> tTrooperList in _cDrawList)
 					foreach(IDrawable nSprite in tTrooperList.Value)
 						nSprite.Draw(_cSpriteBatch);
 
 				// the frame rate debug statement
-				_cSpriteBatch.DrawString(_cFont, string.Format("fps:{0}", _iFrameRate), 
+				_cSpriteBatch.DrawString(_cFont, string.Format("fps:{0} : LeftArmy:{1} : RightArmy:{2}", _iFrameRate, _cBattleData.naArmy.Count, _cBattleData.naOpponents.Count), 
 					new Vector2(10, 10), Color.White);				
 
 			} _cSpriteBatch.End();
@@ -134,40 +134,51 @@ namespace MightyFights_Prototype
 		void SetBattleStart()
 		{
 			List<ICombatant>	naTmpList = _cBattleData.naArmy;
-			int		iCount = 0,
-					iIndex;
-			Trooper cTrooper;
+			int					iCount = 0,
+								iIndex;
+			Trooper				cTrooper;
+			Random				cRand = new Random();
+			ICombatant			nTmpTrooper;
 
-			for(int i = 0; i < iX; ++i)
-				for(int j = 0; j < iY; ++j) { 
-					iIndex = i*iY+j;
+			for(int i = 0; i < _iX; ++i)
+				for(int j = 0; j < _iY; ++j) { 
+					iIndex = i*_iY+j;
 					cTrooper = (Trooper)naTmpList[iIndex];
 
 					// set an initial script for the trooper
 					cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
-					cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(200 - i * 35 + 25, j * 25), null));
+					cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(200 - i * 35 + 25 + 112, j * 25 + 84), null));
 
 					// set the trooper for battle
 					cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
-
-					// init the initial opponent
-					cTrooper.nOpponent = _cBattleData.naOpponents[iIndex];
-					_cBattleData.naOpponents[iIndex].nOpponent = cTrooper;
 				}
 
 			iCount = 0;
 			naTmpList = _cBattleData.naOpponents;
-			for(int i = 0; i < iX; ++i)
-				for(int j = 0; j < iY; ++j) { 
-					cTrooper = (Trooper)naTmpList[i*iY+j];
+			for(int i = 0; i < _iX; ++i)
+				for(int j = 0; j < _iY; ++j) { 
+					cTrooper = (Trooper)naTmpList[i*_iY+j];
 
 					// set an initial script for the trooper
 					cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
-					cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(400 + i * 35 + 25, j * 25), null));
+					cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(400 + i * 35 + 25 + 112, j * 25 + 84), null));
 
 					// set the trooper for battle
 					cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
 				}
+
+			// this is a temp block setup for the inital opponent 
+			naTmpList = new List<ICombatant>();
+			foreach(ICombatant nCombatant in _cBattleData.naOpponents)
+				naTmpList.Add(nCombatant);
+
+			for(int iCombatant = 0; iCombatant < naTmpList.Count; ++iCombatant) { 
+				nTmpTrooper = naTmpList[cRand.Next(naTmpList.Count)];
+				_cBattleData.naArmy[iCombatant].nOpponent = nTmpTrooper;
+				nTmpTrooper.nOpponent = _cBattleData.naArmy[iCombatant];
+				naTmpList.Remove(nTmpTrooper);
+			}
+
 		}
 
 		public bool Init()
@@ -180,8 +191,8 @@ namespace MightyFights_Prototype
 
 			// this is for quick action
 			Random cRand = new Random();
-			iX = cRand.Next(8) + 1;
-			iY = cRand.Next(20) + 1;
+			_iX = cRand.Next(8) + 1;
+			_iY = cRand.Next(20) + 1;
 
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
@@ -202,8 +213,8 @@ namespace MightyFights_Prototype
 				DataStore.cInstance.cBattleData = _cBattleData;
 				
 				// make a temp 160 block of troopers
-				for(int i = 0; i < iX; ++i)
-					for(int j = 0; j < iY; ++j) { 
+				for(int i = 0; i < _iX; ++i)
+					for(int j = 0; j < _iY; ++j) { 
 						// create a template config for the sprite
 						//// ddhj: this is temp before the template code is written
 						cTemplate = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fazure");
@@ -211,7 +222,7 @@ namespace MightyFights_Prototype
 
 						// add the newly created trooper to the active list and set some initial battle data
 						_cActiveList.Add(cP1 = new Trooper(ObjectManager.cInstance.CreateTemplate(cTemplate)));
-						cP1.tPos = new Vector2(-105, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
+						cP1.tPos = new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
 						cP1.iArmyIndex = 0;
 						cP1.iOpponentIndex = 1;
 
@@ -224,15 +235,15 @@ namespace MightyFights_Prototype
 					}
 
 				// make a temp 160 block of opponents
-				for(int i = 0; i < iX; ++i)
-					for(int j = 0; j < iY; ++j) { 
-						// this is the same as above wi
+				for(int i = 0; i < _iX; ++i)
+					for(int j = 0; j < _iY; ++j) { 
+						// this is the same as above, templates will replace this
 						cTemplate = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fmidnight");
 						cTemplate.cStats = new Stats();
 
 						// set the opponents to the acitve list 
 						_cActiveList.Add(cP1 = new Trooper(ObjectManager.cInstance.CreateTemplate(cTemplate)));
-						cP1.tPos = new Vector2(805, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
+						cP1.tPos = new Vector2(950, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
 						cP1.iArmyIndex = 1; 
 						cP1.iOpponentIndex = 0;
 
@@ -292,7 +303,6 @@ namespace MightyFights_Prototype
 
 		void CleanData()
 		{
-			_cBackground.Dispose();
 			_cSpriteBatch.Dispose();
 			_cDrawList.Clear();
 			_cActiveList.Clear();

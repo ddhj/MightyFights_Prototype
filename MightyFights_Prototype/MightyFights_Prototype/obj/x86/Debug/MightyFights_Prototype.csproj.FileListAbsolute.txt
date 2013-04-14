@@ -30,3 +30,7 @@ D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\Mighty
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Out Game\Main Menu\to_battle!-1.xnb
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Shared\arrow_cursor.xnb
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\Content\Shared\DebugFont.xnb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\MightyFights_Prototype.exe.manifest
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\bin\x86\Debug\MightyFights_Prototype.application
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\obj\x86\Debug\MightyFights_Prototype.exe.manifest
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_Prototype\obj\x86\Debug\MightyFights_Prototype.application

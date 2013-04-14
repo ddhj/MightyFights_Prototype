@@ -85,7 +85,7 @@ namespace MightyFights_Prototype
 			// draw is pretty straight forward sans two issues 1: the rotation in the sprite sheet
 			cBatch.Draw(_cTexRef, _tPos, cCurFrame.tRect, Color.White, cCurFrame.bRot ? -(float)Math.PI/2 : 0, tTopLeft, 1, 
 				// and 2: the direction vector
-				eEffect, 0);
+				eEffect, cAiData.eState == EBattleAiStates.Dead ? .5f : 0);
 
 			// there may be other things to draw here like if we are in a dying state do we want to run a blink or not 
 
@@ -105,8 +105,8 @@ namespace MightyFights_Prototype
 		public void DealDamage(int iDamage)
 		{
 			//// ddhj: yep armor class and all that shit 
-			// check to see if we are not in parry, oops thats not a state because parry is handled by attacking... i'll think of something 
-			_cStats.iHp -= iDamage;
+			if(cAiData.eState != EBattleAiStates.Defending)
+				_cStats.iHp -= iDamage;
 		}
 
 		public bool IsDead()

@@ -43,6 +43,7 @@ namespace MightyFights_Prototype
 						cAiData.cHurisitics[EBattleHuristics.ChooseOpponent]((BattlegroundData)cAction.oData);
 					break;
 
+					case EBattleAiStates.Defending:
 					case EBattleAiStates.Attacking:
 						// check to see if we are animating or not 
 						if(!cAnimationProcessor.bActive) 

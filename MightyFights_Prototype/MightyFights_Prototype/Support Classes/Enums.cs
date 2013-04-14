@@ -23,6 +23,7 @@ namespace MightyFights_Prototype
 		Dead,
 		Pursuit,
 		Panting,
+		Defending,
 		Ready
 	}
 
