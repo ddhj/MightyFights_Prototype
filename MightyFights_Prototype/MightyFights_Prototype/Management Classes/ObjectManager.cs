@@ -50,6 +50,7 @@ namespace MightyFights_Prototype
 			// build in the systems for the trooper
 			cTemplate.cAnimProcessorRef = new AnimationProcessor(cAnimData, cTemplateData);
 			cTemplate.cTextureRef = cTexData;
+			cTemplate.sTexName = cTemplateData.sColor;
 			
 			// set the stats for the 
 			cTemplate.cStats = cTemplateData.cStats;
@@ -58,7 +59,7 @@ namespace MightyFights_Prototype
 			cTemplate.cActionMgr = new TrooperActMgr(cTemplate.cAnimProcessorRef);
 
 			// the battle huristics are also going to be set here or in some other area based on template config data
-			cBattleAi = new AiBattleData();
+			cTemplate.cAiData = new AiBattleData();
 
 			return cTemplate;
 		}

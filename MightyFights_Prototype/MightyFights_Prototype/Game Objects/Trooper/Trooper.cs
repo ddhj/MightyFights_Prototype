@@ -22,6 +22,9 @@ namespace MightyFights_Prototype
 		public bool bDir				{ get; set; }
 		public ICombatant nOpponent		{ get; set; }
 		public AiBattleData cAiData		{ get; set; }
+		public int iArmyIndex			{ get; set; }
+		public int iOpponentIndex		{ get; set; }
+		public Stats cStats				{ get { return _cStats; } set { _cStats = value; }}
 		
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
 
@@ -30,6 +33,10 @@ namespace MightyFights_Prototype
 			_cAnimProc = cTemplate.cAnimProcessorRef;
 			_cTexRef = cTemplate.cTextureRef;
 			_cActionMgr = cTemplate.cActionMgr;
+			_cActionMgr.cData = this;
+			_cStats = cTemplate.cStats;
+			cAiData = cTemplate.cAiData;
+			sTexName = cTemplate.sTexName;
 			
 			bActive	= true;
 
@@ -52,16 +59,33 @@ namespace MightyFights_Prototype
 		public Texture2D cTexRef	{ get { return _cTexRef; } set { _cTexRef = value; }}
 		public Vector2 tPos			{ get { return _tPos; } set { _tPos = value; }}
 		public Frame cFrame			{ get { return _cAnimProc.cCurFrame; } set{}}
+		public string sTexName		{ get; set; }
 
 		public void Draw(SpriteBatch cBatch)
 		{
 			// store the frame of the sprite for ref in the draw since we hit it a couple of times 
-			Frame	cCurFrame = cFrame;
+			Frame			cCurFrame = cFrame;
+			SpriteEffects	eEffect = SpriteEffects.None;
+			Vector2			tTopLeft = cCurFrame.tTopLeft;
+
+			// check to see if we need to perform a flip 
+			if(bDir) {
+				// if we are rotated first then we need to flip the frame differently 
+				if(cCurFrame.bRot)
+					// since the texture packer rotates we need to flip the sprite across the x axis 
+					eEffect = SpriteEffects.FlipVertically;
 			
+				// the frame is not rotated so just flip on y axis
+				else eEffect = SpriteEffects.FlipHorizontally;
+
+				// use the flip top left 
+				tTopLeft = cCurFrame.tFlipTopLeft;
+			}
+
 			// draw is pretty straight forward sans two issues 1: the rotation in the sprite sheet
-			cBatch.Draw(_cTexRef, _tPos, cCurFrame.tRect, Color.White, cCurFrame.bRot ? -(float)Math.PI/2 : 0, cCurFrame.tTopLeft, 1, 
+			cBatch.Draw(_cTexRef, _tPos, cCurFrame.tRect, Color.White, cCurFrame.bRot ? -(float)Math.PI/2 : 0, tTopLeft, 1, 
 				// and 2: the direction vector
-				bDir == false ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+				eEffect, 0);
 
 			// there may be other things to draw here like if we are in a dying state do we want to run a blink or not 
 
@@ -78,9 +102,16 @@ namespace MightyFights_Prototype
 
 		#region IOpponent Members
 
-		public void DealDamage()
+		public void DealDamage(int iDamage)
 		{
+			//// ddhj: yep armor class and all that shit 
+			// check to see if we are not in parry, oops thats not a state because parry is handled by attacking... i'll think of something 
+			_cStats.iHp -= iDamage;
+		}
 
+		public bool IsDead()
+		{
+			return cAiData.eState == EBattleAiStates.Dying || cAiData.eState == EBattleAiStates.Dead;
 		}
 
 		#endregion

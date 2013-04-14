@@ -9,15 +9,17 @@ namespace MightyFights_Prototype
 
 	public class BattlegroundData
 	{	
-		public List<ICombatant>		naOpponents		{get; set;}
-		public List<ICombatant>		naArmy			{get; set;}
-
-		public EBattlegroundState	eState			{get; set;}
+		public List<List<ICombatant>>	caBattleLists	{ get; set; }
+		public List<ICombatant>			naOpponents		{ get; set; }
+		public List<ICombatant>			naArmy			{ get; set; }
+		public EBattlegroundState		eState			{ get; set; }
 	}
 
 	public class AiBattleData
 	{
-		public Dictionary<EBattleHuristics, DBattleHuristic>	cHurisitics  {get; set;}
+		Dictionary<EBattleHuristics, DBattleHuristic>	_cHuristics = new Dictionary<EBattleHuristics,DBattleHuristic>();
+
+		public Dictionary<EBattleHuristics, DBattleHuristic>	cHurisitics  { get { return _cHuristics; }}
 		public EBattleAiStates									eState		 {get; set;}
 	}
 }

@@ -41,7 +41,7 @@ namespace MightyFights_Prototype
 
 		public override void Update(GameTime gameTime)
 		{
-			if(_naSceneList.Count > 0)	
+			if(_naSceneList.Count > 0) 
 				_naSceneList[_naSceneList.Count - 1].Update(gameTime);
 		}
 
@@ -58,6 +58,7 @@ namespace MightyFights_Prototype
 
 		public void RemoveScene(IGameScene nGameScene)
 		{
+			nGameScene.Unload();
 			_naSceneList.Remove(nGameScene);
 		}
 	}

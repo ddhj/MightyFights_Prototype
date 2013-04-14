@@ -11,6 +11,13 @@ namespace MightyFights_Prototype
 	{
 		public bool TrooperUpkeep(Action cAction)
 		{
+			if(_cStats.iHp <= 0) { 
+				cAiData.eState = EBattleAiStates.Dying;
+				_cActionMgr.cActionQueue.Clear();
+				_cAnimProc.SetAnimationCriteria("Death", "Normal", "death", 1);
+				cAction.bConditionNotMet = false;
+				return false;
+			}
 
 			return true;
 		}
@@ -26,9 +33,13 @@ namespace MightyFights_Prototype
 				// check to see if we are in the middle of an animation, the only one 
 				// we care about is the ready state
 				switch(cAiData.eState) { 
+					case EBattleAiStates.Idle:
+
+					break;
+
 					// idle can be ready or pant
 					case EBattleAiStates.Ready:
-						// run the pant huristic 
+						// use the huristic to check for an opponent
 						cAiData.cHurisitics[EBattleHuristics.ChooseOpponent]((BattlegroundData)cAction.oData);
 					break;
 
@@ -38,8 +49,20 @@ namespace MightyFights_Prototype
 							cAiData.cHurisitics[EBattleHuristics.Attack]((BattlegroundData)cAction.oData);
 					break;
 						
+					case EBattleAiStates.Pursuit:
+						// run the persue huristic
+						cAiData.cHurisitics[EBattleHuristics.Persue]((BattlegroundData)cAction.oData);
+					break;
+
 					// we are dead we don't need to do more 
+					case EBattleAiStates.Dying:
+						if(!cAnimationProcessor.bActive)
+							cAiData.eState = EBattleAiStates.Dead;
+					break;
+
 					case EBattleAiStates.Dead: 
+						bActive = false;
+						cAction.bConditionNotMet = false;
 						return false;
 				}
 			}
@@ -96,6 +119,14 @@ namespace MightyFights_Prototype
 				cAction.bInit = false;
 			} 
 
+			// its possible that the opponent will die before we get there so check to see if the 
+			if(nOpponent.IsDead()) { 
+				cAiData.eState = EBattleAiStates.Ready;
+				nOpponent = null;
+				cAction.bConditionNotMet = false;
+				return false;
+			}
+
 			tDirVect = tDest - _tPos;
 			bDir = tDirVect.X > 0;
 			tDirVect.Normalize();
@@ -105,15 +136,13 @@ namespace MightyFights_Prototype
 			_tPos += tDirVect * 2.5f;
 			
 			// we are within weapon range so switch our system to attack 
-			if((tDest - _tPos).LengthSquared() < 25) { 
+			if((tDest - _tPos).LengthSquared() < 1000) { 
 				// call the attack huristic because we are within attack range for our weapon 
 				//// ddhj this will need a tweek for weapon range 
 				cAiData.cHurisitics[EBattleHuristics.Attack](DataStore.cInstance.cBattleData);
 
 				cAction.bConditionNotMet = false;
-				_tPos = tDest;
 
-				cAiData.eState = EBattleAiStates.Ready;
 				return false;
 			}
 

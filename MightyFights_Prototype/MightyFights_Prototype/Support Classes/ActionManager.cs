@@ -14,6 +14,8 @@ namespace MightyFights_Prototype
 		T _cData;
 		List<Action>	_cActionQueue = new List<Action>();
 		List<Action>	_cPerminantActions = new List<Action>();
+
+		public T	cData { get; set;}
 		
 		public List<Action> cActionQueue	{ get { return _cActionQueue; } set { _cActionQueue = value; }}
 		public List<Action> cPerminantActions	{ get { return _cPerminantActions; } set { _cPerminantActions = value; }}

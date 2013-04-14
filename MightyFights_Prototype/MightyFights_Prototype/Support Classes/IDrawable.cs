@@ -15,6 +15,7 @@ namespace MightyFights_Prototype
 		Texture2D	cTexRef		{ get; set; }
 		Vector2		tPos		{ get; set; }
 		Frame		cFrame		{ get; set; }
+		string		sTexName	{ get; set; }
 
 		// not sure if I want to do this here
 		void Draw(SpriteBatch cBatch);

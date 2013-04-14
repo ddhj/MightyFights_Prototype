@@ -88,7 +88,8 @@ namespace AnimationDataEx
 		Microsoft.Xna.Framework.Rectangle	_tRect;
 		Vector2		_tCenter,
 					_tTopLeft, 
-					_tBottomRight;
+					_tBottomRight,
+					_tFlipTopLeft;
 		KeyFrame	_cKeyFrame;
 		bool		_bRot,
 					_bTrim;
@@ -96,13 +97,14 @@ namespace AnimationDataEx
 		public Microsoft.Xna.Framework.Rectangle tRect		{ get { return _tRect; } set { _tRect = value; } }
 		public Vector2 tCenter		{ get { return _tCenter; } set { _tCenter = value; } } 
 		public Vector2 tTopLeft		{ get { return _tTopLeft; } set { _tTopLeft = value; } } 
-		public Vector2 tBottomRight		{ get { return _tBottomRight; } set { _tBottomRight = value; } } 
+		public Vector2 tFlipTopLeft { get { return _tFlipTopLeft; } set { _tFlipTopLeft = value; }}
+		public Vector2 tBottomRight	{ get { return _tBottomRight; } set { _tBottomRight = value; } } 
 		public KeyFrame cKeyFrame	{ get { return _cKeyFrame; } set { _cKeyFrame = value; } }
 		public bool	bRot			{ get { return _bRot; } set { _bRot = value; } }
 		public bool bTrim			{ get { return _bTrim; } set { _bTrim = value; } }
 		
 		public Frame(){}
-		public Frame(Microsoft.Xna.Framework.Rectangle tRect, Vector2 tCenter, Vector2 tTopLeft, Vector2 tBottomRight, KeyFrame cKeyFrame, bool bRot, bool bTrim)
+		public Frame(Microsoft.Xna.Framework.Rectangle tRect, Vector2 tCenter, Vector2 tTopLeft, Vector2 tFlipTopLeft, Vector2 tBottomRight, KeyFrame cKeyFrame, bool bRot, bool bTrim)
 		{
 			_tCenter = tCenter;
 			_tRect = tRect;
@@ -111,6 +113,7 @@ namespace AnimationDataEx
 			_tTopLeft = tTopLeft;
 			_tBottomRight = tBottomRight;
 			_bTrim = bTrim;
+			_tFlipTopLeft = tFlipTopLeft;
 		}
 	}
 
@@ -196,7 +199,8 @@ namespace AnimationDataEx
 			ActionData cActData = null;
 			Vector2	tCenter,
 					tTopLeft, 
-					tBottomRight;
+					tBottomRight,
+					tFlipTopLeft;
 			KeyValuePair<string, string> tRefLookup;
 			foreach(TPFrame cFrame in cData.frames) { 
 				sSubString = cFrame.filename.Substring(0, cFrame.filename.IndexOf('.') - 2);
@@ -213,6 +217,8 @@ namespace AnimationDataEx
 				}
 
 				tTopLeft = new Vector2(-cFrame.spriteSourceSize.x, -cFrame.spriteSourceSize.y);
+				tFlipTopLeft = new Vector2(-(100 - (cFrame.spriteSourceSize.x + cFrame.spriteSourceSize.w)), -cFrame.spriteSourceSize.y);
+
 				tCenter = new Vector2(((cFrame.sourceSize.w / 2.0f) - (cFrame.spriteSourceSize.x)), 
 					((cFrame.sourceSize.h / 2.0f) - (cFrame.spriteSourceSize.y)));
 				tBottomRight = new Vector2((cFrame.sourceSize.w - (cFrame.spriteSourceSize.x)), 
@@ -223,11 +229,12 @@ namespace AnimationDataEx
 					cRect = new Microsoft.Xna.Framework.Rectangle(
 						cFrame.frame.x, cFrame.frame.y, cFrame.frame.h, cFrame.frame.w);
 					tTopLeft = new Vector2(cFrame.spriteSourceSize.y + cFrame.frame.h, -cFrame.spriteSourceSize.x);
+					tFlipTopLeft = new Vector2(cFrame.spriteSourceSize.y + cFrame.frame.h, -(100 - (cFrame.spriteSourceSize.x + cFrame.spriteSourceSize.w)));
 				} else 
 					cRect = new Microsoft.Xna.Framework.Rectangle(
 						cFrame.frame.x, cFrame.frame.y, cFrame.frame.w, cFrame.frame.h);
 
-				caFrames.Add(new Frame(cRect, tCenter, tTopLeft, tBottomRight, 
+				caFrames.Add(new Frame(cRect, tCenter, tTopLeft, tFlipTopLeft, tBottomRight, 
 					cFrame.KeyFrame, cFrame.rotated, cFrame.trimmed));
 				++iIndex;
 			}
@@ -253,7 +260,8 @@ namespace AnimationDataEx
 			ActionData cActData = null;
 			Vector2	tCenter,
 					tTopLeft, 
-					tBottomRight;
+					tBottomRight,
+					tFlipTopLeft;
 			foreach(TPFrame cFrame in cData.frames) { 
 				sSubString = cFrame.filename.Substring(0, cFrame.filename.IndexOf('.'));
 				if(sSubString != sCurAction) { 
@@ -268,6 +276,7 @@ namespace AnimationDataEx
 				}
 
 				tTopLeft = new Vector2(-cFrame.spriteSourceSize.x, -cFrame.spriteSourceSize.y);
+				tFlipTopLeft = new Vector2(-(100 - (cFrame.spriteSourceSize.x + cFrame.spriteSourceSize.w)), -cFrame.spriteSourceSize.y);
 				tCenter = new Vector2(((cFrame.sourceSize.w / 2.0f) - (cFrame.spriteSourceSize.x)), 
 					((cFrame.sourceSize.h / 2.0f) - (cFrame.spriteSourceSize.y)));
 				tBottomRight = new Vector2((cFrame.sourceSize.w - (cFrame.spriteSourceSize.x)), 
@@ -278,11 +287,12 @@ namespace AnimationDataEx
 					cRect = new Microsoft.Xna.Framework.Rectangle(
 						cFrame.frame.x, cFrame.frame.y, cFrame.frame.h, cFrame.frame.w);
 					tTopLeft = new Vector2(cFrame.spriteSourceSize.y + cFrame.frame.h, -cFrame.spriteSourceSize.x);
+					tFlipTopLeft = new Vector2(cFrame.spriteSourceSize.y + cFrame.frame.h, -(100 - (cFrame.spriteSourceSize.x + cFrame.spriteSourceSize.w)));
 				} else 
 					cRect = new Microsoft.Xna.Framework.Rectangle(
 						cFrame.frame.x, cFrame.frame.y, cFrame.frame.w, cFrame.frame.h);
 
-				caFrames.Add(new Frame(cRect, tCenter, tTopLeft, tBottomRight, 
+				caFrames.Add(new Frame(cRect, tCenter, tTopLeft, tFlipTopLeft, tBottomRight, 
 					cFrame.KeyFrame, cFrame.rotated, cFrame.trimmed));
 				++iIndex;
 			}

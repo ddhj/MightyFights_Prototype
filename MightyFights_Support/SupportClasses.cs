@@ -22,24 +22,26 @@ namespace MightyFights_Support
 
 	public class Frame
 	{
-		Microsoft.Xna.Framework.Rectangle	_tRect;
+		Rectangle	_tRect;
 		Vector2		_tCenter,
 					_tTopLeft, 
-					_tBottomRight;
+					_tBottomRight,
+					_tFlipTopLeft;
 		KeyFrame	_cKeyFrame;
 		bool		_bRot,
 					_bTrim;
 
-		public Microsoft.Xna.Framework.Rectangle tRect		{ get { return _tRect; } set { _tRect = value; } }
+		public Rectangle tRect		{ get { return _tRect; } set { _tRect = value; } }
 		public Vector2 tCenter		{ get { return _tCenter; } set { _tCenter = value; } } 
 		public Vector2 tTopLeft		{ get { return _tTopLeft; } set { _tTopLeft = value; } } 
-		public Vector2 tBottomRight		{ get { return _tBottomRight; } set { _tBottomRight = value; } } 
+		public Vector2 tFlipTopLeft { get { return _tFlipTopLeft; } set { _tFlipTopLeft = value; }}
+		public Vector2 tBottomRight	{ get { return _tBottomRight; } set { _tBottomRight = value; } } 
 		public KeyFrame cKeyFrame	{ get { return _cKeyFrame; } set { _cKeyFrame = value; } }
 		public bool	bRot			{ get { return _bRot; } set { _bRot = value; } }
 		public bool bTrim			{ get { return _bTrim; } set { _bTrim = value; } }
 		
 		public Frame(){}
-		public Frame(Microsoft.Xna.Framework.Rectangle tRect, Vector2 tCenter, Vector2 tTopLeft, Vector2 tBottomRight, KeyFrame cKeyFrame, bool bRot, bool bTrim)
+		public Frame(Rectangle tRect, Vector2 tCenter, Vector2 tTopLeft, Vector2 tFlipTopLeft, Vector2 tBottomRight, KeyFrame cKeyFrame, bool bRot, bool bTrim)
 		{
 			_tCenter = tCenter;
 			_tRect = tRect;
@@ -48,6 +50,7 @@ namespace MightyFights_Support
 			_tTopLeft = tTopLeft;
 			_tBottomRight = tBottomRight;
 			_bTrim = bTrim;
+			_tFlipTopLeft = tFlipTopLeft;
 		}
 	}
 

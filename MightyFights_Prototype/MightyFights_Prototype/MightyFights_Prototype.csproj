@@ -130,7 +130,7 @@
     <Compile Include="Scenes\InGame\BattleGround_Basic.cs" />
     <Compile Include="Management Classes\SceneManager.cs" />
     <Compile Include="Support Classes\Enums.cs" />
-    <Compile Include="Support Classes\IOpponenet.cs" />
+    <Compile Include="Support Classes\ICombatant.cs" />
     <Compile Include="Support Classes\IUpdate.cs" />
     <Compile Include="Support Classes\Stats.cs" />
     <Compile Include="Support Classes\TemplateConfig.cs" />

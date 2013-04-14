@@ -16,9 +16,10 @@ namespace MightyFights_Prototype
 		internal Vector2		_tPos;
 		Texture2D	_cTexRef;
 
-		public Texture2D cTexRef { get { return _cTexRef; } set { _cTexRef = value; }}
-		public Frame cFrame { get; set; }
-		public Vector2 tPos { get { return _tPos; } 
+		public Texture2D cTexRef	{ get { return _cTexRef; } set { _cTexRef = value; }}
+		public Frame cFrame			{ get; set; }
+		public string sTexName		{ get; set; }
+		public Vector2 tPos			{ get { return _tPos; } 
 			set {
 				_tPos = value; 
 				_cDrawnRect = new Rectangle((int)_tPos.X, (int)_tPos.Y, _cTexRef.Bounds.Width, _cTexRef.Bounds.Height);

@@ -11,7 +11,6 @@ namespace MightyFights_Prototype
 {
 	public class TrooperActMgr : ActionManager<Trooper>
 	{
-		ICombatant			_nOpponent;
 		AnimationProcessor	_cAnimProc;
 		KeyFrame			_cKeyFrame;
 
@@ -23,6 +22,9 @@ namespace MightyFights_Prototype
 
 		void ProcessKeyFrame()
 		{
+			switch(_cKeyFrame.Type) { 
+				case "Collision": cData.nOpponent.DealDamage(cData.cStats.iPower); break;
+			}
 		}
 
 		public override void Process(GameTime cTime)

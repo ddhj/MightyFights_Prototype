@@ -12,8 +12,11 @@ namespace MightyFights_Prototype
 		AiBattleData cAiData	{ get; set; }
 		Vector2 tPos			{ get; set; }
 		ICombatant nOpponent	{ get; set; }
+		int iArmyIndex			{ get; set; }
+		int iOpponentIndex		{ get; set; }
 
-		void DealDamage();
+		void DealDamage(int iDamage);
+		bool IsDead();
 
 		// possible a list of attackers and their positions for the persuit method 
 		// in order to choose where to run s

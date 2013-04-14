@@ -13,5 +13,7 @@ namespace MightyFights_Prototype
 		public Texture2D				cTextureRef			{ get; set; }
 		public ActionManager<Trooper>	cActionMgr			{ get; set; }
 		public Stats					cStats				{ get; set; }
+		public AiBattleData				cAiData				{ get; set; }
+		public string					sTexName			{ get; set; }
 	}
 }
