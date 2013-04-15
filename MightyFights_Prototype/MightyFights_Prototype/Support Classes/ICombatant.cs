@@ -14,9 +14,11 @@ namespace MightyFights_Prototype
 		ICombatant nOpponent	{ get; set; }
 		int iArmyIndex			{ get; set; }
 		int iOpponentIndex		{ get; set; }
+		bool bAvailablePos		{ get; }
 
 		void DealDamage(int iDamage);
 		bool IsDead();
+		Vector2 SetAttacker();
 
 		// possible a list of attackers and their positions for the persuit method 
 		// in order to choose where to run s

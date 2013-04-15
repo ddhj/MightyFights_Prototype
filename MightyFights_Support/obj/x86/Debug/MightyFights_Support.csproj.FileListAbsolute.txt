@@ -4,3 +4,9 @@ D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\obj\x86\
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\obj\x86\Debug\MightyFights_Support.dll
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\obj\x86\Debug\MightyFights_Support.pdb
+C:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\bin\x86\Debug\MightyFights_Support.dll
+C:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\bin\x86\Debug\MightyFights_Support.pdb
+C:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\obj\x86\Debug\MightyFights_Support.dll
+C:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\obj\x86\Debug\MightyFights_Support.pdb

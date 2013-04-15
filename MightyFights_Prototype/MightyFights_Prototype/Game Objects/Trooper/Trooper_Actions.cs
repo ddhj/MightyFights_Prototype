@@ -19,6 +19,9 @@ namespace MightyFights_Prototype
 				return false;
 			}
 
+			// sort the z order by y pos
+			_fZorder = 1 - _tPos.Y / 684;
+
 			return true;
 		}
 

@@ -28,6 +28,7 @@ namespace MightyFights_Prototype
 
 			graphics.PreferredBackBufferHeight = 768;
 			graphics.PreferredBackBufferWidth = 1024;
+			graphics.IsFullScreen = false;
 		}
 
 		/// <summary>

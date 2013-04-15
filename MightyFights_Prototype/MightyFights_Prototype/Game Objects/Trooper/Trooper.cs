@@ -17,6 +17,9 @@ namespace MightyFights_Prototype
 		Vector2						_tPos;
 		Texture2D					_cTexRef;
 		Stats						_cStats;
+		int							_iAvailablePositions = 2,
+									_iCurAttackers = 0;
+		float						_fZorder;
 
 		public bool bActive				{ get; set; }
 		public bool bDir				{ get; set; }
@@ -25,6 +28,9 @@ namespace MightyFights_Prototype
 		public int iArmyIndex			{ get; set; }
 		public int iOpponentIndex		{ get; set; }
 		public Stats cStats				{ get { return _cStats; } set { _cStats = value; }}
+		public bool bAvailablePos		{ get { return _iCurAttackers < _iAvailablePositions; }} 
+
+		public Vector2 tAttackPos		{ get; set; }
 		
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
 
@@ -67,6 +73,7 @@ namespace MightyFights_Prototype
 			Frame			cCurFrame = cFrame;
 			SpriteEffects	eEffect = SpriteEffects.None;
 			Vector2			tTopLeft = cCurFrame.tTopLeft;
+			Color			tColor = Color.White;
 
 			// check to see if we need to perform a flip 
 			if(bDir) {
@@ -82,10 +89,16 @@ namespace MightyFights_Prototype
 				tTopLeft = cCurFrame.tFlipTopLeft;
 			}
 
+			// check to see if we are dead
+			if(cAiData.eState == EBattleAiStates.Dead) { 
+				tColor.A = 85;
+				_fZorder = .99f;
+			}
+
 			// draw is pretty straight forward sans two issues 1: the rotation in the sprite sheet
-			cBatch.Draw(_cTexRef, _tPos, cCurFrame.tRect, Color.White, cCurFrame.bRot ? -(float)Math.PI/2 : 0, tTopLeft, 1, 
+			cBatch.Draw(_cTexRef, _tPos, cCurFrame.tRect, tColor, cCurFrame.bRot ? -(float)Math.PI/2 : 0, tTopLeft, 1, 
 				// and 2: the direction vector
-				eEffect, cAiData.eState == EBattleAiStates.Dead ? .5f : 0);
+				eEffect, _fZorder);
 
 			// there may be other things to draw here like if we are in a dying state do we want to run a blink or not 
 
@@ -112,6 +125,11 @@ namespace MightyFights_Prototype
 		public bool IsDead()
 		{
 			return cAiData.eState == EBattleAiStates.Dying || cAiData.eState == EBattleAiStates.Dead;
+		}
+
+		public Vector2 SetAttacker()
+		{
+			return new Vector2();
 		}
 
 		#endregion
