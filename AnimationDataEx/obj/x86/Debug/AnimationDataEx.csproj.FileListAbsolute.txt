@@ -7,3 +7,4 @@ D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\AnimationDataEx\bin\x86\Debug
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\AnimationDataEx\bin\x86\Debug\AnimationDataEx.pdb
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\AnimationDataEx\obj\x86\Debug\AnimationDataEx.dll
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\AnimationDataEx\obj\x86\Debug\AnimationDataEx.pdb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\AnimationDataEx\obj\x86\Debug\AnimationDataEx.csprojResolveAssemblyReference.cache

@@ -9,3 +9,4 @@ D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\bin\x86\
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\obj\x86\Debug\MightyFights_Support.dll
 D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\obj\x86\Debug\MightyFights_Support.pdb
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Support\obj\x86\Debug\MightyFights_Support.csprojResolveAssemblyReference.cache

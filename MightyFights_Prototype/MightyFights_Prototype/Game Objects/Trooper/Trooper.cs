@@ -32,7 +32,7 @@ namespace MightyFights_Prototype
 		public AiBattleData cAiData		{ get; set; }
 		public int iArmyIndex			{ get; set; }
 		public int iOpponentIndex		{ get; set; }
-		public Zone tZone				{ get; set; }
+		public Zone cZone				{ get; set; }
 		public Stats cStats				{ get { return _cStats; } set { _cStats = value; }}
 		public bool bAvailablePos		{ get { return _iCurLeftAttackers + _iCurRightAttakers < _iAvailablePositions; }} 
 		public Vector2 tAttackPos		{ get; set; }

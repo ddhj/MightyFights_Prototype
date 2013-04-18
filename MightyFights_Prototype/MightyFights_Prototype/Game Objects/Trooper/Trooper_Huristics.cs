@@ -111,7 +111,9 @@ namespace MightyFights_Prototype
 
 		public object ChooseOpponent(BattlegroundData cData)
 		{
-			int			iTmp = int.MaxValue;
+			int			iTmp = int.MaxValue,
+						iOpponentIdx = this.iOpponentIndex, 
+						iArmyIdx = this.iArmyIndex;
 
 			// not sure if this is required or not but just in case 
 			if(nOpponent != null)
@@ -133,7 +135,7 @@ namespace MightyFights_Prototype
 			}
 		
 			// check if there are any opponents left at all
-			if(cData.naMasterLists[this.iOpponentIndex].Count == 0) { 
+			if(cData.naMasterLists[iOpponentIdx].Count == 0) { 
 				// there are no more guys so we are in a victory scenario 
 				_cAnimProc.SetAnimationCriteria("Idle", "Victory", "victory", -1);
 				cAiData.eState = EBattleAiStates.Idle;
@@ -141,43 +143,41 @@ namespace MightyFights_Prototype
 			}
 
 			// we dont have any attakers so lets check our current zone for an opponent
-			if(this.tZone.naCombatantLists[this.iOpponentIndex].Count > 0) { 
-				nOpponent = ChooseZoneCombatant(this.tZone.naCombatantLists[this.iOpponentIndex]);
+			if(this.cZone.naCombatantLists[iOpponentIdx].Count > 0) { 
+				nOpponent = ChooseZoneCombatant(this.cZone.naCombatantLists[iOpponentIdx]);
 			// there are no dudes in our area so we are going to check surrounding areas 
 			} else { 
-				Random cRand = new Random();
-				List<ICombatant> cTmpList = cData.naMasterLists[this.iOpponentIndex];
-				nOpponent = cTmpList[cRand.Next(cTmpList.Count)];
+				// check our army for which zones they are in and if there are any opponents there
+				// lets get the closest zone to our own
+				Vector2 tZone = new Vector2(cZone.iX, cZone.iY),
+						tNewZone;
+				int		iDst = int.MaxValue,
+						iTmp;
+				Zone	cNewZone = null;
 
-				////// this should be a battle search huristic
-				//Dictionary<IntPoint, bool>	cPointList = new Dictionary<IntPoint, bool>();
-				//int		iY = this.tZone.iY, 
-				//        iMaxY = this.tZone.iY,
-				//        iX = this.tZone.iX, 
-				//        iMaxX = this.tZone.iX;
-				//Zone	tTmpZone;
-				//IntPoint cTmpPoint;
-				//while(nOpponent == null) { 
-				//    --iY;
-				//    --iX; 
-				//    ++iMaxY;
-				//    ++iMaxX;
-				//    for(int i = iX; i < iMaxX && nOpponent == null; ++i) 
-				//        for(int j = iY; j < iMaxY; ++j) { 
-				//            // make a point
-				//            cTmpPoint = new IntPoint(iX, iY);
-				//            // check if we have already hit this point 
-				//            if(!cPointList.ContainsKey(cTmpPoint)) { 
-				//                cPointList.Add(cTmpPoint, true);
-				//                tTmpZone = cData.GetZoneByCoords(iX, iY);
-				//                if(tTmpZone != null)
-				//                    if(tTmpZone.naCombatantLists[this.iOpponentIndex].Count > 0) { 
-				//                        nOpponent = ChooseZoneCombatant(tTmpZone.naCombatantLists[this.iOpponentIndex]);
-				//                        break;
-				//                    }
-				//            }		
-				//        }	
-				//}
+				Dictionary<IntPoint, Zone> caActiveZones = cData.caActiveZones[this.iArmyIndex];
+
+				// walk through the active zones 
+				foreach(KeyValuePair<IntPoint, Zone> tZoneData in caActiveZones) { 
+					// check to see if we have any opponents in this zone 
+					if(tZoneData.Value.naCombatantLists[iOpponentIndex].Count > 0) {
+						// make a vecotor and check to see which one is the closest 
+						tNewZone = new Vector2(tZoneData.Value.cPoint.iX, tZoneData.Value.cPoint.iY);
+						tNewZone = tZone - tNewZone;
+						if((iTmp = (int)tNewZone.LengthSquared()) < iDst) { 
+							iDst = iTmp;
+							cNewZone = tZoneData.Value;
+						}
+					}
+				}
+
+				// 
+				if(cNewZone != null) { 
+					nOpponent = ChooseZoneCombatant(cNewZone.naCombatantLists[iOpponentIndex]);
+				// if there are no zones with guys we are in the very begining, 
+				} else { 
+
+				}
 			}
 
 			// if we have an opponent at this point we need to charge them

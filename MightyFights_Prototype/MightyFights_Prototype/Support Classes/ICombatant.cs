@@ -15,7 +15,7 @@ namespace MightyFights_Prototype
 		int iArmyIndex			{ get; set; }
 		int iOpponentIndex		{ get; set; }
 		bool bAvailablePos		{ get; }
-		Zone tZone				{ get; set; }
+		Zone cZone				{ get; set; }
 		Stats cStats			{ get; set; }
 
 		void DealDamage(int iDamage);
