@@ -15,12 +15,16 @@ namespace MightyFights_Prototype
 		int iArmyIndex			{ get; set; }
 		int iOpponentIndex		{ get; set; }
 		bool bAvailablePos		{ get; }
+		Zone tZone				{ get; set; }
+		Stats cStats			{ get; set; }
 
 		void DealDamage(int iDamage);
 		bool IsDead();
-		Vector2 SetAttacker();
+		void SetAttacker(ICombatant nCombatant);
+		Vector2 RequestAttackPoint(ICombatant nCombatant, out ETrooperAttackPos ePos);
 
 		// possible a list of attackers and their positions for the persuit method 
-		// in order to choose where to run s
+		// in order to choose where to run 
+		Dictionary<ETrooperAttackPos, ICombatant>	caAttackers		{ get; }
 	}
 }

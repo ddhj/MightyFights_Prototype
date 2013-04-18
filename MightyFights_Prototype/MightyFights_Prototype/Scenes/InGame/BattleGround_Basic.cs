@@ -21,7 +21,7 @@ namespace MightyFights_Prototype
 		List<Trooper>							_cActiveList = new List<Trooper>();
 		Dictionary<string, List<ICombatant>>	_cTrooperRef = new Dictionary<string,List<ICombatant>>();
 		BattlegroundData	_cBattleData = new BattlegroundData();
-		TimeSpan		_tVictoryElapsed = TimeSpan.Zero;
+		TimeSpan			_tVictoryElapsed = TimeSpan.Zero;
 
 		Cursor			_cCursor;
 
@@ -50,13 +50,10 @@ namespace MightyFights_Prototype
 			// if they are no longer active remove them from all the reference lists
 			foreach(Trooper cTrooper in cRemoveList) { 
 				// remove from the draw list
-				_cDrawList[cTrooper.sTexName].Remove(cTrooper);
+				//_cDrawList[cTrooper.sTexName].Remove(cTrooper);
 
 				// remove from the processing list
 				_cActiveList.Remove(cTrooper);
-
-				// remove the trooper from either the opponents or the army 
-				_cTrooperRef[cTrooper.sTexName].Remove(cTrooper);
 			}
 		}
 
@@ -78,8 +75,11 @@ namespace MightyFights_Prototype
 
 				case EBattlegroundState.Battle:
 					// check to see if the battle is over 
-					if(_cBattleData.naOpponents.Count == 0 || _cBattleData.naArmy.Count == 0)
-						_cBattleData.eState = EBattlegroundState.Victory;
+					foreach(List<ICombatant> naRefList in _cBattleData.naMasterLists)
+						if(naRefList.Count == 0) { 
+							_cBattleData.eState = EBattlegroundState.Victory;
+							break;
+						}
 				break;
 
 				case EBattlegroundState.Victory: 
@@ -121,7 +121,7 @@ namespace MightyFights_Prototype
 						nSprite.Draw(_cSpriteBatch);
 
 				// the frame rate debug statement
-				_cSpriteBatch.DrawString(_cFont, string.Format("fps:{0} : LeftArmy:{1} : RightArmy:{2}", _iFrameRate, _cBattleData.naArmy.Count, _cBattleData.naOpponents.Count), 
+				_cSpriteBatch.DrawString(_cFont, string.Format("fps:{0} : LeftArmy:{1} : RightArmy:{2}", _iFrameRate, _cBattleData.naArmyRef.Count, _cBattleData.naOpponentsRef.Count), 
 					new Vector2(10, 10), Color.White);				
 
 			} _cSpriteBatch.End();
@@ -139,14 +139,12 @@ namespace MightyFights_Prototype
 
 		void SetBattleStart()
 		{
-			List<ICombatant>	naTmpList = _cBattleData.naArmy,
+			List<ICombatant>	naTmpList = _cBattleData.naArmyRef,
 								naTmpOpponents = new List<ICombatant>();
 			int					iCount = 0,
 								iIndex;
 			Trooper				cTrooper;
 			Random				cRand = new Random();
-			ICombatant			nTmpTrooper,
-								nTmpOpponent;
 
 			for(int i = 0; i < _iX; ++i)
 				for(int j = 0; j < _iY; ++j) { 
@@ -162,7 +160,7 @@ namespace MightyFights_Prototype
 				}
 
 			iCount = 0;
-			naTmpList = _cBattleData.naOpponents;
+			naTmpList = _cBattleData.naOpponentsRef;
 			for(int i = 0; i < _iX; ++i)
 				for(int j = 0; j < _iY; ++j) { 
 					cTrooper = (Trooper)naTmpList[i*_iY+j];
@@ -175,23 +173,26 @@ namespace MightyFights_Prototype
 					cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
 				}
 
+			//// this is the old setup for the opponent choosing on start 
 			// this is a temp block setup for the inital opponent 
-			naTmpList = new List<ICombatant>();
-			foreach(ICombatant nCombatant in _cBattleData.naOpponents)
-				naTmpOpponents.Add(nCombatant);
-			foreach(ICombatant nCombatant in _cBattleData.naArmy)
-				naTmpList.Add(nCombatant);
+			//ICombatant			nTmpTrooper,
+			//						nTmpOpponent;
+			//naTmpList = new List<ICombatant>();
+			//foreach(ICombatant nCombatant in _cBattleData.naOpponentsRef)
+			//    naTmpOpponents.Add(nCombatant);
+			//foreach(ICombatant nCombatant in _cBattleData.naArmy)
+			//    naTmpList.Add(nCombatant);
 
-			// radomly assign opponents
-			for(int iCombatant = 0; iCombatant < _cBattleData.naArmy.Count; ++iCombatant) { 
-				nTmpOpponent = naTmpOpponents[cRand.Next(naTmpList.Count)];
-				nTmpTrooper = naTmpList[cRand.Next(naTmpList.Count)]; 
-				naTmpList.Remove(nTmpTrooper);
-				naTmpOpponents.Remove(nTmpOpponent);
+			//// radomly assign opponents
+			//for(int iCombatant = 0; iCombatant < _cBattleData.naArmy.Count; ++iCombatant) { 
+			//    nTmpOpponent = naTmpOpponents[cRand.Next(naTmpList.Count)];
+			//    nTmpTrooper = naTmpList[cRand.Next(naTmpList.Count)]; 
+			//    naTmpList.Remove(nTmpTrooper);
+			//    naTmpOpponents.Remove(nTmpOpponent);
 
-				nTmpOpponent.nOpponent = nTmpTrooper;
-				nTmpTrooper.nOpponent = nTmpOpponent;
-			}
+			//    nTmpOpponent.nOpponent = nTmpTrooper;
+			//    nTmpTrooper.nOpponent = nTmpOpponent;
+			//}
 
 		}
 
@@ -219,16 +220,9 @@ namespace MightyFights_Prototype
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 				_cBackground = cContent.Load<Texture2D>(@"Backgrounds\dirt_grass_large");
 				
-				// set up the battle data for the troopers 
-				_cBattleData.naArmy = new List<ICombatant>();
-				_cBattleData.naOpponents = new List<ICombatant>();
-				_cBattleData.caBattleLists = new List<List<ICombatant>>();
-				_cBattleData.caBattleLists.Add(_cBattleData.naArmy);
-				_cBattleData.caBattleLists.Add(_cBattleData.naOpponents);
-
-				// set the reference lists for the removal of dead troopers
-				_cTrooperRef.Add(sTex1 = sTexPath + saTextures[cRand.Next(saTextures.Length)], _cBattleData.naArmy);
-				_cTrooperRef.Add(sTex2 = sTexPath + saTextures[cRand.Next(saTextures.Length)], _cBattleData.naOpponents);
+				//// ddhj pre-template texture assignments
+				sTex1 = sTexPath + saTextures[cRand.Next(saTextures.Length)];
+				sTex2 = sTexPath + saTextures[cRand.Next(saTextures.Length)];
 
 				// set the battle data to the datastore for reference 
 				DataStore.cInstance.cBattleData = _cBattleData;
@@ -252,7 +246,7 @@ namespace MightyFights_Prototype
 							_cDrawList.Add(cP1.sTexName, naDrawList = new List<IDrawable>());
 
 						naDrawList.Add(cP1);
-						_cBattleData.naArmy.Add(cP1);
+						_cBattleData.naArmyRef.Add(cP1);
 					}
 
 				// make a temp 160 block of opponents
@@ -272,7 +266,7 @@ namespace MightyFights_Prototype
 							_cDrawList.Add(cP1.sTexName, naDrawList = new List<IDrawable>());
 
 						naDrawList.Add(cP1);
-						_cBattleData.naOpponents.Add(cP1);
+						_cBattleData.naOpponentsRef.Add(cP1);
 					}
 
 				_cCursor = new Cursor();
@@ -310,9 +304,7 @@ namespace MightyFights_Prototype
 			_cDrawList.Clear();
 			_cActiveList.Clear();
 			_cTrooperRef.Clear();
-			_cBattleData.naOpponents.Clear();
-			_cBattleData.naArmy.Clear();
-			_cBattleData.caBattleLists.Clear();
+			_cBattleData.Clear();
 		}
 
 		void ResetBattle()
@@ -329,9 +321,7 @@ namespace MightyFights_Prototype
 			_cDrawList.Clear();
 			_cActiveList.Clear();
 			_cTrooperRef.Clear();
-			_cBattleData.naOpponents.Clear();
-			_cBattleData.naArmy.Clear();
-			_cBattleData.caBattleLists.Clear();
+			_cBattleData.Clear();		
 		}
 
 		public void Unload()

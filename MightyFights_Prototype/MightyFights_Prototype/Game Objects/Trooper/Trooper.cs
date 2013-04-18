@@ -17,9 +17,14 @@ namespace MightyFights_Prototype
 		Vector2						_tPos;
 		Texture2D					_cTexRef;
 		Stats						_cStats;
-		int							_iAvailablePositions = 2,
-									_iCurAttackers = 0;
+		int							_iAvailablePositions = 6,
+									_iCurLeftAttackers = 0,
+									_iCurRightAttakers = 0;
 		float						_fZorder;
+		byte						_byAttakPos;
+		BattlegroundData			_cBattleDataRef = null;
+
+		Dictionary<ETrooperAttackPos, ICombatant>	_caAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
 		public bool bActive				{ get; set; }
 		public bool bDir				{ get; set; }
@@ -27,10 +32,11 @@ namespace MightyFights_Prototype
 		public AiBattleData cAiData		{ get; set; }
 		public int iArmyIndex			{ get; set; }
 		public int iOpponentIndex		{ get; set; }
+		public Zone tZone				{ get; set; }
 		public Stats cStats				{ get { return _cStats; } set { _cStats = value; }}
-		public bool bAvailablePos		{ get { return _iCurAttackers < _iAvailablePositions; }} 
-
+		public bool bAvailablePos		{ get { return _iCurLeftAttackers + _iCurRightAttakers < _iAvailablePositions; }} 
 		public Vector2 tAttackPos		{ get; set; }
+		public Dictionary<ETrooperAttackPos, ICombatant> caAttackers	{ get { return _caAttackers; }}
 		
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
 
@@ -113,7 +119,7 @@ namespace MightyFights_Prototype
 
 		#endregion
 
-		#region IOpponent Members
+		#region ICombatant Methods
 
 		public void DealDamage(int iDamage)
 		{
@@ -127,9 +133,136 @@ namespace MightyFights_Prototype
 			return cAiData.eState == EBattleAiStates.Dying || cAiData.eState == EBattleAiStates.Dead;
 		}
 
-		public Vector2 SetAttacker()
+		public void SetAttacker(ICombatant nCombatant)
 		{
-			return new Vector2();
+			Vector2		tDir = _tPos - nCombatant.tPos;
+			ETrooperAttackPos ePos;
+
+			RequestAttackPoint(nCombatant, out ePos);
+			_caAttackers.Add(ePos, nCombatant);
+			_byAttakPos &= (byte)ePos;
+		}
+
+		Vector2 RightAttackPos(Vector2 tDir, out ETrooperAttackPos ePos) 
+		{
+			switch(_iCurRightAttakers) { 
+				// if its zero its always the midpoint
+				case 0:
+					tDir = _tPos;
+					tDir.X += 25;
+					ePos = ETrooperAttackPos.RightMid;
+					return tDir;
+						
+				// it cant be more than 1 (for now there may be more but that will be on a different type of class and not a trooper 
+					// probably)
+				default:
+					// check if the opponent is above or below
+					if(tDir.Y >= 0.0 + float.Epsilon) { 
+						// check to see if the right bottom is taken 
+						if((_byAttakPos & (int)ETrooperAttackPos.RightBottom) == (int)ETrooperAttackPos.RightBottom) {
+							// set the point to be right top
+							tDir = _tPos;
+							tDir.X += 17;
+							tDir.Y -= 10;
+							ePos = ETrooperAttackPos.RightTop;
+							return tDir;
+						// send out right bottom
+						} else { 
+							tDir = _tPos;
+							tDir.X += 17;
+							tDir.Y += 10;
+							ePos = ETrooperAttackPos.RightBottom;
+							return tDir;
+						}
+					} else { 
+						// the opponent is above us, check to see if our right top is taken
+						if((_byAttakPos & (int)ETrooperAttackPos.RightTop) == (int)ETrooperAttackPos.RightTop) { 
+							tDir = _tPos;
+							tDir.X += 17;
+							tDir.Y += 10;
+							ePos = ETrooperAttackPos.RightBottom;
+							return tDir;
+						} else { 
+							// set the point to be right top
+							tDir = _tPos;
+							tDir.X += 17;
+							tDir.Y -= 10;
+							ePos = ETrooperAttackPos.RightTop;
+							return tDir;
+						}
+					}
+			}
+		}
+
+		Vector2 LeftAttackPos(Vector2 tDir, out ETrooperAttackPos ePos)
+		{
+			switch(_iCurLeftAttackers) { 
+				// if its zero its always the midpoint
+				case 0:
+					tDir = _tPos;
+					tDir.X -= 25;
+					ePos = ETrooperAttackPos.LeftMid;
+					return tDir;
+						
+				// it cant be more than 1 (for now there may be more but that will be on a different type of class and not a trooper 
+					// probably)
+				default:
+					// check if the opponent is above or below
+					if(tDir.Y >= 0.0 + float.Epsilon) { 
+						// check to see if the right bottom is taken 
+						if((_byAttakPos & (int)ETrooperAttackPos.LeftBottom) == (int)ETrooperAttackPos.LeftBottom) {
+							// set the point to be left top
+							tDir = _tPos;
+							tDir.X -= 17;
+							tDir.Y -= 10;
+							ePos = ETrooperAttackPos.LeftTop;
+							return tDir;
+						// send out left bottom
+						} else { 
+							tDir = _tPos;
+							tDir.X -= 17;
+							tDir.Y += 10;
+							ePos = ETrooperAttackPos.LeftBottom;
+							return tDir;
+						}
+					} else { 
+						// the opponent is above us, check to see if our left top is taken
+						if((_byAttakPos & (int)ETrooperAttackPos.LeftTop) == (int)ETrooperAttackPos.LeftTop) { 
+							// send out the bottom left 
+							tDir = _tPos;
+							tDir.X -= 17;
+							tDir.Y += 10;
+							ePos = ETrooperAttackPos.LeftBottom;
+							return tDir;
+						} else { 
+							// set the point to be right top
+							tDir = _tPos;
+							tDir.X -= 17;
+							tDir.Y -= 10;
+							ePos = ETrooperAttackPos.LeftTop;
+							return tDir;
+						}
+					}
+			}
+		}
+
+		public Vector2 RequestAttackPoint(ICombatant nCombatant, out ETrooperAttackPos ePos)
+		{
+			// determine up down left an right from combatant
+			Vector2		tDir = _tPos - nCombatant.tPos;
+			
+			// check left or right 
+			if(tDir.X >= 0.0 + float.Epsilon) { 
+				// check to see if our right positions are filled 
+				if(_iCurRightAttakers < 2) { 
+					return RightAttackPos(tDir, out ePos);
+				} else return LeftAttackPos(tDir, out ePos);
+			// we are left
+			} else { 
+				if(_iCurLeftAttackers < 2) { 
+					return LeftAttackPos(tDir, out ePos);
+				} else return RightAttackPos(tDir, out ePos);
+			}
 		}
 
 		#endregion

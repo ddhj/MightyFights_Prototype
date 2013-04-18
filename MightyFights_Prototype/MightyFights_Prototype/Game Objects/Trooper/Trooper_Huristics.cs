@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Xna.Framework;
 
 namespace MightyFights_Prototype
 {
 	public partial class Trooper
 	{
-		public void Idle(BattlegroundData cData)
+		public object Idle(BattlegroundData cData)
 		{
-
+			return null;
 		}
 
-		public void Attack_Basic(BattlegroundData cData)
+		public object Attack_Basic(BattlegroundData cData)
 		{
 			Random	cRand = new Random();
 			int		iAttckPercent;
@@ -25,7 +26,7 @@ namespace MightyFights_Prototype
 
 				// move our state to ready which will choose another opponent
 				cAiData.eState = EBattleAiStates.Ready;
-				return;
+				return null;
 			}
 
 			// get our percent for this attack
@@ -55,60 +56,135 @@ namespace MightyFights_Prototype
 					case 1: _cAnimProc.SetAnimationCriteria("Defend", "Parry", "sp", 1); break;
 				}
 			}
+
+			return null;
 		}
 
-		public void Flee(BattlegroundData cData)
+		public object Flee(BattlegroundData cData)
 		{
-
+			return null;
 		}
 
-		public void Persue(BattlegroundData cData)
+		public object Persue(BattlegroundData cData)
 		{
 			// this is where we would put in some state changing code for 
 			// stamina checks and checks to see if we are going to keep persuit
 
 			// default is charge for ever
+
+			return null;
 		}
 
-		public void Pant(BattlegroundData cData)
+		public object Pant(BattlegroundData cData)
 		{
+			// check to see if we are still panting 
+			if(cAnimationProcessor.bActive)
+				_cStats.iHp += 5;
+			else { 
+				cAiData.eState = EBattleAiStates.Ready;
+				_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
+			}
 
+			return null;
 		}
 
-		public void ChooseOpponent(BattlegroundData cData)
+		ICombatant ChooseZoneCombatant(List<ICombatant> naCombatants)
 		{
-			if(nOpponent == null) { 
-				// check the battle data for another dude
-				if(cData.naOpponents.Count > 0) { 
-					// lets get another one is some magic way 
-					List<ICombatant> naOpponents =  cData.caBattleLists[iOpponentIndex];
-					nOpponent = naOpponents[new Random().Next(naOpponents.Count)];
-					// check to see if this chosen opponent is in a dying state
-					if(nOpponent.IsDead()) { 
-						// walk the list of opponents one by one and choose a non dead or dying opponent
-						nOpponent = null;
-						foreach(ICombatant nNextOp in naOpponents)
-							if(!nNextOp.IsDead())
-								nOpponent = nNextOp;
-							
-						if(nOpponent == null) { 
-							_cAnimProc.SetAnimationCriteria("Idle", "Victory", "victory", -1);
-							cAiData.eState = EBattleAiStates.Idle;
-							return;
-						}
-					}
+			// lets grab the closest guy 
+			////ddhj: this could technically be a huristic if we wanted 
+			Vector2		tTarget;
+			int			iTmp = int.MaxValue,
+						iTmp2;
+			ICombatant	nNewOpponent = null;
 
-					// there is going to be checking and position code and all of that comming 
-				// we are in a victory situation
-				} else { 
-					_cAnimProc.SetAnimationCriteria("Idle", "Victory", "victory", -1);
-					cAiData.eState = EBattleAiStates.Idle;
-					return;
+			foreach(ICombatant nCombatant in naCombatants) { 
+				// get the vector to the combatant and test if its the shortest
+				tTarget = nCombatant.tPos - _tPos;
+				if((iTmp2 = (int)tTarget.LengthSquared()) < iTmp) { 
+					nNewOpponent = nCombatant;
+					iTmp = iTmp2;
 				}
 			}
 
+			return nNewOpponent;
+		}
+
+		public object ChooseOpponent(BattlegroundData cData)
+		{
+			int			iTmp = int.MaxValue;
+
+			// not sure if this is required or not but just in case 
+			if(nOpponent != null)
+				return null;
+
+			// check to see if I have any attackers currently attacking me 
+			if(_caAttackers.Count > 0) { 
+				// check the weakest of my opponents and attack them
+				foreach(ICombatant nCombatant in _caAttackers.Values) { 
+					if(nCombatant.cStats.iHp < iTmp) { 
+						nOpponent = nCombatant;
+						iTmp = nCombatant.cStats.iHp;
+					}
+				}
+
+				// call the attack huristic because we already know we want to fight
+				cAiData.cHurisitics[EBattleHuristics.Attack](cData);
+				return null;
+			}
+		
+			// check if there are any opponents left at all
+			if(cData.naMasterLists[this.iOpponentIndex].Count == 0) { 
+				// there are no more guys so we are in a victory scenario 
+				_cAnimProc.SetAnimationCriteria("Idle", "Victory", "victory", -1);
+				cAiData.eState = EBattleAiStates.Idle;
+				return null;
+			}
+
+			// we dont have any attakers so lets check our current zone for an opponent
+			if(this.tZone.naCombatantLists[this.iOpponentIndex].Count > 0) { 
+				nOpponent = ChooseZoneCombatant(this.tZone.naCombatantLists[this.iOpponentIndex]);
+			// there are no dudes in our area so we are going to check surrounding areas 
+			} else { 
+				Random cRand = new Random();
+				List<ICombatant> cTmpList = cData.naMasterLists[this.iOpponentIndex];
+				nOpponent = cTmpList[cRand.Next(cTmpList.Count)];
+
+				////// this should be a battle search huristic
+				//Dictionary<IntPoint, bool>	cPointList = new Dictionary<IntPoint, bool>();
+				//int		iY = this.tZone.iY, 
+				//        iMaxY = this.tZone.iY,
+				//        iX = this.tZone.iX, 
+				//        iMaxX = this.tZone.iX;
+				//Zone	tTmpZone;
+				//IntPoint cTmpPoint;
+				//while(nOpponent == null) { 
+				//    --iY;
+				//    --iX; 
+				//    ++iMaxY;
+				//    ++iMaxX;
+				//    for(int i = iX; i < iMaxX && nOpponent == null; ++i) 
+				//        for(int j = iY; j < iMaxY; ++j) { 
+				//            // make a point
+				//            cTmpPoint = new IntPoint(iX, iY);
+				//            // check if we have already hit this point 
+				//            if(!cPointList.ContainsKey(cTmpPoint)) { 
+				//                cPointList.Add(cTmpPoint, true);
+				//                tTmpZone = cData.GetZoneByCoords(iX, iY);
+				//                if(tTmpZone != null)
+				//                    if(tTmpZone.naCombatantLists[this.iOpponentIndex].Count > 0) { 
+				//                        nOpponent = ChooseZoneCombatant(tTmpZone.naCombatantLists[this.iOpponentIndex]);
+				//                        break;
+				//                    }
+				//            }		
+				//        }	
+				//}
+			}
+
+			// if we have an opponent at this point we need to charge them
 			cActionManager.AddAction(new Action(ChargeOpponent, null, null));
 			cAiData.eState = EBattleAiStates.Pursuit;
+
+			return null;
 		}
 	}
 }

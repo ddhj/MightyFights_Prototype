@@ -1,2 +1,2 @@
-D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_PrototypeContent\obj\x86\Debug\MightyFights_PrototypeContent.contentprojResolveAssemblyReference.cache
 C:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_PrototypeContent\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Dev\Game Dev\XNA\Testbed\MightyFights_Prototype\MightyFights_Prototype\MightyFights_PrototypeContent\obj\x86\Debug\MightyFights_PrototypeContent.contentprojResolveAssemblyReference.cache
