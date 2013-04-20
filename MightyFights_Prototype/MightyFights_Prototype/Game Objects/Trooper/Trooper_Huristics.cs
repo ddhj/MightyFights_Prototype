@@ -158,14 +158,6 @@ namespace MightyFights_Prototype
 				return null;
 			}
 		
-			// check if there are any opponents left at all
-			if(cData.naMasterLists[iOpponentIdx].Count == 0) { 
-				// there are no more guys so we are in a victory scenario 
-				_cAnimProc.SetAnimationCriteria("Idle", "Victory", "victory", -1);
-				cAiData.eState = EBattleAiStates.Idle;
-				return null;
-			}
-
 			// we dont have any attakers so lets check our current zone for an opponent
 			if(this.cZone.naCombatantLists[iOpponentIdx].Count > 0) { 
 				nOpponent = ChooseZoneCombatantRand(this.cZone.naCombatantLists[iOpponentIdx]);

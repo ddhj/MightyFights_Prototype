@@ -252,6 +252,9 @@ namespace MightyFights_Prototype
 			// determine up down left an right from combatant
 			Vector2		tDir = _tPos - nCombatant.tPos;
 			
+			if(nCombatant.tPos.X < 0 || nCombatant.tPos.Y < 0) 
+				tDir.ToString();
+
 			// check left or right 
 			if(tDir.X >= 0.0 + float.Epsilon) { 
 				// check to see if our right positions are filled 

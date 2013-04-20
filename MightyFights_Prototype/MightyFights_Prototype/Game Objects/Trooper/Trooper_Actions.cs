@@ -45,48 +45,56 @@ namespace MightyFights_Prototype
 				cAction.bInit = false;
 			}
 
-			if(_cBattleDataRef.eState == EBattlegroundState.Battle) { 
-				// check to see if we are in the middle of an animation, the only one 
-				// we care about is the ready state
-				switch(cAiData.eState) { 
-					case EBattleAiStates.Idle:
+			switch(_cBattleDataRef.eState) {
+ 				case EBattlegroundState.Battle:
+					// check to see if we are in the middle of an animation, the only one 
+					// we care about is the ready state
+					switch(cAiData.eState) { 
+						case EBattleAiStates.Idle:
 
-					break;
+						break;
 
-					case EBattleAiStates.Panting:
-						// yep, we are going to do all the stuff for panting
-						cAiData.cHurisitics[EBattleHuristics.Pant](_cBattleDataRef);
-					break;
+						case EBattleAiStates.Panting:
+							// yep, we are going to do all the stuff for panting
+							cAiData.cHurisitics[EBattleHuristics.Pant](_cBattleDataRef);
+						break;
 
-					// idle can be ready or pant
-					case EBattleAiStates.Ready:
-						// use the huristic to check for an opponent
-						cAiData.cHurisitics[EBattleHuristics.ChooseOpponent](_cBattleDataRef);
-					break;
+						// idle can be ready or pant
+						case EBattleAiStates.Ready:
+							// use the huristic to check for an opponent
+							cAiData.cHurisitics[EBattleHuristics.ChooseOpponent](_cBattleDataRef);
+						break;
 
-					case EBattleAiStates.Defending:
-					case EBattleAiStates.Attacking:
-						// check to see if we are animating or not 
-						if(!cAnimationProcessor.bActive) 
-							cAiData.cHurisitics[EBattleHuristics.Attack](_cBattleDataRef);
-					break;
+						case EBattleAiStates.Defending:
+						case EBattleAiStates.Attacking:
+							// check to see if we are animating or not 
+							if(!cAnimationProcessor.bActive) 
+								cAiData.cHurisitics[EBattleHuristics.Attack](_cBattleDataRef);
+						break;
 						
-					case EBattleAiStates.Pursuit:
-						// run the persue huristic
-						cAiData.cHurisitics[EBattleHuristics.Persue](_cBattleDataRef);
-					break;
+						case EBattleAiStates.Pursuit:
+							// run the persue huristic
+							cAiData.cHurisitics[EBattleHuristics.Persue](_cBattleDataRef);
+						break;
 
-					// we are dead we don't need to do more 
-					case EBattleAiStates.Dying:
-						if(!cAnimationProcessor.bActive)
-							cAiData.eState = EBattleAiStates.Dead;
-					break;
+						// we are dead we don't need to do more 
+						case EBattleAiStates.Dying:
+							if(!cAnimationProcessor.bActive)
+								cAiData.eState = EBattleAiStates.Dead;
+						break;
 
-					case EBattleAiStates.Dead: 
-						bActive = false;
-						cAction.bConditionNotMet = false;
-						return false;
-				}
+						case EBattleAiStates.Dead: 
+							bActive = false;
+							cAction.bConditionNotMet = false;
+							return false;
+					}
+				break;
+
+				case EBattlegroundState.Victory: 
+					_cActionMgr.cActionQueue.Clear();
+					_cAnimProc.SetAnimationCriteria("Idle", "Victory", "victory", -1);
+					cAction.bConditionNotMet = false;
+				break;
 			}
 
 			return true;
@@ -181,6 +189,10 @@ namespace MightyFights_Prototype
 				cAction.bConditionNotMet = false;
 				return false;
 			}
+
+			// something strange happened
+			if(tDest.X < 0 || tDest.Y < 0)
+				tDest.ToString();
 
 			tDirVect = tDest - _tPos;
 			bDir = tDirVect.X > 0 + float.Epsilon;
