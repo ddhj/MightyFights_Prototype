@@ -21,6 +21,7 @@ namespace MightyFights_Prototype
 		void DealDamage(int iDamage);
 		bool IsDead();
 		void SetAttacker(ICombatant nCombatant);
+		void RemoveAttacker(ETrooperAttackPos ePos, float fXPos);
 		Vector2 RequestAttackPoint(ICombatant nCombatant, out ETrooperAttackPos ePos);
 
 		// possible a list of attackers and their positions for the persuit method 

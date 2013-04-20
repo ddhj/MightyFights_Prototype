@@ -172,28 +172,6 @@ namespace MightyFights_Prototype
 					// set the trooper for battle
 					cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
 				}
-
-			//// this is the old setup for the opponent choosing on start 
-			// this is a temp block setup for the inital opponent 
-			//ICombatant			nTmpTrooper,
-			//						nTmpOpponent;
-			//naTmpList = new List<ICombatant>();
-			//foreach(ICombatant nCombatant in _cBattleData.naOpponentsRef)
-			//    naTmpOpponents.Add(nCombatant);
-			//foreach(ICombatant nCombatant in _cBattleData.naArmy)
-			//    naTmpList.Add(nCombatant);
-
-			//// radomly assign opponents
-			//for(int iCombatant = 0; iCombatant < _cBattleData.naArmy.Count; ++iCombatant) { 
-			//    nTmpOpponent = naTmpOpponents[cRand.Next(naTmpList.Count)];
-			//    nTmpTrooper = naTmpList[cRand.Next(naTmpList.Count)]; 
-			//    naTmpList.Remove(nTmpTrooper);
-			//    naTmpOpponents.Remove(nTmpOpponent);
-
-			//    nTmpOpponent.nOpponent = nTmpTrooper;
-			//    nTmpTrooper.nOpponent = nTmpOpponent;
-			//}
-
 		}
 
 		public bool Init()

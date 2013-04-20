@@ -23,6 +23,7 @@ namespace MightyFights_Prototype
 		float						_fZorder;
 		byte						_byAttakPos;
 		BattlegroundData			_cBattleDataRef = null;
+		ETrooperAttackPos			_eAttackingPos;
 
 		Dictionary<ETrooperAttackPos, ICombatant>	_caAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
@@ -162,15 +163,15 @@ namespace MightyFights_Prototype
 						if((_byAttakPos & (int)ETrooperAttackPos.RightBottom) == (int)ETrooperAttackPos.RightBottom) {
 							// set the point to be right top
 							tDir = _tPos;
-							tDir.X += 17;
-							tDir.Y -= 10;
+							tDir.X += 27;
+							tDir.Y -= 20;
 							ePos = ETrooperAttackPos.RightTop;
 							return tDir;
 						// send out right bottom
 						} else { 
 							tDir = _tPos;
-							tDir.X += 17;
-							tDir.Y += 10;
+							tDir.X += 27;
+							tDir.Y += 20;
 							ePos = ETrooperAttackPos.RightBottom;
 							return tDir;
 						}
@@ -178,15 +179,15 @@ namespace MightyFights_Prototype
 						// the opponent is above us, check to see if our right top is taken
 						if((_byAttakPos & (int)ETrooperAttackPos.RightTop) == (int)ETrooperAttackPos.RightTop) { 
 							tDir = _tPos;
-							tDir.X += 17;
-							tDir.Y += 10;
+							tDir.X += 27;
+							tDir.Y += 20;
 							ePos = ETrooperAttackPos.RightBottom;
 							return tDir;
 						} else { 
 							// set the point to be right top
 							tDir = _tPos;
-							tDir.X += 17;
-							tDir.Y -= 10;
+							tDir.X += 27;
+							tDir.Y -= 20;
 							ePos = ETrooperAttackPos.RightTop;
 							return tDir;
 						}
@@ -213,15 +214,15 @@ namespace MightyFights_Prototype
 						if((_byAttakPos & (int)ETrooperAttackPos.LeftBottom) == (int)ETrooperAttackPos.LeftBottom) {
 							// set the point to be left top
 							tDir = _tPos;
-							tDir.X -= 17;
-							tDir.Y -= 10;
+							tDir.X -= 27;
+							tDir.Y -= 20;
 							ePos = ETrooperAttackPos.LeftTop;
 							return tDir;
 						// send out left bottom
 						} else { 
 							tDir = _tPos;
-							tDir.X -= 17;
-							tDir.Y += 10;
+							tDir.X -= 27;
+							tDir.Y += 20;
 							ePos = ETrooperAttackPos.LeftBottom;
 							return tDir;
 						}
@@ -230,15 +231,15 @@ namespace MightyFights_Prototype
 						if((_byAttakPos & (int)ETrooperAttackPos.LeftTop) == (int)ETrooperAttackPos.LeftTop) { 
 							// send out the bottom left 
 							tDir = _tPos;
-							tDir.X -= 17;
-							tDir.Y += 10;
+							tDir.X -= 27;
+							tDir.Y += 20;
 							ePos = ETrooperAttackPos.LeftBottom;
 							return tDir;
 						} else { 
 							// set the point to be right top
 							tDir = _tPos;
-							tDir.X -= 17;
-							tDir.Y -= 10;
+							tDir.X -= 27;
+							tDir.Y -= 20;
 							ePos = ETrooperAttackPos.LeftTop;
 							return tDir;
 						}
@@ -263,6 +264,14 @@ namespace MightyFights_Prototype
 					return LeftAttackPos(tDir, out ePos);
 				} else return RightAttackPos(tDir, out ePos);
 			}
+		}
+
+		public void RemoveAttacker(ETrooperAttackPos ePos, float fXPos)
+		{
+			_byAttakPos &= (byte)~ePos;
+			if(fXPos < 0 - float.Epsilon)
+				--_iCurRightAttakers;
+			else --_iCurLeftAttackers;
 		}
 
 		#endregion

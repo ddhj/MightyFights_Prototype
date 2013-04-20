@@ -129,14 +129,18 @@ namespace MightyFights_Prototype
 			int iXPos = (int)nCombatant.tPos.X / (int)EZoneData.ZoneColWidth, 
 				iYPos = (int)nCombatant.tPos.Y / (int)EZoneData.ZoneRowHeight;
 
-			Zone cZone = null;
+			Zone cZone = nCombatant.cZone;
 
 			// check to see if we have a zone at all 
 			if(nCombatant.cZone == null) { 
+				// this check is for the start 
 				if(iXPos < 0 || iYPos < 0 || iXPos >= (int)EZoneData.ZoneColumns || iYPos >= (int)EZoneData.ZoneRows)
 					return;
 
 				cZone = nCombatant.cZone = caBattleZones[iXPos][iYPos];
+
+				// add combatant to the zone list 
+				caBattleZones[iXPos][iYPos].naCombatantLists[nCombatant.iArmyIndex].Add(nCombatant);
 			} else {
 				// check to see if we are in the same zone 
 				if(nCombatant.cZone.iX != iXPos || nCombatant.cZone.iY != iYPos) { 
@@ -156,9 +160,6 @@ namespace MightyFights_Prototype
 				}
 			}
 							
-			// add combatant to the zone list 
-			caBattleZones[iXPos][iYPos].naCombatantLists[nCombatant.iArmyIndex].Add(nCombatant);
-
 			// check to see if this zone is already in the list 
 			if(!_caActiveZones[nCombatant.iArmyIndex].ContainsKey(cZone.cPoint))
 				_caActiveZones[nCombatant.iArmyIndex].Add(cZone.cPoint, cZone);

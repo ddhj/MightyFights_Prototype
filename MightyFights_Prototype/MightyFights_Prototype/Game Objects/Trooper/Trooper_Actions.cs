@@ -16,6 +16,10 @@ namespace MightyFights_Prototype
 				_cActionMgr.cActionQueue.Clear();
 				_cAnimProc.SetAnimationCriteria("Death", "Normal", "death", 1);
 
+				// remove ourselves from our opponents attaking point
+				if(nOpponent != null)
+					nOpponent.RemoveAttacker(_eAttackingPos, (_tPos - nOpponent.tPos).X);
+
 				// remove the dying trooper from the zone they are in 
 				DataStore.cInstance.cBattleData.RemoveDeadCombatant(this);
 
@@ -156,8 +160,7 @@ namespace MightyFights_Prototype
 
 		public bool ChargeOpponent(Action cAction)
 		{
-			ETrooperAttackPos	ePos;
-			Vector2		tDest = nOpponent.RequestAttackPoint(this, out ePos),
+			Vector2		tDest = nOpponent.RequestAttackPoint(this, out _eAttackingPos),
 						tDirVect;
 			
 			// check to see if we need to make the direction vector or not
@@ -180,7 +183,7 @@ namespace MightyFights_Prototype
 			}
 
 			tDirVect = tDest - _tPos;
-			bDir = tDirVect.X > 0;
+			bDir = tDirVect.X > 0 + float.Epsilon;
 			tDirVect.Normalize();
 
 			// move the sprite by the speed of walk (this data should come from the template)
