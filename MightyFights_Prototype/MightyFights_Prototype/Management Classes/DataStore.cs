@@ -25,5 +25,8 @@ namespace MightyFights_Prototype
 		public GraphicsDevice	cGraphics	{ get; set; }
 		public BattlegroundData	cBattleData	{ get; set; }
 		public GameTime			cTime		{ get; set; }
+
+		//// ddhj: debug data
+		public Texture2D		cBorder		{ get; set; }
 	}
 }

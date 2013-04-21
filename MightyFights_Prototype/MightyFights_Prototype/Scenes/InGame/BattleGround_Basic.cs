@@ -21,17 +21,19 @@ namespace MightyFights_Prototype
 		List<Trooper>							_cActiveList = new List<Trooper>();
 		Dictionary<string, List<ICombatant>>	_cTrooperRef = new Dictionary<string,List<ICombatant>>();
 		BattlegroundData	_cBattleData = new BattlegroundData();
-		TimeSpan			_tVictoryElapsed = TimeSpan.Zero;
+		TimeSpan			_tVictoryElapsed = TimeSpan.Zero,
+							_tSlowMo = TimeSpan.Zero;
 
 		Cursor			_cCursor;
 
-		// fps battle ground debug
+		////ddhj: debug data
 		TimeSpan		_cTime = TimeSpan.Zero;
 		int				_iFrameRate = 0,
 						_iFrameCtr = 0,
 						_iX, 
 						_iY;
 		SpriteFont		_cFont;
+		Texture2D		_cBorder;
 
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
 	
@@ -65,6 +67,12 @@ namespace MightyFights_Prototype
 
 			// process the cursor
 			_cCursor.Update(cTime);
+
+			//// debug slow down the game
+			_tSlowMo += cTime.ElapsedGameTime;
+			if(_tSlowMo < TimeSpan.FromMilliseconds(50)) 
+				return;
+			
 
 			// process the battle state
 			switch(_cBattleData.eState) { 
@@ -106,6 +114,8 @@ namespace MightyFights_Prototype
 				_iFrameRate = _iFrameCtr;
 				_iFrameCtr = 0;
 			}
+				
+			_tSlowMo = TimeSpan.Zero;
 		}
 
 		public void Draw(GameTime cTime)
@@ -124,6 +134,20 @@ namespace MightyFights_Prototype
 				_cSpriteBatch.DrawString(_cFont, string.Format("fps:{0} : LeftArmy:{1} : RightArmy:{2}", _iFrameRate, _cBattleData.naArmyRef.Count, _cBattleData.naOpponentsRef.Count), 
 					new Vector2(10, 10), Color.White);				
 
+				//// ddhj: debug draw
+				// lets draw the active zones 
+				Vector2	tZone;
+				foreach(Dictionary<IntPoint, Zone> cZoneList in _cBattleData.caActiveZones) { 
+					foreach(IntPoint cZonePos in cZoneList.Keys) { 
+						tZone.X = cZonePos.iX * (int)EZoneData.ZoneColWidth + 112;
+						tZone.Y = cZonePos.iY * (int)EZoneData.ZoneRowHeight + 84;
+
+						_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
+						_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X + (int)EZoneData.ZoneColWidth, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
+						_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y, (int)EZoneData.ZoneColWidth, 1), Color.White);
+						_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y + (int)EZoneData.ZoneRowHeight, (int)EZoneData.ZoneColWidth, 1), Color.White);
+					}
+				}
 			} _cSpriteBatch.End();
 		}
 
@@ -191,8 +215,8 @@ namespace MightyFights_Prototype
 
 			// this is for quick action
 			Random cRand = new Random();
-			_iX = cRand.Next(8) + 1;
-			_iY = cRand.Next(20) + 1;
+			_iX = 1;//cRand.Next(8) + 1;
+			_iY = 1;//cRand.Next(20) + 1;
 
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
@@ -252,14 +276,19 @@ namespace MightyFights_Prototype
 				_cCursor.sTexName = @"Shared\arrow_cursor";
 				_cCursor.tPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
 				_cCursor.cFrame = new Frame(_cCursor.cTexRef.Bounds, new Vector2(_cCursor.cTexRef.Bounds.Width / 2, _cCursor.cTexRef.Bounds.Height / 2), 
-					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cCursor.cTexRef.Bounds.Width, _cCursor.cTexRef.Bounds.Height), null, false, false);
+					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cCursor.cTexRef.Bounds.Width, _cCursor.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
 				if(!_cDrawList.TryGetValue(_cCursor.sTexName, out naDrawList))
 					_cDrawList.Add(_cCursor.sTexName, naDrawList = new List<IDrawable>());
 
 				naDrawList.Add(_cCursor);
 
+				//// ddhj: load in some debug data
 				_cFont = cContent.Load<SpriteFont>(@"Shared\DebugFont");
+				DataStore.cInstance.cBorder = _cBorder = new Texture2D(cGraphics, 1, 1);
+				Color tColor = Color.WhiteSmoke;
+				tColor.A = 50;
+				_cBorder.SetData<Color>(new[] { tColor });
 
 				// set the start of battle
 				SetBattleStart();

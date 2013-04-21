@@ -135,6 +135,7 @@
     <Compile Include="Support Classes\ActionManager.cs" />
     <Compile Include="Support Classes\AnimationProcessor.cs" />
     <Compile Include="Support Classes\BattleData.cs" />
+    <Compile Include="Support Classes\DrawHelpers.cs" />
     <Compile Include="Support Classes\IActive.cs" />
     <Compile Include="Support Classes\IAnimate.cs" />
     <Compile Include="Support Classes\IClickable.cs" />

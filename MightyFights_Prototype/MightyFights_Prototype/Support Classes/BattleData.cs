@@ -126,8 +126,8 @@ namespace MightyFights_Prototype
 		public void SetZone(ICombatant nCombatant)
 		{
 			// get the position of the trooper in the zones 
-			int iXPos = (int)nCombatant.tPos.X / (int)EZoneData.ZoneColWidth, 
-				iYPos = (int)nCombatant.tPos.Y / (int)EZoneData.ZoneRowHeight;
+			int iXPos = ((int)nCombatant.tPos.X - 112) / (int)EZoneData.ZoneColWidth, 
+				iYPos = ((int)nCombatant.tPos.Y - 84) / (int)EZoneData.ZoneRowHeight;
 
 			Zone cZone = nCombatant.cZone;
 

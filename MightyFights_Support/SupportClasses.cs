@@ -26,7 +26,9 @@ namespace MightyFights_Support
 		Vector2		_tCenter,
 					_tTopLeft, 
 					_tBottomRight,
-					_tFlipTopLeft;
+					_tFlipTopLeft,
+					_tCenterLeft,
+					_tCenterRight;
 		KeyFrame	_cKeyFrame;
 		bool		_bRot,
 					_bTrim;
@@ -36,12 +38,14 @@ namespace MightyFights_Support
 		public Vector2 tTopLeft		{ get { return _tTopLeft; } set { _tTopLeft = value; } } 
 		public Vector2 tFlipTopLeft { get { return _tFlipTopLeft; } set { _tFlipTopLeft = value; }}
 		public Vector2 tBottomRight	{ get { return _tBottomRight; } set { _tBottomRight = value; } } 
+		public Vector2 tCenterRight { get { return _tCenterRight; } set { _tCenterRight = value; }}
+		public Vector2 tCenterLeft { get { return _tCenterLeft; } set { _tCenterLeft = value; }}
 		public KeyFrame cKeyFrame	{ get { return _cKeyFrame; } set { _cKeyFrame = value; } }
 		public bool	bRot			{ get { return _bRot; } set { _bRot = value; } }
 		public bool bTrim			{ get { return _bTrim; } set { _bTrim = value; } }
 		
 		public Frame(){}
-		public Frame(Rectangle tRect, Vector2 tCenter, Vector2 tTopLeft, Vector2 tFlipTopLeft, Vector2 tBottomRight, KeyFrame cKeyFrame, bool bRot, bool bTrim)
+		public Frame(Rectangle tRect, Vector2 tCenter, Vector2 tTopLeft, Vector2 tFlipTopLeft, Vector2 tBottomRight, Vector2 tCenterLeft, Vector2 tCenterRight, KeyFrame cKeyFrame, bool bRot, bool bTrim)
 		{
 			_tCenter = tCenter;
 			_tRect = tRect;
@@ -51,9 +55,10 @@ namespace MightyFights_Support
 			_tBottomRight = tBottomRight;
 			_bTrim = bTrim;
 			_tFlipTopLeft = tFlipTopLeft;
+			_tCenterLeft = tCenterLeft;
+			_tCenterRight = tCenterRight;
 		}
 	}
-
 	public class ActionData 
 	{
 		int		_iMaxFrames,

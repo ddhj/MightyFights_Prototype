@@ -27,6 +27,9 @@ namespace MightyFights_Prototype
 
 		Dictionary<ETrooperAttackPos, ICombatant>	_caAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
+		//// ddhj: debug data
+		
+
 		public bool bActive				{ get; set; }
 		public bool bDir				{ get; set; }
 		public ICombatant nOpponent		{ get; set; }
@@ -110,6 +113,61 @@ namespace MightyFights_Prototype
 			// there may be other things to draw here like if we are in a dying state do we want to run a blink or not 
 
 			// or particle effect drawing calls
+
+			//// ddhj: debug draw data
+			// lets draw our attack positions
+			Vector2 tDir = _tPos;
+			Texture2D	cBorder = DataStore.cInstance.cBorder;
+			if((_byAttakPos & (byte)ETrooperAttackPos.LeftBottom) == (byte)ETrooperAttackPos.LeftBottom) { 
+				tDir.X -= 27;
+				tDir.Y += 20;
+				//cBatch.Draw(cBorder, new Rectangle((int)_tPos.X, (int)_tPos.Y, 1, 64), tColor);
+				//cBatch.Draw(cBorder, new Rectangle((int)_tPos.X + 100, (int)_tPos.Y, 1, 64), tColor);
+				//cBatch.Draw(cBorder, new Rectangle((int)_tPos.X, (int)_tPos.Y, 100, 1), tColor);
+				//cBatch.Draw(cBorder, new Rectangle((int)_tPos.X, (int)_tPos.Y + 64, 100, 1), tColor);
+				
+			}
+			if((_byAttakPos & (byte)ETrooperAttackPos.LeftMid) == (byte)ETrooperAttackPos.LeftMid) { 
+				tDir.X += 25;
+			}
+			if((_byAttakPos & (byte)ETrooperAttackPos.LeftTop) == (byte)ETrooperAttackPos.LeftTop) { 
+				tDir.X -= 27;
+				tDir.Y += 20;
+
+			}
+			if((_byAttakPos & (byte)ETrooperAttackPos.RightBottom) == (byte)ETrooperAttackPos.RightBottom) { 
+				tDir.X += 27;
+				tDir.Y += 20;
+
+			}
+			if((_byAttakPos & (byte)ETrooperAttackPos.RightMid) == (byte)ETrooperAttackPos.RightMid) { 
+				tDir.X += 25;
+
+			}
+			if((_byAttakPos & (byte)ETrooperAttackPos.RightTop) == (byte)ETrooperAttackPos.RightTop) { 
+				tDir.X += 27;
+				tDir.Y -= 20;
+
+			}
+
+			// lets draw our sprite rect
+			Vector2 tVect = _tPos;
+
+			if(cCurFrame.bRot) { 
+				//tVect.X += Math.Abs(tTopLeft.Y);
+				//tVect.Y += tTopLeft.X - cCurFrame.tRect.Width;
+				//cBatch.Draw(cBorder, new Rectangle((int)tVect.X, (int)tVect.Y, 1, cCurFrame.tRect.Width), tColor);
+				//cBatch.Draw(cBorder, new Rectangle((int)tVect.X + cCurFrame.tRect.Height, (int)tVect.Y, 1, cCurFrame.tRect.Width), tColor);
+				//cBatch.Draw(cBorder, new Rectangle((int)tVect.X, (int)tVect.Y, cCurFrame.tRect.Height, 1), tColor);
+				//cBatch.Draw(cBorder, new Rectangle((int)tVect.X, (int)tVect.Y + cCurFrame.tRect.Width, cCurFrame.tRect.Height, 1), tColor);
+			} else { 
+				//tVect.X += Math.Abs(tTopLeft.X);
+				//tVect.Y += Math.Abs(tTopLeft.Y);
+				//cBatch.Draw(cBorder, new Rectangle((int)tVect.X, (int)tVect.Y, 1, cCurFrame.tRect.Height), tColor);
+				//cBatch.Draw(cBorder, new Rectangle((int)tVect.X + cCurFrame.tRect.Width, (int)tVect.Y, 1, cCurFrame.tRect.Height), tColor);
+				//cBatch.Draw(cBorder, new Rectangle((int)tVect.X, (int)tVect.Y, cCurFrame.tRect.Width, 1), tColor);
+				//cBatch.Draw(cBorder, new Rectangle((int)tVect.X, (int)tVect.Y + cCurFrame.tRect.Height, cCurFrame.tRect.Width, 1), tColor);
+			}
 		}
 
 		#endregion
@@ -142,6 +200,11 @@ namespace MightyFights_Prototype
 			RequestAttackPoint(nCombatant, out ePos);
 			_caAttackers.Add(ePos, nCombatant);
 			_byAttakPos &= (byte)ePos;
+
+			// set left or right
+			if(tDir.X >= 0.0 + float.Epsilon)
+				++_iCurRightAttakers;
+			else ++_iCurLeftAttackers;
 		}
 
 		Vector2 RightAttackPos(Vector2 tDir, out ETrooperAttackPos ePos) 
