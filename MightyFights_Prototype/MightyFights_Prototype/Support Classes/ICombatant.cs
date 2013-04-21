@@ -11,16 +11,18 @@ namespace MightyFights_Prototype
 	{
 		AiBattleData cAiData	{ get; set; }
 		Vector2 tPos			{ get; set; }
+		Vector2 tCenter			{ get; set; }
 		ICombatant nOpponent	{ get; set; }
 		int iArmyIndex			{ get; set; }
 		int iOpponentIndex		{ get; set; }
+		int iWeaponRange		{ get; set; }
 		bool bAvailablePos		{ get; }
 		Zone cZone				{ get; set; }
 		Stats cStats			{ get; set; }
 
 		void DealDamage(int iDamage);
 		bool IsDead();
-		void SetAttacker(ICombatant nCombatant);
+		void SetAttacker(ICombatant nCombatant, out ETrooperAttackPos ePos);
 		void RemoveAttacker(ETrooperAttackPos ePos, float fXPos);
 		Vector2 RequestAttackPoint(ICombatant nCombatant, out ETrooperAttackPos ePos);
 

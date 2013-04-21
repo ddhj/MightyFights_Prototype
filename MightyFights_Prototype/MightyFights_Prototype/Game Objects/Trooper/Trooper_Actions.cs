@@ -121,7 +121,7 @@ namespace MightyFights_Prototype
 
 			// move the sprite by the speed of walk (this data should come from the template)
 			////ddhj Template add for speed of walk
-			_tPos += tDirVect * 1.5f;
+			this.tPos += tDirVect * 1.5f;
 			
 			if((tDest - _tPos).LengthSquared() < 2) { 
 				_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
@@ -154,7 +154,7 @@ namespace MightyFights_Prototype
 
 			// move the sprite by the speed of walk (this data should come from the template)
 			////ddhj Template add for speed of walk
-			_tPos += tDirVect * 2.5f;
+			this.tPos += tDirVect * 2.5f;
 			
 			if((tDest - _tPos).LengthSquared() < 2) { 
 				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", 3);
@@ -170,7 +170,7 @@ namespace MightyFights_Prototype
 
 		public bool ChargeOpponent(Action cAction)
 		{
-			Vector2		tDest = nOpponent.RequestAttackPoint(this, out _eAttackingPos),
+			Vector2		tDest,
 						tDirVect;
 			
 			// check to see if we need to make the direction vector or not
@@ -192,25 +192,33 @@ namespace MightyFights_Prototype
 				return false;
 			}
 
-			// something strange happened
-			if(tDest.X < 0 || tDest.Y < 0)
-				tDest.ToString();
+			// check to see if while running at the opponent he has filled up his attack quota
+			if(!nOpponent.bAvailablePos) { 
+				cAiData.eState = EBattleAiStates.Ready;
+				nOpponent = null;
+				cAction.bConditionNotMet = false;
+				return false;
+			}
 
-			tDirVect = tDest - _tPos;
+			tDest = nOpponent.RequestAttackPoint(this, out _eAttackingPos);
+			tDirVect = tDest - _tCenter;
 			bDir = tDirVect.X > 0 + float.Epsilon;
 			tDirVect.Normalize();
 
-			// move the sprite by the speed of walk (this data should come from the template)
+			// move the sprite by the speed of run (this data should come from the template)
 			////ddhj Template add for speed of run
-			_tPos += tDirVect * 2.5f;
+			this.tPos += tDirVect * 2.5f;
+			_tCenter += tDirVect * 2.5f;
 			
 			// we are within weapon range so switch our system to attack 
-			if((tDest - _tPos).LengthSquared() < 1000) { 
+			if((tDest - _tCenter).LengthSquared() < 5000) { 
 				// call the attack huristic because we are within attack range for our weapon 
 				//// ddhj this will need a tweek for weapon range 
 				cAiData.cHurisitics[EBattleHuristics.Attack](DataStore.cInstance.cBattleData);
 
 				cAction.bConditionNotMet = false;
+
+				nOpponent.SetAttacker(this, out _eAttackingPos);
 
 				return false;
 			}

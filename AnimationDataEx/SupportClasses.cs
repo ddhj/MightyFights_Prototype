@@ -238,13 +238,16 @@ namespace AnimationDataEx
 						cFrame.frame.x, cFrame.frame.y, cFrame.frame.h, cFrame.frame.w);
 					tTopLeft = new Vector2(cFrame.spriteSourceSize.y + cFrame.frame.h, -cFrame.spriteSourceSize.x);
 					tFlipTopLeft = new Vector2(cFrame.spriteSourceSize.y + cFrame.frame.h, -(100 - (cFrame.spriteSourceSize.x + cFrame.spriteSourceSize.w)));
-					tCenterLeft = new Vector2(Math.Abs(tTopLeft.Y), Math.Abs(tTopLeft.X + cRect.Width / 2)); 
+
+					tCenterLeft = new Vector2(Math.Abs(tTopLeft.Y), tTopLeft.X - cRect.Width); 
 					tCenterRight = new Vector2(Math.Abs(tTopLeft.Y + cRect.Height), Math.Abs(tTopLeft.X + cRect.Width / 2)); 
+					tCenter = new Vector2(Math.Abs(tTopLeft.Y + cRect.Height / 2), Math.Abs(tTopLeft.X + cRect.Width / 2)); 
 				} else { 
 					cRect = new Microsoft.Xna.Framework.Rectangle(
 						cFrame.frame.x, cFrame.frame.y, cFrame.frame.w, cFrame.frame.h);
 
-					tCenterLeft = new Vector2(Math.Abs(tTopLeft.X), Math.Abs(tTopLeft.Y + cRect.Height / 2)); 
+					tCenter = new Vector2(Math.Abs(tTopLeft.X + cRect.Width / 2), Math.Abs(tTopLeft.Y)); 
+					tCenterLeft = new Vector2(Math.Abs(tTopLeft.X), Math.Abs(tTopLeft.Y)); 
 					tCenterRight = new Vector2(Math.Abs(tTopLeft.X + cRect.Width), Math.Abs(tTopLeft.Y + cRect.Height / 2)); 
 				}
 
