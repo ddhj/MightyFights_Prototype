@@ -69,9 +69,9 @@ namespace MightyFights_Prototype
 			_cCursor.Update(cTime);
 
 			//// debug slow down the game
-			_tSlowMo += cTime.ElapsedGameTime;
-			if(_tSlowMo < TimeSpan.FromMilliseconds(50)) 
-				return;
+			//_tSlowMo += cTime.ElapsedGameTime;
+			//if(_tSlowMo < TimeSpan.FromMilliseconds(50)) 
+			//    return;
 			
 
 			// process the battle state
@@ -136,18 +136,18 @@ namespace MightyFights_Prototype
 
 				//// ddhj: debug draw
 				// lets draw the active zones 
-				Vector2	tZone;
-				foreach(Dictionary<IntPoint, Zone> cZoneList in _cBattleData.caActiveZones) { 
-					foreach(IntPoint cZonePos in cZoneList.Keys) { 
-						tZone.X = cZonePos.iX * (int)EZoneData.ZoneColWidth + 112;
-						tZone.Y = cZonePos.iY * (int)EZoneData.ZoneRowHeight + 84;
+				//Vector2	tZone;
+				//foreach(Dictionary<IntPoint, Zone> cZoneList in _cBattleData.caActiveZones) { 
+				//    foreach(IntPoint cZonePos in cZoneList.Keys) { 
+				//        tZone.X = cZonePos.iX * (int)EZoneData.ZoneColWidth + 112;
+				//        tZone.Y = cZonePos.iY * (int)EZoneData.ZoneRowHeight + 84;
 
-						_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
-						_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X + (int)EZoneData.ZoneColWidth, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
-						_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y, (int)EZoneData.ZoneColWidth, 1), Color.White);
-						_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y + (int)EZoneData.ZoneRowHeight, (int)EZoneData.ZoneColWidth, 1), Color.White);
-					}
-				}
+				//        _cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
+				//        _cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X + (int)EZoneData.ZoneColWidth, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
+				//        _cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y, (int)EZoneData.ZoneColWidth, 1), Color.White);
+				//        _cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y + (int)EZoneData.ZoneRowHeight, (int)EZoneData.ZoneColWidth, 1), Color.White);
+				//    }
+				//}
 			} _cSpriteBatch.End();
 		}
 
@@ -215,8 +215,8 @@ namespace MightyFights_Prototype
 
 			// this is for quick action
 			Random cRand = new Random();
-			_iX = 1;//cRand.Next(8) + 1;
-			_iY = 1;//cRand.Next(20) + 1;
+			_iX = cRand.Next(8) + 1;
+			_iY = cRand.Next(20) + 1;
 
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);

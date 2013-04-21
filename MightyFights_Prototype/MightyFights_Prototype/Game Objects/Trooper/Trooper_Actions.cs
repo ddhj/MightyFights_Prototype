@@ -91,9 +91,11 @@ namespace MightyFights_Prototype
 				break;
 
 				case EBattlegroundState.Victory: 
-					_cActionMgr.cActionQueue.Clear();
-					_cAnimProc.SetAnimationCriteria("Idle", "Victory", "victory", -1);
-					cAction.bConditionNotMet = false;
+					if(cAiData.eState != EBattleAiStates.Dying) { 
+						_cActionMgr.cActionQueue.Clear();
+						_cAnimProc.SetAnimationCriteria("Idle", "Victory", "victory", -1);
+						cAction.bConditionNotMet = false;
+					}
 				break;
 			}
 
