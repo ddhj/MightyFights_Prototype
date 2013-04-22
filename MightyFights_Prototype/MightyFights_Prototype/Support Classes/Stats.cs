@@ -7,7 +7,7 @@ namespace MightyFights_Prototype
 {
 	public class Stats
 	{
-		int			_iHp = 50, 
+		int			_iHp = 500, 
 					_iAc = 10, 
 					_iPower = 5;
 

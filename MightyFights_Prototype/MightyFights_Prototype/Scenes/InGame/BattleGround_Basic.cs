@@ -182,8 +182,8 @@ namespace MightyFights_Prototype
 			Trooper				cTrooper;
 			Random				cRand = new Random();
 
-			for(int i = 0; i < _iX; ++i)
-				for(int j = 0; j < _iY; ++j) { 
+			for(int i = 0; i < 1; ++i)
+				for(int j = 0; j < 1; ++j) { 
 					iIndex = i*_iY+j;
 					cTrooper = (Trooper)naTmpList[iIndex];
 
@@ -197,8 +197,8 @@ namespace MightyFights_Prototype
 
 			iCount = 0;
 			naTmpList = _cBattleData.naOpponentsRef;
-			for(int i = 0; i < _iX; ++i)
-				for(int j = 0; j < _iY; ++j) { 
+			for(int i = 0; i < 1; ++i)
+				for(int j = 0; j < 1; ++j) { 
 					cTrooper = (Trooper)naTmpList[i*_iY+j];
 
 					// set an initial script for the trooper
@@ -242,8 +242,8 @@ namespace MightyFights_Prototype
 				DataStore.cInstance.cBattleData = _cBattleData;
 				
 				// make a block of troopers
-				for(int i = 0; i < _iX; ++i)
-					for(int j = 0; j < _iY; ++j) { 
+				for(int i = 0; i < 1; ++i)
+					for(int j = 0; j < 1; ++j) { 
 						// create a template config for the sprite
 						//// ddhj: this is temp before the template code is written
 						cTemplate = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", sTex1);
@@ -264,8 +264,8 @@ namespace MightyFights_Prototype
 					}
 
 				// make a block of opponents
-				for(int i = 0; i < _iX; ++i)
-					for(int j = 0; j < _iY; ++j) { 
+				for(int i = 0; i < 1; ++i)
+					for(int j = 0; j < 1; ++j) { 
 						// this is the same as above, templates will replace this
 						cTemplate = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", sTex2);
 						cTemplate.cStats = new Stats();

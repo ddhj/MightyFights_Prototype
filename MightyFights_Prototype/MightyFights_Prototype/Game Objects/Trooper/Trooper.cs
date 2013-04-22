@@ -232,7 +232,7 @@ namespace MightyFights_Prototype
 				// if its zero its always the midpoint
 				case 0:
 					tDir = _tCenter;
-					tDir.X += cFrame.tRect.Width / 2 + iWeaponRange;
+					tDir.X += 10 + iWeaponRange;
 					ePos = ETrooperAttackPos.RightMid;
 					return tDir;
 						
@@ -244,21 +244,21 @@ namespace MightyFights_Prototype
 						// check to see if the right bottom is taken 
 						if((_byAttakPos & (int)ETrooperAttackPos.RightBottom) != (int)ETrooperAttackPos.RightBottom) {
 							tDir = _tCenter;
-							tDir.X += cFrame.tRect.Width / 2 + iWeaponRange;
-							tDir.Y += 20;
+							tDir.X += ( 10 + iWeaponRange / 2 );
+							tDir.Y += ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.RightBottom;
 							return tDir;
 						// send out right bottom
 						} else if((_byAttakPos & (int)ETrooperAttackPos.RightTop) != (int)ETrooperAttackPos.RightTop) { 
 							// set the point to be right top
 							tDir = _tCenter;
-							tDir.X += cFrame.tRect.Width / 2 + iWeaponRange;
-							tDir.Y -= 20;
+							tDir.X += ( 10 + iWeaponRange / 2 );
+							tDir.Y -= ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.RightTop;
 							return tDir;
 						} else { 
 							tDir = _tCenter;
-							tDir.X += cFrame.tRect.Width / 2 + iWeaponRange;
+							tDir.X += 10 + iWeaponRange;
 							ePos = ETrooperAttackPos.RightMid;
 							return tDir;
 						}
@@ -267,19 +267,19 @@ namespace MightyFights_Prototype
 						if((_byAttakPos & (int)ETrooperAttackPos.RightTop) != (int)ETrooperAttackPos.RightTop) { 
 							// set the point to be right top
 							tDir = _tCenter;
-							tDir.X += cFrame.tRect.Width / 2 + iWeaponRange;
+							tDir.X += 5 + iWeaponRange;
 							tDir.Y -= 20;
 							ePos = ETrooperAttackPos.RightTop;
 							return tDir;
 						} else if((_byAttakPos & (int)ETrooperAttackPos.RightBottom) != (int)ETrooperAttackPos.RightBottom) { 
 							tDir = _tCenter;
-							tDir.X += cFrame.tRect.Width / 2 + iWeaponRange;
-							tDir.Y += 20;
+							tDir.X += ( 10 + iWeaponRange / 2 );
+							tDir.Y += ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.RightBottom;
 							return tDir;
 						} else { 
 							tDir = _tCenter;
-							tDir.X += cFrame.tRect.Width / 2 + iWeaponRange;
+							tDir.X += 10 + iWeaponRange;
 							ePos = ETrooperAttackPos.RightMid;
 							return tDir;
 						}
@@ -293,7 +293,7 @@ namespace MightyFights_Prototype
 				// if its zero its always the midpoint
 				case 0:
 					tDir = _tCenter;
-					tDir.X -= cFrame.tRect.Width / 2 + iWeaponRange;
+					tDir.X -= 10 + iWeaponRange;
 					ePos = ETrooperAttackPos.LeftMid;
 					return tDir;
 						
@@ -305,21 +305,21 @@ namespace MightyFights_Prototype
 						// check to see if the right bottom is taken 
 						if((_byAttakPos & (int)ETrooperAttackPos.LeftBottom) != (int)ETrooperAttackPos.LeftBottom) {
 							tDir = _tCenter;
-							tDir.X -= cFrame.tRect.Width / 2 + iWeaponRange;
-							tDir.Y += 20;
+							tDir.X -= ( 10 + iWeaponRange / 2 );
+							tDir.Y += ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.LeftBottom;
 							return tDir;
 						// send out left bottom
 						} else if((_byAttakPos & (int)ETrooperAttackPos.LeftTop) != (int)ETrooperAttackPos.LeftTop) { 
 							// set the point to be left top
 							tDir = _tCenter;
-							tDir.X -= cFrame.tRect.Width / 2 + iWeaponRange;
-							tDir.Y -= 20;
+							tDir.X -= ( 10 + iWeaponRange / 2 );
+							tDir.Y -= ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.LeftTop;
 							return tDir;
 						} else { 
 							tDir = _tCenter;
-							tDir.X -= cFrame.tRect.Width / 2 + iWeaponRange;
+							tDir.X -= 10 + iWeaponRange;
 							ePos = ETrooperAttackPos.LeftMid;
 							return tDir;
 						}
@@ -328,20 +328,20 @@ namespace MightyFights_Prototype
 						if((_byAttakPos & (int)ETrooperAttackPos.LeftTop) != (int)ETrooperAttackPos.LeftTop) { 
 							// set the point to be right top
 							tDir = _tCenter;
-							tDir.X -= cFrame.tRect.Width / 2 + iWeaponRange;
-							tDir.Y -= 20;
+							tDir.X -= ( 10 + iWeaponRange / 2 );
+							tDir.Y -= ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.LeftTop;
 							return tDir;
 						} else if((_byAttakPos & (int)ETrooperAttackPos.LeftBottom) != (int)ETrooperAttackPos.LeftBottom) { 
 							// send out the bottom left 
 							tDir = _tCenter;
-							tDir.X -= cFrame.tRect.Width / 2 + iWeaponRange;
-							tDir.Y += 20;
+							tDir.X -= ( 10 + iWeaponRange / 2 );
+							tDir.Y += ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.LeftBottom;
 							return tDir;
 						} else { 
 							tDir = _tCenter;
-							tDir.X -= cFrame.tRect.Width / 2 + iWeaponRange;
+							tDir.X -= 10 + iWeaponRange;
 							ePos = ETrooperAttackPos.LeftMid;
 							return tDir;
 						}

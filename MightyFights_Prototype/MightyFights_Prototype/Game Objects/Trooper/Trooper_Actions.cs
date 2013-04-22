@@ -209,10 +209,10 @@ namespace MightyFights_Prototype
 			// move the sprite by the speed of run (this data should come from the template)
 			////ddhj Template add for speed of run
 			this.tPos += tDirVect * 2.5f;
-			_tCenter += tDirVect * 2.5f;
+		//	_tCenter += tDirVect * 2.5f;
 			
 			// we are within weapon range so switch our system to attack 
-			if((tDest - _tCenter).LengthSquared() < 2500) { 
+			if(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRange * this.iWeaponRange )) { 
 				// call the attack huristic because we are within attack range for our weapon 
 				//// ddhj this will need a tweek for weapon range 
 				cAiData.cHurisitics[EBattleHuristics.Attack](DataStore.cInstance.cBattleData);
