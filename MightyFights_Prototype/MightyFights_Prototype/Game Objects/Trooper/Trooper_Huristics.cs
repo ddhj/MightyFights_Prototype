@@ -23,6 +23,7 @@ namespace MightyFights_Prototype
 			if(nOpponent.IsDead()) { 
 				// null out my opponent because they are dying 
 				nOpponent = null;
+				_bAttacking = false;
 
 				// move our state to ready which will choose another opponent
 				cAiData.eState = EBattleAiStates.Ready;
@@ -153,16 +154,13 @@ namespace MightyFights_Prototype
 					}
 				}
 
-				// call the attack huristic because we already know we want to fight
-				cAiData.cHurisitics[EBattleHuristics.Attack](cData);
-				return null;
-			}
-		
-			// we dont have any attakers so lets check our current zone for an opponent
-			if(this.cZone.naCombatantLists[iOpponentIdx].Count > 0) { 
+				//// call the attack huristic because we already know we want to fight
+				//cAiData.cHurisitics[EBattleHuristics.Attack](cData);
+
+				//return null;
+			// we dont have any attakers so lets check our current zone for an opponent			
+			} else if(this.cZone.naCombatantLists[iOpponentIdx].Count > 0) 
 				nOpponent = ChooseZoneCombatantRand(this.cZone.naCombatantLists[iOpponentIdx]);
-			// there are no dudes in our area so we are going to check surrounding areas 
-			} 
 			
 			// there was either no dudes in my zone or they do not have available attack points
 			if(nOpponent == null) { 
@@ -205,9 +203,11 @@ namespace MightyFights_Prototype
 				}
 			}
 
-			// if we have an opponent at this point we need to charge them
-			cActionManager.AddAction(new Action(ChargeOpponent, null, null));
-			cAiData.eState = EBattleAiStates.Pursuit;
+			if(nOpponent != null) { 
+				// if we have an opponent at this point we need to charge them
+				cActionManager.AddAction(new Action(ChargeOpponent, null, null));
+				cAiData.eState = EBattleAiStates.Pursuit;
+			}
 
 			return null;
 		}

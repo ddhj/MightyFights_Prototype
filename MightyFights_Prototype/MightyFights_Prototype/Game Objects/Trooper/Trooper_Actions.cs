@@ -18,7 +18,8 @@ namespace MightyFights_Prototype
 
 				// remove ourselves from our opponents attaking point
 				if(nOpponent != null)
-					nOpponent.RemoveAttacker(_eAttackingPos, (_tPos - nOpponent.tPos).X);
+					if(_bAttacking)
+						nOpponent.RemoveAttacker(_eAttackingPos);
 
 				// remove the dying trooper from the zone they are in 
 				DataStore.cInstance.cBattleData.RemoveDeadCombatant(this);
@@ -211,15 +212,15 @@ namespace MightyFights_Prototype
 			_tCenter += tDirVect * 2.5f;
 			
 			// we are within weapon range so switch our system to attack 
-			if((tDest - _tCenter).LengthSquared() < 5000) { 
+			if((tDest - _tCenter).LengthSquared() < 2500) { 
 				// call the attack huristic because we are within attack range for our weapon 
 				//// ddhj this will need a tweek for weapon range 
 				cAiData.cHurisitics[EBattleHuristics.Attack](DataStore.cInstance.cBattleData);
 
-				cAction.bConditionNotMet = false;
-
 				nOpponent.SetAttacker(this, out _eAttackingPos);
+				_bAttacking = true;
 
+				cAction.bConditionNotMet = false;
 				return false;
 			}
 
