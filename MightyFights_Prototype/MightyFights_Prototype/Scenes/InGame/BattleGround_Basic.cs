@@ -183,7 +183,7 @@ namespace MightyFights_Prototype
 			Random				cRand = new Random();
 
 			for(int i = 0; i < 1; ++i)
-				for(int j = 0; j < 1; ++j) { 
+				for(int j = 0; j < 7; ++j) { 
 					iIndex = i*_iY+j;
 					cTrooper = (Trooper)naTmpList[iIndex];
 
@@ -243,7 +243,7 @@ namespace MightyFights_Prototype
 				
 				// make a block of troopers
 				for(int i = 0; i < 1; ++i)
-					for(int j = 0; j < 1; ++j) { 
+					for(int j = 0; j < 7; ++j) { 
 						// create a template config for the sprite
 						//// ddhj: this is temp before the template code is written
 						cTemplate = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", sTex1);

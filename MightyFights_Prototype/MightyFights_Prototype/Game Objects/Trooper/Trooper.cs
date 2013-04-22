@@ -352,7 +352,7 @@ namespace MightyFights_Prototype
 		public Vector2 RequestAttackPoint(ICombatant nCombatant, out ETrooperAttackPos ePos)
 		{
 			// determine up down left an right from combatant
-			Vector2		tDir = _tCenter - nCombatant.tCenter;
+			Vector2		tDir = nCombatant.tCenter - _tCenter;
 			
 			// check left or right 
 			if(tDir.X >= 0.0 + float.Epsilon) { 
