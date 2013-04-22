@@ -43,7 +43,7 @@ namespace MightyFights_Prototype
 		public Stats cStats				{ get { return _cStats; } set { _cStats = value; }}
 		public bool bAvailablePos		{ get { return _iCurLeftAttackers + _iCurRightAttakers < _iAvailablePositions; }} 
 		public Vector2 tAttackPos		{ get; set; }
-		public Vector2 tCenter		{ get { return _tCenter; } set { _tCenter = value; }}
+		public Vector2 tCenter			{ get { return _tCenter; } set { _tCenter = value; }}
 		public Dictionary<ETrooperAttackPos, ICombatant> caAttackers	{ get { return _caAttackers; }}
 		
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}

@@ -112,19 +112,18 @@ namespace MightyFights_Prototype
 
 		ICombatant ChooseZoneCombatantRand(List<ICombatant> naCombatants)
 		{
-			Random cRand = new Random();
-			ICombatant nCombatant = naCombatants[cRand.Next(naCombatants.Count)];
-			List<ICombatant> naTmpList = new List<ICombatant>();
-
-			// copy list for removal 
-			foreach(ICombatant nTmp in naCombatants)
-				naTmpList.Add(nTmp);
+			int			iIndex;
+			Random		cRand = new Random();
+			ICombatant	nCombatant;
+								// copy list for removal
+			List<ICombatant>	naTmpList = new List<ICombatant>( naCombatants );
 
 			// while there are opponents in the list
 			while(naTmpList.Count > 0) { 
 				// remove testing combatant
-				nCombatant = naTmpList[cRand.Next(naTmpList.Count)];
-				naTmpList.Remove(nCombatant);
+				iIndex = cRand.Next(naTmpList.Count);
+				nCombatant = naTmpList[iIndex];
+				naTmpList.RemoveAt( iIndex );
 
 				// check to see if there are any positions available
 				if(nCombatant.bAvailablePos)
@@ -169,8 +168,8 @@ namespace MightyFights_Prototype
 				Vector2 tZone = new Vector2(cZone.iX, cZone.iY),
 						tNewZone;
 
-				Dictionary<IntPoint, Zone> caActiveZones = cData.caActiveZones[iOpponentIndex];
-				SortedList<int, List<Zone>> cClosestZones = new SortedList<int,List<Zone>>();
+				Dictionary<IntPoint, Zone>	caActiveZones = cData.caActiveZones[iOpponentIndex];
+				SortedList<int, List<Zone>>	cClosestZones = new SortedList<int,List<Zone>>();
 				List<Zone>	cZoneList = null;
 
 				// walk through the active zones 

@@ -34,6 +34,7 @@ namespace MightyFights_Prototype
 						_iY;
 		SpriteFont		_cFont;
 		Texture2D		_cBorder;
+		bool			_bUpdate = true;
 
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
 	
@@ -68,44 +69,55 @@ namespace MightyFights_Prototype
 			// process the cursor
 			_cCursor.Update(cTime);
 
+			//// CBD, just a way to pause the screen for the moment
+			{
+				MouseState	cState = Mouse.GetState();
+				if( cState.LeftButton == ButtonState.Pressed )
+					_bUpdate = false;
+				else	_bUpdate = true;
+			}
+
 			//// debug slow down the game
 			//_tSlowMo += cTime.ElapsedGameTime;
 			//if(_tSlowMo < TimeSpan.FromMilliseconds(50)) 
 			//    return;
 			
 
-			// process the battle state
-			switch(_cBattleData.eState) { 
-				case EBattlegroundState.Init:
-					if(!WaitForBattleStart()) 
-						_cBattleData.eState = EBattlegroundState.Battle;				
-				break;
+			if( _bUpdate )
+			{
+				// process the battle state
+				switch(_cBattleData.eState) { 
+					case EBattlegroundState.Init:
+						if(!WaitForBattleStart()) 
+							_cBattleData.eState = EBattlegroundState.Battle;				
+					break;
 
-				case EBattlegroundState.Battle:
-					// check to see if the battle is over 
-					foreach(List<ICombatant> naRefList in _cBattleData.naMasterLists)
-						if(naRefList.Count == 0) { 
-							_cBattleData.eState = EBattlegroundState.Victory;
-							break;
+					case EBattlegroundState.Battle:
+						// check to see if the battle is over 
+						foreach(List<ICombatant> naRefList in _cBattleData.naMasterLists)
+							if(naRefList.Count == 0) { 
+								_cBattleData.eState = EBattlegroundState.Victory;
+								break;
+							}
+					break;
+
+					case EBattlegroundState.Victory: 
+						// left click is restart battle
+						if(Mouse.GetState().LeftButton == ButtonState.Pressed)
+							ResetBattle();
+						else if(Mouse.GetState().RightButton == ButtonState.Pressed)
+							BackToMenu();
+
+						_tVictoryElapsed += cTime.ElapsedGameTime;
+						if(_tVictoryElapsed > TimeSpan.FromMilliseconds(2000)) { 
+							ResetBattle();
 						}
-				break;
+					break;
+				}
 
-				case EBattlegroundState.Victory: 
-					// left click is restart battle
-					if(Mouse.GetState().LeftButton == ButtonState.Pressed)
-						ResetBattle();
-					else if(Mouse.GetState().RightButton == ButtonState.Pressed)
-						BackToMenu();
-
-					_tVictoryElapsed += cTime.ElapsedGameTime;
-					if(_tVictoryElapsed > TimeSpan.FromMilliseconds(2000)) { 
-						ResetBattle();
-					}
-				break;
+				// process the battle actions
+				ProcessBattle(cTime);
 			}
-
-			// process the battle actions
-			ProcessBattle(cTime);
 
 			// this is for the debug 
 			_cTime += cTime.ElapsedGameTime;
@@ -215,8 +227,8 @@ namespace MightyFights_Prototype
 
 			// this is for quick action
 			Random cRand = new Random();
-			_iX = cRand.Next(8) + 1;
-			_iY = cRand.Next(20) + 1;
+			_iX = cRand.Next(7) + 2;
+			_iY = cRand.Next(13) + 8;
 
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
@@ -229,7 +241,7 @@ namespace MightyFights_Prototype
 				// set the battle data to the datastore for reference 
 				DataStore.cInstance.cBattleData = _cBattleData;
 				
-				// make a temp 160 block of troopers
+				// make a block of troopers
 				for(int i = 0; i < _iX; ++i)
 					for(int j = 0; j < _iY; ++j) { 
 						// create a template config for the sprite
@@ -251,7 +263,7 @@ namespace MightyFights_Prototype
 						_cBattleData.naArmyRef.Add(cP1);
 					}
 
-				// make a temp 160 block of opponents
+				// make a block of opponents
 				for(int i = 0; i < _iX; ++i)
 					for(int j = 0; j < _iY; ++j) { 
 						// this is the same as above, templates will replace this
