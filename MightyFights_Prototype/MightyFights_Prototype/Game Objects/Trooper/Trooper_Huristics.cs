@@ -36,7 +36,7 @@ namespace MightyFights_Prototype
 				cAiData.eState = EBattleAiStates.Pursuit;
 				_cActionMgr.cActionQueue.Clear();
 				_cActionMgr.cActionQueue.Add(new Action(PersueOpponent, null, null));
-
+				_bAttacking = false;
 				return null;
 			}
 
@@ -90,7 +90,7 @@ namespace MightyFights_Prototype
 				_cActionMgr.cActionQueue.Clear();
 
 				// add the flee to point action 
-				_cActionMgr.cActionQueue.Add(new Action(FleeToPoint, new Vector2(112 + cRand.Next(750), 84 + cRand.Next(500)), null));
+				_cActionMgr.cActionQueue.Add(new Action(FleeToPoint, new Vector2(112 + cRand.Next(699), 84 + cRand.Next(500)), null));
 				cAiData.eState = EBattleAiStates.Flee;
 			}
 

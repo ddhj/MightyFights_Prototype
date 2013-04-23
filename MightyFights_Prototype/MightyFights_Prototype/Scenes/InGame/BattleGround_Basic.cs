@@ -229,10 +229,10 @@ namespace MightyFights_Prototype
 
 			// this is for quick action
 			Random cRand = new Random();
-			_iAX = 1;//cRand.Next(7) + 2;
-			_iAY = 3;//cRand.Next(13) + 8;
-			_iOX = 1;//cRand.Next(7) + 2;
-			_iOY = 8;//cRand.Next(13) + 8;
+			_iAX = cRand.Next(7) + 2;
+			_iAY = cRand.Next(13) + 8;
+			_iOX = cRand.Next(7) + 2;
+			_iOY = cRand.Next(13) + 8;
 
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);

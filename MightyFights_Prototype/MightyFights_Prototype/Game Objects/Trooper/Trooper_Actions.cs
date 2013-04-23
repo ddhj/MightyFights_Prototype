@@ -209,6 +209,7 @@ namespace MightyFights_Prototype
 			if(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRange * this.iWeaponRange )) { 
 				// call the attack huristic because we are within attack range for our weapon 
 				//// ddhj this will need a tweek for weapon range 
+				_bAttacking = true;
 				cAiData.cHurisitics[EBattleHuristics.Attack](DataStore.cInstance.cBattleData);
 
 				cAction.bConditionNotMet = false;
