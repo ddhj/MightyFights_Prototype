@@ -25,6 +25,7 @@ namespace MightyFights_Prototype
 		void SetAttacker(ICombatant nCombatant, out ETrooperAttackPos ePos);
 		void RemoveAttacker(ETrooperAttackPos ePos);
 		Vector2 RequestAttackPoint(ICombatant nCombatant, out ETrooperAttackPos ePos);
+		Vector2 RequestPersuitPoint(ETrooperAttackPos ePos);
 
 		// possible a list of attackers and their positions for the persuit method 
 		// in order to choose where to run 

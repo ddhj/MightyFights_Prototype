@@ -30,8 +30,10 @@ namespace MightyFights_Prototype
 		TimeSpan		_cTime = TimeSpan.Zero;
 		int				_iFrameRate = 0,
 						_iFrameCtr = 0,
-						_iX, 
-						_iY;
+						_iAX, 
+						_iAY,
+						_iOX, 
+						_iOY;
 		SpriteFont		_cFont;
 		Texture2D		_cBorder;
 		bool			_bUpdate = true;
@@ -182,9 +184,9 @@ namespace MightyFights_Prototype
 			Trooper				cTrooper;
 			Random				cRand = new Random();
 
-			for(int i = 0; i < 1; ++i)
-				for(int j = 0; j < 7; ++j) { 
-					iIndex = i*_iY+j;
+			for(int i = 0; i < _iAX; ++i)
+				for(int j = 0; j < _iAY; ++j) { 
+					iIndex = i*_iAY+j;
 					cTrooper = (Trooper)naTmpList[iIndex];
 
 					// set an initial script for the trooper
@@ -197,9 +199,9 @@ namespace MightyFights_Prototype
 
 			iCount = 0;
 			naTmpList = _cBattleData.naOpponentsRef;
-			for(int i = 0; i < 1; ++i)
-				for(int j = 0; j < 1; ++j) { 
-					cTrooper = (Trooper)naTmpList[i*_iY+j];
+			for(int i = 0; i < _iOX; ++i)
+				for(int j = 0; j < _iOY; ++j) { 
+					cTrooper = (Trooper)naTmpList[i*_iOY+j];
 
 					// set an initial script for the trooper
 					cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
@@ -227,8 +229,10 @@ namespace MightyFights_Prototype
 
 			// this is for quick action
 			Random cRand = new Random();
-			_iX = cRand.Next(7) + 2;
-			_iY = cRand.Next(13) + 8;
+			_iAX = cRand.Next(7) + 2;
+			_iAY = cRand.Next(13) + 8;
+			_iOX = cRand.Next(7) + 2;
+			_iOY = cRand.Next(13) + 8;
 
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
@@ -242,8 +246,8 @@ namespace MightyFights_Prototype
 				DataStore.cInstance.cBattleData = _cBattleData;
 				
 				// make a block of troopers
-				for(int i = 0; i < 1; ++i)
-					for(int j = 0; j < 7; ++j) { 
+				for(int i = 0; i < _iAX; ++i)
+					for(int j = 0; j < _iAY; ++j) { 
 						// create a template config for the sprite
 						//// ddhj: this is temp before the template code is written
 						cTemplate = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", sTex1);
@@ -264,8 +268,8 @@ namespace MightyFights_Prototype
 					}
 
 				// make a block of opponents
-				for(int i = 0; i < 1; ++i)
-					for(int j = 0; j < 1; ++j) { 
+				for(int i = 0; i < _iOX; ++i)
+					for(int j = 0; j < _iOY; ++j) { 
 						// this is the same as above, templates will replace this
 						cTemplate = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", sTex2);
 						cTemplate.cStats = new Stats();

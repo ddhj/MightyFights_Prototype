@@ -15,6 +15,14 @@ namespace MightyFights_Prototype
 		public int iAc		{ get { return _iAc; } set { _iAc = value; }}
 		public int iPower	{ get { return _iPower; } set { _iPower = value; }}
 
+		public Stats()
+		{
+			Random cRand = new Random();
+
+			_iHp = cRand.Next(400, 700);
+			_iPower = cRand.Next(3, 15);
+		}
+
 		// maybe more?
 	}
 }

@@ -51,7 +51,8 @@ namespace MightyFights_Prototype
 		Pursuit,
 		Panting,
 		Defending,
-		Ready
+		Ready,
+		Flee
 	}
 
 	public enum EBattleHuristics

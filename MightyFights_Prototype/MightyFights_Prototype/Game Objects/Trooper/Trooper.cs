@@ -73,7 +73,7 @@ namespace MightyFights_Prototype
 			cAiData.cHurisitics[EBattleHuristics.Persue] = Persue;
 	
 			// this is going to come from somewhere
-			this.iWeaponRange = 25;
+			this.iWeaponRange = 10;
 		}
 
 		#region IDrawable Members
@@ -226,15 +226,44 @@ namespace MightyFights_Prototype
 			}
 		}
 
+		Vector2 GetVectByPos(ETrooperAttackPos ePos)
+		{
+			Vector2 tDir = _tCenter;
+			switch(ePos) { 
+				case ETrooperAttackPos.LeftBottom:
+					tDir.X -= ( 10 + iWeaponRange / 2 );
+					tDir.Y += ( 10 + iWeaponRange / 2 );
+				break;
+				case ETrooperAttackPos.LeftMid:
+					tDir.X -= 10 + iWeaponRange;
+				break;
+				case ETrooperAttackPos.LeftTop:
+					tDir.X -= ( 10 + iWeaponRange / 2 );
+					tDir.Y -= ( 10 + iWeaponRange / 2 );
+				break;
+				case ETrooperAttackPos.RightBottom:
+					tDir.X += ( 10 + iWeaponRange / 2 );
+					tDir.Y += ( 10 + iWeaponRange / 2 );
+				break;
+				case ETrooperAttackPos.RightMid:
+					tDir.X += 10 + iWeaponRange;
+				break;
+				case ETrooperAttackPos.RightTop:
+					tDir.X += ( 10 + iWeaponRange / 2 );
+					tDir.Y -= ( 10 + iWeaponRange / 2 );
+				break;
+			}
+
+			return tDir;
+		}
+
 		Vector2 RightAttackPos(Vector2 tDir, out ETrooperAttackPos ePos, int iWeaponRange) 
 		{
 			switch(_iCurRightAttakers) { 
 				// if its zero its always the midpoint
 				case 0:
-					tDir = _tCenter;
-					tDir.X += 10 + iWeaponRange;
 					ePos = ETrooperAttackPos.RightMid;
-					return tDir;
+					return GetVectByPos(ePos);
 						
 				// it cant be more than 1 (for now there may be more but that will be on a different type of class and not a trooper 
 					// probably)
@@ -243,45 +272,27 @@ namespace MightyFights_Prototype
 					if(tDir.Y >= 0.0 + float.Epsilon) { 
 						// check to see if the right bottom is taken 
 						if((_byAttakPos & (int)ETrooperAttackPos.RightBottom) != (int)ETrooperAttackPos.RightBottom) {
-							tDir = _tCenter;
-							tDir.X += ( 10 + iWeaponRange / 2 );
-							tDir.Y += ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.RightBottom;
-							return tDir;
+							return GetVectByPos(ePos);
 						// send out right bottom
 						} else if((_byAttakPos & (int)ETrooperAttackPos.RightTop) != (int)ETrooperAttackPos.RightTop) { 
-							// set the point to be right top
-							tDir = _tCenter;
-							tDir.X += ( 10 + iWeaponRange / 2 );
-							tDir.Y -= ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.RightTop;
-							return tDir;
+							return GetVectByPos(ePos);
 						} else { 
-							tDir = _tCenter;
-							tDir.X += 10 + iWeaponRange;
 							ePos = ETrooperAttackPos.RightMid;
-							return tDir;
+							return GetVectByPos(ePos);
 						}
 					} else { 
 						// the opponent is above us, check to see if our right top is taken
 						if((_byAttakPos & (int)ETrooperAttackPos.RightTop) != (int)ETrooperAttackPos.RightTop) { 
-							// set the point to be right top
-							tDir = _tCenter;
-							tDir.X += 5 + iWeaponRange;
-							tDir.Y -= 20;
 							ePos = ETrooperAttackPos.RightTop;
-							return tDir;
+							return GetVectByPos(ePos);
 						} else if((_byAttakPos & (int)ETrooperAttackPos.RightBottom) != (int)ETrooperAttackPos.RightBottom) { 
-							tDir = _tCenter;
-							tDir.X += ( 10 + iWeaponRange / 2 );
-							tDir.Y += ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.RightBottom;
-							return tDir;
+							return GetVectByPos(ePos);
 						} else { 
-							tDir = _tCenter;
-							tDir.X += 10 + iWeaponRange;
 							ePos = ETrooperAttackPos.RightMid;
-							return tDir;
+							return GetVectByPos(ePos);
 						}
 					}
 			}
@@ -292,10 +303,8 @@ namespace MightyFights_Prototype
 			switch(_iCurLeftAttackers) { 
 				// if its zero its always the midpoint
 				case 0:
-					tDir = _tCenter;
-					tDir.X -= 10 + iWeaponRange;
 					ePos = ETrooperAttackPos.LeftMid;
-					return tDir;
+					return GetVectByPos(ePos);
 						
 				// it cant be more than 1 (for now there may be more but that will be on a different type of class and not a trooper 
 					// probably)
@@ -304,46 +313,27 @@ namespace MightyFights_Prototype
 					if(tDir.Y >= 0.0 + float.Epsilon) { 
 						// check to see if the right bottom is taken 
 						if((_byAttakPos & (int)ETrooperAttackPos.LeftBottom) != (int)ETrooperAttackPos.LeftBottom) {
-							tDir = _tCenter;
-							tDir.X -= ( 10 + iWeaponRange / 2 );
-							tDir.Y += ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.LeftBottom;
-							return tDir;
+							return GetVectByPos(ePos);
 						// send out left bottom
 						} else if((_byAttakPos & (int)ETrooperAttackPos.LeftTop) != (int)ETrooperAttackPos.LeftTop) { 
-							// set the point to be left top
-							tDir = _tCenter;
-							tDir.X -= ( 10 + iWeaponRange / 2 );
-							tDir.Y -= ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.LeftTop;
-							return tDir;
+							return GetVectByPos(ePos);
 						} else { 
-							tDir = _tCenter;
-							tDir.X -= 10 + iWeaponRange;
 							ePos = ETrooperAttackPos.LeftMid;
-							return tDir;
+							return GetVectByPos(ePos);
 						}
 					} else { 
 						// the opponent is above us, check to see if our left top is taken
 						if((_byAttakPos & (int)ETrooperAttackPos.LeftTop) != (int)ETrooperAttackPos.LeftTop) { 
-							// set the point to be right top
-							tDir = _tCenter;
-							tDir.X -= ( 10 + iWeaponRange / 2 );
-							tDir.Y -= ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.LeftTop;
-							return tDir;
+							return GetVectByPos(ePos);
 						} else if((_byAttakPos & (int)ETrooperAttackPos.LeftBottom) != (int)ETrooperAttackPos.LeftBottom) { 
-							// send out the bottom left 
-							tDir = _tCenter;
-							tDir.X -= ( 10 + iWeaponRange / 2 );
-							tDir.Y += ( 20 + iWeaponRange / 2 );
 							ePos = ETrooperAttackPos.LeftBottom;
-							return tDir;
+							return GetVectByPos(ePos);
 						} else { 
-							tDir = _tCenter;
-							tDir.X -= 10 + iWeaponRange;
 							ePos = ETrooperAttackPos.LeftMid;
-							return tDir;
+							return GetVectByPos(ePos);
 						}
 					}
 			}
@@ -366,6 +356,11 @@ namespace MightyFights_Prototype
 					return LeftAttackPos(tDir, out ePos, nCombatant.iWeaponRange);
 				} else return RightAttackPos(tDir, out ePos, nCombatant.iWeaponRange);
 			}
+		}
+
+		public Vector2 RequestPersuitPoint(ETrooperAttackPos ePos)
+		{
+			return GetVectByPos(ePos);
 		}
 
 		public void RemoveAttacker(ETrooperAttackPos ePos)

@@ -29,8 +29,11 @@ namespace MightyFights_Prototype
 				return false;
 			}
 
+			// call our flee huristic
+			cAiData.cHurisitics[EBattleHuristics.Flee](_cBattleDataRef);
+
 			// sort the z order by y pos
-			_fZorder = 1 - _tPos.Y / 684;
+			_fZorder = 1 - _tCenter.Y / 684;
 
 			// update position in the battle zone
 			if(_cBattleDataRef != null)
@@ -158,11 +161,65 @@ namespace MightyFights_Prototype
 			this.tPos += tDirVect * 2.5f;
 			
 			if((tDest - _tPos).LengthSquared() < 2) { 
-				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", 3);
+				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", -1);
 				cAction.bConditionNotMet = false;
 				_tPos = tDest;
 				
 				cAiData.eState = EBattleAiStates.Panting;
+				return false;
+			}
+
+			return true;
+		}
+
+		public bool PersueOpponent(Action cAction)
+		{
+			Vector2		tDest,
+						tDirVect;
+			
+			// check to see if we need to make the direction vector or not
+			if(cAction.bInit) { 
+				// set our animation to charge 
+				_cAnimProc.SetAnimationCriteria("Move", "Run", "run", -1);
+
+				// set our state to persuit
+				cAiData.eState = EBattleAiStates.Pursuit;
+
+				cAction.bInit = false;
+			} 
+
+			// its possible that the opponent will die before we get there so check to see if the 
+			if(nOpponent.IsDead()) { 
+				cAiData.eState = EBattleAiStates.Ready;
+				nOpponent = null;
+				cAction.bConditionNotMet = false;
+				return false;
+			}
+
+			// check to see if while running at the opponent he has filled up his attack quota
+			if(!nOpponent.bAvailablePos) { 
+				cAiData.eState = EBattleAiStates.Ready;
+				nOpponent = null;
+				cAction.bConditionNotMet = false;
+				return false;
+			}
+
+			tDest = nOpponent.RequestPersuitPoint(_eAttackingPos);
+			tDirVect = tDest - _tCenter;
+			bDir = tDirVect.X > 0 + float.Epsilon;
+			tDirVect.Normalize();
+
+			// move the sprite by the speed of run (this data should come from the template)
+			////ddhj Template add for speed of run
+			this.tPos += tDirVect * 2.5f;
+			
+			// we are within weapon range so switch our system to attack 
+			if(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRange * this.iWeaponRange )) { 
+				// call the attack huristic because we are within attack range for our weapon 
+				//// ddhj this will need a tweek for weapon range 
+				cAiData.cHurisitics[EBattleHuristics.Attack](DataStore.cInstance.cBattleData);
+
+				cAction.bConditionNotMet = false;
 				return false;
 			}
 
@@ -209,16 +266,15 @@ namespace MightyFights_Prototype
 			// move the sprite by the speed of run (this data should come from the template)
 			////ddhj Template add for speed of run
 			this.tPos += tDirVect * 2.5f;
-		//	_tCenter += tDirVect * 2.5f;
 			
 			// we are within weapon range so switch our system to attack 
 			if(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRange * this.iWeaponRange )) { 
+				nOpponent.SetAttacker(this, out _eAttackingPos);
+				_bAttacking = true;
+
 				// call the attack huristic because we are within attack range for our weapon 
 				//// ddhj this will need a tweek for weapon range 
 				cAiData.cHurisitics[EBattleHuristics.Attack](DataStore.cInstance.cBattleData);
-
-				nOpponent.SetAttacker(this, out _eAttackingPos);
-				_bAttacking = true;
 
 				cAction.bConditionNotMet = false;
 				return false;

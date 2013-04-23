@@ -30,6 +30,16 @@ namespace MightyFights_Prototype
 				return null;
 			}
 
+			// check to see if our opponent is in a flee state
+			if(nOpponent.cAiData.eState == EBattleAiStates.Flee) { 
+				// one in three chance to persue rather than attack somone else 
+				cAiData.eState = EBattleAiStates.Pursuit;
+				_cActionMgr.cActionQueue.Clear();
+				_cActionMgr.cActionQueue.Add(new Action(PersueOpponent, null, null));
+
+				return null;
+			}
+
 			// get our percent for this attack
 			////ddhj: good time for the other stuff for percent attack crit weighting and all that jaz
 			iAttckPercent = cRand.Next(100);
@@ -63,6 +73,27 @@ namespace MightyFights_Prototype
 
 		public object Flee(BattlegroundData cData)
 		{
+			// check if the hp is within the run away threshold
+			if(_cStats.iHp < 50) { 
+				Random cRand = new Random();
+				if(cAiData.eState == EBattleAiStates.Flee || cAiData.eState == EBattleAiStates.Panting)
+					return null;
+
+				// check to see if we are engaged in an attack 
+				if(_bAttacking) { 
+					nOpponent.RemoveAttacker(_eAttackingPos);
+					_bAttacking = false;
+					nOpponent = null;
+				}
+
+				// remove all actions
+				_cActionMgr.cActionQueue.Clear();
+
+				// add the flee to point action 
+				_cActionMgr.cActionQueue.Add(new Action(FleeToPoint, new Vector2(112 + cRand.Next(750), 84 + cRand.Next(550)), null));
+				cAiData.eState = EBattleAiStates.Flee;
+			}
+
 			return null;
 		}
 
@@ -79,12 +110,9 @@ namespace MightyFights_Prototype
 		public object Pant(BattlegroundData cData)
 		{
 			// check to see if we are still panting 
-			if(cAnimationProcessor.bActive)
-				_cStats.iHp += 5;
-			else { 
+			_cStats.iHp += 5;
+			if(_cStats.iHp > 200) 
 				cAiData.eState = EBattleAiStates.Ready;
-				_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
-			}
 
 			return null;
 		}
