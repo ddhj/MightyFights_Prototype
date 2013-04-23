@@ -239,8 +239,9 @@ namespace MightyFights_Prototype
 				_cBackground = cContent.Load<Texture2D>(@"Backgrounds\dirt_grass_large");
 				
 				//// ddhj pre-template texture assignments
-				sTex1 = sTexPath + saTextures[cRand.Next(saTextures.Length)];
-				sTex2 = sTexPath + saTextures[cRand.Next(saTextures.Length)];
+				sTex2 = sTex1 = sTexPath + saTextures[cRand.Next(saTextures.Length)];
+				while( sTex2 == sTex1 )
+					sTex2 = sTexPath + saTextures[cRand.Next(saTextures.Length)];
 
 				// set the battle data to the datastore for reference 
 				DataStore.cInstance.cBattleData = _cBattleData;

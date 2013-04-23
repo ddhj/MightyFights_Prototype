@@ -196,14 +196,6 @@ namespace MightyFights_Prototype
 				return false;
 			}
 
-			// check to see if while running at the opponent he has filled up his attack quota
-			if(!nOpponent.bAvailablePos) { 
-				cAiData.eState = EBattleAiStates.Ready;
-				nOpponent = null;
-				cAction.bConditionNotMet = false;
-				return false;
-			}
-
 			tDest = nOpponent.RequestPersuitPoint(_eAttackingPos);
 			tDirVect = tDest - _tCenter;
 			bDir = tDirVect.X > 0 + float.Epsilon;

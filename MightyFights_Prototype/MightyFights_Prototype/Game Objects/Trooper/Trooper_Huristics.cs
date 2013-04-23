@@ -74,7 +74,7 @@ namespace MightyFights_Prototype
 		public object Flee(BattlegroundData cData)
 		{
 			// check if the hp is within the run away threshold
-			if(_cStats.iHp < 20) { 
+			if(_cStats.iHp < 40) { 
 				Random cRand = new Random();
 				if(cAiData.eState == EBattleAiStates.Flee || cAiData.eState == EBattleAiStates.Panting)
 					return null;
