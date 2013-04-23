@@ -158,7 +158,7 @@ namespace MightyFights_Prototype
 
 			// move the sprite by the speed of walk (this data should come from the template)
 			////ddhj Template add for speed of walk
-			this.tPos += tDirVect * 2.5f;
+			this.tPos += tDirVect * 2.7f;
 			
 			if((tDest - _tPos).LengthSquared() < 2) { 
 				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", -1);

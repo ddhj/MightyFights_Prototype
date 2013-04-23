@@ -30,7 +30,7 @@ namespace MightyFights_Prototype
 				return null;
 			}
 
-			// check to see if our opponent is in a flee state
+			// check to see if our opponent is running by distance check
 			if(nOpponent.cAiData.eState == EBattleAiStates.Flee) { 
 				// one in three chance to persue rather than attack somone else 
 				cAiData.eState = EBattleAiStates.Pursuit;
@@ -74,7 +74,7 @@ namespace MightyFights_Prototype
 		public object Flee(BattlegroundData cData)
 		{
 			// check if the hp is within the run away threshold
-			if(_cStats.iHp < 50) { 
+			if(_cStats.iHp < 20) { 
 				Random cRand = new Random();
 				if(cAiData.eState == EBattleAiStates.Flee || cAiData.eState == EBattleAiStates.Panting)
 					return null;
@@ -90,7 +90,7 @@ namespace MightyFights_Prototype
 				_cActionMgr.cActionQueue.Clear();
 
 				// add the flee to point action 
-				_cActionMgr.cActionQueue.Add(new Action(FleeToPoint, new Vector2(112 + cRand.Next(750), 84 + cRand.Next(550)), null));
+				_cActionMgr.cActionQueue.Add(new Action(FleeToPoint, new Vector2(112 + cRand.Next(750), 84 + cRand.Next(500)), null));
 				cAiData.eState = EBattleAiStates.Flee;
 			}
 
@@ -110,8 +110,9 @@ namespace MightyFights_Prototype
 		public object Pant(BattlegroundData cData)
 		{
 			// check to see if we are still panting 
-			_cStats.iHp += 5;
-			if(_cStats.iHp > 200) 
+			Random cRand = new Random();
+			_cStats.iHp += cRand.Next(5);
+			if(_cStats.iHp > 100) 
 				cAiData.eState = EBattleAiStates.Ready;
 
 			return null;
@@ -180,11 +181,6 @@ namespace MightyFights_Prototype
 						iTmp = nCombatant.cStats.iHp;
 					}
 				}
-
-				//// call the attack huristic because we already know we want to fight
-				//cAiData.cHurisitics[EBattleHuristics.Attack](cData);
-
-				//return null;
 			// we dont have any attakers so lets check our current zone for an opponent			
 			} else if(this.cZone.naCombatantLists[iOpponentIdx].Count > 0) 
 				nOpponent = ChooseZoneCombatantRand(this.cZone.naCombatantLists[iOpponentIdx]);
