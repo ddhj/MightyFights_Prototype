@@ -132,6 +132,7 @@
     <Compile Include="GameShell.cs" />
     <Compile Include="Scenes\OutGame\MainMenu.cs" />
     <Compile Include="Game Objects\Trooper\TrooperActMgr.cs" />
+    <Compile Include="Scenes\OutGame\Template.cs" />
     <Compile Include="Support Classes\ActionManager.cs" />
     <Compile Include="Support Classes\AnimationProcessor.cs" />
     <Compile Include="Support Classes\BattleData.cs" />

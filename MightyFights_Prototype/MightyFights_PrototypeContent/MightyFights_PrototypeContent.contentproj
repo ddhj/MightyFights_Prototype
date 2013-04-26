@@ -172,7 +172,6 @@
   <ItemGroup>
     <Folder Include="In Game\Buffs\" />
     <Folder Include="In Game\Hud\" />
-    <Folder Include="Out Game\Template\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Shared\arrow_cursor.png">
@@ -186,6 +185,11 @@
       <Name>DebugFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Out Game\Template\Sliders.tps">
+      <Name>Sliders</Name>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
