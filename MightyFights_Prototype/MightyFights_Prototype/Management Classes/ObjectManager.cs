@@ -36,6 +36,7 @@ namespace MightyFights_Prototype
 			AnimationData	cAnimData;
 			AiBattleData	cBattleAi;
 			Texture2D		cTexData;
+			int				iMod;
 
 			// check to see if we are already referencing this animation 
 			if(!_cAnimationDataList.TryGetValue(cTemplateData.sTrooperType, out cAnimData))
@@ -51,9 +52,16 @@ namespace MightyFights_Prototype
 			cTemplate.cAnimProcessorRef = new AnimationProcessor(cAnimData, cTemplateData);
 			cTemplate.cTextureRef = cTexData;
 			cTemplate.sTexName = cTemplateData.sColor;
-			
+
+			////ddhj modifications to the attack speed increment based on the template data. not sure if this 
+			// is where we are going to want this to go 
+			foreach(KeyValuePair<string, ActionData> tAction in cAnimData.cReferenceList["Attack"]["Basic"]) { 
+				iMod = -tAction.Value.iIncrement * (cTemplateData.cStats.iAtkSpeed / 100);
+				cTemplate.cAnimProcessorRef.cActionIncrement.Add(tAction.Key, iMod);
+			}
+
 			// set the stats for the 
-			cTemplate.cStats = cTemplateData.cStats;
+			cTemplate.cStats = new Stats(cTemplateData.cStats);
 
 			// set the action manager, likely this will have some stuff from the template too
 			cTemplate.cActionMgr = new TrooperActMgr(cTemplate.cAnimProcessorRef);

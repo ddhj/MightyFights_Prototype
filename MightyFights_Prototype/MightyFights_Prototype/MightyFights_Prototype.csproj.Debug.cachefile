@@ -1,5 +1,11 @@
 Content\Sprite Data\Troopers\Halberd\HalberdArray.xnb
 Content\Sprite Data\Troopers\Halberd\Front Facing\GuysArray.xnb
+Content\Out Game\Template\BottomSlidersArray.xnb
+Content\Out Game\Template\TopSlidersArray.xnb
+Content\Out Game\Template\AtkPowerArray.xnb
+Content\Out Game\Template\MoveSpeedArray.xnb
+Content\Out Game\Template\AtkSpeedArray.xnb
+Content\Out Game\Template\HitPointsArray.xnb
 Content\Sprite Data\Troopers\Halberd\Textures\fazure.xnb
 Content\Sprite Data\Troopers\Halberd\Textures\fbrown.xnb
 Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.xnb
@@ -21,4 +27,16 @@ Content\Out Game\Main Menu\green_card.xnb
 Content\Out Game\Main Menu\red_card.xnb
 Content\Out Game\Main Menu\to_battle!-1.xnb
 Content\Shared\arrow_cursor.xnb
+Content\Out Game\Template\BottomSliders.xnb
+Content\Out Game\Template\TopSliders.xnb
+Content\Out Game\Template\done.xnb
+Content\Out Game\Template\frame.xnb
+Content\Out Game\Template\Left Arrow Large.xnb
+Content\Out Game\Template\Left Arrow.xnb
+Content\Out Game\Template\Right Arrow Large.xnb
+Content\Out Game\Template\Right Arrow.xnb
+Content\Out Game\Template\AtkPower.xnb
+Content\Out Game\Template\MoveSpeed.xnb
+Content\Out Game\Template\AtkSpeed.xnb
+Content\Out Game\Template\HitPoints.xnb
 Content\Shared\DebugFont.xnb

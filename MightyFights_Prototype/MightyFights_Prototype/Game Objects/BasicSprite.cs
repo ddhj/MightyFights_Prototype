@@ -13,7 +13,7 @@ namespace MightyFights_Prototype
 	public class BasicSprite : IDrawable, IClickable
 	{
 		Rectangle	_cDrawnRect;
-		internal Vector2		_tPos;
+		Vector2		_tPos;
 		Texture2D	_cTexRef;
 
 		public Texture2D cTexRef	{ get { return _cTexRef; } set { _cTexRef = value; }}
@@ -26,12 +26,17 @@ namespace MightyFights_Prototype
 			}
 		}
 
-		public bool ContainsPoint(Point tPoint) 
+		public virtual bool ContainsPoint(Point tPoint) 
 		{
 			return _cDrawnRect.Contains(tPoint);
 		}
-		
-		public void Draw(SpriteBatch cBatch) 
+
+		public bool ContainsPoint(Vector2 tLoc)
+		{
+			return ContainsPoint(new Point((int)tLoc.X, (int)tLoc.Y));
+		}
+
+		public virtual void Draw(SpriteBatch cBatch) 
 		{
 			cBatch.Draw(cTexRef, tPos, cFrame.tRect, Color.White);
 		}

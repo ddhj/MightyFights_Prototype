@@ -1,7 +1,7 @@
 {"frames": [
 
 {
-	"filename": "aqua.png",
+	"filename": "aqua00.png",
 	"frame": {"x":2,"y":221,"w":21,"h":25},
 	"rotated": false,
 	"trimmed": true,
@@ -9,7 +9,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "azure.png",
+	"filename": "azure00.png",
 	"frame": {"x":2,"y":194,"w":21,"h":25},
 	"rotated": false,
 	"trimmed": true,
@@ -17,7 +17,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "berry.png",
+	"filename": "berry00.png",
 	"frame": {"x":2,"y":167,"w":21,"h":25},
 	"rotated": false,
 	"trimmed": true,
@@ -25,7 +25,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "blood zombie.png",
+	"filename": "blood zombie00.png",
 	"frame": {"x":2,"y":140,"w":21,"h":25},
 	"rotated": false,
 	"trimmed": true,
@@ -33,7 +33,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "brown.png",
+	"filename": "brown00.png",
 	"frame": {"x":83,"y":117,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -41,7 +41,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "coal.png",
+	"filename": "coal00.png",
 	"frame": {"x":56,"y":117,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -49,7 +49,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "cobalt.png",
+	"filename": "cobalt00.png",
 	"frame": {"x":29,"y":117,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -57,7 +57,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "crimson.png",
+	"filename": "crimson00.png",
 	"frame": {"x":2,"y":117,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -65,7 +65,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "dark zombie.png",
+	"filename": "dark zombie00.png",
 	"frame": {"x":83,"y":94,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -73,7 +73,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "evil zombie.png",
+	"filename": "evil zombie00.png",
 	"frame": {"x":56,"y":94,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -81,7 +81,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "face zombie.png",
+	"filename": "face zombie00.png",
 	"frame": {"x":29,"y":94,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -89,7 +89,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "forest.png",
+	"filename": "forest00.png",
 	"frame": {"x":2,"y":94,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -97,7 +97,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "front.png",
+	"filename": "front00.png",
 	"frame": {"x":83,"y":71,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -105,7 +105,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "grey.png",
+	"filename": "grey00.png",
 	"frame": {"x":56,"y":71,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -113,7 +113,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "gules.png",
+	"filename": "gules00.png",
 	"frame": {"x":29,"y":71,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -121,7 +121,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "marsh zombie.png",
+	"filename": "marsh zombie00.png",
 	"frame": {"x":2,"y":71,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -129,7 +129,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "midnight.png",
+	"filename": "midnight00.png",
 	"frame": {"x":83,"y":48,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -137,7 +137,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "olive.png",
+	"filename": "olive00.png",
 	"frame": {"x":56,"y":48,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -145,7 +145,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "purpure.png",
+	"filename": "purpure00.png",
 	"frame": {"x":29,"y":48,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -153,7 +153,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "rotten zombie.png",
+	"filename": "rotten zombie00.png",
 	"frame": {"x":2,"y":48,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -161,7 +161,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "rust.png",
+	"filename": "rust00.png",
 	"frame": {"x":83,"y":25,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -169,7 +169,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "sable.png",
+	"filename": "sable00.png",
 	"frame": {"x":56,"y":25,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -177,7 +177,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "salmon.png",
+	"filename": "salmon00.png",
 	"frame": {"x":29,"y":25,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -185,7 +185,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "slate.png",
+	"filename": "slate00.png",
 	"frame": {"x":2,"y":25,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -193,7 +193,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "steel.png",
+	"filename": "steel00.png",
 	"frame": {"x":83,"y":2,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -201,7 +201,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "storm.png",
+	"filename": "storm00.png",
 	"frame": {"x":56,"y":2,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -209,7 +209,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "tenne.png",
+	"filename": "tenne00.png",
 	"frame": {"x":29,"y":2,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,
@@ -217,7 +217,7 @@
 	"sourceSize": {"w":27,"h":29}
 },
 {
-	"filename": "violet.png",
+	"filename": "violet00.png",
 	"frame": {"x":2,"y":2,"w":21,"h":25},
 	"rotated": true,
 	"trimmed": true,

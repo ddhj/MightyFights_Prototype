@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace MightyFights_Prototype
@@ -18,7 +19,12 @@ namespace MightyFights_Prototype
 			Point		tPoint = new Point(cState.X, cState.Y);
 
 			// set the position of the cursor
-			_tPos = new Vector2(cState.X, cState.Y);
+			this.tPos = new Vector2(cState.X, cState.Y);
+		}
+
+		public override void Draw(SpriteBatch cBatch)
+		{
+			cBatch.Draw(cTexRef, tPos, cFrame.tRect, Color.White, 0, cFrame.tTopLeft, 1, SpriteEffects.None, 0);
 		}
 
 		#endregion

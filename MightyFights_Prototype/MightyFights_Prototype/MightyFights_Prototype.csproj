@@ -106,6 +106,8 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -132,7 +134,12 @@
     <Compile Include="GameShell.cs" />
     <Compile Include="Scenes\OutGame\MainMenu.cs" />
     <Compile Include="Game Objects\Trooper\TrooperActMgr.cs" />
-    <Compile Include="Scenes\OutGame\Template.cs" />
+    <Compile Include="Scenes\OutGame\Template\Objects\FrontGuys.cs" />
+    <Compile Include="Scenes\OutGame\Template\Objects\Slider.cs" />
+    <Compile Include="Scenes\OutGame\Template\Objects\StatDisplay.cs" />
+    <Compile Include="Scenes\OutGame\Template\Template.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Support Classes\ActionManager.cs" />
     <Compile Include="Support Classes\AnimationProcessor.cs" />
     <Compile Include="Support Classes\BattleData.cs" />

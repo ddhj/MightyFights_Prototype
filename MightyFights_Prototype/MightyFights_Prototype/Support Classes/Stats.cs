@@ -7,22 +7,26 @@ namespace MightyFights_Prototype
 {
 	public class Stats
 	{
-		int			_iHp = 500, 
-					_iAc = 10, 
-					_iPower = 5;
-
-		public int iHp		{ get { return _iHp; } set { _iHp = value; }}
-		public int iAc		{ get { return _iAc; } set { _iAc = value; }}
-		public int iPower	{ get { return _iPower; } set { _iPower = value; }}
+		public int iHp		{ get; set; }
+		public int iPower	{ get; set; }
+		public int iAtkSpeed	{ get; set; }
+		public int iMovement	{ get; set; }
 
 		public Stats()
 		{
 			Random cRand = new Random();
-
-			_iHp = cRand.Next(400, 700);
-			_iPower = cRand.Next(3, 15);
+			this.iHp = cRand.Next(100, 300);
+			this.iPower = cRand.Next(5, 15);
+			this.iAtkSpeed = cRand.Next(0, 15);
+			this.iMovement = cRand.Next(0, 15);
 		}
 
-		// maybe more?
+		public Stats(Stats cSrc)
+		{ 
+			this.iHp = cSrc.iHp;
+			this.iPower = cSrc.iPower;
+			this.iAtkSpeed = cSrc.iAtkSpeed;
+			this.iMovement = cSrc.iMovement;
+		}
 	}
 }

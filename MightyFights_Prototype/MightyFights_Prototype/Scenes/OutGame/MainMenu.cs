@@ -25,6 +25,8 @@ namespace MightyFights_Prototype
 						_cP1Card, 
 						_cP2Card,
 						_cToBattle;
+		TemplateConfig	_cLeft, 
+						_cRight;
 		
 		#region IGameScene Members
 
@@ -41,8 +43,24 @@ namespace MightyFights_Prototype
 			if(cState.LeftButton == ButtonState.Pressed) { 
 				if(((IClickable)_cToBattle).ContainsPoint(tPoint)) { 
 					IGameScene nBattleGround = new BattleGround_Basic();
+					
+					// check to see if the template has been configured or not 
+					if(_cRight.cStats == null)	_cRight.cStats = new Stats();
+					if(_cLeft.cStats == null)	_cLeft.cStats = new Stats();
+					
+					// set the template config for left side and right side
+					DataStore.cInstance.cRightConfig = _cRight;
+					DataStore.cInstance.cLeftConfig = _cLeft;
+
 					if(nBattleGround.Init()) { 
 						DataStore.cInstance.cSceneMgr.AddScene(nBattleGround);
+					}
+				}
+
+				if(((IClickable)_cP1Card).ContainsPoint(tPoint)) { 
+					IGameScene nTemplate = new Template(_cLeft, _cRight.sColor);
+					if(nTemplate.Init()) { 
+						DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
 					}
 				}
 			}	
@@ -81,6 +99,9 @@ namespace MightyFights_Prototype
 				Texture2D	cCard1 = cContent.Load<Texture2D>(@"Out Game\Main Menu\green_card"), 
 							cCard2 = cContent.Load<Texture2D>(@"Out Game\Main Menu\red_card"), 
 							cBattle = cContent.Load<Texture2D>(@"Out Game\Main Menu\to_battle!-1");
+
+				_cLeft = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fazure");
+				_cRight = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fstorm");
 
 				_cCursor = new BasicSprite();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");

@@ -10,5 +10,6 @@ namespace MightyFights_Prototype
 	interface IClickable
 	{
 		bool ContainsPoint(Point tPoint);
+		bool ContainsPoint(Vector2 tLocation);
 	}
 }

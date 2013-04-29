@@ -42,6 +42,7 @@ namespace MightyFights_Prototype
 			// init the data store
 			DataStore.cInstance.cContent = Content;
 			DataStore.cInstance.cGraphics = GraphicsDevice;
+			DataStore.cInstance.cGame = this;
 
 			// init the object manager
 			ObjectManager.cInstance.Init();

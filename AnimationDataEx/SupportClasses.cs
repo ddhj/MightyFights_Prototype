@@ -282,7 +282,7 @@ namespace AnimationDataEx
 					tCenterLeft, 
 					tCenterRight;
 			foreach(TPFrame cFrame in cData.frames) { 
-				sSubString = cFrame.filename.Substring(0, cFrame.filename.IndexOf('.'));
+				sSubString = cFrame.filename.Substring(0, cFrame.filename.IndexOf('.') - 2);
 				if(sSubString != sCurAction) { 
 					if(sCurAction != "") { 
 						cActData.iMaxFrames = iIndex - cActData.iStartIndex;

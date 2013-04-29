@@ -158,7 +158,7 @@ namespace MightyFights_Prototype
 
 			// move the sprite by the speed of walk (this data should come from the template)
 			////ddhj Template add for speed of walk
-			this.tPos += tDirVect * 2.7f;
+			this.tPos += tDirVect * _fFinalMovementSpeed;
 			
 			if((tDest - _tPos).LengthSquared() < 2) { 
 				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", -1);
@@ -203,7 +203,7 @@ namespace MightyFights_Prototype
 
 			// move the sprite by the speed of run (this data should come from the template)
 			////ddhj Template add for speed of run
-			this.tPos += tDirVect * 2.5f;
+			this.tPos += tDirVect * _fFinalMovementSpeed;
 			
 			// we are within weapon range so switch our system to attack 
 			if(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRange * this.iWeaponRange )) { 
@@ -258,7 +258,7 @@ namespace MightyFights_Prototype
 
 			// move the sprite by the speed of run (this data should come from the template)
 			////ddhj Template add for speed of run
-			this.tPos += tDirVect * 2.5f;
+			this.tPos += tDirVect * _fFinalMovementSpeed;
 			
 			// we are within weapon range so switch our system to attack 
 			if(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRange * this.iWeaponRange )) { 

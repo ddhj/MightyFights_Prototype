@@ -1,0 +1,124 @@
+{"frames": [
+
+{
+	"filename": "orange01.png",
+	"frame": {"x":2,"y":227,"w":93,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+},
+{
+	"filename": "orange02.png",
+	"frame": {"x":192,"y":97,"w":93,"h":43},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+},
+{
+	"filename": "orange03.png",
+	"frame": {"x":97,"y":92,"w":93,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+},
+{
+	"filename": "orange04.png",
+	"frame": {"x":2,"y":92,"w":93,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+},
+{
+	"filename": "orange05.png",
+	"frame": {"x":97,"y":47,"w":93,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+},
+{
+	"filename": "orange06.png",
+	"frame": {"x":2,"y":47,"w":93,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+},
+{
+	"filename": "orange07.png",
+	"frame": {"x":192,"y":2,"w":93,"h":43},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+},
+{
+	"filename": "orange08.png",
+	"frame": {"x":97,"y":2,"w":93,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+},
+{
+	"filename": "orange09.png",
+	"frame": {"x":2,"y":2,"w":93,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+},
+{
+	"filename": "orange10.png",
+	"frame": {"x":192,"y":192,"w":93,"h":43},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+},
+{
+	"filename": "orange11.png",
+	"frame": {"x":97,"y":182,"w":93,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+},
+{
+	"filename": "orange12.png",
+	"frame": {"x":2,"y":182,"w":93,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+},
+{
+	"filename": "orange13.png",
+	"frame": {"x":97,"y":137,"w":93,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+},
+{
+	"filename": "orange14.png",
+	"frame": {"x":2,"y":137,"w":93,"h":43},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":93,"h":43},
+	"sourceSize": {"w":93,"h":43}
+}],
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "orange.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":512},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:30356f1cfe1e9c27c11358b13de1029b$"
+}
+}

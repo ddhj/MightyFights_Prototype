@@ -112,7 +112,7 @@ namespace MightyFights_Prototype
 			// check to see if we are still panting 
 			Random cRand = new Random();
 			_cStats.iHp += cRand.Next(5);
-			if(_cStats.iHp > 100) 
+			if(_cStats.iHp > 75) 
 				cAiData.eState = EBattleAiStates.Ready;
 
 			return null;

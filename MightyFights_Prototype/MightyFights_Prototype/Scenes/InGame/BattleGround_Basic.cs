@@ -218,14 +218,8 @@ namespace MightyFights_Prototype
 			GraphicsDevice	cGraphics = DataStore.cInstance.cGraphics;
 			List<IDrawable>	naDrawList;
 			Trooper			cP1;
-			TemplateConfig	cTemplate;
-			string			sTexPath = @"Sprite Data\Troopers\Halberd\Textures\",
-							sTex1, 
-							sTex2;
-
-			string[] saTextures = new string[] { "fazure", "fbrown", "fcrimson", "fgrey", "fgules", 
-				"fmidnight", "fpurple", "frust", "fsable", "fsteel", "fstorm", "ftenne", "fvert", "fvert2", 
-				"fzombie" };
+			TemplateConfig	cLeft = DataStore.cInstance.cLeftConfig, 
+							cRight = DataStore.cInstance.cRightConfig;
 
 			// this is for quick action
 			Random cRand = new Random();
@@ -237,11 +231,6 @@ namespace MightyFights_Prototype
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 				_cBackground = cContent.Load<Texture2D>(@"Backgrounds\dirt_grass_large");
-				
-				//// ddhj pre-template texture assignments
-				sTex2 = sTex1 = sTexPath + saTextures[cRand.Next(saTextures.Length)];
-				while( sTex2 == sTex1 )
-					sTex2 = sTexPath + saTextures[cRand.Next(saTextures.Length)];
 
 				// set the battle data to the datastore for reference 
 				DataStore.cInstance.cBattleData = _cBattleData;
@@ -249,13 +238,8 @@ namespace MightyFights_Prototype
 				// make a block of troopers
 				for(int i = 0; i < _iAX; ++i)
 					for(int j = 0; j < _iAY; ++j) { 
-						// create a template config for the sprite
-						//// ddhj: this is temp before the template code is written
-						cTemplate = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", sTex1);
-						cTemplate.cStats = new Stats();
-
 						// add the newly created trooper to the active list and set some initial battle data
-						_cActiveList.Add(cP1 = new Trooper(ObjectManager.cInstance.CreateTemplate(cTemplate)));
+						_cActiveList.Add(cP1 = new Trooper(ObjectManager.cInstance.CreateTemplate(cLeft)));
 						cP1.tPos = new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
 						cP1.iArmyIndex = 0;
 						cP1.iOpponentIndex = 1;
@@ -271,12 +255,8 @@ namespace MightyFights_Prototype
 				// make a block of opponents
 				for(int i = 0; i < _iOX; ++i)
 					for(int j = 0; j < _iOY; ++j) { 
-						// this is the same as above, templates will replace this
-						cTemplate = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", sTex2);
-						cTemplate.cStats = new Stats();
-
 						// set the opponents to the acitve list 
-						_cActiveList.Add(cP1 = new Trooper(ObjectManager.cInstance.CreateTemplate(cTemplate)));
+						_cActiveList.Add(cP1 = new Trooper(ObjectManager.cInstance.CreateTemplate(cRight)));
 						cP1.tPos = new Vector2(950, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
 						cP1.iArmyIndex = 1; 
 						cP1.iOpponentIndex = 0;

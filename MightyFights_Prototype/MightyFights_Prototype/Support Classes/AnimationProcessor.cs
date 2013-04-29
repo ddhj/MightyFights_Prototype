@@ -26,11 +26,11 @@ namespace MightyFights_Prototype
 
 		public Frame cCurFrame	{ get { return _cCurFrame; }}
 		public bool	bActive { get; set; }
+		public Dictionary<string, int> cActionIncrement	 { get { return _cActionIncrement; }}
 
 		public AnimationProcessor(AnimationData cAnimData, TemplateConfig cTemplateCfg)
 		{
 			_cAnimDataRef = cAnimData;
-
 		}
 
 		public void SetAnimationCriteria(string sActionType, string sSubCat, string sAction, int iCount)
@@ -38,6 +38,11 @@ namespace MightyFights_Prototype
 			_cCurAction = _cAnimDataRef.cReferenceList[sActionType][sSubCat][sAction];
 			_iCount = iCount;
 			_iCurIncrement = _cCurAction.iIncrement;
+
+			// check to see if we have an additional increment to the action
+			if(_cActionIncrement.ContainsKey(sAction))
+				_iCurIncrement += _cActionIncrement[sAction];
+
 			_iCurFrameIdx = _cCurAction.iStartIndex;
 			_cCurFrame = _cAnimDataRef.caFrameData[_cCurAction.iStartIndex];
 			_iItteration = 0;

@@ -25,6 +25,11 @@ namespace MightyFights_Prototype
 		public GraphicsDevice	cGraphics	{ get; set; }
 		public BattlegroundData	cBattleData	{ get; set; }
 		public GameTime			cTime		{ get; set; }
+		public Game				cGame		{ get; set; }
+
+		// the template config from the main menu, this will be replaced with realness at some point
+		public TemplateConfig	cLeftConfig	{ get; set; }
+		public TemplateConfig	cRightConfig	{ get; set; }
 
 		//// ddhj: debug data
 		public Texture2D		cBorder		{ get; set; }

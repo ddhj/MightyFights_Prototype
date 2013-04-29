@@ -27,6 +27,9 @@ namespace MightyFights_Prototype
 		ETrooperAttackPos			_eAttackingPos;
 		bool						_bAttacking;
 
+		////ddhj template stuff... not sure if it should go on trooper proper
+		float						_fFinalMovementSpeed;
+
 		Dictionary<ETrooperAttackPos, ICombatant>	_caAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
 		//// ddhj: debug data
@@ -61,6 +64,9 @@ namespace MightyFights_Prototype
 			bActive	= true;
 
 			_cActionMgr.AddPermAction(new Action(this.TrooperUpkeep, null, null));
+
+			////ddhj: this is the initial area for the template config, this will probably change over time
+			_fFinalMovementSpeed = 2.5f * (1.0f + cTemplate.cStats.iMovement / 100f);
 
 			// use the template data to set up the huristics... 
 			//// there is a problem here since the object manager should have set this up but the huristics are methods on an instance of trooper,

@@ -188,8 +188,119 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\Sliders.tps">
-      <Name>Sliders</Name>
+    <Compile Include="Out Game\Template\BottomSlidersArray.json">
+      <Name>BottomSlidersArray</Name>
+      <Importer>ContentImporter1</Importer>
+      <Processor>ContentProcessor1</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Out Game\Template\BottomSliders.png">
+      <Name>BottomSliders</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Out Game\Template\TopSlidersArray.json">
+      <Name>TopSlidersArray</Name>
+      <Importer>ContentImporter1</Importer>
+      <Processor>ContentProcessor1</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Out Game\Template\TopSliders.png">
+      <Name>TopSliders</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Out Game\Template\done.png">
+      <Name>done</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Out Game\Template\frame.png">
+      <Name>frame</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Out Game\Template\Left Arrow Large.png">
+      <Name>Left Arrow Large</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Out Game\Template\Left Arrow.png">
+      <Name>Left Arrow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Out Game\Template\Right Arrow Large.png">
+      <Name>Right Arrow Large</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Out Game\Template\Right Arrow.png">
+      <Name>Right Arrow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Out Game\Template\AtkPowerArray.json">
+      <Name>AtkPowerArray</Name>
+      <Importer>ContentImporter1</Importer>
+      <Processor>ContentProcessor1</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Out Game\Template\AtkPower.png">
+      <Name>AtkPower</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Out Game\Template\MoveSpeedArray.json">
+      <Name>MoveSpeedArray</Name>
+      <Importer>ContentImporter1</Importer>
+      <Processor>ContentProcessor1</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Out Game\Template\MoveSpeed.png">
+      <Name>MoveSpeed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Out Game\Template\AtkSpeedArray.json">
+      <Name>AtkSpeedArray</Name>
+      <Importer>ContentImporter1</Importer>
+      <Processor>ContentProcessor1</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Out Game\Template\AtkSpeed.png">
+      <Name>AtkSpeed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Out Game\Template\HitPointsArray.json">
+      <Name>HitPointsArray</Name>
+      <Importer>ContentImporter1</Importer>
+      <Processor>ContentProcessor1</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Out Game\Template\HitPoints.png">
+      <Name>HitPoints</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
