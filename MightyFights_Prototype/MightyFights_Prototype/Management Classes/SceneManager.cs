@@ -53,13 +53,23 @@ namespace MightyFights_Prototype
 
 		public void AddScene(IGameScene nGameScene)
 		{
+			nGameScene.eState = ESceneStates.Active;
 			_naSceneList.Add(nGameScene);
+			if(_naSceneList.Count > 1) { 
+				_naSceneList[_naSceneList.Count - 2].eState = ESceneStates.Inactive;
+				_naSceneList[_naSceneList.Count - 2].ToggleControls();
+			}
 		}
 
 		public void RemoveScene(IGameScene nGameScene)
 		{
 			nGameScene.Unload();
+			// this could be remove last or pop scene rather than a search
 			_naSceneList.Remove(nGameScene);
+
+			// make sure the last one in the list is active
+			_naSceneList[_naSceneList.Count - 1].eState = ESceneStates.Active;
+			_naSceneList[_naSceneList.Count - 1].ToggleControls();
 		}
 	}
 }

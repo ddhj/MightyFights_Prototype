@@ -244,6 +244,11 @@ namespace MightyFights_Prototype
 			Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cTopLevels);
 		}
 
+		public void ToggleControls()
+		{
+
+		}
+
 		#endregion
 	}
 }

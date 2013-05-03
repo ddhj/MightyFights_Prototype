@@ -17,5 +17,8 @@ namespace MightyFights_Prototype
 		void Draw(GameTime cTime);
 		bool Init();
 		void Unload();
+
+		//// dhdj: some windows controls are not making me happy
+		void ToggleControls();
 	}
 }

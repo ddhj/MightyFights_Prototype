@@ -33,5 +33,8 @@ namespace MightyFights_Prototype
 
 		//// ddhj: debug data
 		public Texture2D		cBorder		{ get; set; }
+
+		//// ddhj: battle ground toggles that are processed in non battleground areas
+		public bool				bLifeBars	{ get; set; }
 	}
 }

@@ -38,6 +38,8 @@ namespace MightyFights_Prototype
 		Texture2D		_cBorder;
 		bool			_bUpdate = true;
 
+		System.Windows.Forms.CheckBox		_cToggleLifeBar;
+
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
 	
 		#region IGameScene Members
@@ -283,9 +285,15 @@ namespace MightyFights_Prototype
 				//// ddhj: load in some debug data
 				_cFont = cContent.Load<SpriteFont>(@"Shared\DebugFont");
 				DataStore.cInstance.cBorder = _cBorder = new Texture2D(cGraphics, 1, 1);
-				Color tColor = Color.WhiteSmoke;
-				tColor.A = 50;
-				_cBorder.SetData<Color>(new[] { tColor });
+				_cBorder.SetData<Color>(new[] { Color.White });
+
+				//// ddhj: configrable items for the battle draw
+				_cToggleLifeBar = new System.Windows.Forms.CheckBox();
+				_cToggleLifeBar.Location = new System.Drawing.Point(0, 30);
+				_cToggleLifeBar.Text = _cToggleLifeBar.Name = "Toggle Life Bar";
+				_cToggleLifeBar.AutoSize = true;
+				_cToggleLifeBar.CheckedChanged += new EventHandler(ToggleLifeBarChange);
+				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleLifeBar);
 
 				// set the start of battle
 				SetBattleStart();
@@ -294,6 +302,11 @@ namespace MightyFights_Prototype
 			}
 
 			return true;
+		}
+
+		public void ToggleLifeBarChange(object oSender, EventArgs eEvtArgs) 
+		{
+			DataStore.cInstance.bLifeBars = _cToggleLifeBar.Checked;
 		}
 
 		void BackToMenu()
@@ -309,6 +322,7 @@ namespace MightyFights_Prototype
 			_cActiveList.Clear();
 			_cTrooperRef.Clear();
 			_cBattleData.Clear();
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleLifeBar);
 		}
 
 		void ResetBattle()
@@ -331,6 +345,11 @@ namespace MightyFights_Prototype
 		public void Unload()
 		{
 			CleanData();
+		}
+
+		public void ToggleControls()
+		{
+
 		}
 
 		#endregion

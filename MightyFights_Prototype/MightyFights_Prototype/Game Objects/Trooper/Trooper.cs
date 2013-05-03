@@ -20,7 +20,8 @@ namespace MightyFights_Prototype
 		Stats						_cStats;
 		int							_iAvailablePositions = 6,
 									_iCurLeftAttackers = 0,
-									_iCurRightAttakers = 0;
+									_iCurRightAttakers = 0,
+									_iMaxHp;
 		float						_fZorder;
 		byte						_byAttakPos;
 		BattlegroundData			_cBattleDataRef = null;
@@ -48,6 +49,7 @@ namespace MightyFights_Prototype
 		public Vector2 tAttackPos		{ get; set; }
 		public Vector2 tCenter			{ get { return _tCenter; } set { _tCenter = value; }}
 		public Dictionary<ETrooperAttackPos, ICombatant> caAttackers	{ get { return _caAttackers; }}
+		public float fZorder			{ get { return _fZorder; }}
 		
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
 
@@ -80,6 +82,9 @@ namespace MightyFights_Prototype
 	
 			// this is going to come from somewhere
 			this.iWeaponRange = 10;
+
+			// set the max hp
+			_iMaxHp = cStats.iHp;
 		}
 
 		#region IDrawable Members
@@ -126,10 +131,18 @@ namespace MightyFights_Prototype
 
 			// or particle effect drawing calls
 
+			// draw the lifebar 
+			if(DataStore.cInstance.bLifeBars) { 
+				Texture2D	cBorder = DataStore.cInstance.cBorder;
+				Rectangle	tRect = new Rectangle((int)_tPos.X + 20, (int)_tPos.Y + 30, (int)(((cStats.iHp / (float)_iMaxHp) * 100) * .3), 5);
+				Color		cHpColor = Color.Green;
+				cHpColor.A = 85;
+				cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, _fZorder);
+			}
+
 			//// ddhj: debug draw data
 			// lets draw our attack positions
 			//Vector2 tDir = _tPos;
-			//Texture2D	cBorder = DataStore.cInstance.cBorder;
 			//tColor = Color.White;
 			//tColor.A = 80;
 			//if((_byAttakPos & (byte)ETrooperAttackPos.LeftBottom) == (byte)ETrooperAttackPos.LeftBottom) { 
@@ -389,13 +402,6 @@ namespace MightyFights_Prototype
 			}
 		}
 
-		#endregion
-
-		public void Process(GameTime cTime)
-		{
-			_cActionMgr.Process(cTime);
-		}
-
 		void UpdateRefPoints()
 		{
 			Frame		cCurFrame = cFrame;
@@ -415,6 +421,13 @@ namespace MightyFights_Prototype
 				_tCenter.X += Math.Abs(tTopLeft.X) + iWidth / 2;
 				_tCenter.Y += Math.Abs(tTopLeft.Y) + iHeight / 2;
 			}
+		}
+
+		#endregion
+
+		public void Process(GameTime cTime)
+		{
+			_cActionMgr.Process(cTime);
 		}
 	}
 }

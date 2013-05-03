@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -27,6 +29,9 @@ namespace MightyFights_Prototype
 						_cToBattle;
 		TemplateConfig	_cLeft, 
 						_cRight;
+		bool			_bProcessPress = true;
+		NumericUpDown	_cP1Count, 
+						_cP2Count;
 		
 		#region IGameScene Members
 
@@ -35,56 +40,65 @@ namespace MightyFights_Prototype
 		public void Update(GameTime cTime)
 		{
 			MouseState	cState = Mouse.GetState();
-			Point		tPoint = new Point(cState.X, cState.Y);
+			Microsoft.Xna.Framework.Point		tPoint = new Microsoft.Xna.Framework.Point(cState.X, cState.Y);
 
 			// set the position of the cursor
 			_cCursor.tPos = new Vector2(cState.X, cState.Y);
 
-			if(cState.LeftButton == ButtonState.Pressed) { 
-				if(((IClickable)_cToBattle).ContainsPoint(tPoint)) { 
-					IGameScene nBattleGround = new BattleGround_Basic();
+			if(cState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed) { 
+				if(_bProcessPress) { 
+					if(((IClickable)_cToBattle).ContainsPoint(tPoint)) { 
+						IGameScene nBattleGround = new BattleGround_Basic();
 					
-					// check to see if the template has been configured or not 
-					if(_cRight.cStats == null)	_cRight.cStats = new Stats();
-					if(_cLeft.cStats == null)	_cLeft.cStats = new Stats();
+						// check to see if the template has been configured or not 
+						if(_cRight.cStats == null)	_cRight.cStats = new Stats();
+						if(_cLeft.cStats == null)	_cLeft.cStats = new Stats();
 					
-					// set the template config for left side and right side
-					DataStore.cInstance.cRightConfig = _cRight;
-					DataStore.cInstance.cLeftConfig = _cLeft;
+						// set the template config for left side and right side
+						_cRight.iCount = (int)_cP1Count.Value;
+						DataStore.cInstance.cRightConfig = _cRight;
+						_cLeft.iCount = (int)_cP2Count.Value;
+						DataStore.cInstance.cLeftConfig = _cLeft;
 
-					if(nBattleGround.Init()) { 
-						DataStore.cInstance.cSceneMgr.AddScene(nBattleGround);
+						if(nBattleGround.Init()) { 
+							DataStore.cInstance.cSceneMgr.AddScene(nBattleGround);
+						}
+					} else if(((IClickable)_cP1Card).ContainsPoint(tPoint)) { 
+						IGameScene nTemplate = new Template(_cLeft, _cRight.sColor);
+						if(nTemplate.Init()) { 
+							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
+						}
+					} else if(((IClickable)_cP2Card).ContainsPoint(tPoint)) { 
+						IGameScene nTemplate = new Template(_cRight, _cLeft.sColor);
+						if(nTemplate.Init()) { 
+							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
+						}
 					}
-				}
 
-				if(((IClickable)_cP1Card).ContainsPoint(tPoint)) { 
-					IGameScene nTemplate = new Template(_cLeft, _cRight.sColor);
-					if(nTemplate.Init()) { 
-						DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
-					}
-				}
-			}	
+					_bProcessPress = false;
+				} 
+			} else _bProcessPress = true;	
 		}
 
 		public void Draw(GameTime cTime)
 		{
-			_cGraphics.Clear(Color.Black);
+			_cGraphics.Clear(Microsoft.Xna.Framework.Color.Black);
 
 			_cBatch.Begin(); { 
 				// draw the cards and the to battle items
-				_cBatch.Draw(_cP1Card.cTexRef, _cP1Card.tPos, _cP1Card.cFrame.tRect, Color.White);
-				_cBatch.Draw(_cP2Card.cTexRef, _cP2Card.tPos, _cP2Card.cFrame.tRect, Color.White);
-				_cBatch.Draw(_cToBattle.cTexRef, _cToBattle.tPos, _cToBattle.cFrame.tRect, Color.White);
+				_cBatch.Draw(_cP1Card.cTexRef, _cP1Card.tPos, _cP1Card.cFrame.tRect, Microsoft.Xna.Framework.Color.White);
+				_cBatch.Draw(_cP2Card.cTexRef, _cP2Card.tPos, _cP2Card.cFrame.tRect, Microsoft.Xna.Framework.Color.White);
+				_cBatch.Draw(_cToBattle.cTexRef, _cToBattle.tPos, _cToBattle.cFrame.tRect, Microsoft.Xna.Framework.Color.White);
 
 				// the troopers and their colors and all that will have to pay attention to the rotation and all of that 
 				// troopers and or anything off a spritesheet might need their own draw method
-				_cBatch.Draw(_cTrooperTex, _cPlayer1.tPos, _cPlayer1.cFrame.tRect, Color.White, 
+				_cBatch.Draw(_cTrooperTex, _cPlayer1.tPos, _cPlayer1.cFrame.tRect, Microsoft.Xna.Framework.Color.White, 
 					_cPlayer1.cFrame.bRot ? -(float)Math.PI/2 : 0, _cPlayer1.cFrame.tTopLeft, 1, SpriteEffects.None, 0);
-				_cBatch.Draw(_cTrooperTex, _cPlayer2.tPos, _cPlayer2.cFrame.tRect, Color.White, 
+				_cBatch.Draw(_cTrooperTex, _cPlayer2.tPos, _cPlayer2.cFrame.tRect, Microsoft.Xna.Framework.Color.White, 
 					_cPlayer2.cFrame.bRot ? -(float)Math.PI/2 : 0, _cPlayer2.cFrame.tTopLeft, 1, SpriteEffects.None, 0);
 			
 				// draw cursor
-				_cBatch.Draw(_cCursor.cTexRef, _cCursor.tPos, _cCursor.cFrame.tRect, Color.White);
+				_cBatch.Draw(_cCursor.cTexRef, _cCursor.tPos, _cCursor.cFrame.tRect, Microsoft.Xna.Framework.Color.White);
 			} _cBatch.End();
 		}
 
@@ -146,6 +160,21 @@ namespace MightyFights_Prototype
 												_cPlayer2.cFrame.tRect.Width / 2, 400 + _cP2Card.cTexRef.Bounds.Width / 2 - 
 												_cPlayer2.cFrame.tRect.Height / 2);
 				
+				_cP1Count = new NumericUpDown();
+				_cP1Count.Size = new System.Drawing.Size(58, 20);
+				_cP1Count.Location = new System.Drawing.Point((int)_cP1Card.tPos.X - 108, (int)_cP1Card.tPos.Y + 20);
+				_cP1Count.Minimum = 1;
+				_cP1Count.Maximum = 160;
+				_cP1Count.Value = 1;
+				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP1Count);
+				
+				_cP2Count = new NumericUpDown();
+				_cP2Count.Size = new System.Drawing.Size(58, 20);
+				_cP2Count.Location = new System.Drawing.Point((int)_cP2Card.tPos.X + 50 + _cP1Card.cTexRef.Bounds.Width, (int)_cP1Card.tPos.Y + 20);
+				_cP2Count.Minimum = 1;
+				_cP2Count.Maximum = 160;
+				_cP2Count.Value = 1;
+				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP2Count);
 
 				_cBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 
@@ -162,6 +191,11 @@ namespace MightyFights_Prototype
 			_cToBattle.Dispose();
 			_cTrooperTex.Dispose();
 			_cTroopers.Dispose();
+		}
+
+		public void ToggleControls()
+		{
+			_cP2Count.Visible = _cP2Count.Enabled = _cP1Count.Visible = _cP1Count.Enabled = _eState == ESceneStates.Active;
 		}
 
 		#endregion
