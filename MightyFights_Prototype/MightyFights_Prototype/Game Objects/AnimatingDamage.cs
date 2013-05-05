@@ -13,15 +13,12 @@ namespace MightyFights_Prototype
 	public class AnimatingDamage
 	{
 		TimeSpan	_tTotalDuration,
-					_tRotationFlip,
-					_tCurrentFlipCount,
 					_tLifetime;
 
 		string		_sDamage;
 		Color		_tTextColor;
-		int			_iAlpha;
-		float		_fRotIncrement,
-					_fRot;
+		int			_iAlpha,
+					_iStartY;
 		Vector2		_tPos,
 					_tOrigin = new Vector2(0, 0);
 		SpriteFont	_cFont;
@@ -30,41 +27,31 @@ namespace MightyFights_Prototype
 
 		public AnimatingDamage(int iDamage, Vector2 tPos)
 		{
-			_tTotalDuration = TimeSpan.FromMilliseconds(1000);
-			_tRotationFlip = TimeSpan.FromMilliseconds(200);
+			_tTotalDuration = TimeSpan.FromMilliseconds(300);
 			_tLifetime = TimeSpan.Zero;
-			_tCurrentFlipCount = TimeSpan.Zero;
 			this.bActive = true;
-			_fRot = (float)Math.PI / 4;
-			_fRotIncrement = (float)(Math.PI / 2) / 200;
 			_sDamage = Convert.ToString(iDamage);
 			_tPos = tPos;
 			_cFont = DataStore.cInstance.cFont;
 			_tTextColor = Color.White;
+			_iStartY = (int)tPos.Y;
 		}
 
 		public void Update(GameTime cTime)
 		{
 			_tLifetime += cTime.ElapsedGameTime;
-			_tCurrentFlipCount += cTime.ElapsedGameTime;
 
 			if(_tLifetime > _tTotalDuration) {
 				this.bActive = false;
 				return;
 			}
 
-			if(_tCurrentFlipCount > _tRotationFlip) { 
-				_fRotIncrement = -_fRotIncrement;
-				_tCurrentFlipCount = TimeSpan.Zero;
-				_tPos.Y -= 3;
-			}
-
-			_fRot += _fRotIncrement;
+			_tPos.Y = _iStartY - (20 * ((float)_tLifetime.Ticks / _tTotalDuration.Ticks));
 		}
 
 		public void Draw(SpriteBatch cBatch)
 		{
-			cBatch.DrawString(_cFont, _sDamage, _tPos, _tTextColor, _fRot, _tOrigin, 1, SpriteEffects.None, 1);
+			cBatch.DrawString(_cFont, _sDamage, _tPos, _tTextColor, 0, _tOrigin, 1, SpriteEffects.None, 0);
 		}
 	}
 }

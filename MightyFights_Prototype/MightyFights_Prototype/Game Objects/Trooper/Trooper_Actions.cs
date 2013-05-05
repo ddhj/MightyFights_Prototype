@@ -9,7 +9,7 @@ namespace MightyFights_Prototype
 {
 	public partial class Trooper 
 	{
-		public bool TrooperUpkeep(Action cAction)
+		public bool TrooperUpkeep(Action cAction, GameTime cTime)
 		{
 			if(_cStats.iHp <= 0) { 
 				cAiData.eState = EBattleAiStates.Dying;
@@ -42,7 +42,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool BasicBattleManager(Action cAction)
+		public bool BasicBattleManager(Action cAction, GameTime cTime)
 		{
 			if(cAction.bInit) { 
 				_cBattleDataRef = (BattlegroundData)cAction.oData;
@@ -106,7 +106,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool MoveToPoint(Action cAction)
+		public bool MoveToPoint(Action cAction, GameTime cTime)
 		{
 			Vector2		tDest = (Vector2)cAction.oData,
 						tDirVect;
@@ -139,7 +139,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool FleeToPoint(Action cAction)
+		public bool FleeToPoint(Action cAction, GameTime cTime)
 		{
 			Vector2		tDest = (Vector2)cAction.oData,
 						tDirVect;
@@ -172,7 +172,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool PersueOpponent(Action cAction)
+		public bool PersueOpponent(Action cAction, GameTime cTime)
 		{
 			Vector2		tDest,
 						tDirVect;
@@ -219,7 +219,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool ChargeOpponent(Action cAction)
+		public bool ChargeOpponent(Action cAction, GameTime cTime)
 		{
 			Vector2		tDest,
 						tDirVect;
@@ -276,7 +276,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool Wait(Action cAction)
+		public bool Wait(Action cAction, GameTime cTime)
 		{
 			// check to see if the canvas (time) is longer than the data in (time) 
 			TimeSpan	tTime = (TimeSpan)cAction.oCanvas;
@@ -294,10 +294,11 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool DamageObj(Action cAction)
+		public bool DamageObj(Action cAction, GameTime cTime)
 		{
 			if(cAction.bInit) { 
-				cAction.oCanvas = new AnimatingDamage((int)cAction.oData, _tCenter);
+				UpdateRefPoints();
+				cAction.oCanvas = new AnimatingDamage((int)cAction.oData, new Vector2(_tCenter.X, _tCenter.Y - 20));
 				_caDamageList.Add((AnimatingDamage)cAction.oCanvas);
 				cAction.oData = _caDamageList.Count - 1;
 				cAction.bInit = false;
@@ -305,7 +306,7 @@ namespace MightyFights_Prototype
 			}
 
 			AnimatingDamage cDmg = (AnimatingDamage)cAction.oCanvas;
-			cDmg.Update(DataStore.cInstance.cTime);
+			cDmg.Update(cTime);
 			if(cDmg.bActive == false) { 
 				_caDamageList.RemoveAt((int)cAction.oData);
 				cAction.bConditionNotMet = false;
