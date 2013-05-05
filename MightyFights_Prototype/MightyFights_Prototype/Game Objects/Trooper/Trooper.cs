@@ -34,7 +34,9 @@ namespace MightyFights_Prototype
 		Dictionary<ETrooperAttackPos, ICombatant>	_caAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
 		//// ddhj: debug data
-		
+
+		// i dont particularly like this here, need to figure out a way to get it into the battleground processor 
+		List<AnimatingDamage>		_caDamageList = new List<AnimatingDamage>();
 
 		public bool bActive				{ get; set; }
 		public bool bDir				{ get; set; }
@@ -140,6 +142,13 @@ namespace MightyFights_Prototype
 				cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, _fZorder);
 			}
 
+			// draw damage list if there is one
+			if(DataStore.cInstance.bDamageNumbers) { 
+				foreach(AnimatingDamage cDmg in _caDamageList)
+					cDmg.Draw(cBatch);
+			}
+
+
 			//// ddhj: debug draw data
 			// lets draw our attack positions
 			//Vector2 tDir = _tPos;
@@ -212,8 +221,13 @@ namespace MightyFights_Prototype
 		public void DealDamage(int iDamage)
 		{
 			//// ddhj: yep armor class and all that shit 
-			if(cAiData.eState != EBattleAiStates.Defending)
+			if(cAiData.eState != EBattleAiStates.Defending) { 
 				_cStats.iHp -= iDamage;
+
+				if(DataStore.cInstance.bDamageNumbers) { 
+					_cActionMgr.cActionQueue.Add(new Action(DamageObj, iDamage, null));
+				}
+			}
 		}
 
 		public bool IsDead()

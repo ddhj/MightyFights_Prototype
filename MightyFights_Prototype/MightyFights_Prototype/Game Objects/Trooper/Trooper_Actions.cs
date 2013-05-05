@@ -293,5 +293,26 @@ namespace MightyFights_Prototype
 			}
 			return true;
 		}
+
+		public bool DamageObj(Action cAction)
+		{
+			if(cAction.bInit) { 
+				cAction.oCanvas = new AnimatingDamage((int)cAction.oData, _tCenter);
+				_caDamageList.Add((AnimatingDamage)cAction.oCanvas);
+				cAction.oData = _caDamageList.Count - 1;
+				cAction.bInit = false;
+				return true;
+			}
+
+			AnimatingDamage cDmg = (AnimatingDamage)cAction.oCanvas;
+			cDmg.Update(DataStore.cInstance.cTime);
+			if(cDmg.bActive == false) { 
+				_caDamageList.RemoveAt((int)cAction.oData);
+				cAction.bConditionNotMet = false;
+				return false;
+			}
+
+			return true;
+		}
 	}
 }

@@ -26,6 +26,7 @@ namespace MightyFights_Prototype
 		public BattlegroundData	cBattleData	{ get; set; }
 		public GameTime			cTime		{ get; set; }
 		public Game				cGame		{ get; set; }
+		public SpriteFont		cFont		{ get; set; }
 
 		// the template config from the main menu, this will be replaced with realness at some point
 		public TemplateConfig	cLeftConfig	{ get; set; }
@@ -36,5 +37,7 @@ namespace MightyFights_Prototype
 
 		//// ddhj: battle ground toggles that are processed in non battleground areas
 		public bool				bLifeBars	{ get; set; }
+		public bool				bDamageNumbers	{ get; set; }
+		public bool				bSlowMo		{ get; set; }
 	}
 }

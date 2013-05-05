@@ -38,7 +38,9 @@ namespace MightyFights_Prototype
 		Texture2D		_cBorder;
 		bool			_bUpdate = true;
 
-		System.Windows.Forms.CheckBox		_cToggleLifeBar;
+		System.Windows.Forms.CheckBox		_cToggleLifeBar,
+											_cToggleDamageNumbers,
+											_cToggleSlowMo;
 
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
 	
@@ -82,10 +84,11 @@ namespace MightyFights_Prototype
 			}
 
 			//// debug slow down the game
-			//_tSlowMo += cTime.ElapsedGameTime;
-			//if(_tSlowMo < TimeSpan.FromMilliseconds(50)) 
-			//    return;
-			
+			if(_cToggleSlowMo.Checked) { 
+				_tSlowMo += cTime.ElapsedGameTime;
+				if(_tSlowMo < TimeSpan.FromMilliseconds(50)) 
+					return;
+			}			
 
 			if( _bUpdate )
 			{
@@ -225,10 +228,10 @@ namespace MightyFights_Prototype
 
 			// this is for quick action
 			Random cRand = new Random();
-			_iAX = cRand.Next(7) + 2;
-			_iAY = cRand.Next(13) + 8;
-			_iOX = cRand.Next(7) + 2;
-			_iOY = cRand.Next(13) + 8;
+			_iAX = 1;//cRand.Next(7) + 2;
+			_iAY = 1;//cRand.Next(13) + 8;
+			_iOX = 1;//cRand.Next(7) + 2;
+			_iOY = 1;//cRand.Next(13) + 8;
 
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
@@ -295,6 +298,20 @@ namespace MightyFights_Prototype
 				_cToggleLifeBar.CheckedChanged += new EventHandler(ToggleLifeBarChange);
 				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleLifeBar);
 
+				_cToggleDamageNumbers = new System.Windows.Forms.CheckBox();
+				_cToggleDamageNumbers.Location = new System.Drawing.Point(0, 60);
+				_cToggleDamageNumbers.Text = _cToggleLifeBar.Name = "Toggle Damage Numbers";
+				_cToggleDamageNumbers.AutoSize = true;
+				_cToggleDamageNumbers.CheckedChanged += new EventHandler(ToggleDamageNumbersChange);
+				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleDamageNumbers);
+
+				_cToggleSlowMo = new System.Windows.Forms.CheckBox();
+				_cToggleSlowMo.Location = new System.Drawing.Point(0, 80);
+				_cToggleSlowMo.Text = _cToggleLifeBar.Name = "Toggle Slow Mo";
+				_cToggleSlowMo.AutoSize = true;
+				_cToggleSlowMo.CheckedChanged += new EventHandler(ToggleSlowMoChange);
+				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleSlowMo);
+
 				// set the start of battle
 				SetBattleStart();
 			} catch(Exception xEx) { 
@@ -307,6 +324,16 @@ namespace MightyFights_Prototype
 		public void ToggleLifeBarChange(object oSender, EventArgs eEvtArgs) 
 		{
 			DataStore.cInstance.bLifeBars = _cToggleLifeBar.Checked;
+		}
+
+		public void ToggleDamageNumbersChange(object oSender, EventArgs eEvtArgs) 
+		{
+			DataStore.cInstance.bDamageNumbers = _cToggleDamageNumbers.Checked;
+		}
+
+		public void ToggleSlowMoChange(object oSender, EventArgs eEvtArgs) 
+		{
+			DataStore.cInstance.bSlowMo = _cToggleSlowMo.Checked;
 		}
 
 		void BackToMenu()
@@ -323,6 +350,8 @@ namespace MightyFights_Prototype
 			_cTrooperRef.Clear();
 			_cBattleData.Clear();
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleLifeBar);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleDamageNumbers);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleSlowMo);
 		}
 
 		void ResetBattle()
