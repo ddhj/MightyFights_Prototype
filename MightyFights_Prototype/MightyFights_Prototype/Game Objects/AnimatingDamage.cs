@@ -30,7 +30,7 @@ namespace MightyFights_Prototype
 
 		public AnimatingDamage(int iDamage, Vector2 tPos)
 		{
-			_tTotalDuration = TimeSpan.FromMilliseconds(4000);
+			_tTotalDuration = TimeSpan.FromMilliseconds(1000);
 			_tRotationFlip = TimeSpan.FromMilliseconds(200);
 			_tLifetime = TimeSpan.Zero;
 			_tCurrentFlipCount = TimeSpan.Zero;
