@@ -194,7 +194,7 @@ namespace MightyFights_Prototype
 
 				Dictionary<IntPoint, Zone>	caActiveZones = cData.caActiveZones[iOpponentIndex];
 				SortedList<int, List<Zone>>	cClosestZones = new SortedList<int,List<Zone>>();
-				List<Zone>	cZoneList = null;
+				List<Zone>	caZoneList = null;
 
 				// walk through the active zones 
 				foreach(KeyValuePair<IntPoint, Zone> tZoneData in caActiveZones) { 
@@ -206,11 +206,11 @@ namespace MightyFights_Prototype
 						
 						// get distnace and add to sorted list
 						iTmp = (int)tNewZone.LengthSquared();
-						if(!cClosestZones.TryGetValue(iTmp, out cZoneList))
-							cClosestZones.Add(iTmp, cZoneList = new List<Zone>());
+						if(!cClosestZones.TryGetValue(iTmp, out caZoneList))
+							cClosestZones.Add(iTmp, caZoneList = new List<Zone>());
 						
 						// add zone to internal list for collision on distance
-						cZoneList.Add(tZoneData.Value);
+						caZoneList.Add(tZoneData.Value);
 					}
 				}
 

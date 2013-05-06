@@ -13,6 +13,7 @@ namespace MightyFights_Prototype
 		Vector2 tPos			{ get; set; }
 		Vector2 tCenter			{ get; set; }
 		ICombatant nOpponent	{ get; set; }
+		int iId					{ get; }
 		int iArmyIndex			{ get; set; }
 		int iOpponentIndex		{ get; set; }
 		int iWeaponRange		{ get; set; }

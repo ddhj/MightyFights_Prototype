@@ -78,6 +78,7 @@ namespace MightyFights_Prototype
 	public class BattlegroundData
 	{	
 		Zone[][]		_caBattleZones = new Zone[8][];
+		List<Team>		_caTeams = new List<Team>( );
 		List<List<ICombatant>>		_naMasterLists = new List<List<ICombatant>>();
 		List<Dictionary<IntPoint, Zone>>			_caActiveZones = new List<Dictionary<IntPoint, Zone>>();
 
@@ -94,7 +95,7 @@ namespace MightyFights_Prototype
 
 			// init the zone objects
 			for(int iZoneCol = 0; iZoneCol < (int)EZoneData.ZoneColumns; ++iZoneCol) { 
- 				_caBattleZones[iZoneCol] = new Zone[(int)EZoneData.ZoneRows];
+				_caBattleZones[iZoneCol] = new Zone[(int)EZoneData.ZoneRows];
 				for(int iZoneRow = 0; iZoneRow < (int)EZoneData.ZoneRows; ++iZoneRow) { 
 					cTmpZone = new Zone(iZoneCol, iZoneRow);
 					cTmpZone.naCombatantLists = new List<List<ICombatant>>();

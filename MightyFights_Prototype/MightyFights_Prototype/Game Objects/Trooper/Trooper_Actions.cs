@@ -50,7 +50,7 @@ namespace MightyFights_Prototype
 			}
 
 			switch(_cBattleDataRef.eState) {
- 				case EBattlegroundState.Battle:
+				case EBattlegroundState.Battle:
 					// check to see if we are in the middle of an animation, the only one 
 					// we care about is the ready state
 					switch(cAiData.eState) { 

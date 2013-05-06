@@ -20,7 +20,8 @@ namespace MightyFights_Prototype
 		Stats						_cStats;
 		int							_iAvailablePositions = 6,
 									_iCurLeftAttackers = 0,
-									_iCurRightAttakers = 0;
+									_iCurRightAttakers = 0,
+									_iId;
 		float						_fZorder;
 		byte						_byAttakPos;
 		BattlegroundData			_cBattleDataRef = null;
@@ -32,8 +33,9 @@ namespace MightyFights_Prototype
 
 		Dictionary<ETrooperAttackPos, ICombatant>	_caAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
-		//// ddhj: debug data
-		
+
+
+		public int iId		{ get { return _iId; }}
 
 		public bool bActive				{ get; set; }
 		public bool bDir				{ get; set; }
@@ -51,8 +53,11 @@ namespace MightyFights_Prototype
 		
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
 
-		public Trooper(TrooperTemplate cTemplate)
+
+
+		public Trooper(int iId, TrooperTemplate cTemplate)
 		{
+			_iId = iId;
 			_cAnimProc = cTemplate.cAnimProcessorRef;
 			_cTexRef = cTemplate.cTextureRef;
 			_cActionMgr = cTemplate.cActionMgr;

@@ -18,7 +18,7 @@ namespace MightyFights_Prototype
 		Texture2D		_cBackground;
 		SpriteBatch		_cSpriteBatch;
 		Dictionary<string, List<IDrawable>>		_cDrawList = new Dictionary<string,List<IDrawable>>();
-		List<Trooper>							_cActiveList = new List<Trooper>();
+		List<Trooper>							_caActiveList = new List<Trooper>();
 		Dictionary<string, List<ICombatant>>	_cTrooperRef = new Dictionary<string,List<ICombatant>>();
 		BattlegroundData	_cBattleData = new BattlegroundData();
 		TimeSpan			_tVictoryElapsed = TimeSpan.Zero,
@@ -47,7 +47,7 @@ namespace MightyFights_Prototype
 			List<Trooper>	cRemoveList = new List<Trooper>();
 
 			// process all the active troopers
-			foreach(Trooper cTrooper in _cActiveList)
+			foreach(Trooper cTrooper in _caActiveList)
 				if(cTrooper.bActive) { 
 					cTrooper.Process(cTime);
 				} else cRemoveList.Add(cTrooper);
@@ -58,7 +58,7 @@ namespace MightyFights_Prototype
 				//_cDrawList[cTrooper.sTexName].Remove(cTrooper);
 
 				// remove from the processing list
-				_cActiveList.Remove(cTrooper);
+				_caActiveList.Remove(cTrooper);
 			}
 		}
 
@@ -144,9 +144,29 @@ namespace MightyFights_Prototype
 					foreach(IDrawable nSprite in tTrooperList.Value)
 						nSprite.Draw(_cSpriteBatch);
 
-				// the frame rate debug statement
-				_cSpriteBatch.DrawString(_cFont, string.Format("fps:{0} : LeftArmy:{1} : RightArmy:{2}", _iFrameRate, _cBattleData.naArmyRef.Count, _cBattleData.naOpponentsRef.Count), 
-					new Vector2(10, 10), Color.White);				
+				//// development interface
+				{
+					int		iLHp = 0,
+							iRHp = 0,
+							iLPow = 0,
+							iRPow = 0;
+
+					foreach( Trooper cTroop in _caActiveList )
+						if (cTroop.iArmyIndex == 0)
+						{
+							iLHp += cTroop.cStats.iHp;
+							iLPow += cTroop.cStats.iPower;
+						}
+						else	{
+							iRHp += cTroop.cStats.iHp;
+							iRPow += cTroop.cStats.iPower;
+						}
+
+					// the frame rate debug statement
+					_cSpriteBatch.DrawString(_cFont, string.Format("fps: {0}", _iFrameRate ), new Vector2(900, 10), Color.White);
+					_cSpriteBatch.DrawString(_cFont, string.Format("LeftArmy: {0}    Left HP: {1}    Left Pow: {2}", _cBattleData.naArmyRef.Count, iLHp, iLPow ), new Vector2(10, 10), Color.White);
+					_cSpriteBatch.DrawString(_cFont, string.Format("RightArmy: {0}  Right HP: {1}  Right Pow:{2}", _cBattleData.naOpponentsRef.Count, iRHp, iRPow ), new Vector2(10, 30), Color.White);
+				}
 
 				//// ddhj: debug draw
 				// lets draw the active zones 
@@ -169,7 +189,7 @@ namespace MightyFights_Prototype
 		{
 			bool bReady = false;
 
-			foreach(Trooper cTrooper in _cActiveList)
+			foreach(Trooper cTrooper in _caActiveList)
 			    bReady |= cTrooper.cAiData.eState != EBattleAiStates.Ready;
 
 			return bReady;
@@ -239,7 +259,7 @@ namespace MightyFights_Prototype
 				for(int i = 0; i < _iAX; ++i)
 					for(int j = 0; j < _iAY; ++j) { 
 						// add the newly created trooper to the active list and set some initial battle data
-						_cActiveList.Add(cP1 = new Trooper(ObjectManager.cInstance.CreateTemplate(cLeft)));
+						_caActiveList.Add(cP1 = new Trooper(ObjectManager.cInstance.CreateTemplate(cLeft)));
 						cP1.tPos = new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
 						cP1.iArmyIndex = 0;
 						cP1.iOpponentIndex = 1;
@@ -256,7 +276,7 @@ namespace MightyFights_Prototype
 				for(int i = 0; i < _iOX; ++i)
 					for(int j = 0; j < _iOY; ++j) { 
 						// set the opponents to the acitve list 
-						_cActiveList.Add(cP1 = new Trooper(ObjectManager.cInstance.CreateTemplate(cRight)));
+						_caActiveList.Add(cP1 = new Trooper(ObjectManager.cInstance.CreateTemplate(cRight)));
 						cP1.tPos = new Vector2(950, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
 						cP1.iArmyIndex = 1; 
 						cP1.iOpponentIndex = 0;
@@ -306,7 +326,7 @@ namespace MightyFights_Prototype
 		{
 			_cSpriteBatch.Dispose();
 			_cDrawList.Clear();
-			_cActiveList.Clear();
+			_caActiveList.Clear();
 			_cTrooperRef.Clear();
 			_cBattleData.Clear();
 		}
@@ -323,7 +343,7 @@ namespace MightyFights_Prototype
 		{
 			_cSpriteBatch.Dispose();
 			_cDrawList.Clear();
-			_cActiveList.Clear();
+			_caActiveList.Clear();
 			_cTrooperRef.Clear();
 			_cBattleData.Clear();		
 		}
