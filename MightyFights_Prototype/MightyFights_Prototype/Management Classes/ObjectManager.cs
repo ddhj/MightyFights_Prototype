@@ -72,4 +72,18 @@ namespace MightyFights_Prototype
 			return cTemplate;
 		}
 	}
+
+	public class ObjectManagerInstance
+	{
+		Dictionary<string, List<IDrawable>>		_caDrawList = new Dictionary<string,List<IDrawable>>();
+		List<IActiveBasic>	_caActiveList = new List<IActiveBasic>();
+
+		public void AddObject(object oData)
+		{
+			if(oData is IDrawable) { 
+				if(oData is IDrawableTexture)
+					if(_caDrawList.TryGetValue(((IDrawableTexture)oData).sTexName
+			}
+		}
+	}
 }

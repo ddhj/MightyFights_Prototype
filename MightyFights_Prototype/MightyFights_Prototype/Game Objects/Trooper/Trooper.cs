@@ -10,7 +10,7 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public partial class Trooper : IDrawable, IAnimate, ICombatant, IActive<Trooper>
+	public partial class Trooper : IDrawable, IDrawableTexture, IAnimate, ICombatant, IActive<Trooper>
 	{
 		ActionManager<Trooper>		_cActionMgr;
 		AnimationProcessor			_cAnimProc;

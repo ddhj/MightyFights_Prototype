@@ -10,7 +10,7 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public class AnimatingDamage
+	public class AnimatingDamage : IDrawable, IDrawableFont
 	{
 		TimeSpan	_tTotalDuration,
 					_tLifetime;
@@ -23,7 +23,13 @@ namespace MightyFights_Prototype
 					_tOrigin = new Vector2(0, 0);
 		SpriteFont	_cFont;
 
+		public int iDrawIdx		{ get; set; }
+		public int iActiveIdx	{ get; set; }
 		public bool bActive		{ get; set; }
+		public SpriteFont cFont	{ get { return _cFont; } set { _cFont = value; }}
+
+		// not sure that the font will be something that we optimize or not
+		public string sFontName { get { return @"Shared\DebugFont"; } set { }}
 
 		public AnimatingDamage(int iDamage, Vector2 tPos)
 		{

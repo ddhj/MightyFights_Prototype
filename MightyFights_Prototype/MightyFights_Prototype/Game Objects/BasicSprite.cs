@@ -10,12 +10,13 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public class BasicSprite : IDrawable, IClickable
+	public class BasicSprite : IDrawable, IDrawableTexture, IClickable
 	{
 		Rectangle	_cDrawnRect;
 		Vector2		_tPos;
 		Texture2D	_cTexRef;
 
+		public int iDrawableIdx		{ get; set; }
 		public Texture2D cTexRef	{ get { return _cTexRef; } set { _cTexRef = value; }}
 		public Frame cFrame			{ get; set; }
 		public string sTexName		{ get; set; }
