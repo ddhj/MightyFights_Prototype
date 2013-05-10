@@ -170,7 +170,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="In Game\Buffs\" />
     <Folder Include="In Game\Hud\" />
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +300,20 @@
       <Name>HitPoints</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="In Game\Buffs\BufItems.png">
+      <Name>BufItems</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="In Game\Buffs\BufItemsArray.json">
+      <Name>BufItemsArray</Name>
+      <Importer>ContentImporter1</Importer>
+      <Processor>ContentProcessor1</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

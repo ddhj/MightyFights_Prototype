@@ -7,6 +7,14 @@ namespace MightyFights_Prototype
 {
 	public delegate object DBattleHuristic(BattlegroundData cData);
 
+	public class AiBattleData
+	{
+		Dictionary<EBattleHuristics, DBattleHuristic>	_cHuristics = new Dictionary<EBattleHuristics,DBattleHuristic>();
+
+		public Dictionary<EBattleHuristics, DBattleHuristic>	cHurisitics  { get { return _cHuristics; }}
+		public EBattleAiStates									eState		 {get; set;}
+	}
+
 	public class IntPoint : IComparable<IntPoint>
 	{
 		int			_iX,
@@ -57,8 +65,7 @@ namespace MightyFights_Prototype
 
 		#endregion
 	}
-
-
+	
 	public class Zone 
 	{
 		IntPoint	_cPoint;
@@ -82,11 +89,13 @@ namespace MightyFights_Prototype
 		List<Dictionary<IntPoint, Zone>>			_caActiveZones = new List<Dictionary<IntPoint, Zone>>();
 
 		public EBattlegroundState eState			{ get; set; }
-		public ObjectManagerInstance	cObjMgr		{ get; set; }
+		public ObjectManagerInstance cObjMgr		{ get; set; }
+		public Cursor cCursor						{ get; set; }
 		public List<ICombatant>	naArmyRef			{ get { return _naMasterLists[0]; }}
 		public List<ICombatant> naOpponentsRef		{ get { return _naMasterLists[1]; }}
 		public List<List<ICombatant>> naMasterLists	{ get { return _naMasterLists; }}
 		public Zone[][] caBattleZones				{ get { return _caBattleZones; }}
+		
 		public List<Dictionary<IntPoint, Zone>>	caActiveZones		{ get { return _caActiveZones; }}
 
 		public BattlegroundData()
@@ -203,13 +212,5 @@ namespace MightyFights_Prototype
 			this.naArmyRef.Clear();
 			this.naOpponentsRef.Clear();
 		}
-	}
-
-	public class AiBattleData
-	{
-		Dictionary<EBattleHuristics, DBattleHuristic>	_cHuristics = new Dictionary<EBattleHuristics,DBattleHuristic>();
-
-		public Dictionary<EBattleHuristics, DBattleHuristic>	cHurisitics  { get { return _cHuristics; }}
-		public EBattleAiStates									eState		 {get; set;}
 	}
 }

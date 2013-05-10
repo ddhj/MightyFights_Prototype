@@ -258,6 +258,7 @@ namespace MightyFights_Prototype
 				_cCursor.cFrame = new Frame(_cCursor.cTexRef.Bounds, new Vector2(_cCursor.cTexRef.Bounds.Width / 2, _cCursor.cTexRef.Bounds.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cCursor.cTexRef.Bounds.Width, _cCursor.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 				_cObjMgr.AddObject(_cCursor);
+				_cBattleData.cCursor = _cCursor;
 
 				//// ddhj: load in some debug data
 				_cFont = cContent.Load<SpriteFont>(@"Shared\DebugFont");
