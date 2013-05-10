@@ -10,7 +10,7 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public partial class Trooper : IDrawable, IDrawableTexture, IAnimate, ICombatant, IActive<Trooper>
+	public partial class Trooper : IDrawable, IDrawableTexture, IAnimate, ICombatant, IActive<Trooper>, IObject
 	{
 		ActionManager<Trooper>		_cActionMgr;
 		AnimationProcessor			_cAnimProc;
@@ -20,12 +20,12 @@ namespace MightyFights_Prototype
 		Stats						_cStats;
 		int							_iAvailablePositions = 6,
 									_iCurLeftAttackers = 0,
-									_iCurRightAttakers = 0,
-									_iMaxHp;
+									_iCurRightAttakers = 0;
 		float						_fZorder;
 		byte						_byAttakPos;
 		BattlegroundData			_cBattleDataRef = null;
 		ETrooperAttackPos			_eAttackingPos;
+		EObjectStates				_eObjState;
 		bool						_bAttacking;
 
 		////ddhj template stuff... not sure if it should go on trooper proper
@@ -35,10 +35,6 @@ namespace MightyFights_Prototype
 
 		//// ddhj: debug data
 
-		// i dont particularly like this here, need to figure out a way to get it into the battleground processor 
-		List<AnimatingDamage>		_caDamageList = new List<AnimatingDamage>();
-
-		public bool bActive				{ get; set; }
 		public bool bDir				{ get; set; }
 		public ICombatant nOpponent		{ get; set; }
 		public AiBattleData cAiData		{ get; set; }
@@ -46,6 +42,8 @@ namespace MightyFights_Prototype
 		public int iOpponentIndex		{ get; set; }
 		public int iWeaponRange			{ get; set; }
 		public Zone cZone				{ get; set; }
+		public int iId					{ get; set; }
+		public EObjectStates eObjState	{ get { return _eObjState; } set { _eObjState = value; }}
 		public Stats cStats				{ get { return _cStats; } set { _cStats = value; }}
 		public bool bAvailablePos		{ get { return _iCurLeftAttackers + _iCurRightAttakers < _iAvailablePositions; }} 
 		public Vector2 tAttackPos		{ get; set; }
@@ -65,8 +63,6 @@ namespace MightyFights_Prototype
 			cAiData = cTemplate.cAiData;
 			sTexName = cTemplate.sTexName;
 			
-			bActive	= true;
-
 			_cActionMgr.AddPermAction(new Action(this.TrooperUpkeep, null, null));
 
 			////ddhj: this is the initial area for the template config, this will probably change over time
@@ -85,8 +81,11 @@ namespace MightyFights_Prototype
 			// this is going to come from somewhere
 			this.iWeaponRange = 10;
 
-			// set the max hp
-			_iMaxHp = cStats.iHp;
+			// set its states
+			_eObjState = EObjectStates.Active | EObjectStates.Draw;
+
+			// get the id from the object manager proper
+			this.iId = ObjectManager.cInstance.iCurObjId;
 		}
 
 		#region IDrawable Members
@@ -136,18 +135,11 @@ namespace MightyFights_Prototype
 			// draw the lifebar 
 			if(DataStore.cInstance.bLifeBars) { 
 				Texture2D	cBorder = DataStore.cInstance.cBorder;
-				Rectangle	tRect = new Rectangle((int)_tPos.X + 20, (int)_tPos.Y + 30, (int)(((cStats.iHp / (float)_iMaxHp) * 100) * .3), 5);
+				Rectangle	tRect = new Rectangle((int)_tPos.X + 20, (int)_tPos.Y + 30, (int)(((_cStats.iHp / (float)_cStats.iMaxHp) * 100) * .3), 5);
 				Color		cHpColor = Color.Green;
 				cHpColor.A = 85;
 				cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, _fZorder);
 			}
-
-			// draw damage list if there is one
-			if(DataStore.cInstance.bDamageNumbers) { 
-				foreach(AnimatingDamage cDmg in _caDamageList)
-					cDmg.Draw(cBatch);
-			}
-
 
 			//// ddhj: debug draw data
 			// lets draw our attack positions
@@ -224,9 +216,9 @@ namespace MightyFights_Prototype
 			if(cAiData.eState != EBattleAiStates.Defending) { 
 				_cStats.iHp -= iDamage;
 
-				if(DataStore.cInstance.bDamageNumbers) { 
-					_cActionMgr.cActionQueue.Add(new Action(DamageObj, iDamage, null));
-				}
+				// check to see if we are spawning damage numbers
+				if(DataStore.cInstance.bDamageNumbers) 
+					DataStore.cInstance.cBattleData.cObjMgr.AddObject(new AnimatingDamage(iDamage, _tCenter));
 			}
 		}
 

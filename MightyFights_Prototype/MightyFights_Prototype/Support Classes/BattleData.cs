@@ -82,6 +82,7 @@ namespace MightyFights_Prototype
 		List<Dictionary<IntPoint, Zone>>			_caActiveZones = new List<Dictionary<IntPoint, Zone>>();
 
 		public EBattlegroundState eState			{ get; set; }
+		public ObjectManagerInstance	cObjMgr		{ get; set; }
 		public List<ICombatant>	naArmyRef			{ get { return _naMasterLists[0]; }}
 		public List<ICombatant> naOpponentsRef		{ get { return _naMasterLists[1]; }}
 		public List<List<ICombatant>> naMasterLists	{ get { return _naMasterLists; }}

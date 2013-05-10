@@ -10,13 +10,14 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public class BasicSprite : IDrawable, IDrawableTexture, IClickable
+	public class ClickableSprite : IDrawable, IDrawableTexture, IClickable, IObject
 	{
 		Rectangle	_cDrawnRect;
 		Vector2		_tPos;
 		Texture2D	_cTexRef;
 
-		public int iDrawableIdx		{ get; set; }
+		public int iId				{ get; set; }
+		public EObjectStates eObjState	{ get; set; }
 		public Texture2D cTexRef	{ get { return _cTexRef; } set { _cTexRef = value; }}
 		public Frame cFrame			{ get; set; }
 		public string sTexName		{ get; set; }
@@ -25,6 +26,12 @@ namespace MightyFights_Prototype
 				_tPos = value; 
 				_cDrawnRect = new Rectangle((int)_tPos.X, (int)_tPos.Y, _cTexRef.Bounds.Width, _cTexRef.Bounds.Height);
 			}
+		}
+
+		public ClickableSprite()
+		{
+			this.eObjState = EObjectStates.Draw;
+			this.iId = ObjectManager.cInstance.iCurObjId;
 		}
 
 		public virtual bool ContainsPoint(Point tPoint) 

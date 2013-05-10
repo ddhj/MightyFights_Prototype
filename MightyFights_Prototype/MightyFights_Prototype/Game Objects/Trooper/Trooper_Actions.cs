@@ -88,7 +88,8 @@ namespace MightyFights_Prototype
 						break;
 
 						case EBattleAiStates.Dead: 
-							bActive = false;
+							// set so the object no longer is active
+							_eObjState &= ~EObjectStates.Active;
 							cAction.bConditionNotMet = false;
 							return false;
 					}
@@ -291,28 +292,6 @@ namespace MightyFights_Prototype
 				cAction.bConditionNotMet = false;
 				return false;
 			}
-			return true;
-		}
-
-		public bool DamageObj(Action cAction, GameTime cTime)
-		{
-			if(cAction.bInit) { 
-				UpdateRefPoints();
-				cAction.oCanvas = new AnimatingDamage((int)cAction.oData, new Vector2(_tCenter.X, _tCenter.Y - 20));
-				_caDamageList.Add((AnimatingDamage)cAction.oCanvas);
-				cAction.oData = _caDamageList.Count - 1;
-				cAction.bInit = false;
-				return true;
-			}
-
-			AnimatingDamage cDmg = (AnimatingDamage)cAction.oCanvas;
-			cDmg.Update(cTime);
-			if(cDmg.bActive == false) { 
-				_caDamageList.RemoveAt((int)cAction.oData);
-				cAction.bConditionNotMet = false;
-				return false;
-			}
-
 			return true;
 		}
 	}

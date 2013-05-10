@@ -21,7 +21,7 @@ namespace MightyFights_Prototype
 		AnimationData	_cTroopers;
 		SpriteBatch		_cBatch;
 		GraphicsDevice	_cGraphics;
-		BasicSprite		_cPlayer1, 
+		ClickableSprite		_cPlayer1, 
 						_cPlayer2,
 						_cCursor,
 						_cP1Card, 
@@ -117,26 +117,26 @@ namespace MightyFights_Prototype
 				_cLeft = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fazure");
 				_cRight = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fstorm");
 
-				_cCursor = new BasicSprite();
+				_cCursor = new ClickableSprite();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");
 				_cCursor.tPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
 				_cCursor.cFrame = new Frame(_cCursor.cTexRef.Bounds, new Vector2(_cCursor.cTexRef.Bounds.Width / 2, _cCursor.cTexRef.Bounds.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cCursor.cTexRef.Bounds.Width, _cCursor.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
-				_cP1Card = new BasicSprite();
+				_cP1Card = new ClickableSprite();
 				_cP1Card.cTexRef = cCard1;
 				_cP1Card.cFrame = new Frame(cCard1.Bounds, new Vector2(cCard1.Bounds.Width / 2, cCard1.Bounds.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(cCard1.Bounds.Width, cCard1.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 				// 152 is the width of the to battle button
 				_cP1Card.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - cBattle.Bounds.Width, 400);
 
-				_cP2Card = new BasicSprite();
+				_cP2Card = new ClickableSprite();
 				_cP2Card.cTexRef = cCard2;
 				_cP2Card.cFrame = new Frame(cCard2.Bounds, new Vector2(cCard2.Bounds.Width / 2, cCard2.Bounds.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(cCard2.Bounds.Width, cCard2.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 				_cP2Card.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + cBattle.Bounds.Width - cCard2.Bounds.Width, 400);
 	
-				_cToBattle = new BasicSprite();
+				_cToBattle = new ClickableSprite();
 				_cToBattle.cTexRef = cBattle;
 				_cToBattle.cFrame = new Frame(cBattle.Bounds, new Vector2(cBattle.Bounds.Width / 2, cBattle.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(cBattle.Width, cBattle.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
@@ -146,14 +146,14 @@ namespace MightyFights_Prototype
 				_cTrooperTex = cContent.Load<Texture2D>(@"Sprite Data\Troopers\Halberd\Front Facing\Guys");
 				_cTroopers = cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\GuysArray");
 
-				_cPlayer1 = new BasicSprite();
+				_cPlayer1 = new ClickableSprite();
 				_cPlayer1.cFrame = _cTroopers.caFrameData[_cTroopers.cReferenceList["Main"]["Sub"]["azure"].iStartIndex];
 				_cPlayer1.cTexRef = _cTrooperTex;
 				_cPlayer1.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - _cToBattle.cTexRef.Bounds.Width + 
 												_cP1Card.cTexRef.Bounds.Width / 2 - _cPlayer1.cFrame.tRect.Width / 2, 400 + _cP1Card.cTexRef.Bounds.Width / 2 - 
 												_cPlayer1.cFrame.tRect.Height / 2);
 
-				_cPlayer2 = new BasicSprite();
+				_cPlayer2 = new ClickableSprite();
 				_cPlayer2.cFrame = _cTroopers.caFrameData[_cTroopers.cReferenceList["Main"]["Sub"]["blood zombie"].iStartIndex];
 				_cPlayer2.cTexRef = _cTrooperTex;
 				_cPlayer2.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + _cToBattle.cTexRef.Bounds.Width - _cP2Card.cTexRef.Bounds.Width + 

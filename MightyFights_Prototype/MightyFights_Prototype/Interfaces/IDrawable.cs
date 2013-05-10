@@ -14,7 +14,6 @@ namespace MightyFights_Prototype
 	{
 		// not sure if I want to do this here
 		void Draw(SpriteBatch cBatch);
-		int iDrawIdx	{ get; set; }
 	}
 
 	interface IDrawableTexture : IDrawable

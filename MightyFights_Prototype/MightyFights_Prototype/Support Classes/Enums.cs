@@ -5,6 +5,13 @@ using System.Text;
 
 namespace MightyFights_Prototype
 {
+	[Flags]
+	public enum EObjectStates
+	{
+		Draw	= 0x01,
+		Active	= 0x02
+	}
+
 	public enum EZoneData
 	{
 		ZoneColumns = 8,

@@ -10,7 +10,7 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public class AnimatingDamage : IDrawable, IDrawableFont
+	public class AnimatingDamage : IDrawable, IDrawableFont, IActiveBasic, IObject
 	{
 		TimeSpan	_tTotalDuration,
 					_tLifetime;
@@ -26,6 +26,8 @@ namespace MightyFights_Prototype
 		public int iDrawIdx		{ get; set; }
 		public int iActiveIdx	{ get; set; }
 		public bool bActive		{ get; set; }
+		public int iId			{ get; set; }
+		public EObjectStates eObjState	{ get; set; }
 		public SpriteFont cFont	{ get { return _cFont; } set { _cFont = value; }}
 
 		// not sure that the font will be something that we optimize or not
@@ -41,14 +43,20 @@ namespace MightyFights_Prototype
 			_cFont = DataStore.cInstance.cFont;
 			_tTextColor = Color.White;
 			_iStartY = (int)tPos.Y;
+
+			// set the states for this object
+			this.eObjState = EObjectStates.Active | EObjectStates.Draw;
+
+			// get the main object id
+			this.iId = ObjectManager.cInstance.iCurObjId;
 		}
 
-		public void Update(GameTime cTime)
+		public void Process(GameTime cTime)
 		{
 			_tLifetime += cTime.ElapsedGameTime;
 
 			if(_tLifetime > _tTotalDuration) {
-				this.bActive = false;
+				this.eObjState = 0;
 				return;
 			}
 

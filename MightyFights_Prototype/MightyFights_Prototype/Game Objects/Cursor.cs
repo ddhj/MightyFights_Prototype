@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MightyFights_Prototype
 {
-	public class Cursor : BasicSprite, IUpdate
+	public class Cursor : ClickableSprite, IUpdate
 	{
 		#region IUpdate Members
 
