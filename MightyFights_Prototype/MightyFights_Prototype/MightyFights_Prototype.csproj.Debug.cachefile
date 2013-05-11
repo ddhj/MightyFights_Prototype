@@ -6,6 +6,7 @@ Content\Out Game\Template\AtkPowerArray.xnb
 Content\Out Game\Template\MoveSpeedArray.xnb
 Content\Out Game\Template\AtkSpeedArray.xnb
 Content\Out Game\Template\HitPointsArray.xnb
+Content\In Game\Buffs\BufItemsArray.xnb
 Content\Sprite Data\Troopers\Halberd\Textures\fazure.xnb
 Content\Sprite Data\Troopers\Halberd\Textures\fbrown.xnb
 Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.xnb
@@ -39,4 +40,7 @@ Content\Out Game\Template\AtkPower.xnb
 Content\Out Game\Template\MoveSpeed.xnb
 Content\Out Game\Template\AtkSpeed.xnb
 Content\Out Game\Template\HitPoints.xnb
+Content\In Game\Buffs\BufItems.xnb
 Content\Shared\DebugFont.xnb
+Content\Backgrounds\dirt_grass 800x436.xnb
+Content\Backgrounds\dirt_grass 800x500.xnb

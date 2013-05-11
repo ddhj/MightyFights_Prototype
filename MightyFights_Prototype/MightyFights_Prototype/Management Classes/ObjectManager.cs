@@ -25,6 +25,7 @@ namespace MightyFights_Prototype
 		Dictionary<string, Texture2D>		_cTextureList = new Dictionary<string,Texture2D>();
 		ContentManager						_cContent;
 		int									_iCurObjId = int.MinValue;
+		string[]							_saBuffs = new string[] { "acorn", "claw", "ear", "eye", "fang", "feather", "paw", "wing" };
 
 		public int iCurObjId	{ get { return ++_iCurObjId; }}
 
@@ -75,6 +76,32 @@ namespace MightyFights_Prototype
 
 			return cTemplate;
 		}
+
+		public BasicBuff CreateBuff(ICombatant nCombatant)
+		{
+			AnimationData		cAnimData;
+			Random				cRand = DataStore.cInstance.cRand;
+			Texture2D			cTexData;
+			BasicBuff			cBasicBuff;
+
+			// check to see if we are already referencing this animation 
+			if(!_cAnimationDataList.TryGetValue("Buffs", out cAnimData))
+				// add it to the reference list
+				_cAnimationDataList.Add("Buffs", cAnimData = _cContent.Load<AnimationData>(@"In Game\Buffs\BufItemsArray"));
+
+			// check to see if we are already refencing this texture 
+			if(!_cTextureList.TryGetValue(@"In Game\Buffs\BufItems", out cTexData))
+				// add the texture to the reference list 
+				_cTextureList.Add(@"In Game\Buffs\BufItems", cTexData = _cContent.Load<Texture2D>(@"In Game\Buffs\BufItems"));
+
+			// buff data
+			cBasicBuff = new BasicBuff(cAnimData, _saBuffs[cRand.Next(_saBuffs.Length)], 3);
+			cBasicBuff.cTexRef = cTexData;
+			cBasicBuff.tPos = nCombatant.tCenter;
+			cBasicBuff.sTexName = @"In Game\Buffs\BufItems";
+
+			return cBasicBuff;
+		}
 	}
 
 	public class ObjectManagerInstance
@@ -82,6 +109,7 @@ namespace MightyFights_Prototype
 		Dictionary<string, Dictionary<int, IDrawable>>		_caDrawRefList = new Dictionary<string,Dictionary<int,IDrawable>>();
 		Dictionary<int, IActiveBasic>						_caActiveList = new Dictionary<int,IActiveBasic>();
 		Dictionary<int, object>								_caMainObjectList = new Dictionary<int,object>();
+		Dictionary<int, IClickable>							_caClickable = new Dictionary<int,IClickable>();
 
 		public void AddObject(object oData)
 		{
@@ -111,6 +139,9 @@ namespace MightyFights_Prototype
 			// check to see if the object has an active component 
 			if(oData is IActiveBasic) 
 				_caActiveList.Add(nObj.iId, (IActiveBasic)oData);
+
+			if(oData is IClickable)
+				_caClickable.Add(nObj.iId, (IClickable)oData);
 		}
 
 		public void Process(GameTime cTime)
@@ -128,6 +159,9 @@ namespace MightyFights_Prototype
 						if(oObj is IDrawableFont)
 							_caDrawRefList[((IDrawableFont)oObj).sFontName].Remove(nObj.iId);
 						else _caDrawRefList[((IDrawableTexture)oObj).sTexName].Remove(nObj.iId);
+
+						// remove the clickable since you can't see it 
+						_caClickable.Remove(nObj.iId);
 					}
 
 				// remove any objects no longer active
@@ -165,6 +199,7 @@ namespace MightyFights_Prototype
 			foreach(KeyValuePair<string, Dictionary<int, IDrawable>> tDrawList in _caDrawRefList)
 				tDrawList.Value.Clear();
 			_caDrawRefList.Clear();
+			_caMainObjectList.Clear();
 		}
 	}
 }

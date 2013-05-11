@@ -106,6 +106,8 @@ namespace MightyFights_Prototype
 		{
 			try { 
 				ContentManager cContent = DataStore.cInstance.cContent;
+				Random	cRand = DataStore.cInstance.cRand;
+
 				_cGraphics = DataStore.cInstance.cGraphics;
 
 				// since the placement of the card and the battle are relative to eachother and the veiwport 
@@ -164,16 +166,16 @@ namespace MightyFights_Prototype
 				_cP1Count.Size = new System.Drawing.Size(58, 20);
 				_cP1Count.Location = new System.Drawing.Point((int)_cP1Card.tPos.X - 108, (int)_cP1Card.tPos.Y + 20);
 				_cP1Count.Minimum = 1;
-				_cP1Count.Maximum = 160;
-				_cP1Count.Value = 1;
+				_cP1Count.Maximum = 100;
+				_cP1Count.Value = cRand.Next(100);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP1Count);
 				
 				_cP2Count = new NumericUpDown();
 				_cP2Count.Size = new System.Drawing.Size(58, 20);
 				_cP2Count.Location = new System.Drawing.Point((int)_cP2Card.tPos.X + 50 + _cP1Card.cTexRef.Bounds.Width, (int)_cP1Card.tPos.Y + 20);
 				_cP2Count.Minimum = 1;
-				_cP2Count.Maximum = 160;
-				_cP2Count.Value = 1;
+				_cP2Count.Maximum = 100;
+				_cP2Count.Value = _cP1Count.Value;
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP2Count);
 
 				_cBatch = new SpriteBatch(DataStore.cInstance.cGraphics);

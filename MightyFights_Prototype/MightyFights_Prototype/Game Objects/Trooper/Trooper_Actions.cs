@@ -87,11 +87,20 @@ namespace MightyFights_Prototype
 								cAiData.eState = EBattleAiStates.Dead;
 						break;
 
-						case EBattleAiStates.Dead: 
+						case EBattleAiStates.Dead: { 
+							Random	cRand = new Random();
+
+							// one in 10 chance we get to spawn a buff
+							if(cRand.Next(10) == 1) 
+								_cBattleDataRef.cObjMgr.AddObject(ObjectManager.cInstance.CreateBuff(this));
+
 							// set so the object no longer is active
 							_eObjState &= ~EObjectStates.Active;
 							cAction.bConditionNotMet = false;
+
+
 							return false;
+						}
 					}
 				break;
 

@@ -39,7 +39,7 @@ namespace MightyFights_Prototype
 			return _cDrawnRect.Contains(tPoint);
 		}
 
-		public bool ContainsPoint(Vector2 tLoc)
+		public virtual bool ContainsPoint(Vector2 tLoc)
 		{
 			return ContainsPoint(new Point((int)tLoc.X, (int)tLoc.Y));
 		}

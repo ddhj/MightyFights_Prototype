@@ -31,18 +31,15 @@ namespace MightyFights_Prototype
 		////ddhj: debug data
 		TimeSpan		_cTime = TimeSpan.Zero;
 		int				_iFrameRate = 0,
-						_iFrameCtr = 0,
-						_iAX, 
-						_iAY,
-						_iOX, 
-						_iOY;
+						_iFrameCtr = 0;
 		SpriteFont		_cFont;
 		Texture2D		_cBorder;
 		bool			_bUpdate = true;
 
 		System.Windows.Forms.CheckBox		_cToggleLifeBar,
 											_cToggleDamageNumbers,
-											_cToggleSlowMo;
+											_cToggleSlowMo,
+											_cToggleZones;
 
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
 	
@@ -124,7 +121,7 @@ namespace MightyFights_Prototype
 			++_iFrameCtr;
 
 			_cSpriteBatch.Begin(SpriteSortMode.BackToFront, null); { 
-				_cSpriteBatch.Draw(_cBackground, new Vector2(112, 84), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, 1); 
+				_cSpriteBatch.Draw(_cBackground, new Vector2(112, 70), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, 1); 
 			
 				// draw all objects in the manager
 				_cBattleData.cObjMgr.Draw(_cSpriteBatch);	
@@ -132,20 +129,21 @@ namespace MightyFights_Prototype
 				_cSpriteBatch.DrawString(_cFont, string.Format("fps:{0} : LeftArmy:{1} : RightArmy:{2}", _iFrameRate, _cBattleData.naArmyRef.Count, _cBattleData.naOpponentsRef.Count), 
 					new Vector2(10, 10), Color.White);				
 
-				//// ddhj: debug draw
-				// lets draw the active zones 
-				//Vector2	tZone;
-				//foreach(Dictionary<IntPoint, Zone> cZoneList in _cBattleData.caActiveZones) { 
-				//    foreach(IntPoint cZonePos in cZoneList.Keys) { 
-				//        tZone.X = cZonePos.iX * (int)EZoneData.ZoneColWidth + 112;
-				//        tZone.Y = cZonePos.iY * (int)EZoneData.ZoneRowHeight + 84;
+				// if we are going to draw the active zones
+				if(_cToggleZones.Checked) { 
+					Vector2	tZone;
+					foreach(Dictionary<IntPoint, Zone> cZoneList in _cBattleData.caActiveZones) { 
+						foreach(IntPoint cZonePos in cZoneList.Keys) { 
+							tZone.X = cZonePos.iX * (int)EZoneData.ZoneColWidth + 112;
+							tZone.Y = cZonePos.iY * (int)EZoneData.ZoneRowHeight + 70;
 
-				//        _cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
-				//        _cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X + (int)EZoneData.ZoneColWidth, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
-				//        _cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y, (int)EZoneData.ZoneColWidth, 1), Color.White);
-				//        _cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y + (int)EZoneData.ZoneRowHeight, (int)EZoneData.ZoneColWidth, 1), Color.White);
-				//    }
-				//}
+							_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
+							_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X + (int)EZoneData.ZoneColWidth, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
+							_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y, (int)EZoneData.ZoneColWidth, 1), Color.White);
+							_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y + (int)EZoneData.ZoneRowHeight, (int)EZoneData.ZoneColWidth, 1), Color.White);
+						}
+					}
+				}
 			} _cSpriteBatch.End();
 		}
 
@@ -164,92 +162,98 @@ namespace MightyFights_Prototype
 			List<ICombatant>	naTmpList = _cBattleData.naArmyRef,
 								naTmpOpponents = new List<ICombatant>();
 			int					iCount = 0,
-								iIndex;
+								iIndex,
+								iX = 9, iY = 0;
 			Trooper				cTrooper;
 			Random				cRand = new Random();
 
-			for(int i = 0; i < _iAX; ++i)
-				for(int j = 0; j < _iAY; ++j) { 
-					iIndex = i*_iAY+j;
-					cTrooper = (Trooper)naTmpList[iIndex];
+			for(iIndex = 0; iIndex < naTmpList.Count; ++iIndex) { 
+				cTrooper = (Trooper)naTmpList[iIndex];
 
-					// set an initial script for the trooper
-					cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
-					cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(200 - i * 35 + 25 + 112, j * 25 + 84), null));
+				// set an initial script for the trooper
+				cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
+				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(112 + iX * 35, iY * 36 + 70), null));
 
-					// set the trooper for battle
-					cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
+				// set the trooper for battle
+				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
+				
+				// increment our grid counters
+				++iY;
+				if(iY > 9) { 
+					iY = 0;
+					--iX;
 				}
+			}
 
+			// reset out grid counters
+			iX = iY = 0;
 			iCount = 0;
 			naTmpList = _cBattleData.naOpponentsRef;
-			for(int i = 0; i < _iOX; ++i)
-				for(int j = 0; j < _iOY; ++j) { 
-					cTrooper = (Trooper)naTmpList[i*_iOY+j];
 
-					// set an initial script for the trooper
-					cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
-					cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(400 + i * 35 + 25 + 112, j * 25 + 84), null));
+			for(iIndex = 0; iIndex < naTmpList.Count; ++iIndex) { 
+				cTrooper = (Trooper)naTmpList[iIndex];
 
-					// set the trooper for battle
-					cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
+				// set an initial script for the trooper
+				cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
+				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(512 + iX * 35, iY * 36 + 70), null));
+
+				// set the trooper for battle
+				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
+				
+				// increment our grid counters
+				++iY;
+				if(iY > 9) { 
+					iY = 0;
+					++iX;
 				}
+			}
 		}
 
 		public bool Init()
 		{
 			ContentManager	cContent = DataStore.cInstance.cContent;
 			GraphicsDevice	cGraphics = DataStore.cInstance.cGraphics;
-			Trooper			cTmpTrooper;
+			Trooper			cTmpTrooper = null;
 			TemplateConfig	cLeft = DataStore.cInstance.cLeftConfig, 
 							cRight = DataStore.cInstance.cRightConfig;
 
 			_cBattleData.cObjMgr = _cObjMgr;
 
-			// this is for quick action
-			Random cRand = new Random();
-			_iAX = cRand.Next(7) + 2;
-			_iAY = cRand.Next(13) + 8;
-			_iOX = cRand.Next(7) + 2;
-			_iOY = cRand.Next(13) + 8;
-
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
-				_cBackground = cContent.Load<Texture2D>(@"Backgrounds\dirt_grass_large");
+				_cBackground = cContent.Load<Texture2D>(@"Backgrounds\dirt_grass 800x436");
 
 				// set the battle data to the datastore for reference 
 				DataStore.cInstance.cBattleData = _cBattleData;
 				
 				// make a block of troopers
-				for(int i = 0; i < _iAX; ++i)
-					for(int j = 0; j < _iAY; ++j) { 
-						// add the newly created trooper to the active list and set some initial battle data
-						_cActiveList.Add(cTmpTrooper = new Trooper(ObjectManager.cInstance.CreateTemplate(cLeft)));
-						cTmpTrooper.tPos = new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
-						cTmpTrooper.iArmyIndex = 0;
-						cTmpTrooper.iOpponentIndex = 1;
+				for(int i = 0; i < cLeft.iCount; ++i) { 
+					// add the newly created trooper to the active list and set some initial battle data
+					_cActiveList.Add(cTmpTrooper = new Trooper(ObjectManager.cInstance.CreateTemplate(cLeft)));
+					cTmpTrooper.tPos = new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
+					cTmpTrooper.iArmyIndex = 0;
+					cTmpTrooper.iOpponentIndex = 1;
 
-						// add the new object to the object manager
-						_cObjMgr.AddObject(cTmpTrooper);
+					// add the new object to the object manager
+					_cObjMgr.AddObject(cTmpTrooper);
 
-						// add to the battle reference data
-						_cBattleData.naArmyRef.Add(cTmpTrooper);
-					}
+					// add to the battle reference data
+					_cBattleData.naArmyRef.Add(cTmpTrooper);
+				}
 
 				// make a block of opponents
-				for(int i = 0; i < _iOX; ++i)
-					for(int j = 0; j < _iOY; ++j) { 
-						// set the opponents to the acitve list 
-						_cActiveList.Add(cTmpTrooper = new Trooper(ObjectManager.cInstance.CreateTemplate(cRight)));
-						cTmpTrooper.tPos = new Vector2(950, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
-						cTmpTrooper.iArmyIndex = 1; 
-						cTmpTrooper.iOpponentIndex = 0;
+				for(int i = 0; i < cRight.iCount; ++i) { 
+					// set the opponents to the acitve list 
+					_cActiveList.Add(cTmpTrooper = new Trooper(ObjectManager.cInstance.CreateTemplate(cRight)));
+					cTmpTrooper.tPos = new Vector2(950, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
+					cTmpTrooper.iArmyIndex = 1; 
+					cTmpTrooper.iOpponentIndex = 0;
 
-						// add to the object manger
-						_cObjMgr.AddObject(cTmpTrooper);
+					// add to the object manger
+					_cObjMgr.AddObject(cTmpTrooper);
 
-						_cBattleData.naOpponentsRef.Add(cTmpTrooper);
-					}
+					_cBattleData.naOpponentsRef.Add(cTmpTrooper);
+				}
 
 				_cCursor = new Cursor();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");
@@ -267,7 +271,7 @@ namespace MightyFights_Prototype
 
 				//// ddhj: configrable items for the battle draw
 				_cToggleLifeBar = new System.Windows.Forms.CheckBox();
-				_cToggleLifeBar.Location = new System.Drawing.Point(0, 30);
+				_cToggleLifeBar.Location = new System.Drawing.Point(0, 40);
 				_cToggleLifeBar.Text = _cToggleLifeBar.Name = "Toggle Life Bar";
 				_cToggleLifeBar.AutoSize = true;
 				_cToggleLifeBar.CheckedChanged += new EventHandler(ToggleLifeBarChange);
@@ -275,17 +279,23 @@ namespace MightyFights_Prototype
 
 				_cToggleDamageNumbers = new System.Windows.Forms.CheckBox();
 				_cToggleDamageNumbers.Location = new System.Drawing.Point(0, 60);
-				_cToggleDamageNumbers.Text = _cToggleLifeBar.Name = "Toggle Damage Numbers";
+				_cToggleDamageNumbers.Text = _cToggleDamageNumbers.Name = "Toggle Dmg #";
 				_cToggleDamageNumbers.AutoSize = true;
 				_cToggleDamageNumbers.CheckedChanged += new EventHandler(ToggleDamageNumbersChange);
 				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleDamageNumbers);
 
 				_cToggleSlowMo = new System.Windows.Forms.CheckBox();
 				_cToggleSlowMo.Location = new System.Drawing.Point(0, 80);
-				_cToggleSlowMo.Text = _cToggleLifeBar.Name = "Toggle Slow Mo";
+				_cToggleSlowMo.Text = _cToggleSlowMo.Name = "Toggle Slow Mo";
 				_cToggleSlowMo.AutoSize = true;
 				_cToggleSlowMo.CheckedChanged += new EventHandler(ToggleSlowMoChange);
 				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleSlowMo);
+
+				_cToggleZones = new System.Windows.Forms.CheckBox();
+				_cToggleZones.Location = new System.Drawing.Point(0, 100);
+				_cToggleZones.Text = _cToggleZones.Name = "Toggle Zones";
+				_cToggleZones.AutoSize = true;
+				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleZones);
 
 				// set the start of battle
 				SetBattleStart();
@@ -326,7 +336,8 @@ namespace MightyFights_Prototype
 			_cObjMgr.Clear();
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleLifeBar);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleDamageNumbers);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleSlowMo);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleSlowMo);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleZones);
 		}
 
 		void ResetBattle()

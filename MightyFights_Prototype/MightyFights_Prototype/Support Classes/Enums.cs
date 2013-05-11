@@ -16,8 +16,8 @@ namespace MightyFights_Prototype
 	{
 		ZoneColumns = 8,
 		ZoneRows = 6,
-		ZoneColWidth = 114,
-		ZoneRowHeight = 114
+		ZoneColWidth = 100,
+		ZoneRowHeight = 72
 	}
 
 	[Flags]

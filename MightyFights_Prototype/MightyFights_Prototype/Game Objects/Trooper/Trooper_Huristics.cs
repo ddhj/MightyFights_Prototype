@@ -90,7 +90,7 @@ namespace MightyFights_Prototype
 				_cActionMgr.cActionQueue.Clear();
 
 				// add the flee to point action 
-				_cActionMgr.cActionQueue.Add(new Action(FleeToPoint, new Vector2(112 + cRand.Next(699), 84 + cRand.Next(500)), null));
+				_cActionMgr.cActionQueue.Add(new Action(FleeToPoint, new Vector2(112 + cRand.Next(699), 70 + cRand.Next(336)), null));
 				cAiData.eState = EBattleAiStates.Flee;
 			}
 
