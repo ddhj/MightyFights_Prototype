@@ -11,36 +11,42 @@ using MightyFights_Support;
 namespace MightyFights_Prototype
 {
 	public partial class Trooper : IDrawable, IAnimate, ICombatant, IActive<Trooper>
-	{	
-		Vector2		_tPos,
-					_tCenter;
-		Texture2D	_cTexRef;
-		Stats		_cStats;
-		Team		_cTeam;
-		int			_iAvailablePositions = 6,
-					_iCurLeftAttackers = 0,
-					_iCurRightAttakers = 0,
-					_iMaxHp,
-					_iId,
-					_iAttackingPos;
-		float		_fZorder;
-		////ddhj template stuff... not sure if it should go on trooper proper
-		float		_fFinalMovementSpeed;
-		byte		_byAttakPos;
-		bool		_bAttacking;
-
+	{
 		ActionManager<Trooper>		_cActionMgr;
 		AnimationProcessor			_cAnimProc;
+		Vector2						_tPos,
+									_tCenter;
+		Texture2D					_cTexRef;
+		Stats						_cStats;
+		int							_iAvailablePositions = 6,
+									_iCurLeftAttackers = 0,
+									_iCurRightAttakers = 0,
+<<<<<<< HEAD
+									_iId;
+=======
+									_iMaxHp;
+>>>>>>> af50bee57ecebb10a506df75b25fa15a2713753f
+		float						_fZorder;
+		byte						_byAttakPos;
 		BattlegroundData			_cBattleDataRef = null;
+		ETrooperAttackPos			_eAttackingPos;
+		bool						_bAttacking;
 
+		////ddhj template stuff... not sure if it should go on trooper proper
+		float						_fFinalMovementSpeed;
 
 		Dictionary<ETrooperAttackPos, ICombatant>	_caAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
+<<<<<<< HEAD
+
+
+		public int iId		{ get { return _iId; }}
+=======
+		//// ddhj: debug data
 
 		// i dont particularly like this here, need to figure out a way to get it into the battleground processor 
 		List<AnimatingDamage>		_caDamageList = new List<AnimatingDamage>();
-
-		public int iId		{ get { return _iId; }}
+>>>>>>> af50bee57ecebb10a506df75b25fa15a2713753f
 
 		public bool bActive				{ get; set; }
 		public bool bDir				{ get; set; }
@@ -61,11 +67,9 @@ namespace MightyFights_Prototype
 
 
 
-		public Trooper(int iId, Team cTeam, TrooperTemplate cTemplate)
+		public Trooper(int iId, TrooperTemplate cTemplate)
 		{
 			_iId = iId;
-			_cTeam = cTeam;
-
 			_cAnimProc = cTemplate.cAnimProcessorRef;
 			_cTexRef = cTemplate.cTextureRef;
 			_cActionMgr = cTemplate.cActionMgr;
@@ -81,15 +85,15 @@ namespace MightyFights_Prototype
 			////ddhj: this is the initial area for the template config, this will probably change over time
 			_fFinalMovementSpeed = 2.5f * (1.0f + cTemplate.cStats.iMovement / 100f);
 
-			// use the template data to set up the heuristics... 
-			//// there is a problem here since the object manager should have set this up but the heuristics are methods on an instance of trooper,
+			// use the template data to set up the huristics... 
+			//// there is a problem here since the object manager should have set this up but the huristics are methods on an instance of trooper,
 			//// considered static methods but I am not sure I like that solution
-			cAiData.cHurisitics[EBattleheuristics.Attack] = Attack_Basic;
-			cAiData.cHurisitics[EBattleheuristics.ChooseOpponent] = ChooseOpponent;
-			cAiData.cHurisitics[EBattleheuristics.Flee] = Flee;
-			cAiData.cHurisitics[EBattleheuristics.Idle] = Idle;
-			cAiData.cHurisitics[EBattleheuristics.Pant] = Pant;
-			cAiData.cHurisitics[EBattleheuristics.Persue] = Persue;
+			cAiData.cHurisitics[EBattleHuristics.Attack] = Attack_Basic;
+			cAiData.cHurisitics[EBattleHuristics.ChooseOpponent] = ChooseOpponent;
+			cAiData.cHurisitics[EBattleHuristics.Flee] = Flee;
+			cAiData.cHurisitics[EBattleHuristics.Idle] = Idle;
+			cAiData.cHurisitics[EBattleHuristics.Pant] = Pant;
+			cAiData.cHurisitics[EBattleHuristics.Persue] = Persue;
 	
 			// this is going to come from somewhere
 			this.iWeaponRange = 10;
@@ -239,36 +243,21 @@ namespace MightyFights_Prototype
 			}
 		}
 
-		public float Heal( float fHp )
-		{
-			//// hp should be a float at some point
-			int iHp = (int)fHp;
-			if( _cStats.iHp + iHp > _iMaxHp )
-				iHp = _iMaxHp - _cStats.iHp;
-			_cStats.iHp += iHp;
-
-			return (float)iHp;
-		}
-
-		public void RemoveHeal( )
-		{
-		}
-
 		public bool IsDead()
 		{
 			return cAiData.eState == EBattleAiStates.Dying || cAiData.eState == EBattleAiStates.Dead;
 		}
 
-		public void SetAttacker(ICombatant nCombatant, out int iPos)
+		public void SetAttacker(ICombatant nCombatant, out ETrooperAttackPos ePos)
 		{
 			Vector2		tDir = _tCenter - nCombatant.tCenter;
 
-			RequestAttackPoint(nCombatant, out iPos);
-			_caAttackers.Add((ETrooperAttackPos)iPos, nCombatant);
-			_byAttakPos |= (byte)iPos;
+			RequestAttackPoint(nCombatant, out ePos);
+			_caAttackers.Add(ePos, nCombatant);
+			_byAttakPos |= (byte)ePos;
 
 			// set left or right
-			switch((ETrooperAttackPos)iPos) { 
+			switch(ePos) { 
 				case ETrooperAttackPos.LeftBottom:
 				case ETrooperAttackPos.LeftMid:
 				case ETrooperAttackPos.LeftTop:
@@ -314,76 +303,89 @@ namespace MightyFights_Prototype
 			return tDir;
 		}
 
-		Vector2 RightAttackPos(Vector2 tDir, out int iPos, int iWeaponRange) 
+		Vector2 RightAttackPos(Vector2 tDir, out ETrooperAttackPos ePos, int iWeaponRange) 
 		{
-			ETrooperAttackPos	ePos;
 			switch(_iCurRightAttakers) { 
-			// if its zero its always the midpoint
-			case 0:
-				ePos = ETrooperAttackPos.RightMid;
-				break;
+				// if its zero its always the midpoint
+				case 0:
+					ePos = ETrooperAttackPos.RightMid;
+					return GetVectByPos(ePos);
 						
-			// it cant be more than 1 (for now there may be more but that will be on a different type of class and not a trooper 
-				// probably)
-			default:
-				// check if the opponent is above or below
-				if(tDir.Y >= 0.0 + float.Epsilon) { 
-					// check to see if the right bottom is taken 
-					if((_byAttakPos & (int)ETrooperAttackPos.RightBottom) != (int)ETrooperAttackPos.RightBottom)
-						ePos = ETrooperAttackPos.RightBottom;
-					// send out right bottom
-					else if((_byAttakPos & (int)ETrooperAttackPos.RightTop) != (int)ETrooperAttackPos.RightTop)
-						ePos = ETrooperAttackPos.RightTop;
-					else	ePos = ETrooperAttackPos.RightMid;
-				} else { 
-					// the opponent is above us, check to see if our right top is taken
-					if((_byAttakPos & (int)ETrooperAttackPos.RightTop) != (int)ETrooperAttackPos.RightTop)
-						ePos = ETrooperAttackPos.RightTop;
-					else if((_byAttakPos & (int)ETrooperAttackPos.RightBottom) != (int)ETrooperAttackPos.RightBottom)
-						ePos = ETrooperAttackPos.RightBottom;
-					else	ePos = ETrooperAttackPos.RightMid;
-				}
-				break;
+				// it cant be more than 1 (for now there may be more but that will be on a different type of class and not a trooper 
+					// probably)
+				default:
+					// check if the opponent is above or below
+					if(tDir.Y >= 0.0 + float.Epsilon) { 
+						// check to see if the right bottom is taken 
+						if((_byAttakPos & (int)ETrooperAttackPos.RightBottom) != (int)ETrooperAttackPos.RightBottom) {
+							ePos = ETrooperAttackPos.RightBottom;
+							return GetVectByPos(ePos);
+						// send out right bottom
+						} else if((_byAttakPos & (int)ETrooperAttackPos.RightTop) != (int)ETrooperAttackPos.RightTop) { 
+							ePos = ETrooperAttackPos.RightTop;
+							return GetVectByPos(ePos);
+						} else { 
+							ePos = ETrooperAttackPos.RightMid;
+							return GetVectByPos(ePos);
+						}
+					} else { 
+						// the opponent is above us, check to see if our right top is taken
+						if((_byAttakPos & (int)ETrooperAttackPos.RightTop) != (int)ETrooperAttackPos.RightTop) { 
+							ePos = ETrooperAttackPos.RightTop;
+							return GetVectByPos(ePos);
+						} else if((_byAttakPos & (int)ETrooperAttackPos.RightBottom) != (int)ETrooperAttackPos.RightBottom) { 
+							ePos = ETrooperAttackPos.RightBottom;
+							return GetVectByPos(ePos);
+						} else { 
+							ePos = ETrooperAttackPos.RightMid;
+							return GetVectByPos(ePos);
+						}
+					}
 			}
-			iPos = (int)ePos;
-			return GetVectByPos(ePos);
 		}
 
-		Vector2 LeftAttackPos(Vector2 tDir, out int iPos, int iWeaponRange)
+		Vector2 LeftAttackPos(Vector2 tDir, out ETrooperAttackPos ePos, int iWeaponRange)
 		{
-			ETrooperAttackPos	ePos;
 			switch(_iCurLeftAttackers) { 
-			// if its zero its always the midpoint
-			case 0:
-				ePos = ETrooperAttackPos.LeftMid;
-				break;
+				// if its zero its always the midpoint
+				case 0:
+					ePos = ETrooperAttackPos.LeftMid;
+					return GetVectByPos(ePos);
 						
-			// it cant be more than 1 (for now there may be more but that will be on a different type of class and not a trooper 
-				// probably)
-			default:
-				// check if the opponent is above or below
-				if(tDir.Y >= 0.0 + float.Epsilon) { 
-					// check to see if the right bottom is taken 
-					if((_byAttakPos & (int)ETrooperAttackPos.LeftBottom) != (int)ETrooperAttackPos.LeftBottom)
-						ePos = ETrooperAttackPos.LeftBottom;
-					// send out left bottom
-					else if((_byAttakPos & (int)ETrooperAttackPos.LeftTop) != (int)ETrooperAttackPos.LeftTop)
-						ePos = ETrooperAttackPos.LeftTop;
-					else	ePos = ETrooperAttackPos.LeftMid;
-				} else { 
-					// the opponent is above us, check to see if our left top is taken
-					if((_byAttakPos & (int)ETrooperAttackPos.LeftTop) != (int)ETrooperAttackPos.LeftTop)
-						ePos = ETrooperAttackPos.LeftTop;
-					else if((_byAttakPos & (int)ETrooperAttackPos.LeftBottom) != (int)ETrooperAttackPos.LeftBottom)
-						ePos = ETrooperAttackPos.LeftBottom;
-					else	ePos = ETrooperAttackPos.LeftMid;
-				}
+				// it cant be more than 1 (for now there may be more but that will be on a different type of class and not a trooper 
+					// probably)
+				default:
+					// check if the opponent is above or below
+					if(tDir.Y >= 0.0 + float.Epsilon) { 
+						// check to see if the right bottom is taken 
+						if((_byAttakPos & (int)ETrooperAttackPos.LeftBottom) != (int)ETrooperAttackPos.LeftBottom) {
+							ePos = ETrooperAttackPos.LeftBottom;
+							return GetVectByPos(ePos);
+						// send out left bottom
+						} else if((_byAttakPos & (int)ETrooperAttackPos.LeftTop) != (int)ETrooperAttackPos.LeftTop) { 
+							ePos = ETrooperAttackPos.LeftTop;
+							return GetVectByPos(ePos);
+						} else { 
+							ePos = ETrooperAttackPos.LeftMid;
+							return GetVectByPos(ePos);
+						}
+					} else { 
+						// the opponent is above us, check to see if our left top is taken
+						if((_byAttakPos & (int)ETrooperAttackPos.LeftTop) != (int)ETrooperAttackPos.LeftTop) { 
+							ePos = ETrooperAttackPos.LeftTop;
+							return GetVectByPos(ePos);
+						} else if((_byAttakPos & (int)ETrooperAttackPos.LeftBottom) != (int)ETrooperAttackPos.LeftBottom) { 
+							ePos = ETrooperAttackPos.LeftBottom;
+							return GetVectByPos(ePos);
+						} else { 
+							ePos = ETrooperAttackPos.LeftMid;
+							return GetVectByPos(ePos);
+						}
+					}
 			}
-			iPos = (int)ePos;
-			return GetVectByPos(ePos);
 		}
 
-		public Vector2 RequestAttackPoint(ICombatant nCombatant, out int iPos)
+		public Vector2 RequestAttackPoint(ICombatant nCombatant, out ETrooperAttackPos ePos)
 		{
 			// determine up down left an right from combatant
 			Vector2		tDir = nCombatant.tCenter - _tCenter;
@@ -392,27 +394,27 @@ namespace MightyFights_Prototype
 			if(tDir.X >= 0.0 + float.Epsilon) { 
 				// check to see if our right positions are filled 
 				if(_iCurRightAttakers < 3) { 
-					return RightAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
-				} else return LeftAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
+					return RightAttackPos(tDir, out ePos, nCombatant.iWeaponRange);
+				} else return LeftAttackPos(tDir, out ePos, nCombatant.iWeaponRange);
 			// we are left
 			} else { 
 				if(_iCurLeftAttackers < 3) { 
-					return LeftAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
-				} else return RightAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
+					return LeftAttackPos(tDir, out ePos, nCombatant.iWeaponRange);
+				} else return RightAttackPos(tDir, out ePos, nCombatant.iWeaponRange);
 			}
 		}
 
-		public Vector2 RequestPersuitPoint(int iPos)
+		public Vector2 RequestPersuitPoint(ETrooperAttackPos ePos)
 		{
-			return GetVectByPos((ETrooperAttackPos)iPos);
+			return GetVectByPos(ePos);
 		}
 
-		public void RemoveAttacker(int iPos)
+		public void RemoveAttacker(ETrooperAttackPos ePos)
 		{
-			_byAttakPos &= (byte)~iPos;
-			_caAttackers.Remove((ETrooperAttackPos)iPos);
+			_byAttakPos &= (byte)~ePos;
+			_caAttackers.Remove(ePos);
 			
-			switch((ETrooperAttackPos)iPos) { 
+			switch(ePos) { 
 				case ETrooperAttackPos.LeftBottom:
 				case ETrooperAttackPos.LeftMid:
 				case ETrooperAttackPos.LeftTop:

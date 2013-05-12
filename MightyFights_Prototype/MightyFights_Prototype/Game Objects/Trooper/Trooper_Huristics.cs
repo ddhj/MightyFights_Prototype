@@ -81,7 +81,7 @@ namespace MightyFights_Prototype
 
 				// check to see if we are engaged in an attack 
 				if(_bAttacking) { 
-					nOpponent.RemoveAttacker(_eAttackingPos);
+					nOpponent.RemoveAttacker(_iAttackingPos);
 					_bAttacking = false;
 					nOpponent = null;
 				}
@@ -121,7 +121,7 @@ namespace MightyFights_Prototype
 		ICombatant ChooseZoneCombatantDst(List<ICombatant> naCombatants)
 		{
 			// lets grab the closest guy 
-			////ddhj: this could technically be a huristic if we wanted 
+			////ddhj: this could technically be a heuristic if we wanted 
 			Vector2		tTarget;
 			int			iTmp = int.MaxValue,
 						iTmp2;

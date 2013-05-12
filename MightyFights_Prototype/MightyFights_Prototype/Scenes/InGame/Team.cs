@@ -14,8 +14,24 @@ using Microsoft.Xna.Framework.Input;
 using MightyFights_Support;
 
 namespace MightyFights_Prototype	{
-	class Team	{
+	public class Team	{
+	// Data
+		bool		_bLeftSide;
 		Dictionary<int,ICombatant>		_cActiveList = new Dictionary<int,ICombatant>( );
-		List<FleeSpot>					_caSpots = new List<FleeSpot>( );
+		Dictionary<int,Healer>			_cHealerList = new Dictionary<int,Healer>( );
+
+	// Properties
+		public bool bDirection	{ get { return _bLeftSide; }}
+		public Dictionary<int,ICombatant>	cActiveList	{ get { return _cActiveList; }}
+		public Dictionary<int,Healer>		cHealerList	{ get { return _cHealerList; }}
+
+	// Constructor
+		public Team( bool bLeftTeam )
+		{
+			_bLeftSide = bLeftTeam;
+		}
+
+	// Functions
+
 	}
 }

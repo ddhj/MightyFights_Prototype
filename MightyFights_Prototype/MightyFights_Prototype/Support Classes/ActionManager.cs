@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace MightyFights_Prototype
 {
-	public delegate bool DActionHuristic(Action cAction);
+	public delegate bool DActionheuristic(Action cAction, GameTime cTime);
 
 	public abstract class ActionManager<T>
 	{
@@ -34,29 +34,24 @@ namespace MightyFights_Prototype
 
 	public class Action
 	{
-		DActionHuristic	_dHuristic;		
+		DActionheuristic	_dheuristic;		
 		object			_oData,
 						_oCanvas;
 		bool			_bConditionNotMet;
 
-		public DActionHuristic dHuristic	{ get { return _dHuristic; } set { _dHuristic = value; }}
+		public DActionheuristic dheuristic	{ get { return _dheuristic; } set { _dheuristic = value; }}
 		public bool bConditionNotMet	{ get { return _bConditionNotMet; } set { _bConditionNotMet = value; }}
 		public object oData				{ get { return _oData; } set { _oData = value; }}
 		public object oCanvas			{ get { return _oCanvas; } set { _oCanvas = value; }}
 		public bool bInit				{ get; set; }
 
-		public Action(DActionHuristic dHuristic, object oData, object oCanvas)
+		public Action(DActionheuristic dheuristic, object oData, object oCanvas)
 		{
-			_dHuristic = dHuristic;
+			_dheuristic = dheuristic;
 			_oData = oData;
 			_oCanvas = oCanvas;
 			_bConditionNotMet = true;
 			bInit = true;
-		}
-
-		public void Process()
-		{
-			_bConditionNotMet = _dHuristic(this);
 		}
 	}
 }

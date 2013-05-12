@@ -70,6 +70,9 @@ namespace MightyFights_Prototype
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			// TODO: use this.Content to load your game content here
+			
+			// load the sprite font into the data store
+			DataStore.cInstance.cFont = Content.Load<SpriteFont>(@"Shared\DebugFont");
 		}
 
 		/// <summary>

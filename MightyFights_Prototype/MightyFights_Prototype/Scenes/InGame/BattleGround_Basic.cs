@@ -38,6 +38,10 @@ namespace MightyFights_Prototype
 		Texture2D		_cBorder;
 		bool			_bUpdate = true;
 
+		System.Windows.Forms.CheckBox		_cToggleLifeBar,
+											_cToggleDamageNumbers,
+											_cToggleSlowMo;
+
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
 	
 		#region IGameScene Members
@@ -65,7 +69,7 @@ namespace MightyFights_Prototype
 		public void Update(GameTime cTime)
 		{
 
-			// set the datastore elapsed time for the action and huristic processing 
+			// set the datastore elapsed time for the action and heuristic processing 
 			DataStore.cInstance.cTime = cTime;
 
 			// process the cursor
@@ -80,10 +84,11 @@ namespace MightyFights_Prototype
 			}
 
 			//// debug slow down the game
-			//_tSlowMo += cTime.ElapsedGameTime;
-			//if(_tSlowMo < TimeSpan.FromMilliseconds(50)) 
-			//    return;
-			
+			if(_cToggleSlowMo.Checked) { 
+				_tSlowMo += cTime.ElapsedGameTime;
+				if(_tSlowMo < TimeSpan.FromMilliseconds(50)) 
+					return;
+			}			
 
 			if( _bUpdate )
 			{
@@ -243,10 +248,10 @@ namespace MightyFights_Prototype
 
 			// this is for quick action
 			Random cRand = new Random();
-			_iAX = cRand.Next(7) + 2;
-			_iAY = cRand.Next(13) + 8;
-			_iOX = cRand.Next(7) + 2;
-			_iOY = cRand.Next(13) + 8;
+			_iAX = 1;//cRand.Next(7) + 2;
+			_iAY = 1;//cRand.Next(13) + 8;
+			_iOX = 1;//cRand.Next(7) + 2;
+			_iOY = 1;//cRand.Next(13) + 8;
 
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
@@ -254,7 +259,9 @@ namespace MightyFights_Prototype
 
 				// set the battle data to the datastore for reference 
 				DataStore.cInstance.cBattleData = _cBattleData;
-				
+				Team	cTeam = new Team( true );
+				_cBattleData.cTeams.Add( 1, cTeam );
+
 				// make a block of troopers
 				for(int i = 0; i < _iAX; ++i)
 					for(int j = 0; j < _iAY; ++j) { 
@@ -272,6 +279,8 @@ namespace MightyFights_Prototype
 						_cBattleData.naArmyRef.Add(cP1);
 					}
 
+				cTeam = new Team( false );
+				_cBattleData.cTeams.Add( 2, cTeam );
 				// make a block of opponents
 				for(int i = 0; i < _iOX; ++i)
 					for(int j = 0; j < _iOY; ++j) { 
@@ -303,9 +312,29 @@ namespace MightyFights_Prototype
 				//// ddhj: load in some debug data
 				_cFont = cContent.Load<SpriteFont>(@"Shared\DebugFont");
 				DataStore.cInstance.cBorder = _cBorder = new Texture2D(cGraphics, 1, 1);
-				Color tColor = Color.WhiteSmoke;
-				tColor.A = 50;
-				_cBorder.SetData<Color>(new[] { tColor });
+				_cBorder.SetData<Color>(new[] { Color.White });
+
+				//// ddhj: configrable items for the battle draw
+				_cToggleLifeBar = new System.Windows.Forms.CheckBox();
+				_cToggleLifeBar.Location = new System.Drawing.Point(0, 30);
+				_cToggleLifeBar.Text = _cToggleLifeBar.Name = "Toggle Life Bar";
+				_cToggleLifeBar.AutoSize = true;
+				_cToggleLifeBar.CheckedChanged += new EventHandler(ToggleLifeBarChange);
+				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleLifeBar);
+
+				_cToggleDamageNumbers = new System.Windows.Forms.CheckBox();
+				_cToggleDamageNumbers.Location = new System.Drawing.Point(0, 60);
+				_cToggleDamageNumbers.Text = _cToggleLifeBar.Name = "Toggle Damage Numbers";
+				_cToggleDamageNumbers.AutoSize = true;
+				_cToggleDamageNumbers.CheckedChanged += new EventHandler(ToggleDamageNumbersChange);
+				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleDamageNumbers);
+
+				_cToggleSlowMo = new System.Windows.Forms.CheckBox();
+				_cToggleSlowMo.Location = new System.Drawing.Point(0, 80);
+				_cToggleSlowMo.Text = _cToggleLifeBar.Name = "Toggle Slow Mo";
+				_cToggleSlowMo.AutoSize = true;
+				_cToggleSlowMo.CheckedChanged += new EventHandler(ToggleSlowMoChange);
+				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleSlowMo);
 
 				// set the start of battle
 				SetBattleStart();
@@ -314,6 +343,21 @@ namespace MightyFights_Prototype
 			}
 
 			return true;
+		}
+
+		public void ToggleLifeBarChange(object oSender, EventArgs eEvtArgs) 
+		{
+			DataStore.cInstance.bLifeBars = _cToggleLifeBar.Checked;
+		}
+
+		public void ToggleDamageNumbersChange(object oSender, EventArgs eEvtArgs) 
+		{
+			DataStore.cInstance.bDamageNumbers = _cToggleDamageNumbers.Checked;
+		}
+
+		public void ToggleSlowMoChange(object oSender, EventArgs eEvtArgs) 
+		{
+			DataStore.cInstance.bSlowMo = _cToggleSlowMo.Checked;
 		}
 
 		void BackToMenu()
@@ -329,6 +373,9 @@ namespace MightyFights_Prototype
 			_caActiveList.Clear();
 			_cTrooperRef.Clear();
 			_cBattleData.Clear();
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleLifeBar);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleDamageNumbers);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleSlowMo);
 		}
 
 		void ResetBattle()
@@ -351,6 +398,11 @@ namespace MightyFights_Prototype
 		public void Unload()
 		{
 			CleanData();
+		}
+
+		public void ToggleControls()
+		{
+
 		}
 
 		#endregion

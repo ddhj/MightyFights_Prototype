@@ -122,8 +122,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game Objects\AnimatingDamage.cs" />
     <Compile Include="Game Objects\BasicSprite.cs" />
     <Compile Include="Game Objects\Cursor.cs" />
+    <Compile Include="Game Objects\Healer.cs" />
     <Compile Include="Game Objects\Trooper\Trooper.cs" />
     <Compile Include="Game Objects\Trooper\Trooper_Actions.cs" />
     <Compile Include="Game Objects\Trooper\Trooper_Huristics.cs" />
@@ -145,7 +147,6 @@
     <Compile Include="Support Classes\ActionManager.cs" />
     <Compile Include="Support Classes\AnimationProcessor.cs" />
     <Compile Include="Support Classes\BattleData.cs" />
-    <Compile Include="Support Classes\DrawHelpers.cs" />
     <Compile Include="Support Classes\IActive.cs" />
     <Compile Include="Support Classes\IAnimate.cs" />
     <Compile Include="Support Classes\IClickable.cs" />

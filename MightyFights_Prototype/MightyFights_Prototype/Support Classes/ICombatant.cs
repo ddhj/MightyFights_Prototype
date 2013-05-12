@@ -22,11 +22,13 @@ namespace MightyFights_Prototype
 		Stats cStats			{ get; set; }
 
 		void DealDamage(int iDamage);
+		float Heal( float fHp );
+		void RemoveHeal( );
 		bool IsDead();
-		void SetAttacker(ICombatant nCombatant, out ETrooperAttackPos ePos);
-		void RemoveAttacker(ETrooperAttackPos ePos);
-		Vector2 RequestAttackPoint(ICombatant nCombatant, out ETrooperAttackPos ePos);
-		Vector2 RequestPersuitPoint(ETrooperAttackPos ePos);
+		void SetAttacker(ICombatant nCombatant, out int iPos);
+		void RemoveAttacker(int iPos);
+		Vector2 RequestAttackPoint(ICombatant nCombatant, out int iPos);
+		Vector2 RequestPersuitPoint(int iPos);
 
 		// possible a list of attackers and their positions for the persuit method 
 		// in order to choose where to run 

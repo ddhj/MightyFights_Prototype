@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MightyFights_Prototype
 {
-	public delegate object DBattleHuristic(BattlegroundData cData);
+	public delegate object DBattleheuristic(BattlegroundData cData);
 
 	public class IntPoint : IComparable<IntPoint>
 	{
@@ -207,9 +207,9 @@ namespace MightyFights_Prototype
 
 	public class AiBattleData
 	{
-		Dictionary<EBattleHuristics, DBattleHuristic>	_cHuristics = new Dictionary<EBattleHuristics,DBattleHuristic>();
+		Dictionary<EBattleheuristics, DBattleheuristic>	_cheuristics = new Dictionary<EBattleheuristics,DBattleheuristic>();
 
-		public Dictionary<EBattleHuristics, DBattleHuristic>	cHurisitics  { get { return _cHuristics; }}
+		public Dictionary<EBattleheuristics, DBattleheuristic>	cHurisitics  { get { return _cheuristics; }}
 		public EBattleAiStates									eState		 {get; set;}
 	}
 }

@@ -66,7 +66,7 @@ namespace MightyFights_Prototype
 			// set the action manager, likely this will have some stuff from the template too
 			cTemplate.cActionMgr = new TrooperActMgr(cTemplate.cAnimProcessorRef);
 
-			// the battle huristics are also going to be set here or in some other area based on template config data
+			// the battle heuristics are also going to be set here or in some other area based on template config data
 			cTemplate.cAiData = new AiBattleData();
 
 			return cTemplate;

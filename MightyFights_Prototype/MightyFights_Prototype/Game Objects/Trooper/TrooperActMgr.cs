@@ -38,7 +38,7 @@ namespace MightyFights_Prototype
 			// do the perminant actions (they are removable but the conditions are much longer term
 			foreach(Action cAction in cTmpActionList) {
 				if(cAction.bConditionNotMet)
-					cAction.dHuristic(cAction);
+					cAction.dheuristic(cAction, cTime);
 				else cPerminantActions.Remove(cAction);
 			}
 
@@ -46,7 +46,7 @@ namespace MightyFights_Prototype
 			if(cActionQueue.Count > 0) { 
 				cCurAction = cActionQueue[0];
 				if(cCurAction.bConditionNotMet)
-					cCurAction.dHuristic(cCurAction);
+					cCurAction.dheuristic(cCurAction, cTime);
 				else cActionQueue.RemoveAt(0);
 			}
 			

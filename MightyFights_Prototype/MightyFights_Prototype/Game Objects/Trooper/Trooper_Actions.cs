@@ -9,7 +9,7 @@ namespace MightyFights_Prototype
 {
 	public partial class Trooper 
 	{
-		public bool TrooperUpkeep(Action cAction)
+		public bool TrooperUpkeep(Action cAction, GameTime cTime)
 		{
 			if(_cStats.iHp <= 0) { 
 				cAiData.eState = EBattleAiStates.Dying;
@@ -19,7 +19,7 @@ namespace MightyFights_Prototype
 				// remove ourselves from our opponents attaking point
 				if(nOpponent != null)
 					if(_bAttacking)
-						nOpponent.RemoveAttacker(_eAttackingPos);
+						nOpponent.RemoveAttacker(_iAttackingPos);
 
 				// remove the dying trooper from the zone they are in 
 				DataStore.cInstance.cBattleData.RemoveDeadCombatant(this);
@@ -29,8 +29,8 @@ namespace MightyFights_Prototype
 				return false;
 			}
 
-			// call our flee huristic
-			cAiData.cHurisitics[EBattleHuristics.Flee](_cBattleDataRef);
+			// call our flee heuristic
+			cAiData.cHurisitics[EBattleheuristics.Flee](_cBattleDataRef);
 
 			// sort the z order by y pos
 			_fZorder = 1 - _tCenter.Y / 684;
@@ -42,7 +42,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool BasicBattleManager(Action cAction)
+		public bool BasicBattleManager(Action cAction, GameTime cTime)
 		{
 			if(cAction.bInit) { 
 				_cBattleDataRef = (BattlegroundData)cAction.oData;
@@ -60,25 +60,25 @@ namespace MightyFights_Prototype
 
 						case EBattleAiStates.Panting:
 							// yep, we are going to do all the stuff for panting
-							cAiData.cHurisitics[EBattleHuristics.Pant](_cBattleDataRef);
+							cAiData.cHurisitics[EBattleheuristics.Pant](_cBattleDataRef);
 						break;
 
 						// idle can be ready or pant
 						case EBattleAiStates.Ready:
-							// use the huristic to check for an opponent
-							cAiData.cHurisitics[EBattleHuristics.ChooseOpponent](_cBattleDataRef);
+							// use the heuristic to check for an opponent
+							cAiData.cHurisitics[EBattleheuristics.ChooseOpponent](_cBattleDataRef);
 						break;
 
 						case EBattleAiStates.Defending:
 						case EBattleAiStates.Attacking:
 							// check to see if we are animating or not 
 							if(!cAnimationProcessor.bActive) 
-								cAiData.cHurisitics[EBattleHuristics.Attack](_cBattleDataRef);
+								cAiData.cHurisitics[EBattleheuristics.Attack](_cBattleDataRef);
 						break;
 						
 						case EBattleAiStates.Pursuit:
-							// run the persue huristic
-							cAiData.cHurisitics[EBattleHuristics.Persue](_cBattleDataRef);
+							// run the persue heuristic
+							cAiData.cHurisitics[EBattleheuristics.Persue](_cBattleDataRef);
 						break;
 
 						// we are dead we don't need to do more 
@@ -106,7 +106,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool MoveToPoint(Action cAction)
+		public bool MoveToPoint(Action cAction, GameTime cTime)
 		{
 			Vector2		tDest = (Vector2)cAction.oData,
 						tDirVect;
@@ -139,7 +139,53 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool FleeToPoint(Action cAction)
+		public bool FleeToHealer(Action cAction, GameTime cTime)
+		{
+			Healer		cHealer = (Healer)cAction.oData;
+			Vector2		tDest,
+						tDirVect;
+			
+			// check to see if we need to make the direction vector or not
+			if(cAction.bInit) { 
+				// set our animation to charge 
+				_cAnimProc.SetAnimationCriteria("Move", "Flee", "retreat", -1);
+
+				// set our state to persuit
+				cAiData.eState = EBattleAiStates.Flee;
+
+				cAction.bInit = false;
+			} 
+
+			// its possible that the opponent will die before we get there so check to see if the 
+			if(!cHealer.bActive || cHealer.bAvailableSpots ) {
+	//			Flee( );
+				return false;
+			}
+
+			tDest = nOpponent.RequestPersuitPoint(_iAttackingPos);
+			tDirVect = tDest - _tCenter;
+			bDir = tDirVect.X > 0 + float.Epsilon;
+			tDirVect.Normalize();
+
+			// move the sprite by the speed of run (this data should come from the template)
+			////ddhj Template add for speed of run
+			this.tPos += tDirVect * _fFinalMovementSpeed;
+			
+			// we are within weapon range so switch our system to attack 
+			if(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRange * this.iWeaponRange )) { 
+				// call the attack heuristic because we are within attack range for our weapon 
+				//// ddhj this will need a tweek for weapon range 
+				_bAttacking = true;
+				cAiData.cHurisitics[EBattleheuristics.Attack](DataStore.cInstance.cBattleData);
+
+				cAction.bConditionNotMet = false;
+				return false;
+			}
+
+			return true;
+		}
+
+		public bool FleeToPoint(Action cAction, GameTime cTime)
 		{
 			Vector2		tDest = (Vector2)cAction.oData,
 						tDirVect;
@@ -172,7 +218,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool PersueOpponent(Action cAction)
+		public bool PersueOpponent(Action cAction, GameTime cTime)
 		{
 			Vector2		tDest,
 						tDirVect;
@@ -196,7 +242,7 @@ namespace MightyFights_Prototype
 				return false;
 			}
 
-			tDest = nOpponent.RequestPersuitPoint(_eAttackingPos);
+			tDest = nOpponent.RequestPersuitPoint(_iAttackingPos);
 			tDirVect = tDest - _tCenter;
 			bDir = tDirVect.X > 0 + float.Epsilon;
 			tDirVect.Normalize();
@@ -207,10 +253,10 @@ namespace MightyFights_Prototype
 			
 			// we are within weapon range so switch our system to attack 
 			if(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRange * this.iWeaponRange )) { 
-				// call the attack huristic because we are within attack range for our weapon 
+				// call the attack heuristic because we are within attack range for our weapon 
 				//// ddhj this will need a tweek for weapon range 
 				_bAttacking = true;
-				cAiData.cHurisitics[EBattleHuristics.Attack](DataStore.cInstance.cBattleData);
+				cAiData.cHurisitics[EBattleheuristics.Attack](DataStore.cInstance.cBattleData);
 
 				cAction.bConditionNotMet = false;
 				return false;
@@ -219,7 +265,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool ChargeOpponent(Action cAction)
+		public bool ChargeOpponent(Action cAction, GameTime cTime)
 		{
 			Vector2		tDest,
 						tDirVect;
@@ -251,7 +297,7 @@ namespace MightyFights_Prototype
 				return false;
 			}
 
-			tDest = nOpponent.RequestAttackPoint(this, out _eAttackingPos);
+			tDest = nOpponent.RequestAttackPoint(this, out _iAttackingPos);
 			tDirVect = tDest - _tCenter;
 			bDir = tDirVect.X > 0 + float.Epsilon;
 			tDirVect.Normalize();
@@ -262,12 +308,12 @@ namespace MightyFights_Prototype
 			
 			// we are within weapon range so switch our system to attack 
 			if(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRange * this.iWeaponRange )) { 
-				nOpponent.SetAttacker(this, out _eAttackingPos);
+				nOpponent.SetAttacker(this, out _iAttackingPos);
 				_bAttacking = true;
 
-				// call the attack huristic because we are within attack range for our weapon 
+				// call the attack heuristic because we are within attack range for our weapon 
 				//// ddhj this will need a tweek for weapon range 
-				cAiData.cHurisitics[EBattleHuristics.Attack](DataStore.cInstance.cBattleData);
+				cAiData.cHurisitics[EBattleheuristics.Attack](DataStore.cInstance.cBattleData);
 
 				cAction.bConditionNotMet = false;
 				return false;
@@ -276,7 +322,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool Wait(Action cAction)
+		public bool Wait(Action cAction, GameTime cTime)
 		{
 			// check to see if the canvas (time) is longer than the data in (time) 
 			TimeSpan	tTime = (TimeSpan)cAction.oCanvas;
@@ -291,6 +337,28 @@ namespace MightyFights_Prototype
 				cAction.bConditionNotMet = false;
 				return false;
 			}
+			return true;
+		}
+
+		public bool DamageObj(Action cAction, GameTime cTime)
+		{
+			if(cAction.bInit) { 
+				UpdateRefPoints();
+				cAction.oCanvas = new AnimatingDamage((int)cAction.oData, new Vector2(_tCenter.X, _tCenter.Y - 20));
+				_caDamageList.Add((AnimatingDamage)cAction.oCanvas);
+				cAction.oData = _caDamageList.Count - 1;
+				cAction.bInit = false;
+				return true;
+			}
+
+			AnimatingDamage cDmg = (AnimatingDamage)cAction.oCanvas;
+			cDmg.Update(cTime);
+			if(cDmg.bActive == false) { 
+				_caDamageList.RemoveAt((int)cAction.oData);
+				cAction.bConditionNotMet = false;
+				return false;
+			}
+
 			return true;
 		}
 	}

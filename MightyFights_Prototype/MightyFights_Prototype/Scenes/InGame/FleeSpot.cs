@@ -10,35 +10,41 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace MightyFights_Prototype	{
-	class FleeSpot : IActive<FleeSpot>	{
+	class FleeSpot	{
 	// Data
-		int		_iMaxSlots,
-				_iMaxHp;
-		float	_fHp,
-				_fRegenRate;
-		Vector2	_tPos;
-
-		List<ICombatant>	_naUsedSlots = new List<ICombatant>( );
+		int		_iMaxSlots;
+		List<Vector2>	_taOpenSpots = new List<Vector2>( );
+		Dictionary<int,KeyValuePair<Vector2,ICombatant>>	_cUsedSpots = new Dictionary<int,KeyValuePair<Vector2,ICombatant>>( );
 
 	// Properties
-		bool bOpen		{ get { return _naUsedSlots.Count < _iMaxSlots; }}
-		bool bActive	{ get; set; }
-		ActionManager<FleeSpot> cActionManager		{ get; set; }
+		public bool bOpen	{ get { return _cUsedSpots.Count < _iMaxSlots; }}
+		public Vector2 tNextOpenSpot	{ get { return _taOpenSpots[0]; }}
+		public Dictionary<int,KeyValuePair<Vector2,ICombatant>> cUsedSpots	{ get { return _cUsedSpots; }}
 
 	// Constructor
-		public FleeSpot( int iMaxHp, int iMaxSlots, Vector2 tPos, float fRegSpeed )
+		public FleeSpot( int iMaxSlots, int iRadius, Vector2 tCenter )
 		{
-			_fHp = _iMaxHp = iMaxHp;
 			_iMaxSlots = iMaxSlots;
-			_tPos = tPos;
-			_fRegenRate = fRegSpeed;
 		}
 
 	// Functions
-		void Process(GameTime cTime)
+		public void TakeSpot( ICombatant nSoldier )
 		{
+			_cUsedSpots.Add( nSoldier.iId, new KeyValuePair<Vector2,ICombatant>( _taOpenSpots[0], nSoldier ));
+			_taOpenSpots.RemoveAt( 0 );
 		}
 
-		void Get
+		public void FreeSpot( ICombatant nSoldier )
+		{
+			_taOpenSpots.Add( _cUsedSpots[nSoldier.iId].Key );
+			_cUsedSpots.Remove( nSoldier.iId );
+		}
+
+		public void ResetSpots( )
+		{
+			foreach( KeyValuePair<Vector2,ICombatant> tPair in _cUsedSpots.Values )
+				_taOpenSpots.Add( tPair.Key );
+			_cUsedSpots.Clear( );
+		}
 	}
 }
