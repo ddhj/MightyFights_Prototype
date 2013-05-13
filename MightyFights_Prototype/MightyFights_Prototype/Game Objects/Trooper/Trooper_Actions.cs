@@ -169,15 +169,13 @@ namespace MightyFights_Prototype
 				// set our animation to charge 
 				_cAnimProc.SetAnimationCriteria("Move", "Flee", "retreat", -1);
 
-				// set our state to persuit
-				this.cAiData.eState = EBattleAiStates.Flee;
-
 				cAction.bInit = false;
 			} 
 
 			// its possible that the opponent will die before we get there so check to see if the 
 			if(!nHealer.bActive || !nHealer.bAvailableSpots ) {
 				Flee( );
+				cAction.bConditionNotMet = false;
 				return false;
 			}
 

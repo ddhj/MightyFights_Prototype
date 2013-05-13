@@ -110,9 +110,6 @@ namespace MightyFights_Prototype	{
 						if( _fHp > _fHealRate )
 							_fHp -= tPair.Value.Heal( _fHealRate );
 						else	_fHp -= tPair.Value.Heal( _fHp );
-
-					if( tPair.Value.cAiData.eState != EBattleAiStates.Panting )
-						_fHealRate.ToString( );
 				}
 				if( _cAnimProc.sType == "Idle" )
 					_cAnimProc.SetAnimationCriteria("Defend", "Parry", "lp", 1);
