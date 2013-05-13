@@ -20,12 +20,16 @@ namespace MightyFights_Prototype
 		int				_iItteration = 0,
 						_iItterations;
 
+		//// this will be replaced when the buffs animate
+		public string sType		{ get; set; }
+
 		public BasicBuff(AnimationData cAnimData, string sBuff, int iItterations) : base()
 		{
 			_cAnimData = cAnimData;
 			this.cFrame = _cAnimData.GetFrame(_cAnimData.GetActionData("Main", "Sub", sBuff), 0);
 			_iItterations = iItterations;
 			this.eObjState = EObjectStates.Active | EObjectStates.Draw;
+			this.sType = sBuff;
 		}
 
 		Vector2 GetDestPos()
@@ -70,6 +74,18 @@ namespace MightyFights_Prototype
 			cBatch.Draw(this.cTexRef, this.tPos, this.cFrame.tRect, Color.White, this.cFrame.bRot ? -(float)Math.PI/2 : 0, 
 				// and 2: the direction vector
 				this.cFrame.tTopLeft, 1, SpriteEffects.None, .99f);
+		}
+
+		public override bool ContainsPoint(Point tPoint)
+		{
+			Rectangle tRect;
+			if(this.cFrame.bRot) 
+				tRect = new Rectangle((int)this.tPos.X, (int)this.tPos.Y, this.cFrame.tRect.Height, this.cFrame.tRect.Width);
+			else tRect = new Rectangle((int)this.tPos.X, (int)this.tPos.Y, this.cFrame.tRect.Width, this.cFrame.tRect.Height);
+
+			if(tRect.Contains(tPoint)) { 
+
+			} return false;
 		}
 	}
 }

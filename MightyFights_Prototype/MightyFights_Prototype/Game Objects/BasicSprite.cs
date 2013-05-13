@@ -54,4 +54,27 @@ namespace MightyFights_Prototype
 			_cTexRef.Dispose();
 		}
 	}
+
+	public class BasicSprite : IDrawable, IDrawableTexture, IObject
+	{
+		public Texture2D cTexRef			{ get; set; }
+		public int iId						{ get; set; }
+		public EObjectStates eObjState		{ get; set; }
+		public Frame cFrame					{ get; set; }
+		public string sTexName				{ get; set; }
+		public Vector2 tPos					{ get; set; }
+
+		public BasicSprite()
+		{
+			this.eObjState = EObjectStates.Draw;
+			this.iId = ObjectManager.cInstance.iCurObjId;
+		}
+
+		public virtual void Draw(SpriteBatch cBatch) 
+		{
+			cBatch.Draw(this.cTexRef, this.tPos, this.cFrame.tRect, Color.White, this.cFrame.bRot ? -(float)Math.PI/2 : 0, 
+				// and 2: the direction vector
+				this.cFrame.tTopLeft, 1, SpriteEffects.None, .99f);
+		}
+	}
 }

@@ -125,6 +125,7 @@
     <Compile Include="Game Objects\AnimatingDamage.cs" />
     <Compile Include="Game Objects\BasicSprite.cs" />
     <Compile Include="Game Objects\Buffs\BasicBuff.cs" />
+    <Compile Include="Game Objects\Buffs\BuffContainer.cs" />
     <Compile Include="Game Objects\Cursor.cs" />
     <Compile Include="Game Objects\Trooper\Trooper.cs" />
     <Compile Include="Game Objects\Trooper\Trooper_Actions.cs" />

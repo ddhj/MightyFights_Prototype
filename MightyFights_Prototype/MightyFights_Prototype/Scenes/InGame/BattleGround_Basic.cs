@@ -22,6 +22,7 @@ namespace MightyFights_Prototype
 		Dictionary<string, List<ICombatant>>	_cTrooperRef = new Dictionary<string,List<ICombatant>>();
 		BattlegroundData	_cBattleData = new BattlegroundData();
 		ObjectManagerInstance	_cObjMgr = new ObjectManagerInstance();
+		Dictionary<string, BuffContainer>		_cBuffContainerList = new Dictionary<string,BuffContainer>();
 
 		TimeSpan			_tVictoryElapsed = TimeSpan.Zero,
 							_tSlowMo = TimeSpan.Zero;
@@ -209,6 +210,76 @@ namespace MightyFights_Prototype
 			}
 		}
 
+		void CreateBuffContainers()
+		{
+			ContentManager	cContent = DataStore.cInstance.cContent;
+			BuffContainer	cTmpContainer;
+
+			_cBuffContainerList.Add("acorn", cTmpContainer = new BuffContainer());
+			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
+			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
+			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
+				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+			cTmpContainer.tPos = new Vector2(132, 519);
+			_cObjMgr.AddObject(cTmpContainer);
+
+			_cBuffContainerList.Add("claw", cTmpContainer = new BuffContainer());
+			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
+			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
+			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
+				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+			cTmpContainer.tPos = new Vector2(232, 519);
+			_cObjMgr.AddObject(cTmpContainer);
+
+			_cBuffContainerList.Add("ear", cTmpContainer = new BuffContainer());
+			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
+			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
+			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
+				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+			cTmpContainer.tPos = new Vector2(332, 519);
+			_cObjMgr.AddObject(cTmpContainer);
+
+			_cBuffContainerList.Add("eye", cTmpContainer = new BuffContainer());
+			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
+			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
+			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
+				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+			cTmpContainer.tPos = new Vector2(432, 519);
+			_cObjMgr.AddObject(cTmpContainer);
+
+			_cBuffContainerList.Add("fang", cTmpContainer = new BuffContainer());
+			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
+			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
+			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
+				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+			cTmpContainer.tPos = new Vector2(532, 519);
+			_cObjMgr.AddObject(cTmpContainer);
+
+			_cBuffContainerList.Add("feather", cTmpContainer = new BuffContainer());
+			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
+			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
+			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
+				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+			cTmpContainer.tPos = new Vector2(632, 519);
+			_cObjMgr.AddObject(cTmpContainer);
+
+			_cBuffContainerList.Add("paw", cTmpContainer = new BuffContainer());
+			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
+			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
+			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
+				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+			cTmpContainer.tPos = new Vector2(732, 519);
+			_cObjMgr.AddObject(cTmpContainer);
+
+			_cBuffContainerList.Add("wing", cTmpContainer = new BuffContainer());
+			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
+			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
+			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
+				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+			cTmpContainer.tPos = new Vector2(832, 519);
+			_cObjMgr.AddObject(cTmpContainer);
+		}
+
 		public bool Init()
 		{
 			ContentManager	cContent = DataStore.cInstance.cContent;
@@ -254,6 +325,10 @@ namespace MightyFights_Prototype
 
 					_cBattleData.naOpponentsRef.Add(cTmpTrooper);
 				}
+
+				// create the containers 
+				_cBattleData.cBuffContainers = _cBuffContainerList;
+				CreateBuffContainers();
 
 				_cCursor = new Cursor();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");
@@ -334,6 +409,7 @@ namespace MightyFights_Prototype
 			_cTrooperRef.Clear();
 			_cBattleData.Clear();
 			_cObjMgr.Clear();
+			_cBuffContainerList.Clear();
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleLifeBar);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleDamageNumbers);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleSlowMo);
