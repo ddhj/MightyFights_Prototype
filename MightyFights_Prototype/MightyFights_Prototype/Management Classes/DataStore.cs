@@ -40,5 +40,6 @@ namespace MightyFights_Prototype
 		public bool				bLifeBars	{ get; set; }
 		public bool				bDamageNumbers	{ get; set; }
 		public bool				bSlowMo		{ get; set; }
+		public bool				bHealSpots	{ get; set; }
 	}
 }

@@ -164,13 +164,15 @@ namespace MightyFights_Prototype	{
 			}
 
 			// draw the flee point 
-			foreach( Vector2 tSpot in _cSupportZone.taOpenSpots )
-			{ 
-				Texture2D	cBorder = DataStore.cInstance.cBorder;
-				Rectangle	tRect = new Rectangle((int)tSpot.X - 5, (int)tSpot.Y - 5, 10, 10 );
-				Color		cHpColor = Color.WhiteSmoke;
-				cHpColor.A = 35;
-				cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0);
+			if(DataStore.cInstance.bHealSpots) { 
+				foreach( Vector2 tSpot in _cSupportZone.taOpenSpots )
+				{ 
+					Texture2D	cBorder = DataStore.cInstance.cBorder;
+					Rectangle	tRect = new Rectangle((int)tSpot.X - 5, (int)tSpot.Y - 5, 10, 10 );
+					Color		cHpColor = Color.WhiteSmoke;
+					cHpColor.A = 35;
+					cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0);
+				}
 			}
 		}
 

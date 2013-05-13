@@ -150,9 +150,8 @@ namespace MightyFights_Prototype
 			if((tDest - _tCenter).LengthSquared() < 4) { 
 				_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
 				cAction.bConditionNotMet = false;
-//				this.tPos = tDest;
-
 				cAiData.eState = EBattleAiStates.Ready;
+
 				return false;
 			}
 
@@ -196,7 +195,6 @@ namespace MightyFights_Prototype
 				cHealer.TakeSpot( this );
 				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", -1);
 				cAction.bConditionNotMet = false;
-//				this.tPos = tDest;
 				
 				this.cAiData.eState = EBattleAiStates.Panting;
 				return false;
@@ -237,8 +235,7 @@ namespace MightyFights_Prototype
 			if((tDest - _tCenter).LengthSquared() < 4) { 
 				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", -1);
 				cAction.bConditionNotMet = false;
-//				this.tPos = tDest;
-				
+
 				cAiData.eState = EBattleAiStates.Panting;
 				return false;
 			}

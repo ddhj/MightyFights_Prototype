@@ -39,7 +39,8 @@ namespace MightyFights_Prototype
 		System.Windows.Forms.CheckBox		_cToggleLifeBar,
 											_cToggleDamageNumbers,
 											_cToggleSlowMo,
-											_cToggleZones;
+											_cToggleZones,
+											_cToggleHealSpots;
 
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
 	
@@ -374,31 +375,38 @@ namespace MightyFights_Prototype
 
 				//// ddhj: configrable items for the battle draw
 				_cToggleLifeBar = new System.Windows.Forms.CheckBox();
-				_cToggleLifeBar.Location = new System.Drawing.Point(0, 40);
+				_cToggleLifeBar.Location = new System.Drawing.Point(0, 60);
 				_cToggleLifeBar.Text = _cToggleLifeBar.Name = "Toggle Life Bar";
 				_cToggleLifeBar.AutoSize = true;
 				_cToggleLifeBar.CheckedChanged += new EventHandler(ToggleLifeBarChange);
 				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleLifeBar);
 
 				_cToggleDamageNumbers = new System.Windows.Forms.CheckBox();
-				_cToggleDamageNumbers.Location = new System.Drawing.Point(0, 60);
+				_cToggleDamageNumbers.Location = new System.Drawing.Point(0, _cToggleLifeBar.Location.Y + 20);
 				_cToggleDamageNumbers.Text = _cToggleDamageNumbers.Name = "Toggle Dmg #";
 				_cToggleDamageNumbers.AutoSize = true;
 				_cToggleDamageNumbers.CheckedChanged += new EventHandler(ToggleDamageNumbersChange);
 				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleDamageNumbers);
 
 				_cToggleSlowMo = new System.Windows.Forms.CheckBox();
-				_cToggleSlowMo.Location = new System.Drawing.Point(0, 80);
+				_cToggleSlowMo.Location = new System.Drawing.Point(0, _cToggleDamageNumbers.Location.Y + 20);
 				_cToggleSlowMo.Text = _cToggleSlowMo.Name = "Toggle Slow Mo";
 				_cToggleSlowMo.AutoSize = true;
 				_cToggleSlowMo.CheckedChanged += new EventHandler(ToggleSlowMoChange);
 				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleSlowMo);
 
 				_cToggleZones = new System.Windows.Forms.CheckBox();
-				_cToggleZones.Location = new System.Drawing.Point(0, 100);
+				_cToggleZones.Location = new System.Drawing.Point(0, _cToggleSlowMo.Location.Y + 20);
 				_cToggleZones.Text = _cToggleZones.Name = "Toggle Zones";
 				_cToggleZones.AutoSize = true;
 				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleZones);
+
+				_cToggleHealSpots = new System.Windows.Forms.CheckBox();
+				_cToggleHealSpots.Location = new System.Drawing.Point(0, _cToggleZones.Location.Y + 20);
+				_cToggleHealSpots.Text = _cToggleHealSpots.Name = "Toggle Heal Loc";
+				_cToggleHealSpots.AutoSize = true;
+				_cToggleHealSpots.CheckedChanged += new EventHandler(ToggleHealSpots);
+				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleHealSpots);
 
 				// set the start of battle
 				SetBattleStart();
@@ -422,6 +430,11 @@ namespace MightyFights_Prototype
 		public void ToggleSlowMoChange(object oSender, EventArgs eEvtArgs) 
 		{
 			DataStore.cInstance.bSlowMo = _cToggleSlowMo.Checked;
+		}
+
+		public void ToggleHealSpots(object oSender, EventArgs eEvtArgs) 
+		{
+			DataStore.cInstance.bHealSpots = _cToggleHealSpots.Checked;
 		}
 
 		void BackToMenu()
