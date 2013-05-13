@@ -36,7 +36,7 @@ namespace MightyFights_Prototype	{
 		public float fHp		{ get { return _fHp; } set { _fHp = value; }}
 		public Vector2 tPos		{ get { return _tPos; } set { _tPos = value; UpdateRefPoints(); }}
 		public Vector2 tCenter	{ get { return _tCenter; } set { _tCenter = value; }}
-		public bool bActive		{ get { return _fHp > 0; }}
+		public bool bActive		{ get { return _fHp > 20; }}
 		public EObjectStates eObjState	{ get { return _eObjState; } set { _eObjState = value; }}
 		public bool bAvailableSpots		{ get { return _cSupportZone.bOpen; }}
 		public AnimationProcessor cAnimationProcessor { get { return _cAnimProc; } set { _cAnimProc = value; }}
@@ -105,10 +105,15 @@ namespace MightyFights_Prototype	{
 			else if( _fHp > 0 )
 			{
 				foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
+				{
 					if( _fHp > 0 )
 						if( _fHp > _fHealRate )
 							_fHp -= tPair.Value.Heal( _fHealRate );
 						else	_fHp -= tPair.Value.Heal( _fHp );
+
+					if( tPair.Value.cAiData.eState != EBattleAiStates.Panting )
+						_fHealRate.ToString( );
+				}
 				if( _cAnimProc.sType == "Idle" )
 					_cAnimProc.SetAnimationCriteria("Defend", "Parry", "lp", 1);
 			}

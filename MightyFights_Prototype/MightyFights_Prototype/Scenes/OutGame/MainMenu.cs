@@ -167,7 +167,7 @@ namespace MightyFights_Prototype
 				_cP1Count.Location = new System.Drawing.Point((int)_cP1Card.tPos.X - 108, (int)_cP1Card.tPos.Y + 20);
 				_cP1Count.Minimum = 1;
 				_cP1Count.Maximum = 100;
-				_cP1Count.Value = cRand.Next(100);
+				_cP1Count.Value = 5;//cRand.Next(100);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP1Count);
 				
 				_cP2Count = new NumericUpDown();

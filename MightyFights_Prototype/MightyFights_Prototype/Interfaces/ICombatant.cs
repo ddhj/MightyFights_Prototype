@@ -26,15 +26,11 @@ namespace MightyFights_Prototype
 		float Heal( float fHp );
 		void RemoveHeal( );
 		bool IsDead();
-		bool InWeaponRange( );
+		bool InWeaponRange( bool bCollisionTest );
 		void SetAttacker(ICombatant nCombatant, out int iPos);
 		void RemoveAttacker(int iPos);
 		Vector2 RequestAttackPoint(ICombatant nCombatant, out int iPos);
 		Vector2 RequestPersuitPoint(int iPos);
-
-		// possible a list of attackers and their positions for the persuit method 
-		// in order to choose where to run 
-		Dictionary<ETrooperAttackPos, ICombatant>	cAttackers		{ get; }
 	}
 
 	public interface IHealer : IBattleObj	{

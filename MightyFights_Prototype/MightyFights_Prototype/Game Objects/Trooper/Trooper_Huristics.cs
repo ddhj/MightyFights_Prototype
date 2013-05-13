@@ -32,7 +32,7 @@ namespace MightyFights_Prototype
 			}
 
 			// check to see if our opponent is running by distance check
-			if(nOpponent.cAiData.eState == EBattleAiStates.Flee || !InWeaponRange( )) { 
+			if(nOpponent.cAiData.eState == EBattleAiStates.Flee || !InWeaponRange( true )) { 
 				// one in three chance to persue rather than attack somone else 
 				nOpponent.RemoveAttacker( _iAttackingPos );
 				nTarget = null;
@@ -75,13 +75,9 @@ namespace MightyFights_Prototype
 		public object Flee(BattlegroundData cData)
 		{
 			// check if the hp is within the run away threshold
-			if(_cStats.fHp < 40) { 
+			if(_cStats.fHp < _cStats.iFleePoint) { 
 				if(cAiData.eState == EBattleAiStates.Flee || cAiData.eState == EBattleAiStates.Panting)
 					return null;
-
-				SortedList<int,Priest>	cHealersByDist = new SortedList<int,Priest>( );
-				Random		cRand = new Random( );
-				Vector2		tPos;
 
 				// check to see if we are engaged in an attack 
 				if(_bAttacking) { 
@@ -90,36 +86,48 @@ namespace MightyFights_Prototype
 				}
 				this.nTarget = null;
 
-				// build up available healer list by distance
-				foreach( Priest cHealer in _cTeam.cHealerList.Values )
-					if( cHealer.bActive && cHealer.bAvailableSpots )
-					{
-						tPos = cHealer.GetOpenLocation( );
-						tPos = _tPos - tPos;
-						cHealersByDist.Add((int)tPos.LengthSquared( ), cHealer );
-					}
-
 				// remove all actions
 				_cActionMgr.cActionQueue.Clear();
 
-				// add the flee to healer/point action 
-				if( cHealersByDist.Count > 0 )
-				{
-					this.nTarget = cHealersByDist.Values[0];
-					_cActionMgr.cActionQueue.Add( new Action( FleeToHealer, null, null ));
-				}
-				else	{
-					_cActionMgr.cActionQueue.Add(new Action(FleeToPoint, 
-							new Vector2( 132 + ( _cTeam.bDirection ? 0 : 470 ) + cRand.Next( 150 ), 90 + cRand.Next(306)), null));
+				Flee( );
 
-					if(((Vector2)_cActionMgr.cActionQueue[0].oData ).X < 112 || ((Vector2)_cActionMgr.cActionQueue[0].oData ).X > 812 ||
-							((Vector2)_cActionMgr.cActionQueue[0].oData ).Y < 70 || ((Vector2)_cActionMgr.cActionQueue[0].oData ).Y > 400 )
-						nTarget.ToString( );
-				}
 				cAiData.eState = EBattleAiStates.Flee;
 			}
 
 			return null;
+		}
+
+		void Flee( )
+		{
+			SortedList<int,IHealer>	cHealersByDist = new SortedList<int,IHealer>( );
+			Random		cRand = new Random( );
+			Vector2		tPos;
+
+			// build up available healer list by distance
+			foreach( IHealer nHealer in _cTeam.cHealerList.Values )
+				if( nHealer.bActive && nHealer.bAvailableSpots )
+				{
+					tPos = nHealer.GetOpenLocation( );
+					tPos = _tPos - tPos;
+					cHealersByDist.Add((int)tPos.LengthSquared( ), nHealer );
+				}
+
+			// add the flee to healer/point action 
+			if( cHealersByDist.Count > 0 )
+			{
+				this.nTarget = cHealersByDist.Values[0];
+				_cActionMgr.cActionQueue.Add( new Action( FleeToHealer, null, null ));
+			}
+			else	{
+				_cActionMgr.cActionQueue.Add(new Action(FleeToPoint, 
+						new Vector2( 132 + ( _cTeam.bDirection ? 0 : 470 ) + cRand.Next( 150 ), 90 + cRand.Next(306)), null));
+
+				if(((Vector2)_cActionMgr.cActionQueue[0].oData ).X < 112 || ((Vector2)_cActionMgr.cActionQueue[0].oData ).X > 812 ||
+						((Vector2)_cActionMgr.cActionQueue[0].oData ).Y < 70 || ((Vector2)_cActionMgr.cActionQueue[0].oData ).Y > 400 )
+					nTarget.ToString( );
+			}
+			cHealersByDist.Clear( );
+			cHealersByDist = null;
 		}
 
 		public object Persue(BattlegroundData cData)

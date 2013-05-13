@@ -26,7 +26,7 @@ namespace MightyFights_Prototype
 
 			switch(_cKeyFrame.Type) { 
 				case "Collision":
-					if( cData.InWeaponRange( ))
+					if( cData.InWeaponRange( true ))
 						if( _cAnimProc.sSubType == "Critical" )
 							nOpponent.DealDamage( cData, cData.cStats.iPower * 3, true );
 						else	nOpponent.DealDamage( cData, cData.cStats.iPower, false );

@@ -57,7 +57,6 @@ namespace MightyFights_Prototype
 		public float fZorder			{ get { return _fZorder; }}
 
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
-		public Dictionary<ETrooperAttackPos, ICombatant> cAttackers	{ get { return _cAttackers; }}
 
 
 		public Trooper(int iId, Team cTeam, TrooperTemplate cTemplate)
@@ -282,18 +281,29 @@ namespace MightyFights_Prototype
 			// or if I am attacking someone who is attacking me
 			else if( this.nTarget is ICombatant && ((ICombatant)this.nTarget ).nTarget == this )
 				return;
-			else 
+			// if I am not in a state to attack
+			else
 				switch( this.cAiData.eState )
 				{
 				case EBattleAiStates.Flee:
 				case EBattleAiStates.Dying:
-				case EBattleAiStates.Panting:
+				case EBattleAiStates.Defending:
 					return;
+
+				case EBattleAiStates.Panting:
+					if( _cStats.fHp < _cStats.iFleePoint )
+						return;
+					break;
 				}
 
-			if( this.nTarget != null && this.nTarget is ICombatant )
-				((ICombatant)this.nTarget ).RemoveAttacker( _iAttackingPos );
-			// one in three chance to persue rather than attack somone else 
+			// if I'm attacking someone that isn't attacking me (and I'm being attacked), go fight one of my attackers
+			if( this.nTarget != null )
+				if( this.nTarget is ICombatant && _bAttacking )
+					((ICombatant)this.nTarget ).RemoveAttacker( _iAttackingPos );
+				// or if I'm healing, but I'm not weak enough to not fight back (no longer under the flee point)
+				else if( this.nTarget is IHealer )
+					((IHealer)this.nTarget ).FreeSpot( this );
+
 			this.cAiData.eState = EBattleAiStates.Ready;
 			foreach( Action cAction in _cActionMgr.cActionQueue )
 				cAction.bConditionNotMet = false;
@@ -315,13 +325,16 @@ namespace MightyFights_Prototype
 
 		public void RemoveHeal( )
 		{
+			this.nTarget = null;
 		}
 
-		public bool InWeaponRange( )
+		public bool InWeaponRange( bool bCollision )
 		{
 			ICombatant	nOpponent = (ICombatant)nTarget;
 			Vector2		tDest = nOpponent.RequestPersuitPoint(_iAttackingPos);
 
+			if( bCollision )
+				return(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRngSq * 1.3f ));
 			return(((tDest - _tCenter).LengthSquared()) < this.iWeaponRngSq );
 		}
 
@@ -334,7 +347,9 @@ namespace MightyFights_Prototype
 		{
 			Vector2		tDir = _tCenter - nCombatant.tCenter;
 
-			RequestAttackPoint(nCombatant, out iPos);
+			if( _iCurLeftAttackers + _iCurRightAttakers != _cAttackers.Count )
+				_byAttakPos.ToString( );
+			GetAttackPoint(nCombatant, out iPos);
 			_cAttackers.Add((ETrooperAttackPos)iPos, nCombatant);
 			_byAttakPos |= (byte)iPos;
 
@@ -352,6 +367,28 @@ namespace MightyFights_Prototype
 					++_iCurRightAttakers;
 				break;
 			}
+		}
+
+		public void RemoveAttacker(int iPos)
+		{
+			_byAttakPos &= (byte)~iPos;
+			_cAttackers.Remove((ETrooperAttackPos)iPos);
+			
+			switch((ETrooperAttackPos)iPos) { 
+				case ETrooperAttackPos.LeftBottom:
+				case ETrooperAttackPos.LeftMid:
+				case ETrooperAttackPos.LeftTop:
+					--_iCurLeftAttackers;
+				break;
+
+				case ETrooperAttackPos.RightBottom:
+				case ETrooperAttackPos.RightMid:
+				case ETrooperAttackPos.RightTop:
+					--_iCurRightAttakers;
+				break;
+			}
+			if( _iCurLeftAttackers + _iCurRightAttakers != _cAttackers.Count )
+				_byAttakPos.ToString( );
 		}
 
 		Vector2 GetVectByPos(ETrooperAttackPos ePos)
@@ -385,7 +422,7 @@ namespace MightyFights_Prototype
 			return tDir;
 		}
 
-		Vector2 RightAttackPos(Vector2 tDir, out int iPos, int iWeaponRange) 
+		void RightAttackPos(Vector2 tDir, out int iPos, int iWeaponRange) 
 		{
 			ETrooperAttackPos	ePos;
 			switch(_iCurRightAttakers) { 
@@ -417,10 +454,9 @@ namespace MightyFights_Prototype
 				break;
 			}
 			iPos = (int)ePos;
-			return GetVectByPos(ePos);
 		}
 
-		Vector2 LeftAttackPos(Vector2 tDir, out int iPos, int iWeaponRange)
+		void LeftAttackPos(Vector2 tDir, out int iPos, int iWeaponRange)
 		{
 			ETrooperAttackPos	ePos;
 			switch(_iCurLeftAttackers) { 
@@ -452,57 +488,36 @@ namespace MightyFights_Prototype
 				break;
 			}
 			iPos = (int)ePos;
-			return GetVectByPos(ePos);
 		}
 
-		public Vector2 RequestAttackPoint(ICombatant nCombatant, out int iPos)
+		void GetAttackPoint( ICombatant nCombatant, out int iPos)
 		{
 			// determine up down left an right from combatant
 			Vector2		tDir = nCombatant.tCenter - _tCenter;
-			
+
 			// check left or right 
 			if(tDir.X >= 0.0 + float.Epsilon) { 
 				// check to see if our right positions are filled 
 				if(_iCurRightAttakers < 3) { 
-					return RightAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
-				} else return LeftAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
+					RightAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
+				} else LeftAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
 			// we are left
 			} else { 
 				if(_iCurLeftAttackers < 3) { 
-					return LeftAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
-				} else return RightAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
+					LeftAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
+				} else RightAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
 			}
+		}
+
+		public Vector2 RequestAttackPoint(ICombatant nCombatant, out int iPos)
+		{
+			GetAttackPoint( nCombatant, out iPos );
+			return GetVectByPos((ETrooperAttackPos)iPos );
 		}
 
 		public Vector2 RequestPersuitPoint(int iPos)
 		{
 			return GetVectByPos((ETrooperAttackPos)iPos);
-		}
-
-		public void RemoveAttacker(int iPos)
-		{
-			_byAttakPos &= (byte)~iPos;
-			_cAttackers.Remove((ETrooperAttackPos)iPos);
-			
-			switch((ETrooperAttackPos)iPos) { 
-				case ETrooperAttackPos.LeftBottom:
-				case ETrooperAttackPos.LeftMid:
-				case ETrooperAttackPos.LeftTop:
-					--_iCurLeftAttackers;
-				break;
-
-				case ETrooperAttackPos.RightBottom:
-				case ETrooperAttackPos.RightMid:
-				case ETrooperAttackPos.RightTop:
-					--_iCurRightAttakers;
-				break;
-			}
-		}
-
-		void ClearAttackers( )
-		{
-			_cAttackers.Clear( );
-			_iCurLeftAttackers = _iCurRightAttakers = 0;
 		}
 
 		void UpdateRefPoints()

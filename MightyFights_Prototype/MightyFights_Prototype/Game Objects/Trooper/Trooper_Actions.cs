@@ -160,7 +160,7 @@ namespace MightyFights_Prototype
 
 		public bool FleeToHealer(Action cAction, GameTime cTime)
 		{
-			Priest		cHealer = (Priest)this.nTarget;
+			IHealer		nHealer = (IHealer)this.nTarget;
 			Vector2		tDest,
 						tDirVect;
 			
@@ -176,12 +176,14 @@ namespace MightyFights_Prototype
 			} 
 
 			// its possible that the opponent will die before we get there so check to see if the 
-			if(!cHealer.bActive || !cHealer.bAvailableSpots ) {
-				Flee( null );
+			if(!nHealer.bActive || !nHealer.bAvailableSpots ) {
+				Flee( );
 				return false;
 			}
 
-			tDest = cHealer.GetOpenLocation( );
+			Vector2 tOldCen = _tCenter;
+			Vector2 tOldPos = _tPos;
+			tDest = nHealer.GetOpenLocation( );
 			tDirVect = tDest - _tCenter;
 			bDir = tDirVect.X > 0 + float.Epsilon;
 			tDirVect.Normalize();
@@ -189,13 +191,16 @@ namespace MightyFights_Prototype
 			// move the sprite by the speed of run (this data should come from the template)
 			////ddhj Template add for speed of run
 			this.tPos += tDirVect * _fFinalMovementSpeed;
+
+			if(( tDest - tOldCen ).LengthSquared( ) < ( tDest - _tCenter ).LengthSquared( ))
+				tDest.ToString( );
 			
 			// we are within weapon range so switch our system to attack 
 			if(((tDest - _tCenter).LengthSquared()) < 4) {  
-				cHealer.TakeSpot( this );
+				nHealer.TakeSpot( this );
 				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", -1);
 				cAction.bConditionNotMet = false;
-				
+
 				this.cAiData.eState = EBattleAiStates.Panting;
 				return false;
 			}
@@ -220,8 +225,6 @@ namespace MightyFights_Prototype
 				cAction.bInit = false;
 			} else tDirVect = (Vector2)cAction.oCanvas;
 
-			Vector2 tOldCen = _tCenter;
-			Vector2 tOldPos = _tPos;
 			tDirVect = tDest - _tCenter;
 			bDir = tDirVect.X > 0 + float.Epsilon;
 			tDirVect.Normalize();
@@ -230,8 +233,6 @@ namespace MightyFights_Prototype
 			////ddhj Template add for speed of walk
 			this.tPos += tDirVect * _fFinalMovementSpeed;
 
-			if(( tDest - tOldPos ).LengthSquared( ) < ( tDest - _tPos ).LengthSquared( ))
-				tDest.ToString( );
 			if((tDest - _tCenter).LengthSquared() < 4) { 
 				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", -1);
 				cAction.bConditionNotMet = false;
@@ -278,7 +279,7 @@ namespace MightyFights_Prototype
 			this.tPos += tDirVect * _fFinalMovementSpeed;
 			
 			// we are within weapon range so switch our system to attack 
-			if( InWeaponRange( )) {
+			if( InWeaponRange( false )) {
 //				this.tPos = tDest;
 				nOpponent.SetAttacker(this, out _iAttackingPos);
 				// call the attack heuristic because we are within attack range for our weapon 
@@ -336,7 +337,7 @@ namespace MightyFights_Prototype
 			this.tPos += tDirVect * _fFinalMovementSpeed;
 			
 			// we are within weapon range so switch our system to attack 
-			if( InWeaponRange( )) { 
+			if( InWeaponRange( false )) { 
 //				this.tPos = tDest;
 				nOpponent.SetAttacker(this, out _iAttackingPos);
 				_bAttacking = true;
