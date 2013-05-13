@@ -33,7 +33,7 @@ namespace MightyFights_Prototype
 		// not sure that the font will be something that we optimize or not
 		public string sFontName { get { return @"Shared\DebugFont"; } set { }}
 
-		public AnimatingDamage(int iDamage, Vector2 tPos)
+		public AnimatingDamage(int iDamage, Vector2 tPos, bool bCrit, bool bHeal, Team cTeam)
 		{
 			_tTotalDuration = TimeSpan.FromMilliseconds(300);
 			_tLifetime = TimeSpan.Zero;
@@ -41,7 +41,22 @@ namespace MightyFights_Prototype
 			_sDamage = Convert.ToString(iDamage);
 			_tPos = tPos;
 			_cFont = DataStore.cInstance.cFont;
-			_tTextColor = Color.White;
+
+			// get text color from nature of damage and which team it was done to
+			if( !bHeal )
+				if( cTeam.bDirection )
+					if( bCrit )
+						_tTextColor = Color.Orange;
+					else	_tTextColor = Color.Red;
+				else 
+					if( bCrit )
+						_tTextColor = Color.Yellow;
+					else	_tTextColor = Color.White;
+			else 
+				if( cTeam.bDirection )
+					_tTextColor = Color.Green;
+				else	_tTextColor = Color.Turquoise;
+
 			_iStartY = (int)tPos.Y;
 
 			// set the states for this object

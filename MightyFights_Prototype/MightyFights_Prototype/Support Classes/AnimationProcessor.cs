@@ -21,12 +21,21 @@ namespace MightyFights_Prototype
 						_iCurFrameIdx,
 						_iCurFrame;
 		TimeSpan		_tTime;
+		string			_sActionType,
+						_sSubCat,
+						_sAction;
 
 		Dictionary<string, int>		_cActionIncrement = new Dictionary<string,int>();
 
+
 		public Frame cCurFrame	{ get { return _cCurFrame; }}
-		public bool	bActive { get; set; }
+		public string sType		{ get { return _sActionType; }}
+		public string sSubType	{ get { return _sSubCat; }}
+		public string sAction	{ get { return _sAction; }}
+		public bool	bActive		{ get; set; }
+
 		public Dictionary<string, int> cActionIncrement	 { get { return _cActionIncrement; }}
+
 
 		public AnimationProcessor(AnimationData cAnimData, TemplateConfig cTemplateCfg)
 		{
@@ -35,6 +44,10 @@ namespace MightyFights_Prototype
 
 		public void SetAnimationCriteria(string sActionType, string sSubCat, string sAction, int iCount)
 		{
+			_sActionType = sActionType;
+			_sSubCat = sSubCat;
+			_sAction = sAction;
+
 			_cCurAction = _cAnimDataRef.cReferenceList[sActionType][sSubCat][sAction];
 			_iCount = iCount;
 			_iCurIncrement = _cCurAction.iIncrement;

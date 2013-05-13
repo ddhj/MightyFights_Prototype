@@ -18,10 +18,10 @@ namespace MightyFights_Prototype
 		Texture2D		_cBackground;
 		SpriteBatch		_cSpriteBatch;
 		Dictionary<string, List<IDrawable>>		_cDrawList = new Dictionary<string,List<IDrawable>>();
+		List<Trooper>							_caActiveList = new List<Trooper>();
 		Dictionary<string, List<ICombatant>>	_cTrooperRef = new Dictionary<string,List<ICombatant>>();
 		BattlegroundData	_cBattleData = new BattlegroundData();
 		ObjectManagerInstance	_cObjMgr = new ObjectManagerInstance();
-		Dictionary<string, BuffContainer>		_cBuffContainerList = new Dictionary<string,BuffContainer>();
 
 		TimeSpan			_tVictoryElapsed = TimeSpan.Zero,
 							_tSlowMo = TimeSpan.Zero;
@@ -44,6 +44,30 @@ namespace MightyFights_Prototype
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
 	
 		#region IGameScene Members
+
+<<<<<<< HEAD
+		void ProcessBattle(GameTime cTime)
+		{
+			List<Trooper>	cRemoveList = new List<Trooper>();
+
+			// process all the active troopers
+			foreach(Trooper cTrooper in _caActiveList)
+				if(cTrooper.bActive) { 
+					cTrooper.Process(cTime);
+				} else cRemoveList.Add(cTrooper);
+
+			// if they are no longer active remove them from all the reference lists
+			foreach(Trooper cTrooper in cRemoveList) { 
+				// remove from the draw list
+				//_cDrawList[cTrooper.sTexName].Remove(cTrooper);
+
+				// remove from the processing list
+				_caActiveList.Remove(cTrooper);
+			}
+		}
+
+=======
+>>>>>>> ee99268013d3145ac0b2a5d742e4892b7d00d876
 		public void Update(GameTime cTime)
 		{
 
@@ -54,12 +78,12 @@ namespace MightyFights_Prototype
 			_cCursor.Update(cTime);
 
 			//// CBD, just a way to pause the screen for the moment
-//			{
-//				MouseState	cState = Mouse.GetState();
-//				if( cState.LeftButton == ButtonState.Pressed )
-//					_bUpdate = false;
-//				else	_bUpdate = true;
-//			}
+			{
+				MouseState	cState = Mouse.GetState();
+				if( cState.LeftButton == ButtonState.Pressed )
+					_bUpdate = false;
+				else	_bUpdate = true;
+			}
 
 			//// debug slow down the game
 			if(_cToggleSlowMo.Checked) { 
@@ -79,8 +103,8 @@ namespace MightyFights_Prototype
 
 					case EBattlegroundState.Battle:
 						// check to see if the battle is over 
-						foreach( Team cTeam in _cBattleData.caTeams )
-							if( cTeam.cActiveList.Count == 0 ) { 
+						foreach(List<ICombatant> naRefList in _cBattleData.naMasterLists)
+							if(naRefList.Count == 0) { 
 								_cBattleData.eState = EBattlegroundState.Victory;
 								break;
 							}
@@ -125,6 +149,7 @@ namespace MightyFights_Prototype
 				// draw all objects in the manager
 				_cBattleData.cObjMgr.Draw(_cSpriteBatch);	
 
+<<<<<<< HEAD
 				//// development interface
 				{
 					int		iLHp = 0,
@@ -132,22 +157,26 @@ namespace MightyFights_Prototype
 							iLPow = 0,
 							iRPow = 0;
 
-					foreach( Team cTeam in _cBattleData.caTeams )
-						foreach( Trooper cTrooper in cTeam.cActiveList.Values )
-							if( cTrooper.cTeam.iId == 0 )
-							{
-								iLHp += (int)cTrooper.cStats.fHp;
-								iLPow += cTrooper.cStats.iPower;
-							}
-							else	{
-								iRHp += (int)cTrooper.cStats.fHp;
-								iRPow += cTrooper.cStats.iPower;
-							}
+					foreach( Trooper cTroop in _caActiveList )
+						if (cTroop.iArmyIndex == 0)
+						{
+							iLHp += cTroop.cStats.iHp;
+							iLPow += cTroop.cStats.iPower;
+						}
+						else	{
+							iRHp += cTroop.cStats.iHp;
+							iRPow += cTroop.cStats.iPower;
+						}
 
+					// the frame rate debug statement
 					_cSpriteBatch.DrawString(_cFont, string.Format("fps: {0}", _iFrameRate ), new Vector2(900, 10), Color.White);
-					_cSpriteBatch.DrawString(_cFont, string.Format("LeftArmy: {0}    Left HP: {1}    Left Pow: {2}", _cBattleData.caTeams[0].cActiveList.Count, iLHp, iLPow ), new Vector2(10, 10), Color.White);
-					_cSpriteBatch.DrawString(_cFont, string.Format("RightArmy: {0}  Right HP: {1}  Right Pow:{2}", _cBattleData.caTeams[1].cActiveList.Count, iRHp, iRPow ), new Vector2(10, 30), Color.White);
+					_cSpriteBatch.DrawString(_cFont, string.Format("LeftArmy: {0}    Left HP: {1}    Left Pow: {2}", _cBattleData.naArmyRef.Count, iLHp, iLPow ), new Vector2(10, 10), Color.White);
+					_cSpriteBatch.DrawString(_cFont, string.Format("RightArmy: {0}  Right HP: {1}  Right Pow:{2}", _cBattleData.naOpponentsRef.Count, iRHp, iRPow ), new Vector2(10, 30), Color.White);
 				}
+=======
+				_cSpriteBatch.DrawString(_cFont, string.Format("fps:{0} : LeftArmy:{1} : RightArmy:{2}", _iFrameRate, _cBattleData.naArmyRef.Count, _cBattleData.naOpponentsRef.Count), 
+					new Vector2(10, 10), Color.White);				
+>>>>>>> ee99268013d3145ac0b2a5d742e4892b7d00d876
 
 				// if we are going to draw the active zones
 				if(_cToggleZones.Checked) { 
@@ -171,27 +200,28 @@ namespace MightyFights_Prototype
 		{
 			bool bReady = false;
 
-			foreach( Team cTeam in _cBattleData.caTeams )
-				foreach( Trooper cTrooper in cTeam.cActiveList.Values )
-					bReady |= cTrooper.cAiData.eState != EBattleAiStates.Ready;
+			foreach(Trooper cTrooper in _caActiveList)
+			    bReady |= cTrooper.cAiData.eState != EBattleAiStates.Ready;
 
 			return bReady;
 		}
 
 		void SetBattleStart()
 		{
-			int		iCount = 0,
-					iX = 9, iY = 0;
-			Trooper	cTrooper;
-			Random	cRand = new Random();
+			List<ICombatant>	naTmpList = _cBattleData.naArmyRef,
+								naTmpOpponents = new List<ICombatant>();
+			int					iCount = 0,
+								iIndex,
+								iX = 9, iY = 0;
+			Trooper				cTrooper;
+			Random				cRand = new Random();
 
-			foreach( ICombatant nCombatant in _cBattleData.caTeams[0].cActiveList.Values )
-			{
-				cTrooper = (Trooper)nCombatant;
+			for(iIndex = 0; iIndex < naTmpList.Count; ++iIndex) { 
+				cTrooper = (Trooper)naTmpList[iIndex];
 
 				// set an initial script for the trooper
 				cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
-				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(112 + iX * 35, iY * 36 + 100), null));
+				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(112 + iX * 35, iY * 36 + 70), null));
 
 				// set the trooper for battle
 				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
@@ -207,14 +237,14 @@ namespace MightyFights_Prototype
 			// reset out grid counters
 			iX = iY = 0;
 			iCount = 0;
+			naTmpList = _cBattleData.naOpponentsRef;
 
-			foreach( ICombatant nCombatant in _cBattleData.caTeams[1].cActiveList.Values )
-			{
-				cTrooper = (Trooper)nCombatant;
+			for(iIndex = 0; iIndex < naTmpList.Count; ++iIndex) { 
+				cTrooper = (Trooper)naTmpList[iIndex];
 
 				// set an initial script for the trooper
 				cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
-				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(512 + iX * 35, iY * 36 + 100), null));
+				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(512 + iX * 35, iY * 36 + 70), null));
 
 				// set the trooper for battle
 				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
@@ -228,86 +258,13 @@ namespace MightyFights_Prototype
 			}
 		}
 
-		void CreateBuffContainers()
-		{
-			ContentManager	cContent = DataStore.cInstance.cContent;
-			BuffContainer	cTmpContainer;
-
-			_cBuffContainerList.Add("acorn", cTmpContainer = new BuffContainer());
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			cTmpContainer.tPos = new Vector2(132, 519);
-			_cObjMgr.AddObject(cTmpContainer);
-
-			_cBuffContainerList.Add("claw", cTmpContainer = new BuffContainer());
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			cTmpContainer.tPos = new Vector2(232, 519);
-			_cObjMgr.AddObject(cTmpContainer);
-
-			_cBuffContainerList.Add("ear", cTmpContainer = new BuffContainer());
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			cTmpContainer.tPos = new Vector2(332, 519);
-			_cObjMgr.AddObject(cTmpContainer);
-
-			_cBuffContainerList.Add("eye", cTmpContainer = new BuffContainer());
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			cTmpContainer.tPos = new Vector2(432, 519);
-			_cObjMgr.AddObject(cTmpContainer);
-
-			_cBuffContainerList.Add("fang", cTmpContainer = new BuffContainer());
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			cTmpContainer.tPos = new Vector2(532, 519);
-			_cObjMgr.AddObject(cTmpContainer);
-
-			_cBuffContainerList.Add("feather", cTmpContainer = new BuffContainer());
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			cTmpContainer.tPos = new Vector2(632, 519);
-			_cObjMgr.AddObject(cTmpContainer);
-
-			_cBuffContainerList.Add("paw", cTmpContainer = new BuffContainer());
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			cTmpContainer.tPos = new Vector2(732, 519);
-			_cObjMgr.AddObject(cTmpContainer);
-
-			_cBuffContainerList.Add("wing", cTmpContainer = new BuffContainer());
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			cTmpContainer.tPos = new Vector2(832, 519);
-			_cObjMgr.AddObject(cTmpContainer);
-		}
-
 		public bool Init()
 		{
-			DataStore		cData = DataStore.cInstance;
-			ContentManager	cContent = cData.cContent;
-			GraphicsDevice	cGraphics = cData.cGraphics;
+			ContentManager	cContent = DataStore.cInstance.cContent;
+			GraphicsDevice	cGraphics = DataStore.cInstance.cGraphics;
 			Trooper			cTmpTrooper = null;
-			TemplateConfig	cLeft = cData.cLeftConfig, 
-							cRight = cData.cRightConfig;
-			ObjectManager	cObjMgr = ObjectManager.cInstance;
-			Team			cTeam;
+			TemplateConfig	cLeft = DataStore.cInstance.cLeftConfig, 
+							cRight = DataStore.cInstance.cRightConfig;
 
 			_cBattleData.cObjMgr = _cObjMgr;
 
@@ -317,46 +274,74 @@ namespace MightyFights_Prototype
 
 				// set the battle data to the datastore for reference 
 				DataStore.cInstance.cBattleData = _cBattleData;
+				Team	cTeam = new Team( true );
+				_cBattleData.cTeams.Add( 1, cTeam );
 
-				cTeam = _cBattleData.caTeams[0];
 				// make a block of troopers
+<<<<<<< HEAD
+				for(int i = 0; i < _iAX; ++i)
+					for(int j = 0; j < _iAY; ++j) { 
+						// add the newly created trooper to the active list and set some initial battle data
+						_caActiveList.Add(cP1 = new Trooper(ObjectManager.cInstance.CreateTemplate(cLeft)));
+						cP1.tPos = new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
+						cP1.iArmyIndex = 0;
+						cP1.iOpponentIndex = 1;
+
+						// set it up in the draw list by texture name so we only draw the linked texture items at a time
+						if(!_cDrawList.TryGetValue(cP1.sTexName, out naDrawList))
+							_cDrawList.Add(cP1.sTexName, naDrawList = new List<IDrawable>());
+
+						naDrawList.Add(cP1);
+						_cBattleData.naArmyRef.Add(cP1);
+					}
+=======
 				for(int i = 0; i < cLeft.iCount; ++i) { 
 					// add the newly created trooper to the active list and set some initial battle data
-					cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cObjMgr.CreateTemplate(cLeft));
-					cTeam.cActiveList.Add(cTmpTrooper.iId, cTmpTrooper);
+					_cActiveList.Add(cTmpTrooper = new Trooper(ObjectManager.cInstance.CreateTemplate(cLeft)));
 					cTmpTrooper.tPos = new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
+					cTmpTrooper.iArmyIndex = 0;
+					cTmpTrooper.iOpponentIndex = 1;
 
 					// add the new object to the object manager
 					_cObjMgr.AddObject(cTmpTrooper);
-				}
-				for( int iCount = 0; iCount < 2; ++iCount )
-				{
-					Priest	cHealer = new Priest( cObjMgr.iCurObjId, 500, 7, 1.5f, .1f, new Vector2( 50, 180 + 120 * iCount ), cTeam, cObjMgr.CreateTemplate(cLeft) );
-					cTeam.cHealerList.Add( cHealer.iId, cHealer );
-					_cObjMgr.AddObject(cHealer);
-				}
 
-				cTeam = _cBattleData.caTeams[1];
+					// add to the battle reference data
+					_cBattleData.naArmyRef.Add(cTmpTrooper);
+				}
+>>>>>>> ee99268013d3145ac0b2a5d742e4892b7d00d876
+
+				cTeam = new Team( false );
+				_cBattleData.cTeams.Add( 2, cTeam );
 				// make a block of opponents
+<<<<<<< HEAD
+				for(int i = 0; i < _iOX; ++i)
+					for(int j = 0; j < _iOY; ++j) { 
+						// set the opponents to the acitve list 
+						_caActiveList.Add(cP1 = new Trooper(ObjectManager.cInstance.CreateTemplate(cRight)));
+						cP1.tPos = new Vector2(950, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
+						cP1.iArmyIndex = 1; 
+						cP1.iOpponentIndex = 0;
+
+						if(!_cDrawList.TryGetValue(cP1.sTexName, out naDrawList))
+							_cDrawList.Add(cP1.sTexName, naDrawList = new List<IDrawable>());
+
+						naDrawList.Add(cP1);
+						_cBattleData.naOpponentsRef.Add(cP1);
+					}
+=======
 				for(int i = 0; i < cRight.iCount; ++i) { 
 					// set the opponents to the acitve list 
-					cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cObjMgr.CreateTemplate(cRight));
-					cTeam.cActiveList.Add(cTmpTrooper.iId, cTmpTrooper);
+					_cActiveList.Add(cTmpTrooper = new Trooper(ObjectManager.cInstance.CreateTemplate(cRight)));
 					cTmpTrooper.tPos = new Vector2(950, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
+					cTmpTrooper.iArmyIndex = 1; 
+					cTmpTrooper.iOpponentIndex = 0;
 
 					// add to the object manger
 					_cObjMgr.AddObject(cTmpTrooper);
-				}
-				for( int iCount = 0; iCount < 2; ++iCount )
-				{
-					Priest	cHealer = new Priest( cObjMgr.iCurObjId, 500, 7, 1.5f, .1f, new Vector2( 880, 180 + 120 * iCount ), cTeam, cObjMgr.CreateTemplate(cRight) );
-					cTeam.cHealerList.Add( cHealer.iId, cHealer );
-					_cObjMgr.AddObject(cHealer);
-				}
 
-				// create the containers 
-				_cBattleData.cBuffContainers = _cBuffContainerList;
-				CreateBuffContainers();
+					_cBattleData.naOpponentsRef.Add(cTmpTrooper);
+				}
+>>>>>>> ee99268013d3145ac0b2a5d742e4892b7d00d876
 
 				_cCursor = new Cursor();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");
@@ -433,10 +418,15 @@ namespace MightyFights_Prototype
 		void PartialClean()
 		{
 			_cSpriteBatch.Dispose();
+<<<<<<< HEAD
+			_cDrawList.Clear();
+			_caActiveList.Clear();
+=======
+			_cActiveList.Clear();
+>>>>>>> ee99268013d3145ac0b2a5d742e4892b7d00d876
 			_cTrooperRef.Clear();
 			_cBattleData.Clear();
 			_cObjMgr.Clear();
-			_cBuffContainerList.Clear();
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleLifeBar);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleDamageNumbers);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleSlowMo);
@@ -455,6 +445,7 @@ namespace MightyFights_Prototype
 		{
 			_cSpriteBatch.Dispose();
 			_cDrawList.Clear();
+			_caActiveList.Clear();
 			_cTrooperRef.Clear();
 			_cBattleData.Clear();
 			_cObjMgr.Clear();

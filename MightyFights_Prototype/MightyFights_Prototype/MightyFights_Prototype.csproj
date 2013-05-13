@@ -127,6 +127,7 @@
     <Compile Include="Game Objects\Buffs\BasicBuff.cs" />
     <Compile Include="Game Objects\Buffs\BuffContainer.cs" />
     <Compile Include="Game Objects\Cursor.cs" />
+    <Compile Include="Game Objects\Healer.cs" />
     <Compile Include="Game Objects\Trooper\Trooper.cs" />
     <Compile Include="Game Objects\Trooper\Trooper_Actions.cs" />
     <Compile Include="Game Objects\Trooper\Trooper_Huristics.cs" />
@@ -136,6 +137,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="GameShell.cs" />
+    <Compile Include="Scenes\InGame\FleeSpot.cs" />
+    <Compile Include="Scenes\InGame\Team.cs" />
     <Compile Include="Scenes\OutGame\MainMenu.cs" />
     <Compile Include="Game Objects\Trooper\TrooperActMgr.cs" />
     <Compile Include="Scenes\OutGame\Template\Objects\FrontGuys.cs" />

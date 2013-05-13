@@ -11,15 +11,20 @@ namespace MightyFights_Prototype
 	{
 		public bool TrooperUpkeep(Action cAction, GameTime cTime)
 		{
-			if(_cStats.iHp <= 0) { 
+			if(_cStats.fHp <= 0) { 
 				cAiData.eState = EBattleAiStates.Dying;
 				_cActionMgr.cActionQueue.Clear();
 				_cAnimProc.SetAnimationCriteria("Death", "Normal", "death", 1);
 
 				// remove ourselves from our opponents attaking point
-				if(nOpponent != null)
-					if(_bAttacking)
-						nOpponent.RemoveAttacker(_eAttackingPos);
+				if(this.nTarget != null)
+					if(this.nTarget is ICombatant)
+					{
+						if(_bAttacking)
+							((ICombatant)nTarget ).RemoveAttacker(_iAttackingPos);
+					}
+					else if( this.nTarget is IHealer )
+						((IHealer)this.nTarget ).FreeSpot( this );
 
 				// remove the dying trooper from the zone they are in 
 				DataStore.cInstance.cBattleData.RemoveDeadCombatant(this);
@@ -29,8 +34,8 @@ namespace MightyFights_Prototype
 				return false;
 			}
 
-			// call our flee huristic
-			cAiData.cHurisitics[EBattleHuristics.Flee](_cBattleDataRef);
+			// call our flee heuristic
+			cAiData.cHeurisitics[EBattleHeuristics.Flee](_cBattleDataRef);
 
 			// sort the z order by y pos
 			_fZorder = 1 - _tCenter.Y / 684;
@@ -50,7 +55,7 @@ namespace MightyFights_Prototype
 			}
 
 			switch(_cBattleDataRef.eState) {
- 				case EBattlegroundState.Battle:
+				case EBattlegroundState.Battle:
 					// check to see if we are in the middle of an animation, the only one 
 					// we care about is the ready state
 					switch(cAiData.eState) { 
@@ -60,25 +65,25 @@ namespace MightyFights_Prototype
 
 						case EBattleAiStates.Panting:
 							// yep, we are going to do all the stuff for panting
-							cAiData.cHurisitics[EBattleHuristics.Pant](_cBattleDataRef);
+							cAiData.cHeurisitics[EBattleHeuristics.Pant](_cBattleDataRef);
 						break;
 
 						// idle can be ready or pant
 						case EBattleAiStates.Ready:
-							// use the huristic to check for an opponent
-							cAiData.cHurisitics[EBattleHuristics.ChooseOpponent](_cBattleDataRef);
+							// use the heuristic to check for an opponent
+							cAiData.cHeurisitics[EBattleHeuristics.ChooseOpponent](_cBattleDataRef);
 						break;
 
 						case EBattleAiStates.Defending:
 						case EBattleAiStates.Attacking:
 							// check to see if we are animating or not 
 							if(!cAnimationProcessor.bActive) 
-								cAiData.cHurisitics[EBattleHuristics.Attack](_cBattleDataRef);
+								cAiData.cHeurisitics[EBattleHeuristics.Attack](_cBattleDataRef);
 						break;
 						
 						case EBattleAiStates.Pursuit:
-							// run the persue huristic
-							cAiData.cHurisitics[EBattleHuristics.Persue](_cBattleDataRef);
+							// run the persue heuristic
+							cAiData.cHeurisitics[EBattleHeuristics.Persue](_cBattleDataRef);
 						break;
 
 						// we are dead we don't need to do more 
@@ -124,7 +129,7 @@ namespace MightyFights_Prototype
 			// check to see if we need to make the direction vector or not
 			if(cAction.bInit) { 
 				// make the direction vector and set the direction for the sprite
-				tDirVect = tDest - _tPos;
+				tDirVect = tDest - _tCenter;
 				bDir = tDirVect.X > 0;
 				tDirVect.Normalize();
 				cAction.oCanvas = tDirVect;
@@ -133,16 +138,67 @@ namespace MightyFights_Prototype
 				cAction.bInit = false;
 			} else tDirVect = (Vector2)cAction.oCanvas;
 
+			tDirVect = tDest - _tCenter;
+			bDir = tDirVect.X > 0 + float.Epsilon;
+			tDirVect.Normalize();
+
+			Vector2 tOld = _tCenter;
 			// move the sprite by the speed of walk (this data should come from the template)
 			////ddhj Template add for speed of walk
 			this.tPos += tDirVect * 1.5f;
-			
-			if((tDest - _tPos).LengthSquared() < 2) { 
+
+			if((tDest - _tCenter).LengthSquared() < 4) { 
 				_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
 				cAction.bConditionNotMet = false;
-				_tPos = tDest;
+//				this.tPos = tDest;
 
 				cAiData.eState = EBattleAiStates.Ready;
+				return false;
+			}
+
+			return true;
+		}
+
+		public bool FleeToHealer(Action cAction, GameTime cTime)
+		{
+			Priest		cHealer = (Priest)this.nTarget;
+			Vector2		tDest,
+						tDirVect;
+			
+			// check to see if we need to make the direction vector or not
+			if(cAction.bInit) { 
+				// set our animation to charge 
+				_cAnimProc.SetAnimationCriteria("Move", "Flee", "retreat", -1);
+
+				// set our state to persuit
+				this.cAiData.eState = EBattleAiStates.Flee;
+
+				cAction.bInit = false;
+			} 
+
+			// its possible that the opponent will die before we get there so check to see if the 
+			if(!cHealer.bActive || !cHealer.bAvailableSpots ) {
+				Flee( null );
+				return false;
+			}
+
+			tDest = cHealer.GetOpenLocation( );
+			tDirVect = tDest - _tCenter;
+			bDir = tDirVect.X > 0 + float.Epsilon;
+			tDirVect.Normalize();
+
+			// move the sprite by the speed of run (this data should come from the template)
+			////ddhj Template add for speed of run
+			this.tPos += tDirVect * _fFinalMovementSpeed;
+			
+			// we are within weapon range so switch our system to attack 
+			if(((tDest - _tCenter).LengthSquared()) < 4) {  
+				cHealer.TakeSpot( this );
+				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", -1);
+				cAction.bConditionNotMet = false;
+//				this.tPos = tDest;
+				
+				this.cAiData.eState = EBattleAiStates.Panting;
 				return false;
 			}
 
@@ -157,8 +213,8 @@ namespace MightyFights_Prototype
 			// check to see if we need to make the direction vector or not
 			if(cAction.bInit) { 
 				// make the direction vector and set the direction for the sprite
-				tDirVect = tDest - _tPos;
-				bDir = tDirVect.X > 0;
+				tDirVect = tDest - _tCenter;
+				this.bDir = tDirVect.X > 0;
 				tDirVect.Normalize();
 				cAction.oCanvas = tDirVect;
 				_cAnimProc.SetAnimationCriteria("Move", "Flee", "retreat", -1);
@@ -166,14 +222,22 @@ namespace MightyFights_Prototype
 				cAction.bInit = false;
 			} else tDirVect = (Vector2)cAction.oCanvas;
 
+			Vector2 tOldCen = _tCenter;
+			Vector2 tOldPos = _tPos;
+			tDirVect = tDest - _tCenter;
+			bDir = tDirVect.X > 0 + float.Epsilon;
+			tDirVect.Normalize();
+
 			// move the sprite by the speed of walk (this data should come from the template)
 			////ddhj Template add for speed of walk
 			this.tPos += tDirVect * _fFinalMovementSpeed;
-			
-			if((tDest - _tPos).LengthSquared() < 2) { 
+
+			if(( tDest - tOldPos ).LengthSquared( ) < ( tDest - _tPos ).LengthSquared( ))
+				tDest.ToString( );
+			if((tDest - _tCenter).LengthSquared() < 4) { 
 				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", -1);
 				cAction.bConditionNotMet = false;
-				_tPos = tDest;
+//				this.tPos = tDest;
 				
 				cAiData.eState = EBattleAiStates.Panting;
 				return false;
@@ -186,6 +250,7 @@ namespace MightyFights_Prototype
 		{
 			Vector2		tDest,
 						tDirVect;
+			ICombatant	nOpponent = (ICombatant)this.nTarget;
 			
 			// check to see if we need to make the direction vector or not
 			if(cAction.bInit) { 
@@ -199,14 +264,14 @@ namespace MightyFights_Prototype
 			} 
 
 			// its possible that the opponent will die before we get there so check to see if the 
-			if(nOpponent.IsDead()) { 
+			if(nOpponent.IsDead() || !nOpponent.bAvailablePos) { 
 				cAiData.eState = EBattleAiStates.Ready;
-				nOpponent = null;
+				nTarget = null;
 				cAction.bConditionNotMet = false;
 				return false;
 			}
 
-			tDest = nOpponent.RequestPersuitPoint(_eAttackingPos);
+			tDest =	nOpponent.RequestAttackPoint( this, out _iAttackingPos );
 			tDirVect = tDest - _tCenter;
 			bDir = tDirVect.X > 0 + float.Epsilon;
 			tDirVect.Normalize();
@@ -216,11 +281,13 @@ namespace MightyFights_Prototype
 			this.tPos += tDirVect * _fFinalMovementSpeed;
 			
 			// we are within weapon range so switch our system to attack 
-			if(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRange * this.iWeaponRange )) { 
-				// call the attack huristic because we are within attack range for our weapon 
+			if( InWeaponRange( )) {
+//				this.tPos = tDest;
+				nOpponent.SetAttacker(this, out _iAttackingPos);
+				// call the attack heuristic because we are within attack range for our weapon 
 				//// ddhj this will need a tweek for weapon range 
 				_bAttacking = true;
-				cAiData.cHurisitics[EBattleHuristics.Attack](DataStore.cInstance.cBattleData);
+				cAiData.cHeurisitics[EBattleHeuristics.Attack](DataStore.cInstance.cBattleData);
 
 				cAction.bConditionNotMet = false;
 				return false;
@@ -233,6 +300,7 @@ namespace MightyFights_Prototype
 		{
 			Vector2		tDest,
 						tDirVect;
+			ICombatant	nOpponent = (ICombatant)this.nTarget;
 			
 			// check to see if we need to make the direction vector or not
 			if(cAction.bInit) { 
@@ -248,7 +316,7 @@ namespace MightyFights_Prototype
 			// its possible that the opponent will die before we get there so check to see if the 
 			if(nOpponent.IsDead()) { 
 				cAiData.eState = EBattleAiStates.Ready;
-				nOpponent = null;
+				nTarget = null;
 				cAction.bConditionNotMet = false;
 				return false;
 			}
@@ -256,12 +324,12 @@ namespace MightyFights_Prototype
 			// check to see if while running at the opponent he has filled up his attack quota
 			if(!nOpponent.bAvailablePos) { 
 				cAiData.eState = EBattleAiStates.Ready;
-				nOpponent = null;
+				nTarget = null;
 				cAction.bConditionNotMet = false;
 				return false;
 			}
 
-			tDest = nOpponent.RequestAttackPoint(this, out _eAttackingPos);
+			tDest = nOpponent.RequestAttackPoint(this, out _iAttackingPos);
 			tDirVect = tDest - _tCenter;
 			bDir = tDirVect.X > 0 + float.Epsilon;
 			tDirVect.Normalize();
@@ -271,13 +339,14 @@ namespace MightyFights_Prototype
 			this.tPos += tDirVect * _fFinalMovementSpeed;
 			
 			// we are within weapon range so switch our system to attack 
-			if(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRange * this.iWeaponRange )) { 
-				nOpponent.SetAttacker(this, out _eAttackingPos);
+			if( InWeaponRange( )) { 
+//				this.tPos = tDest;
+				nOpponent.SetAttacker(this, out _iAttackingPos);
 				_bAttacking = true;
 
-				// call the attack huristic because we are within attack range for our weapon 
+				// call the attack heuristic because we are within attack range for our weapon 
 				//// ddhj this will need a tweek for weapon range 
-				cAiData.cHurisitics[EBattleHuristics.Attack](DataStore.cInstance.cBattleData);
+				cAiData.cHeurisitics[EBattleHeuristics.Attack](DataStore.cInstance.cBattleData);
 
 				cAction.bConditionNotMet = false;
 				return false;

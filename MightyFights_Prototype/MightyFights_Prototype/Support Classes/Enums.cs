@@ -62,7 +62,7 @@ namespace MightyFights_Prototype
 		Flee
 	}
 
-	public enum EBattleHuristics
+	public enum EBattleHeuristics
 	{
 		Idle,
 		Attack, 

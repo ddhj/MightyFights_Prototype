@@ -90,6 +90,9 @@ namespace MightyFights_Prototype
 
 
 		public Cursor cCursor		{ get; set; }
+		public EBattlegroundState eState			{ get; set; }
+		public ObjectManagerInstance cObjMgr		{ get; set; }
+		public Cursor cCursor						{ get; set; }
 		public List<Team> caTeams	{ get { return _caTeams; }}
 		public Dictionary<string, BuffContainer> cBuffContainers	{ get; set; }
 		public Zone[][] caBattleZones			{ get { return _caBattleZones; }}

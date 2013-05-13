@@ -68,7 +68,7 @@ namespace MightyFights_Prototype
 			_cConfig.sColor = _cFrontGuys.sCurColor;
 			_cConfig.cStats = new Stats();
 			_cConfig.cStats.iAtkSpeed = _iaAtkSpeedStats[_cAtkSpeed.iCurFrame];
-			_cConfig.cStats.iHp = _iaHitPointStats[_cHitPoints.iCurFrame];
+			_cConfig.cStats.fHp = _iaHitPointStats[_cHitPoints.iCurFrame];
 			_cConfig.cStats.iPower = _iaAtkPowerStats[_cAtkPower.iCurFrame];
 			_cConfig.cStats.iMovement = _iaMoveSpeedStats[_cMoveSpeed.iCurFrame];
 			_cConfig.iBottomLevel = _cBottomLevels.SelectedIndex;

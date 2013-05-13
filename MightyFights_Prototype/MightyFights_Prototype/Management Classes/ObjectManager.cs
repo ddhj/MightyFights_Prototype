@@ -24,7 +24,7 @@ namespace MightyFights_Prototype
 		Dictionary<string, AnimationData>	_cAnimationDataList = new Dictionary<string,AnimationData>();
 		Dictionary<string, Texture2D>		_cTextureList = new Dictionary<string,Texture2D>();
 		ContentManager						_cContent;
-		int									_iCurObjId = int.MinValue;
+		int									_iCurObjId = 0;//int.MinValue;
 		string[]							_saBuffs = new string[] { "acorn", "claw", "ear", "eye", "fang", "feather", "paw", "wing" };
 
 		public int iCurObjId	{ get { return ++_iCurObjId; }}
@@ -39,7 +39,6 @@ namespace MightyFights_Prototype
 		{
 			TrooperTemplate	cTemplate = new TrooperTemplate();
 			AnimationData	cAnimData;
-			AiBattleData	cBattleAi;
 			Texture2D		cTexData;
 			int				iMod;
 
@@ -71,7 +70,7 @@ namespace MightyFights_Prototype
 			// set the action manager, likely this will have some stuff from the template too
 			cTemplate.cActionMgr = new TrooperActMgr(cTemplate.cAnimProcessorRef);
 
-			// the battle huristics are also going to be set here or in some other area based on template config data
+			// the battle heuristics are also going to be set here or in some other area based on template config data
 			cTemplate.cAiData = new AiBattleData();
 
 			return cTemplate;

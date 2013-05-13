@@ -7,7 +7,7 @@ namespace MightyFights_Prototype
 {
 	public interface IObject
 	{
-		int				iId			{ get; set; }
+		int				iId			{ get; }
 		EObjectStates	eObjState	{ get; set; }
 	}
 }

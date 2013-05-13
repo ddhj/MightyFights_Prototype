@@ -181,7 +181,8 @@ namespace MightyFights_Prototype
 				_cBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 
 				return true;
-			} catch(Exception xEx) { 
+			} catch(Exception xEx) {
+				xEx.ToString( );
 				return false;
 			}
 		}
