@@ -90,6 +90,7 @@ namespace MightyFights_Prototype	{
 				_taOpenSpots.Add( _cUsedSpots[nSoldier.iId].Key );
 				_cUsedSpots.Remove( nSoldier.iId );
 			}
+			else	nSoldier.ToString( );
 		}
 
 		public void ResetSpots( )

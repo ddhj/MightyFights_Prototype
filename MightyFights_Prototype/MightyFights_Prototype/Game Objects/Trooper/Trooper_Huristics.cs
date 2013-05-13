@@ -119,12 +119,9 @@ namespace MightyFights_Prototype
 				_cActionMgr.cActionQueue.Add( new Action( FleeToHealer, null, null ));
 			}
 			else	{
-				_cActionMgr.cActionQueue.Add(new Action(FleeToPoint, 
-						new Vector2( 132 + ( _cTeam.bDirection ? 0 : 470 ) + cRand.Next( 150 ), 90 + cRand.Next(306)), null));
-
-				if(((Vector2)_cActionMgr.cActionQueue[0].oData ).X < 112 || ((Vector2)_cActionMgr.cActionQueue[0].oData ).X > 812 ||
-						((Vector2)_cActionMgr.cActionQueue[0].oData ).Y < 70 || ((Vector2)_cActionMgr.cActionQueue[0].oData ).Y > 400 )
-					nTarget.ToString( );
+				Action	cAction = new Action(FleeToPoint, 
+						new Vector2( 132 + ( _cTeam.bDirection ? 0 : 470 ) + cRand.Next( 150 ), 90 + cRand.Next(306)), null);
+				_cActionMgr.cActionQueue.Add(cAction);
 			}
 			cHealersByDist.Clear( );
 			cHealersByDist = null;
