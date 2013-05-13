@@ -22,8 +22,15 @@ namespace MightyFights_Prototype
 
 		void ProcessKeyFrame()
 		{
+			ICombatant	nOpponent = (ICombatant)cData.nTarget;
+
 			switch(_cKeyFrame.Type) { 
-				case "Collision": cData.nOpponent.DealDamage(cData.cStats.iPower); break;
+				case "Collision":
+					if( cData.InWeaponRange( ))
+						if( _cAnimProc.sSubType == "Critical" )
+							nOpponent.DealDamage( cData, cData.cStats.iPower * 3, true );
+						else	nOpponent.DealDamage( cData, cData.cStats.iPower, false );
+				break;
 			}
 		}
 
@@ -38,7 +45,7 @@ namespace MightyFights_Prototype
 			// do the perminant actions (they are removable but the conditions are much longer term
 			foreach(Action cAction in cTmpActionList) {
 				if(cAction.bConditionNotMet)
-					cAction.dheuristic(cAction, cTime);
+					cAction.dHeuristic(cAction, cTime);
 				else cPerminantActions.Remove(cAction);
 			}
 
@@ -46,7 +53,7 @@ namespace MightyFights_Prototype
 			if(cActionQueue.Count > 0) { 
 				cCurAction = cActionQueue[0];
 				if(cCurAction.bConditionNotMet)
-					cCurAction.dheuristic(cCurAction, cTime);
+					cCurAction.dHeuristic(cCurAction, cTime);
 				else cActionQueue.RemoveAt(0);
 			}
 			

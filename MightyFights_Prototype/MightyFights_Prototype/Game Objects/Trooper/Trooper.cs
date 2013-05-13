@@ -10,7 +10,7 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public partial class Trooper : IDrawable, IAnimate, ICombatant, IActive<Trooper>
+	public partial class Trooper : IDrawable, IDrawableTexture, IAnimate, ICombatant, IActive<Trooper>, IObject
 	{	
 		Vector2		_tPos,
 					_tCenter;
@@ -20,45 +20,44 @@ namespace MightyFights_Prototype
 		int			_iAvailablePositions = 6,
 					_iCurLeftAttackers = 0,
 					_iCurRightAttakers = 0,
-					_iMaxHp,
 					_iId,
 					_iAttackingPos;
 		float		_fZorder;
-		////ddhj template stuff... not sure if it should go on trooper proper
-		float		_fFinalMovementSpeed;
 		byte		_byAttakPos;
 		bool		_bAttacking;
 
+		EObjectStates				_eObjState;
 		ActionManager<Trooper>		_cActionMgr;
 		AnimationProcessor			_cAnimProc;
 		BattlegroundData			_cBattleDataRef = null;
 
+		Dictionary<ETrooperAttackPos, ICombatant>	_cAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
-		Dictionary<ETrooperAttackPos, ICombatant>	_caAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
+		////ddhj template stuff... not sure if it should go on trooper proper
+		float						_fFinalMovementSpeed;
 
 		// i dont particularly like this here, need to figure out a way to get it into the battleground processor 
 		List<AnimatingDamage>		_caDamageList = new List<AnimatingDamage>();
 
-		public int iId		{ get { return _iId; }}
-
+		public int iId					{ get; set; }
 		public bool bActive				{ get; set; }
 		public bool bDir				{ get; set; }
-		public ICombatant nOpponent		{ get; set; }
+		public IBattleObj nTarget		{ get; set; }
 		public AiBattleData cAiData		{ get; set; }
-		public int iArmyIndex			{ get; set; }
-		public int iOpponentIndex		{ get; set; }
 		public int iWeaponRange			{ get; set; }
+		public int iWeaponRngSq			{ get; set; }
 		public Zone cZone				{ get; set; }
+		public Team cTeam				{ get { return _cTeam; }}
+		public EObjectStates eObjState	{ get { return _eObjState; } set { _eObjState = value; }}
 		public Stats cStats				{ get { return _cStats; } set { _cStats = value; }}
 		public bool bAvailablePos		{ get { return _iCurLeftAttackers + _iCurRightAttakers < _iAvailablePositions; }} 
 		public Vector2 tAttackPos		{ get; set; }
 		public Vector2 tCenter			{ get { return _tCenter; } set { _tCenter = value; }}
-		public Dictionary<ETrooperAttackPos, ICombatant> caAttackers	{ get { return _caAttackers; }}
 		public float fZorder			{ get { return _fZorder; }}
-		
-		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
 
+		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
+		public Dictionary<ETrooperAttackPos, ICombatant> cAttackers	{ get { return _cAttackers; }}
 
 
 		public Trooper(int iId, Team cTeam, TrooperTemplate cTemplate)
@@ -74,8 +73,6 @@ namespace MightyFights_Prototype
 			cAiData = cTemplate.cAiData;
 			sTexName = cTemplate.sTexName;
 			
-			bActive	= true;
-
 			_cActionMgr.AddPermAction(new Action(this.TrooperUpkeep, null, null));
 
 			////ddhj: this is the initial area for the template config, this will probably change over time
@@ -84,18 +81,22 @@ namespace MightyFights_Prototype
 			// use the template data to set up the heuristics... 
 			//// there is a problem here since the object manager should have set this up but the heuristics are methods on an instance of trooper,
 			//// considered static methods but I am not sure I like that solution
-			cAiData.cHurisitics[EBattleheuristics.Attack] = Attack_Basic;
-			cAiData.cHurisitics[EBattleheuristics.ChooseOpponent] = ChooseOpponent;
-			cAiData.cHurisitics[EBattleheuristics.Flee] = Flee;
-			cAiData.cHurisitics[EBattleheuristics.Idle] = Idle;
-			cAiData.cHurisitics[EBattleheuristics.Pant] = Pant;
-			cAiData.cHurisitics[EBattleheuristics.Persue] = Persue;
+			cAiData.cHeurisitics[EBattleHeuristics.Attack] = Attack_Basic;
+			cAiData.cHeurisitics[EBattleHeuristics.ChooseOpponent] = ChooseOpponent;
+			cAiData.cHeurisitics[EBattleHeuristics.Flee] = Flee;
+			cAiData.cHeurisitics[EBattleHeuristics.Idle] = Idle;
+			cAiData.cHeurisitics[EBattleHeuristics.Pant] = Pant;
+			cAiData.cHeurisitics[EBattleHeuristics.Persue] = Persue;
 	
 			// this is going to come from somewhere
 			this.iWeaponRange = 10;
+			this.iWeaponRngSq = this.iWeaponRange * this.iWeaponRange;
 
-			// set the max hp
-			_iMaxHp = cStats.iHp;
+			// set its states
+			_eObjState = EObjectStates.Active | EObjectStates.Draw;
+
+			// get the id from the object manager proper
+			this.iId = ObjectManager.cInstance.iCurObjId;
 		}
 
 		#region IDrawable Members
@@ -145,18 +146,51 @@ namespace MightyFights_Prototype
 			// draw the lifebar 
 			if(DataStore.cInstance.bLifeBars) { 
 				Texture2D	cBorder = DataStore.cInstance.cBorder;
-				Rectangle	tRect = new Rectangle((int)_tPos.X + 20, (int)_tPos.Y + 30, (int)(((cStats.iHp / (float)_iMaxHp) * 100) * .3), 5);
+				Rectangle	tRect = new Rectangle((int)_tPos.X + 20, (int)_tPos.Y + 30, (int)(((_cStats.fHp / (float)_cStats.iMaxHp) * 100) * .3), 5);
 				Color		cHpColor = Color.Green;
 				cHpColor.A = 85;
 				cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, _fZorder);
 			}
 
-			// draw damage list if there is one
-			if(DataStore.cInstance.bDamageNumbers) { 
-				foreach(AnimatingDamage cDmg in _caDamageList)
-					cDmg.Draw(cBatch);
-			}
 
+			//{ 
+			//    Texture2D	cBorder = DataStore.cInstance.cBorder;
+			//    Rectangle	tRect = new Rectangle((int)_tCenter.X - 5, (int)_tCenter.Y - 5, 10, 10);
+			//    Color		cHpColor = Color.White;
+			//    cHpColor.A = 85;
+			//    cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, _fZorder);
+			//}
+			//if( this.nTarget != null && this.nTarget is ICombatant )
+			//{ 
+			//    Texture2D	cBorder = DataStore.cInstance.cBorder;
+			//    Vector2		tDest = ((ICombatant)this.nTarget ).RequestPersuitPoint( _iAttackingPos );
+			//    if( tDest.X < 0 || tDest.Y < 0 || tDest.X > 1000 || tDest.Y > 600 )
+			//    {
+			//        Rectangle	tRect = new Rectangle((int)900, (int)0, 100, 100);
+			//        Color		cHpColor = Color.Blue;
+			//        cHpColor.A = 85;
+			//        cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, _fZorder);
+				
+			//    }
+			//    else	{
+			//        Rectangle	tRect = new Rectangle((int)tDest.X - 5, (int)tDest.Y - 5, 10, 10);
+			//        Color		cHpColor = Color.Blue;
+			//        cHpColor.A = 85;
+			//        cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, _fZorder);
+			//    }
+			//}
+			//if( _cActionMgr != null )
+			//    if( _cActionMgr.cActionQueue.Count > 0 )
+			//    {
+			//        if( _cActionMgr.cActionQueue[0].oData != null && _cActionMgr.cActionQueue[0].oData is Vector2 )
+			//        {
+			//            Texture2D	cBorder = DataStore.cInstance.cBorder;
+			//            Rectangle	tRect = new Rectangle((int)((Vector2)_cActionMgr.cActionQueue[0].oData ).X - 5, (int)((Vector2)_cActionMgr.cActionQueue[0].oData ).Y - 5, 10, 10);
+			//            Color		cHpColor = Color.Red;
+			//            cHpColor.A = 85;
+			//            cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, _fZorder);
+			//        }
+			//    }
 
 			//// ddhj: debug draw data
 			// lets draw our attack positions
@@ -167,7 +201,7 @@ namespace MightyFights_Prototype
 			//    tDir = _tCenter;
 			//    tDir.X -= cFrame.tRect.Width / 2 + iWeaponRange;
 			//    tDir.Y += 20;
-			//    cBatch.Draw(cBorder, new Rectangle((int)tDir.X, (int)tDir.Y, 3, 3), tColor);				
+			//    cBatch.Draw(cBorder, new Rectangle((int)tDir.X, (int)tDir.Y, 3, 3), tColor);
 			//}
 			//if((_byAttakPos & (byte)ETrooperAttackPos.LeftMid) == (byte)ETrooperAttackPos.LeftMid) { 
 			//    tDir = _tCenter;
@@ -227,31 +261,68 @@ namespace MightyFights_Prototype
 
 		#region ICombatant Methods
 
-		public void DealDamage(int iDamage)
+		public void DealDamage(ICombatant nOpponent, int iDamage, bool bCrit)
 		{
 			//// ddhj: yep armor class and all that shit 
 			if(cAiData.eState != EBattleAiStates.Defending) { 
-				_cStats.iHp -= iDamage;
+				_cStats.fHp -= iDamage;
 
-				if(DataStore.cInstance.bDamageNumbers) { 
-					_cActionMgr.cActionQueue.Add(new Action(DamageObj, iDamage, null));
-				}
+				// check to see if we are spawning damage numbers
+				if(DataStore.cInstance.bDamageNumbers) 
+					DataStore.cInstance.cBattleData.cObjMgr.AddObject(new AnimatingDamage(iDamage, _tCenter, bCrit, false, _cTeam));
 			}
+			else
+				// check to see if we are spawning damage numbers
+				if(DataStore.cInstance.bDamageNumbers) 
+					DataStore.cInstance.cBattleData.cObjMgr.AddObject(new AnimatingDamage(0, _tCenter, bCrit, false, _cTeam));
+
+			// if I am attacking my attacker
+			if( this.nTarget == nOpponent )
+				return;
+			// or if I am attacking someone who is attacking me
+			else if( this.nTarget is ICombatant && ((ICombatant)this.nTarget ).nTarget == this )
+				return;
+			else 
+				switch( this.cAiData.eState )
+				{
+				case EBattleAiStates.Flee:
+				case EBattleAiStates.Dying:
+				case EBattleAiStates.Panting:
+					return;
+				}
+
+			if( this.nTarget != null && this.nTarget is ICombatant )
+				((ICombatant)this.nTarget ).RemoveAttacker( _iAttackingPos );
+			// one in three chance to persue rather than attack somone else 
+			this.cAiData.eState = EBattleAiStates.Ready;
+			foreach( Action cAction in _cActionMgr.cActionQueue )
+				cAction.bConditionNotMet = false;
+			_bAttacking = false;
+			this.nTarget = null;
 		}
 
 		public float Heal( float fHp )
 		{
 			//// hp should be a float at some point
-			int iHp = (int)fHp;
-			if( _cStats.iHp + iHp > _iMaxHp )
-				iHp = _iMaxHp - _cStats.iHp;
-			_cStats.iHp += iHp;
+			if( _cStats.fHp + fHp > _cStats.iMaxHp )
+				fHp = _cStats.iMaxHp - _cStats.fHp;
+			_cStats.fHp += fHp;
 
-			return (float)iHp;
+			if(DataStore.cInstance.bDamageNumbers) 
+				DataStore.cInstance.cBattleData.cObjMgr.AddObject(new AnimatingDamage((int)Math.Round( fHp ), _tCenter, false, true, _cTeam));
+			return fHp;
 		}
 
 		public void RemoveHeal( )
 		{
+		}
+
+		public bool InWeaponRange( )
+		{
+			ICombatant	nOpponent = (ICombatant)nTarget;
+			Vector2		tDest = nOpponent.RequestPersuitPoint(_iAttackingPos);
+
+			return(((tDest - _tCenter).LengthSquared()) < this.iWeaponRngSq );
 		}
 
 		public bool IsDead()
@@ -264,7 +335,7 @@ namespace MightyFights_Prototype
 			Vector2		tDir = _tCenter - nCombatant.tCenter;
 
 			RequestAttackPoint(nCombatant, out iPos);
-			_caAttackers.Add((ETrooperAttackPos)iPos, nCombatant);
+			_cAttackers.Add((ETrooperAttackPos)iPos, nCombatant);
 			_byAttakPos |= (byte)iPos;
 
 			// set left or right
@@ -378,6 +449,7 @@ namespace MightyFights_Prototype
 						ePos = ETrooperAttackPos.LeftBottom;
 					else	ePos = ETrooperAttackPos.LeftMid;
 				}
+				break;
 			}
 			iPos = (int)ePos;
 			return GetVectByPos(ePos);
@@ -410,7 +482,7 @@ namespace MightyFights_Prototype
 		public void RemoveAttacker(int iPos)
 		{
 			_byAttakPos &= (byte)~iPos;
-			_caAttackers.Remove((ETrooperAttackPos)iPos);
+			_cAttackers.Remove((ETrooperAttackPos)iPos);
 			
 			switch((ETrooperAttackPos)iPos) { 
 				case ETrooperAttackPos.LeftBottom:
@@ -425,6 +497,12 @@ namespace MightyFights_Prototype
 					--_iCurRightAttakers;
 				break;
 			}
+		}
+
+		void ClearAttackers( )
+		{
+			_cAttackers.Clear( );
+			_iCurLeftAttackers = _iCurRightAttakers = 0;
 		}
 
 		void UpdateRefPoints()

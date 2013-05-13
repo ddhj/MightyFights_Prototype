@@ -10,7 +10,7 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public class StatDisplay : BasicSprite
+	public class StatDisplay : ClickableSprite
 	{
 		AnimationData	_cAnimData;
 		ActionData		_cActionData;

@@ -7,24 +7,26 @@ using Microsoft.Xna.Framework;
 
 namespace MightyFights_Prototype
 {
-	public interface ICombatant
-	{
-		AiBattleData cAiData	{ get; set; }
+	public interface IBattleObj : IObject	{
 		Vector2 tPos			{ get; set; }
 		Vector2 tCenter			{ get; set; }
-		ICombatant nOpponent	{ get; set; }
-		int iId					{ get; }
-		int iArmyIndex			{ get; set; }
-		int iOpponentIndex		{ get; set; }
+	}
+
+	public interface ICombatant : IBattleObj
+	{
+		AiBattleData cAiData	{ get; set; }
 		int iWeaponRange		{ get; set; }
 		bool bAvailablePos		{ get; }
 		Zone cZone				{ get; set; }
 		Stats cStats			{ get; set; }
+		IBattleObj nTarget		{ get; set; }
+		Team cTeam				{ get; }
 
-		void DealDamage(int iDamage);
+		void DealDamage(ICombatant nOpponent, int iDamage, bool bCrit);
 		float Heal( float fHp );
 		void RemoveHeal( );
 		bool IsDead();
+		bool InWeaponRange( );
 		void SetAttacker(ICombatant nCombatant, out int iPos);
 		void RemoveAttacker(int iPos);
 		Vector2 RequestAttackPoint(ICombatant nCombatant, out int iPos);
@@ -32,6 +34,19 @@ namespace MightyFights_Prototype
 
 		// possible a list of attackers and their positions for the persuit method 
 		// in order to choose where to run 
-		Dictionary<ETrooperAttackPos, ICombatant>	caAttackers		{ get; }
+		Dictionary<ETrooperAttackPos, ICombatant>	cAttackers		{ get; }
+	}
+
+	public interface IHealer : IBattleObj	{
+		float fHealth	{ get; }
+		float fHp		{ get; set; }
+		bool bActive		{ get; }
+		bool bAvailableSpots	{ get; }
+
+	// Functions
+		Vector2 GetOpenLocation( );
+		void TakeSpot( ICombatant nSoldier );
+		void FreeSpot( ICombatant nSoldier );
+		void DoDamage( float fDamage );
 	}
 }

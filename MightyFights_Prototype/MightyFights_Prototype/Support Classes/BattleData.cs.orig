@@ -5,14 +5,14 @@ using System.Text;
 
 namespace MightyFights_Prototype
 {
-	public delegate object DBattleHeuristic(BattlegroundData cData);
+	public delegate object DBattleheuristic(BattlegroundData cData);
 
 	public class AiBattleData
 	{
-		Dictionary<EBattleHeuristics, DBattleHeuristic>	_cHeuristics = new Dictionary<EBattleHeuristics,DBattleHeuristic>();
+		Dictionary<EBattleHuristics, DBattleHuristic>	_cHuristics = new Dictionary<EBattleHuristics,DBattleHuristic>();
 
-		public Dictionary<EBattleHeuristics, DBattleHeuristic>	cHeurisitics	{ get { return _cHeuristics; }}
-		public EBattleAiStates									eState			{get; set;}
+		public Dictionary<EBattleHuristics, DBattleHuristic>	cHurisitics  { get { return _cHuristics; }}
+		public EBattleAiStates									eState		 {get; set;}
 	}
 
 	public class IntPoint : IComparable<IntPoint>
@@ -86,17 +86,18 @@ namespace MightyFights_Prototype
 	{	
 		Zone[][]		_caBattleZones = new Zone[8][];
 		List<Team>		_caTeams = new List<Team>( );
-		List<Dictionary<IntPoint, Zone>>	_caActiveZones = new List<Dictionary<IntPoint, Zone>>();
+		List<List<ICombatant>>		_naMasterLists = new List<List<ICombatant>>();
+		List<Dictionary<IntPoint, Zone>>			_caActiveZones = new List<Dictionary<IntPoint, Zone>>();
 
-
-		public Cursor cCursor		{ get; set; }
-		public List<Team> caTeams	{ get { return _caTeams; }}
-		public Zone[][] caBattleZones			{ get { return _caBattleZones; }}
-		public EBattlegroundState eState		{ get; set; }
-		public ObjectManagerInstance cObjMgr	{ get; set; }
+		public EBattlegroundState eState			{ get; set; }
+		public ObjectManagerInstance cObjMgr		{ get; set; }
+		public Cursor cCursor						{ get; set; }
+		public List<ICombatant>	naArmyRef			{ get { return _naMasterLists[0]; }}
+		public List<ICombatant> naOpponentsRef		{ get { return _naMasterLists[1]; }}
+		public List<List<ICombatant>> naMasterLists	{ get { return _naMasterLists; }}
+		public Zone[][] caBattleZones				{ get { return _caBattleZones; }}
 		
 		public List<Dictionary<IntPoint, Zone>>	caActiveZones		{ get { return _caActiveZones; }}
-
 
 		public BattlegroundData()
 		{
@@ -119,10 +120,11 @@ namespace MightyFights_Prototype
 				}
 			}
 
-			// init the master army lists
-			_caTeams = new List<Team>( );
-			_caTeams.Add( new Team( 0, true ));
-			_caTeams.Add( new Team( 1, false ));
+			// init the master army list 
+			_naMasterLists.Add(new List<ICombatant>());
+
+			// init the master opponent list
+			_naMasterLists.Add(new List<ICombatant>());
 
 			// add the army active zone list
 			_caActiveZones.Add(new Dictionary<IntPoint, Zone>());
@@ -149,29 +151,29 @@ namespace MightyFights_Prototype
 				cZone = nCombatant.cZone = caBattleZones[iXPos][iYPos];
 
 				// add combatant to the zone list 
-				caBattleZones[iXPos][iYPos].naCombatantLists[nCombatant.cTeam.iId].Add(nCombatant);
+				caBattleZones[iXPos][iYPos].naCombatantLists[nCombatant.iArmyIndex].Add(nCombatant);
 			} else {
 				// check to see if we are in the same zone 
 				if(nCombatant.cZone.iX != iXPos || nCombatant.cZone.iY != iYPos) { 
 					// remove the combatant from the zone
-					nCombatant.cZone.naCombatantLists[nCombatant.cTeam.iId].Remove(nCombatant);
+					nCombatant.cZone.naCombatantLists[nCombatant.iArmyIndex].Remove(nCombatant);
 
 					// check to see if the zone is empty 
-					if(nCombatant.cZone.naCombatantLists[nCombatant.cTeam.iId].Count == 0) 
+					if(nCombatant.cZone.naCombatantLists[nCombatant.iArmyIndex].Count == 0) 
 						// remove this zone as an active zone for the army 
-						_caActiveZones[nCombatant.cTeam.iId].Remove(nCombatant.cZone.cPoint);
+						_caActiveZones[nCombatant.iArmyIndex].Remove(nCombatant.cZone.cPoint);
 
 					// set the new zone 
 					cZone = nCombatant.cZone = caBattleZones[iXPos][iYPos];
 
 					// add combatant to the zone list 
-					caBattleZones[iXPos][iYPos].naCombatantLists[nCombatant.cTeam.iId].Add(nCombatant);
+					caBattleZones[iXPos][iYPos].naCombatantLists[nCombatant.iArmyIndex].Add(nCombatant);
 				}
 			}
 							
 			// check to see if this zone is already in the list 
-			if(!_caActiveZones[nCombatant.cTeam.iId].ContainsKey(cZone.cPoint))
-				_caActiveZones[nCombatant.cTeam.iId].Add(cZone.cPoint, cZone);
+			if(!_caActiveZones[nCombatant.iArmyIndex].ContainsKey(cZone.cPoint))
+				_caActiveZones[nCombatant.iArmyIndex].Add(cZone.cPoint, cZone);
 		}
 
 		public void RemoveDeadCombatant(ICombatant nCombatant)
@@ -179,15 +181,15 @@ namespace MightyFights_Prototype
 			Zone	cZone;
 
 			// decrement the active count on the army 
-			nCombatant.cTeam.cActiveList.Remove(nCombatant.iId);
+			_naMasterLists[nCombatant.iArmyIndex].Remove(nCombatant);
 			
 			// use the combatants zone reference to remove them from the list
 			cZone = caBattleZones[nCombatant.cZone.iX][nCombatant.cZone.iY];
-			cZone.naCombatantLists[nCombatant.cTeam.iId].Remove(nCombatant);
+			cZone.naCombatantLists[nCombatant.iArmyIndex].Remove(nCombatant);
 
 			// check to see if the zone is empty for this army 
-			if(cZone.naCombatantLists[nCombatant.cTeam.iId].Count == 0)
-				_caActiveZones[nCombatant.cTeam.iId].Remove(cZone.cPoint);
+			if(cZone.naCombatantLists[nCombatant.iArmyIndex].Count == 0)
+				_caActiveZones[nCombatant.iArmyIndex].Remove(cZone.cPoint);
 		}
 
 		public Zone GetZoneByCoords(int iX, int iY)
@@ -208,8 +210,19 @@ namespace MightyFights_Prototype
 			foreach(Dictionary<IntPoint, Zone> caActiveZones in _caActiveZones)
 				caActiveZones.Clear();
 
-			foreach( Team cTeam in _caTeams )
-				cTeam.Clear( );
+			this.naArmyRef.Clear();
+			this.naOpponentsRef.Clear();
 		}
 	}
+<<<<<<< HEAD
+
+	public class AiBattleData
+	{
+		Dictionary<EBattleheuristics, DBattleheuristic>	_cheuristics = new Dictionary<EBattleheuristics,DBattleheuristic>();
+
+		public Dictionary<EBattleheuristics, DBattleheuristic>	cHurisitics  { get { return _cheuristics; }}
+		public EBattleAiStates									eState		 {get; set;}
+	}
+=======
+>>>>>>> ee99268013d3145ac0b2a5d742e4892b7d00d876
 }

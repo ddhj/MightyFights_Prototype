@@ -10,7 +10,7 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public class FrontGuys : BasicSprite
+	public class FrontGuys : ClickableSprite
 	{
 		AnimationData		_cAnimData;
 		int					_iFrameIdx;

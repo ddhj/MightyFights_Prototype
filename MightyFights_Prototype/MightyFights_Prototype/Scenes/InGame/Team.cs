@@ -16,22 +16,29 @@ using MightyFights_Support;
 namespace MightyFights_Prototype	{
 	public class Team	{
 	// Data
-		bool		_bLeftSide;
+		int		_iId;
+		bool	_bLeftSide;
 		Dictionary<int,ICombatant>		_cActiveList = new Dictionary<int,ICombatant>( );
-		Dictionary<int,Healer>			_cHealerList = new Dictionary<int,Healer>( );
+		Dictionary<int,Priest>			_cHealerList = new Dictionary<int,Priest>( );
 
 	// Properties
+		public int iId			{ get { return _iId; }}
 		public bool bDirection	{ get { return _bLeftSide; }}
 		public Dictionary<int,ICombatant>	cActiveList	{ get { return _cActiveList; }}
-		public Dictionary<int,Healer>		cHealerList	{ get { return _cHealerList; }}
+		public Dictionary<int,Priest>		cHealerList	{ get { return _cHealerList; }}
 
 	// Constructor
-		public Team( bool bLeftTeam )
+		public Team( int iId, bool bLeftTeam )
 		{
+			_iId = iId;
 			_bLeftSide = bLeftTeam;
 		}
 
 	// Functions
-
+		public void Clear( )
+		{
+			_cActiveList.Clear( );
+			_cHealerList.Clear( );
+		}
 	}
 }

@@ -11,7 +11,7 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public class Slider : BasicSprite, IUpdate
+	public class Slider : ClickableSprite, IUpdate
 	{
 		AnimationData	_cAnimData;
 		int				_iCenter,
@@ -88,7 +88,7 @@ namespace MightyFights_Prototype
 	
 		#region IUpdate Members
 
-		public void  Update(GameTime cTime)
+		public void Update(GameTime cTime)
 		{
 			MouseState cState = Mouse.GetState();
 

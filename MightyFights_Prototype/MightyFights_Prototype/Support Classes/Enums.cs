@@ -5,12 +5,19 @@ using System.Text;
 
 namespace MightyFights_Prototype
 {
+	[Flags]
+	public enum EObjectStates
+	{
+		Draw	= 0x01,
+		Active	= 0x02
+	}
+
 	public enum EZoneData
 	{
 		ZoneColumns = 8,
 		ZoneRows = 6,
-		ZoneColWidth = 114,
-		ZoneRowHeight = 114
+		ZoneColWidth = 100,
+		ZoneRowHeight = 72
 	}
 
 	[Flags]
@@ -55,7 +62,7 @@ namespace MightyFights_Prototype
 		Flee
 	}
 
-	public enum EBattleheuristics
+	public enum EBattleHeuristics
 	{
 		Idle,
 		Attack, 

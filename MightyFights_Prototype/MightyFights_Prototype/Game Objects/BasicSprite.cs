@@ -10,12 +10,14 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public class BasicSprite : IDrawable, IClickable
+	public class ClickableSprite : IDrawable, IDrawableTexture, IClickable, IObject
 	{
 		Rectangle	_cDrawnRect;
 		Vector2		_tPos;
 		Texture2D	_cTexRef;
 
+		public int iId				{ get; set; }
+		public EObjectStates eObjState	{ get; set; }
 		public Texture2D cTexRef	{ get { return _cTexRef; } set { _cTexRef = value; }}
 		public Frame cFrame			{ get; set; }
 		public string sTexName		{ get; set; }
@@ -26,12 +28,18 @@ namespace MightyFights_Prototype
 			}
 		}
 
+		public ClickableSprite()
+		{
+			this.eObjState = EObjectStates.Draw;
+			this.iId = ObjectManager.cInstance.iCurObjId;
+		}
+
 		public virtual bool ContainsPoint(Point tPoint) 
 		{
 			return _cDrawnRect.Contains(tPoint);
 		}
 
-		public bool ContainsPoint(Vector2 tLoc)
+		public virtual bool ContainsPoint(Vector2 tLoc)
 		{
 			return ContainsPoint(new Point((int)tLoc.X, (int)tLoc.Y));
 		}

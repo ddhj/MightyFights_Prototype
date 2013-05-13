@@ -170,7 +170,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="In Game\Buffs\" />
     <Folder Include="In Game\Hud\" />
   </ItemGroup>
   <ItemGroup>
@@ -299,6 +298,32 @@
   <ItemGroup>
     <Compile Include="Out Game\Template\HitPoints.png">
       <Name>HitPoints</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="In Game\Buffs\BufItems.png">
+      <Name>BufItems</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="In Game\Buffs\BufItemsArray.json">
+      <Name>BufItemsArray</Name>
+      <Importer>ContentImporter1</Importer>
+      <Processor>ContentProcessor1</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Backgrounds\dirt_grass 800x436.png">
+      <Name>dirt_grass 800x436</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Backgrounds\dirt_grass 800x500.png">
+      <Name>dirt_grass 800x500</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

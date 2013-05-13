@@ -20,7 +20,7 @@ namespace MightyFights_Prototype
 		Cursor			_cCursor;
 		Slider			_cTopSlider,
 						_cBottomSlider;
-		BasicSprite		_cDone,
+		ClickableSprite		_cDone,
 						_cLargeLeftArrow,
 						_cLargeRightArrow,
 						_cSmallLeftArrow,
@@ -68,7 +68,7 @@ namespace MightyFights_Prototype
 			_cConfig.sColor = _cFrontGuys.sCurColor;
 			_cConfig.cStats = new Stats();
 			_cConfig.cStats.iAtkSpeed = _iaAtkSpeedStats[_cAtkSpeed.iCurFrame];
-			_cConfig.cStats.iHp = _iaHitPointStats[_cHitPoints.iCurFrame];
+			_cConfig.cStats.fHp = _iaHitPointStats[_cHitPoints.iCurFrame];
 			_cConfig.cStats.iPower = _iaAtkPowerStats[_cAtkPower.iCurFrame];
 			_cConfig.cStats.iMovement = _iaMoveSpeedStats[_cMoveSpeed.iCurFrame];
 			_cConfig.iBottomLevel = _cBottomLevels.SelectedIndex;
@@ -147,7 +147,7 @@ namespace MightyFights_Prototype
 				_cCursor.cFrame = new Frame(_cCursor.cTexRef.Bounds, new Vector2(_cCursor.cTexRef.Bounds.Width / 2, _cCursor.cTexRef.Bounds.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cCursor.cTexRef.Bounds.Width, _cCursor.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
-				_cDone = new BasicSprite();
+				_cDone = new ClickableSprite();
 				_cDone.cTexRef = cContent.Load<Texture2D>(@"Out Game\Template\done");
 				_cDone.sTexName = @"Out Game\Template\done";
 				_cDone.cFrame = new Frame(_cDone.cTexRef.Bounds, new Vector2(_cDone.cTexRef.Bounds.Width / 2, _cDone.cTexRef.Bounds.Height / 2), 
@@ -213,13 +213,13 @@ namespace MightyFights_Prototype
 				_cFrontGuys.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - 12, _cGraphics.Viewport.Height / 2);
 				_cFrontGuys.SetOpponent(_sOpposingColor);
 
-				_cLargeLeftArrow = new BasicSprite();
+				_cLargeLeftArrow = new ClickableSprite();
 				_cLargeLeftArrow.cTexRef = cContent.Load<Texture2D>(@"Out Game\Template\Left Arrow Large");
 				_cLargeLeftArrow.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - 45, _cGraphics.Viewport.Height / 2 + 35);
 				_cLargeLeftArrow.cFrame = new Frame(_cLargeLeftArrow.cTexRef.Bounds, new Vector2(_cLargeLeftArrow.cTexRef.Bounds.Width / 2, _cLargeLeftArrow.cTexRef.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cLargeLeftArrow.cTexRef.Bounds.Width, _cLargeLeftArrow.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
-				_cLargeRightArrow = new BasicSprite();
+				_cLargeRightArrow = new ClickableSprite();
 				_cLargeRightArrow.cTexRef = cContent.Load<Texture2D>(@"Out Game\Template\Right Arrow Large");
 				_cLargeRightArrow.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + 20, _cGraphics.Viewport.Height / 2 + 35);
 				_cLargeRightArrow.cFrame = new Frame(_cLargeRightArrow.cTexRef.Bounds, new Vector2(_cLargeRightArrow.cTexRef.Bounds.Width / 2, _cLargeRightArrow.cTexRef.Height / 2), 

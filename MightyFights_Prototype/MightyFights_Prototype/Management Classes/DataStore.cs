@@ -27,6 +27,7 @@ namespace MightyFights_Prototype
 		public GameTime			cTime		{ get; set; }
 		public Game				cGame		{ get; set; }
 		public SpriteFont		cFont		{ get; set; }
+		public Random			cRand		{ get; set; }
 
 		// the template config from the main menu, this will be replaced with realness at some point
 		public TemplateConfig	cLeftConfig	{ get; set; }

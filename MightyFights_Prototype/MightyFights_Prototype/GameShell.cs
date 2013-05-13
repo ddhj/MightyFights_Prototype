@@ -26,7 +26,7 @@ namespace MightyFights_Prototype
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
 
-			graphics.PreferredBackBufferHeight = 768;
+			graphics.PreferredBackBufferHeight = 576;
 			graphics.PreferredBackBufferWidth = 1024;
 			graphics.IsFullScreen = false;
 		}
@@ -43,6 +43,7 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cContent = Content;
 			DataStore.cInstance.cGraphics = GraphicsDevice;
 			DataStore.cInstance.cGame = this;
+			DataStore.cInstance.cRand = new Random();
 
 			// init the object manager
 			ObjectManager.cInstance.Init();

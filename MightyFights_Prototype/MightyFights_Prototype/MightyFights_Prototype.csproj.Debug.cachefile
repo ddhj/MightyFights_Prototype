@@ -40,3 +40,7 @@ Content\Out Game\Template\MoveSpeed.xnb
 Content\Out Game\Template\AtkSpeed.xnb
 Content\Out Game\Template\HitPoints.xnb
 Content\Shared\DebugFont.xnb
+Content\In Game\Buffs\BufItemsArray.xnb
+Content\In Game\Buffs\BufItems.xnb
+Content\Backgrounds\dirt_grass 800x436.xnb
+Content\Backgrounds\dirt_grass 800x500.xnb

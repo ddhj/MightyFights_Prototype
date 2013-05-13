@@ -124,11 +124,13 @@
   <ItemGroup>
     <Compile Include="Game Objects\AnimatingDamage.cs" />
     <Compile Include="Game Objects\BasicSprite.cs" />
+    <Compile Include="Game Objects\Buffs\BasicBuff.cs" />
     <Compile Include="Game Objects\Cursor.cs" />
     <Compile Include="Game Objects\Healer.cs" />
     <Compile Include="Game Objects\Trooper\Trooper.cs" />
     <Compile Include="Game Objects\Trooper\Trooper_Actions.cs" />
     <Compile Include="Game Objects\Trooper\Trooper_Huristics.cs" />
+    <Compile Include="Interfaces\IObject.cs" />
     <Compile Include="Management Classes\DataStore.cs" />
     <Compile Include="Management Classes\ObjectManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,16 +149,16 @@
     <Compile Include="Support Classes\ActionManager.cs" />
     <Compile Include="Support Classes\AnimationProcessor.cs" />
     <Compile Include="Support Classes\BattleData.cs" />
-    <Compile Include="Support Classes\IActive.cs" />
-    <Compile Include="Support Classes\IAnimate.cs" />
-    <Compile Include="Support Classes\IClickable.cs" />
-    <Compile Include="Support Classes\IDrawable.cs" />
-    <Compile Include="Support Classes\IGameScene.cs" />
+    <Compile Include="Interfaces\IActive.cs" />
+    <Compile Include="Interfaces\IAnimate.cs" />
+    <Compile Include="Interfaces\IClickable.cs" />
+    <Compile Include="Interfaces\IDrawable.cs" />
+    <Compile Include="Interfaces\IGameScene.cs" />
     <Compile Include="Scenes\InGame\BattleGround_Basic.cs" />
     <Compile Include="Management Classes\SceneManager.cs" />
     <Compile Include="Support Classes\Enums.cs" />
-    <Compile Include="Support Classes\ICombatant.cs" />
-    <Compile Include="Support Classes\IUpdate.cs" />
+    <Compile Include="Interfaces\ICombatant.cs" />
+    <Compile Include="Interfaces\IUpdate.cs" />
     <Compile Include="Support Classes\Stats.cs" />
     <Compile Include="Support Classes\TemplateConfig.cs" />
     <Compile Include="Support Classes\TrooperTemplate.cs" />
