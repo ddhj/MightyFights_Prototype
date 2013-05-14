@@ -12,6 +12,18 @@ namespace MightyFights_Prototype
 	{
 		BasicBuff	_cBuff;
 		int			_iBuffCount;
+		SpriteFont	_cFont;
+		Vector2		_tBuffCountPos;
+
+		public override Vector2 tPos { get; set; }
+
+		public BuffContainer(Vector2 tPos)
+		{
+			_cFont = DataStore.cInstance.cFont;
+			this.tPos = tPos;
+
+			_tBuffCountPos = new Vector2(tPos.X + 50, tPos.Y + 5);
+		}
 
 		public void AddBuff(BasicBuff cBuff)
 		{
@@ -36,8 +48,10 @@ namespace MightyFights_Prototype
 		{
 			base.Draw(cBatch);
 
-			if(_iBuffCount > 0)
+			if(_iBuffCount > 0) { 
 				_cBuff.Draw(cBatch);
+				cBatch.DrawString(_cFont, _iBuffCount.ToString(), _tBuffCountPos, Color.White);
+			}
 		}
 
 		public void ProcessClick(object oSender, object oArgs)

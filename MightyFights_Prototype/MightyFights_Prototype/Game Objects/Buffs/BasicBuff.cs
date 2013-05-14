@@ -22,6 +22,7 @@ namespace MightyFights_Prototype
 
 		//// this will be replaced when the buffs animate
 		public string sType		{ get; set; }
+		public override Vector2 tPos { get; set; }
 
 		public BasicBuff(AnimationData cAnimData, string sBuff, int iItterations) : base()
 		{

@@ -22,7 +22,7 @@ namespace MightyFights_Prototype
 		public Frame cFrame			{ get; set; }
 		public string sTexName		{ get; set; }
 		public DProcessClick dlProcessClick		{ get; set; }
-		public Vector2 tPos			{ get { return _tPos; } 
+		public virtual Vector2 tPos			{ get { return _tPos; } 
 			set {
 				_tPos = value; 
 				_cDrawnRect = new Rectangle((int)_tPos.X, (int)_tPos.Y, _cTexRef.Bounds.Width, _cTexRef.Bounds.Height);
