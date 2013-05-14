@@ -13,11 +13,11 @@ namespace MightyFights_Prototype
 	public class FrontGuys : ClickableSprite
 	{
 		AnimationData		_cAnimData;
-		int					_iFrameIdx;
+		int					_iFrameIdx = 0;
 
 		////ddhj: this is because we don't have all the colors that the animation data does for the 
 		// actual sprite sheets
-		static List<Frame> _caFrames = new List<Frame>();
+		List<Frame> _caFrames = new List<Frame>();
 		static Dictionary<string, int> _caNameLookup = new Dictionary<string,int>() { {"fazure", 0}, {"fbrown", 1}, {"fcrimson", 2}, 
 			{"fgrey", 3}, {"fgules", 4}, {"fmidnight", 5}, {"fpurple", 6}, {"frust", 7}, {"fsable", 8}, {"fsteel", 9}, {"fstorm", 10}, 
 			{"ftenne", 11}, {"fzombie", 12}};
@@ -27,6 +27,7 @@ namespace MightyFights_Prototype
 
 		public int iOtherColor		{ get; set; }
 		public string sCurColor		{ get { return @"Sprite Data\Troopers\Halberd\Textures\" + _caNameByIdx[_iFrameIdx]; }}
+		public int iFrameIdx		{ get { return _iFrameIdx; }}
 
 		public FrontGuys(AnimationData cData, string sColor)
 		{

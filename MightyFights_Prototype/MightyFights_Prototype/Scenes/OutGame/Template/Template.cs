@@ -92,8 +92,12 @@ namespace MightyFights_Prototype
 						DataStore.cInstance.cSceneMgr.RemoveScene(this);
 					} else if(_cLargeLeftArrow.ContainsPoint(tPoint)) { 
 						_cFrontGuys.DecrementColor();
+						if(_cFrontGuys.iFrameIdx > 12)
+							_cFrontGuys.ToString();
 					} else if(_cLargeRightArrow.ContainsPoint(tPoint)) { 
 						_cFrontGuys.IncrementColor();
+						if(_cFrontGuys.iFrameIdx > 12)
+							_cFrontGuys.ToString();
 					}
 				}
 

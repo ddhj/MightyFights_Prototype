@@ -29,7 +29,8 @@ namespace MightyFights_Prototype
 						_cToBattle;
 		TemplateConfig	_cLeft, 
 						_cRight;
-		bool			_bProcessPress = true;
+		bool			_bProcessPress = true,
+						_bInTemplate = false;
 		NumericUpDown	_cP1Count, 
 						_cP2Count;
 		
@@ -68,11 +69,14 @@ namespace MightyFights_Prototype
 						if(nTemplate.Init()) { 
 							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
 						}
+
+						_bInTemplate = true;
 					} else if(((IClickable)_cP2Card).ContainsPoint(tPoint)) { 
 						IGameScene nTemplate = new Template(_cRight, _cLeft.sColor);
 						if(nTemplate.Init()) { 
 							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
 						}
+						_bInTemplate = true;
 					}
 
 					_bProcessPress = false;
@@ -199,6 +203,24 @@ namespace MightyFights_Prototype
 		public void ToggleControls()
 		{
 			_cP2Count.Visible = _cP2Count.Enabled = _cP1Count.Visible = _cP1Count.Enabled = _eState == ESceneStates.Active;
+
+			if(_eState == ESceneStates.Active) { 
+				// check to see if we were in a template
+				if(_bInTemplate) { 
+					// set the front guy with the new color from the template
+					//// ddhj: since zombie is not really a color we have to change it to blood zombie for the guys lookup
+					string sColor = _cLeft.sColor.Substring(_cLeft.sColor.LastIndexOf("\\") + 1);
+					// remove the f because thats the name of all the spritesheets right now
+					sColor = sColor.Remove(0, 1);
+					if(sColor == "zombie") sColor = "blood zombie";
+					_cPlayer1.cFrame = _cTroopers.caFrameData[_cTroopers.cReferenceList["Main"]["Sub"][sColor].iStartIndex];
+
+					sColor = _cRight.sColor.Substring(_cRight.sColor.LastIndexOf("\\") + 1);
+					sColor = sColor.Remove(0, 1);
+					if(sColor == "zombie") sColor = "blood zombie";
+					_cPlayer2.cFrame = _cTroopers.caFrameData[_cTroopers.cReferenceList["Main"]["Sub"][sColor].iStartIndex];
+				}
+			}
 		}
 
 		#endregion

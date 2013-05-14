@@ -10,11 +10,17 @@ namespace MightyFights_Prototype
 {
 	public class BuffContainer : ClickableSprite, IActiveBasic
 	{
-		List<BasicSprite>	_caBuffList = new List<BasicSprite>();
+		BasicBuff	_cBuff;
+		int			_iBuffCount;
 
-		public void AddBuff(BasicSprite cBuff)
+		public void AddBuff(BasicBuff cBuff)
 		{
-			_caBuffList.Add(cBuff);
+			if(_cBuff == null)
+				_cBuff = cBuff;
+			++_iBuffCount;
+
+			cBuff.tPos = new Vector2(this.tPos.X + this.cTexRef.Bounds.Width / 2 - cBuff.cFrame.tRect.Width / 2, 
+				this.tPos.Y + this.cTexRef.Bounds.Height / 2 - cBuff.cFrame.tRect.Height / 2);
 		}
 
 		#region IActiveBasic Members
@@ -30,25 +36,21 @@ namespace MightyFights_Prototype
 		{
 			base.Draw(cBatch);
 
-			if(_caBuffList.Count > 0)
-				_caBuffList[_caBuffList.Count - 1].Draw(cBatch);
+			if(_iBuffCount > 0)
+				_cBuff.Draw(cBatch);
 		}
 
-		public override bool ContainsPoint(Point tPoint)
+		public void ProcessClick(object oSender, object oArgs)
 		{
-			if(base.ContainsPoint(tPoint)) { 
-				if(_caBuffList.Count > 0) { 
-					// do the quicktime event thing ... not sure how i want to do that ... probabbly spawn a 
-					// quicktime object that has an animation manager and is clickable
+			BattlegroundData		cBattleData = (BattlegroundData)oSender;
 
-					// remove a sprite from the list
-					_caBuffList.RemoveAt(0);
+			if(_iBuffCount > 0) { 
+				// remove a sprite from the list
+				--_iBuffCount;
 
-					return true;
-				}
-			}
-
-			return false;
+				if(_iBuffCount == 0)
+					_cBuff = null;
+			} 
 		}
 	}
 }

@@ -12,7 +12,7 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	class BattleGround_Basic : IGameScene
+	public partial class BattleGround_Basic : IGameScene
 	{
 		ESceneStates	_eState;
 		Texture2D		_cBackground;
@@ -240,7 +240,7 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			cTmpContainer.tPos = new Vector2(132, 519);
-			_cObjMgr.AddObject(cTmpContainer);
+			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
 			_cBuffContainerList.Add("claw", cTmpContainer = new BuffContainer());
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -248,7 +248,7 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			cTmpContainer.tPos = new Vector2(232, 519);
-			_cObjMgr.AddObject(cTmpContainer);
+			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
 			_cBuffContainerList.Add("ear", cTmpContainer = new BuffContainer());
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -256,7 +256,7 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			cTmpContainer.tPos = new Vector2(332, 519);
-			_cObjMgr.AddObject(cTmpContainer);
+			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
 			_cBuffContainerList.Add("eye", cTmpContainer = new BuffContainer());
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -264,7 +264,7 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			cTmpContainer.tPos = new Vector2(432, 519);
-			_cObjMgr.AddObject(cTmpContainer);
+			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
 			_cBuffContainerList.Add("fang", cTmpContainer = new BuffContainer());
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -272,7 +272,7 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			cTmpContainer.tPos = new Vector2(532, 519);
-			_cObjMgr.AddObject(cTmpContainer);
+			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
 			_cBuffContainerList.Add("feather", cTmpContainer = new BuffContainer());
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -280,7 +280,7 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			cTmpContainer.tPos = new Vector2(632, 519);
-			_cObjMgr.AddObject(cTmpContainer);
+			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
 			_cBuffContainerList.Add("paw", cTmpContainer = new BuffContainer());
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -288,7 +288,7 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			cTmpContainer.tPos = new Vector2(732, 519);
-			_cObjMgr.AddObject(cTmpContainer);
+			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
 			_cBuffContainerList.Add("wing", cTmpContainer = new BuffContainer());
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -296,7 +296,7 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			cTmpContainer.tPos = new Vector2(832, 519);
-			_cObjMgr.AddObject(cTmpContainer);
+			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 		}
 
 		public bool Init()
@@ -311,6 +311,7 @@ namespace MightyFights_Prototype
 			Team			cTeam;
 
 			_cBattleData.cObjMgr = _cObjMgr;
+			_cBattleData.dlBuffClick = ProcessBuffClick;
 
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
@@ -415,26 +416,6 @@ namespace MightyFights_Prototype
 			}
 
 			return true;
-		}
-
-		public void ToggleLifeBarChange(object oSender, EventArgs eEvtArgs) 
-		{
-			DataStore.cInstance.bLifeBars = _cToggleLifeBar.Checked;
-		}
-
-		public void ToggleDamageNumbersChange(object oSender, EventArgs eEvtArgs) 
-		{
-			DataStore.cInstance.bDamageNumbers = _cToggleDamageNumbers.Checked;
-		}
-
-		public void ToggleSlowMoChange(object oSender, EventArgs eEvtArgs) 
-		{
-			DataStore.cInstance.bSlowMo = _cToggleSlowMo.Checked;
-		}
-
-		public void ToggleHealSpots(object oSender, EventArgs eEvtArgs) 
-		{
-			DataStore.cInstance.bHealSpots = _cToggleHealSpots.Checked;
 		}
 
 		void BackToMenu()

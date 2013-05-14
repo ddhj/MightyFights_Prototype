@@ -95,6 +95,7 @@ namespace MightyFights_Prototype
 		public Zone[][] caBattleZones			{ get { return _caBattleZones; }}
 		public EBattlegroundState eState		{ get; set; }
 		public ObjectManagerInstance cObjMgr	{ get; set; }
+		public DProcessClick dlBuffClick		{ get; set; }
 		
 		public List<Dictionary<IntPoint, Zone>>	caActiveZones		{ get { return _caActiveZones; }}
 

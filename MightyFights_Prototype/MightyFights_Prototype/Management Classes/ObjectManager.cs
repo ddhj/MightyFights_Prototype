@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 using MightyFights_Support;
 
@@ -110,6 +111,10 @@ namespace MightyFights_Prototype
 		Dictionary<int, object>								_caMainObjectList = new Dictionary<int,object>();
 		Dictionary<int, IClickable>							_caClickable = new Dictionary<int,IClickable>();
 
+		bool		_bProcessClick = true;
+
+		public BattlegroundData cParentData					{ get; set; }
+
 		public void AddObject(object oData)
 		{
 			IObject nObj = (IObject)oData;
@@ -138,16 +143,27 @@ namespace MightyFights_Prototype
 			// check to see if the object has an active component 
 			if(oData is IActiveBasic) 
 				_caActiveList.Add(nObj.iId, (IActiveBasic)oData);
+		}
 
-			if(oData is IClickable)
-				_caClickable.Add(nObj.iId, (IClickable)oData);
+		public void AddClickObject(object oData, DProcessClick dlProcess)
+		{
+			// add the object to the process and draw lists if possible
+			AddObject(oData);
+
+			// this object should be a clickable object, otherwize why the hell is AddClickObject getting called
+			if(oData is IClickable) { 
+				((IClickable)oData).dlProcessClick = dlProcess;
+				_caClickable.Add(((IObject)oData).iId, (IClickable)oData);
+			}
 		}
 
 		public void Process(GameTime cTime)
 		{
 			List<int>				iaRemList = new List<int>();
 			List<IActiveBasic>		naActive = new List<IActiveBasic>();
-			IObject		nObj;
+			IObject					nObj;
+			MouseState				cMouseState = Mouse.GetState();
+			Point					tPoint = new Point(cMouseState.X, cMouseState.Y);
 
 			// preprocess lists
 			foreach(object oObj in _caMainObjectList.Values) { 
@@ -174,6 +190,18 @@ namespace MightyFights_Prototype
 				if(nObj.eObjState == 0)
 					iaRemList.Add(nObj.iId);
 			}
+
+			// check the mouse button click 
+			if(cMouseState.LeftButton == ButtonState.Pressed) { 
+				if(_bProcessClick == true) { 
+					foreach(KeyValuePair<int, IClickable> tClickObj in _caClickable)
+						if(tClickObj.Value.ContainsPoint(tPoint))
+							if(tClickObj.Value.dlProcessClick != null)
+								tClickObj.Value.dlProcessClick(this.cParentData, tClickObj.Value);
+						
+					_bProcessClick = false;
+				}
+			} else _bProcessClick = true;
 
 			// remove all objects from the main processing list
 			foreach(int iObj in iaRemList)

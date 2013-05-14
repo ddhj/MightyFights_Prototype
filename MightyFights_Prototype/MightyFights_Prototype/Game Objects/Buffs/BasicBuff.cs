@@ -84,8 +84,10 @@ namespace MightyFights_Prototype
 			else tRect = new Rectangle((int)this.tPos.X, (int)this.tPos.Y, this.cFrame.tRect.Width, this.cFrame.tRect.Height);
 
 			if(tRect.Contains(tPoint)) { 
-
-			} return false;
+				// the object has been clicked on so lets set it to be removed
+				this.eObjState = 0;
+				return true;
+			} else return false;
 		}
 	}
 }

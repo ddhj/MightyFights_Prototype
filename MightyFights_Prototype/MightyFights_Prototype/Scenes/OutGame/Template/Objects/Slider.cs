@@ -21,7 +21,7 @@ namespace MightyFights_Prototype
 						_iStopRight,
 						_iStartY,
 						_iFrameWidth,
-						_iGrabPoint;
+						_iGrabPoint = int.MinValue;
 		
 		bool			_bSelected = false;
 
@@ -36,7 +36,7 @@ namespace MightyFights_Prototype
  		public int iStopLeft	{ get { return _iStopLeft; } set { _iStopLeft = value; }}
 		public int iStopRight	{ get { return _iStopRight; } set { _iStopRight = value; }}
 		public int iStartY		{ get { return _iStartY; } set { _iStartY = value; }}
-		public bool bSelected	{ get { return _bSelected; } set { _bSelected = value; }}
+		public bool bSelected	{ get { return _bSelected; } set { _bSelected = value; _iGrabPoint = int.MinValue; }}
 		public int iMaxLeft		{ get; set; }
 		public int iMaxRight	{ get; set; }
 
@@ -94,6 +94,9 @@ namespace MightyFights_Prototype
 
 			// are we selected?
 			if(_bSelected) {   
+				if(_iGrabPoint == int.MinValue)
+					_iGrabPoint = cState.X;
+
 				// check the distance from last update to this one for x
 				int iDx = cState.X -_iGrabPoint;
 				int iXPos = (int)this.tPos.X + iDx,

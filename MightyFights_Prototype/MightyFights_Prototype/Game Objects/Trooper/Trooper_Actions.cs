@@ -97,7 +97,7 @@ namespace MightyFights_Prototype
 
 							// one in 10 chance we get to spawn a buff
 							if(cRand.Next(10) == 1) 
-								_cBattleDataRef.cObjMgr.AddObject(ObjectManager.cInstance.CreateBuff(this));
+								_cBattleDataRef.cObjMgr.AddClickObject(ObjectManager.cInstance.CreateBuff(this), _cBattleDataRef.dlBuffClick);
 
 							// set so the object no longer is active
 							_eObjState &= ~EObjectStates.Active;
