@@ -16,8 +16,8 @@ namespace MightyFights_Prototype
 
 		public object Attack_Basic(BattlegroundData cData)
 		{
-			Random	cRand = new Random();
-			int		iAttckPercent;
+			Random		cRand = DataStore.cInstance.cRand;
+			int			iAttckPercent;
 			ICombatant	nOpponent = (ICombatant)this.nTarget;
 
 			// check to see if our opponent is living 
@@ -100,7 +100,7 @@ namespace MightyFights_Prototype
 		void Flee( )
 		{
 			SortedList<int,IHealer>	cHealersByDist = new SortedList<int,IHealer>( );
-			Random		cRand = new Random( );
+			Random		cRand = DataStore.cInstance.cRand;
 			Vector2		tPos;
 
 			// build up available healer list by distance
@@ -140,8 +140,7 @@ namespace MightyFights_Prototype
 		public object Pant(BattlegroundData cData)
 		{
 			// check to see if we are still panting 
-			Random cRand = new Random();
-			_cStats.fHp += .4f;
+			_cStats.fHp += .3f;
 			if(_cStats.fHp > _cStats.iHealPoint) 
 			{
 				if( this.nTarget != null )
@@ -179,7 +178,7 @@ namespace MightyFights_Prototype
 		ICombatant ChooseZoneCombatantRand(List<ICombatant> naCombatants)
 		{
 			int			iIndex;
-			Random		cRand = new Random();
+			Random		cRand = DataStore.cInstance.cRand;
 			ICombatant	nCombatant;
 								// copy list for removal
 			List<ICombatant>	naTmpList = new List<ICombatant>( naCombatants ),
@@ -218,7 +217,7 @@ namespace MightyFights_Prototype
 		ICombatant ChooseZoneCombatantRand_NoFlee( List<ICombatant> naCombatants)
 		{
 			int			iIndex;
-			Random		cRand = new Random();
+			Random		cRand = DataStore.cInstance.cRand;
 			ICombatant	nCombatant;
 								// copy list for removal
 			List<ICombatant>	naTmpList = new List<ICombatant>( naCombatants );
@@ -246,7 +245,7 @@ namespace MightyFights_Prototype
 		ICombatant ChooseZoneCombatantRand_NearbyZones( Zone cZone, int iOppIdx )
 		{
 			int			iIndex;
-			Random		cRand = new Random();
+			Random		cRand = DataStore.cInstance.cRand;
 			ICombatant	nCombatant;
 			List<ICombatant>	naNearbyList = new List<ICombatant>( ),
 								naZoneList,

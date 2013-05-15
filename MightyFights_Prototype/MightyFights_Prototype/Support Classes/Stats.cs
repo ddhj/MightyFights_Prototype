@@ -17,7 +17,10 @@ namespace MightyFights_Prototype
 
 		public Stats()
 		{
-			Random cRand = new Random();
+			// this, if we use rand, should be the one we use
+				// but right now, it causes the sides to be always lopsided
+//			Random	cRand = DataStore.cInstance.cRand;
+			Random	cRand = new Random();
 			this.fHp = this.iMaxHp = cRand.Next(100, 300);
 			this.iHealPoint = (int)( .6 * this.iMaxHp );
 			this.iFleePoint = (int)( .2 * this.iMaxHp );

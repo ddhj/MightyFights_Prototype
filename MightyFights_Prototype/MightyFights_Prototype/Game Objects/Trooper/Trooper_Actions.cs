@@ -93,10 +93,8 @@ namespace MightyFights_Prototype
 						break;
 
 						case EBattleAiStates.Dead: { 
-							Random	cRand = new Random();
-
 							// one in 10 chance we get to spawn a buff
-							if(cRand.Next(10) == 1) 
+							if(DataStore.cInstance.cRand.Next(10) == 1) 
 								_cBattleDataRef.cObjMgr.AddClickObject(ObjectManager.cInstance.CreateBuff(this), _cBattleDataRef.dlBuffClick);
 
 							// set so the object no longer is active
@@ -300,8 +298,7 @@ namespace MightyFights_Prototype
 			{
 				// if we have an opponent at this point we need to charge them
 				cActionManager.AddAction(new Action(ChargeOpponent, null, null));
-				cAiData.eState = EBattleAiStates.Moving;
-				nTarget = null;
+				nTarget = nPasserby;
 				cAction.bConditionNotMet = false;
 				return false;
 			}
@@ -313,7 +310,8 @@ namespace MightyFights_Prototype
 		{
 			Vector2		tDest,
 						tDirVect;
-			ICombatant	nOpponent = (ICombatant)this.nTarget;
+			ICombatant	nOpponent = (ICombatant)this.nTarget,
+						nPasserby;
 			
 			// check to see if we need to make the direction vector or not
 			if(cAction.bInit) { 
@@ -365,6 +363,22 @@ namespace MightyFights_Prototype
 				return false;
 			}
 
+			if( nOpponent.cAiData.eState == EBattleAiStates.Flee )
+			{
+				// okay we're chasing a guy, but lets look around and see if we run across someone not running away
+				nPasserby = ChooseZoneCombatantRand_NoFlee( this.cZone.naCombatantLists[_cTeam.iId ^ 1] );
+				if( nPasserby == null )
+					nPasserby = ChooseZoneCombatantRand_NearbyZones( this.cZone, _cTeam.iId ^ 1 );
+
+				if( nPasserby != null && nPasserby.cAiData.eState != EBattleAiStates.Flee )
+				{
+					// if we have an opponent at this point we need to charge them
+					cActionManager.AddAction(new Action(ChargeOpponent, null, null));
+					nTarget = nPasserby;
+					cAction.bConditionNotMet = false;
+					return false;
+				}
+			}
 			return true;
 		}
 

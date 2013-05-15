@@ -36,9 +36,9 @@ namespace MightyFights_Prototype
 		Vector2 GetDestPos()
 		{
 			List<Zone>	caZones = new List<Zone>();
-			Zone[][] caZoneArray = DataStore.cInstance.cBattleData.caBattleZones;
-			Random cRand = new Random();
-			Zone	cZone;
+			Zone[][]	caZoneArray = DataStore.cInstance.cBattleData.caBattleZones;
+			Random		cRand = DataStore.cInstance.cRand;
+			Zone		cZone;
 
 			// get the inactive zones
 			for(int iXPos = 0; iXPos < (int)EZoneData.ZoneColumns; ++iXPos)
