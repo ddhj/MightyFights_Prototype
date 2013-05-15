@@ -22,7 +22,9 @@ namespace MightyFights_Prototype
 			_cFont = DataStore.cInstance.cFont;
 			this.tPos = tPos;
 
+			// set the text draw offset in the upper right 
 			_tBuffCountPos = new Vector2(tPos.X + 50, tPos.Y + 5);
+			this.cDrawnRect = new Rectangle((int)tPos.X, (int)tPos.Y, (int)EConstants.BuffContainerWidth, (int)EConstants.BuffContainerHeight);
 		}
 
 		public void AddBuff(BasicBuff cBuff)
@@ -31,8 +33,12 @@ namespace MightyFights_Prototype
 				_cBuff = cBuff;
 			++_iBuffCount;
 
-			cBuff.tPos = new Vector2(this.tPos.X + this.cTexRef.Bounds.Width / 2 - cBuff.cFrame.tRect.Width / 2, 
-				this.tPos.Y + this.cTexRef.Bounds.Height / 2 - cBuff.cFrame.tRect.Height / 2);
+			if(cBuff.cFrame.bRot) 
+			    cBuff.tPos = new Vector2(this.tPos.X + this.cTexRef.Bounds.Width / 2 - cBuff.cFrame.tRect.Height / 2, 
+			        this.tPos.Y + this.cTexRef.Bounds.Height / 2 - cBuff.cFrame.tRect.Width / 2);
+			else cBuff.tPos = new Vector2(this.tPos.X + this.cTexRef.Bounds.Width / 2 - cBuff.cFrame.tRect.Width / 2, 
+			        this.tPos.Y + this.cTexRef.Bounds.Height / 2 - cBuff.cFrame.tRect.Height / 2);
+
 		}
 
 		#region IActiveBasic Members

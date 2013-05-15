@@ -75,6 +75,27 @@ namespace MightyFights_Prototype
 			cBatch.Draw(this.cTexRef, this.tPos, this.cFrame.tRect, Color.White, this.cFrame.bRot ? -(float)Math.PI/2 : 0, 
 				// and 2: the direction vector
 				this.cFrame.tTopLeft, 1, SpriteEffects.None, .99f);
+
+			//// buff rect debug
+			//Texture2D cBorder = DataStore.cInstance.cBorder;
+			//Vector2 tVect = this.tPos;
+			//Frame cCurFrame = this.cFrame;
+			//Vector2 tTopLeft = cCurFrame.tTopLeft;
+			//if(this.cFrame.bRot) { 
+			//    tVect.X += Math.Abs(tTopLeft.Y);
+			//    tVect.Y += tTopLeft.X - cCurFrame.tRect.Width;
+			//    cBatch.Draw(cBorder, new Rectangle((int)tVect.X, (int)tVect.Y, 1, cCurFrame.tRect.Width), Color.White);
+			//    cBatch.Draw(cBorder, new Rectangle((int)tVect.X + cCurFrame.tRect.Height, (int)tVect.Y, 1, this.cFrame.tRect.Width), Color.White);
+			//    cBatch.Draw(cBorder, new Rectangle((int)tVect.X, (int)tVect.Y, cCurFrame.tRect.Height, 1), Color.White);
+			//    cBatch.Draw(cBorder, new Rectangle((int)tVect.X, (int)tVect.Y + cCurFrame.tRect.Width, this.cFrame.tRect.Height, 1), Color.White);
+			//} else { 
+			//    tVect.X += Math.Abs(tTopLeft.X);
+			//    tVect.Y += Math.Abs(tTopLeft.Y);
+			//    cBatch.Draw(cBorder, new Rectangle((int)tVect.X, (int)tVect.Y, 1, cCurFrame.tRect.Height), Color.White);
+			//    cBatch.Draw(cBorder, new Rectangle((int)tVect.X + cCurFrame.tRect.Width, (int)tVect.Y, 1, cCurFrame.tRect.Height), Color.White);
+			//    cBatch.Draw(cBorder, new Rectangle((int)tVect.X, (int)tVect.Y, cCurFrame.tRect.Width, 1), Color.White);
+			//    cBatch.Draw(cBorder, new Rectangle((int)tVect.X, (int)tVect.Y + cCurFrame.tRect.Height, cCurFrame.tRect.Width, 1), Color.White);
+			//}
 		}
 
 		public override bool ContainsPoint(Point tPoint)

@@ -22,6 +22,7 @@ namespace MightyFights_Prototype
 		public Frame cFrame			{ get; set; }
 		public string sTexName		{ get; set; }
 		public DProcessClick dlProcessClick		{ get; set; }
+		public Rectangle cDrawnRect	{ get { return _cDrawnRect; } set { _cDrawnRect = value; }}
 		public virtual Vector2 tPos			{ get { return _tPos; } 
 			set {
 				_tPos = value; 

@@ -81,7 +81,9 @@ namespace MightyFights_Prototype
 
 	public enum EConstants
 	{
-		HalberdHight = 64,
-		HalberdWidth = 100
+		HalberdHeight = 64,
+		HalberdWidth = 100,
+		BuffContainerHeight = 44,
+		BuffContainerWidth = 60
 	}
 }

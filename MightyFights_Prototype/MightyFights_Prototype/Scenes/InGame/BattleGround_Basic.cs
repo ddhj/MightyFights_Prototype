@@ -192,7 +192,7 @@ namespace MightyFights_Prototype
 
 				// set an initial script for the trooper
 				cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
-				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(112 + iX * 35, iY * 36 + 100), null));
+				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(147 + iX * 35, iY * 36 + 100), null));
 
 				// set the trooper for battle
 				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
@@ -215,7 +215,7 @@ namespace MightyFights_Prototype
 
 				// set an initial script for the trooper
 				cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
-				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(512 + iX * 35, iY * 36 + 100), null));
+				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(557 + iX * 35, iY * 36 + 100), null));
 
 				// set the trooper for battle
 				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
@@ -318,7 +318,7 @@ namespace MightyFights_Prototype
 					// add the newly created trooper to the active list and set some initial battle data
 					cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cObjMgr.CreateTemplate(cLeft));
 					cTeam.cActiveList.Add(cTmpTrooper.iId, cTmpTrooper);
-					cTmpTrooper.tPos = new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
+					cTmpTrooper.tPos = new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2);
 
 					// add the new object to the object manager
 					_cObjMgr.AddObject(cTmpTrooper);
@@ -336,7 +336,7 @@ namespace MightyFights_Prototype
 					// set the opponents to the acitve list 
 					cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cObjMgr.CreateTemplate(cRight));
 					cTeam.cActiveList.Add(cTmpTrooper.iId, cTmpTrooper);
-					cTmpTrooper.tPos = new Vector2(950, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHight / 2);
+					cTmpTrooper.tPos = new Vector2(950, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2);
 
 					// add to the object manger
 					_cObjMgr.AddObject(cTmpTrooper);
