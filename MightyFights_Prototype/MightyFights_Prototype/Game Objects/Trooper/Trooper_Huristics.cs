@@ -215,10 +215,93 @@ namespace MightyFights_Prototype
 			return null;
 		}
 
+		ICombatant ChooseZoneCombatantRand_NoFlee( List<ICombatant> naCombatants)
+		{
+			int			iIndex;
+			Random		cRand = new Random();
+			ICombatant	nCombatant;
+								// copy list for removal
+			List<ICombatant>	naTmpList = new List<ICombatant>( naCombatants );
+
+			// skip fleeing guys at first
+			for( int iCount = 0; iCount < naTmpList.Count; ++iCount )
+				if( naTmpList[iCount].cAiData.eState == EBattleAiStates.Flee )
+					naTmpList.RemoveAt( iCount );
+
+			// while there are opponents in the list
+			while(naTmpList.Count > 0) { 
+				// remove testing combatant
+				iIndex = cRand.Next(naTmpList.Count);
+				nCombatant = naTmpList[iIndex];
+				naTmpList.RemoveAt( iIndex );
+
+				// check to see if there are any positions available
+				if(nCombatant.bAvailablePos)
+					return nCombatant;
+			}
+
+			return null;
+		}
+
+		ICombatant ChooseZoneCombatantRand_NearbyZones( Zone cZone, int iOppIdx )
+		{
+			int			iIndex;
+			Random		cRand = new Random();
+			ICombatant	nCombatant;
+			List<ICombatant>	naNearbyList = new List<ICombatant>( ),
+								naZoneList,
+								naFleeing = new List<ICombatant>( );
+
+			for( int iY = -1; iY <= 1; ++iY )
+			{
+				if( this.cZone.iY + iY < 0 || this.cZone.iY + iY > _cBattleDataRef.caBattleZones.Length )
+					continue;
+
+				for( int iX = -1; iX <= 1; ++iX )
+				{
+					if( this.cZone.iX + iX < 0 || this.cZone.iX + iX > _cBattleDataRef.caBattleZones[0].Length )
+						continue;
+					naZoneList = _cBattleDataRef.caBattleZones[this.cZone.iX + iX][this.cZone.iY + iY].naCombatantLists[iOppIdx];
+					if( naZoneList.Count > 0 )
+						naNearbyList.AddRange( naZoneList );
+				}
+			}
+			if( naNearbyList.Count > 0 )
+			{
+				// skip fleeing guys at first
+				for( int iCount = 0; iCount < naNearbyList.Count; ++iCount )
+					if( naNearbyList[iCount].cAiData.eState == EBattleAiStates.Flee )
+					{
+						naFleeing.Add( naNearbyList[iCount] );
+						naNearbyList.RemoveAt( iCount );
+					}
+
+				// while there are opponents in the list
+				while(naNearbyList.Count > 0) { 
+					// remove testing combatant
+					iIndex = cRand.Next(naNearbyList.Count);
+					nCombatant = naNearbyList[iIndex];
+					naNearbyList.RemoveAt( iIndex );
+
+					// check to see if there are any positions available
+					if(nCombatant.bAvailablePos)
+						return nCombatant;
+				}
+
+				// if there are fleeing opponents in the list
+				if(naFleeing.Count > 0) { 
+					// remove testing combatant
+					iIndex = cRand.Next(naFleeing.Count);
+					return naFleeing[iIndex];
+				}
+			}
+			return null;
+		}
+
 		public object ChooseOpponent(BattlegroundData cData)
 		{
 			int		iTmp = int.MaxValue,
-					iOpponentIdx = ( _cTeam.iId == 0 ) ? 1 : 0;
+					iOpponentIdx = _cTeam.iId ^ 1;
 
 			// not sure if this is required or not but just in case 
 			if(nTarget != null)
@@ -234,9 +317,13 @@ namespace MightyFights_Prototype
 					}
 				}
 			// we dont have any attakers so lets check our current zone for an opponent			
-			} else if(this.cZone.naCombatantLists[iOpponentIdx].Count > 0) 
-				nTarget = ChooseZoneCombatantRand(this.cZone.naCombatantLists[iOpponentIdx]);
-			
+			} else if(this.cZone.naCombatantLists[iOpponentIdx].Count > 0) {
+				// find someone not fleeing in my own zone
+				nTarget = ChooseZoneCombatantRand_NoFlee(this.cZone.naCombatantLists[iOpponentIdx]);
+
+				if( nTarget == null )
+					nTarget = ChooseZoneCombatantRand_NearbyZones( this.cZone, iOpponentIdx );
+			}
 			// there was either no dudes in my zone or they do not have available attack points
 			if(nTarget == null) { 
 				// check our army for which zones they are in and if there are any opponents there

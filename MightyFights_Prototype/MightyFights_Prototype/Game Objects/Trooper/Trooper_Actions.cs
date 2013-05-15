@@ -246,7 +246,8 @@ namespace MightyFights_Prototype
 		{
 			Vector2		tDest,
 						tDirVect;
-			ICombatant	nOpponent = (ICombatant)this.nTarget;
+			ICombatant	nOpponent = (ICombatant)this.nTarget,
+						nPasserby;
 			
 			// check to see if we need to make the direction vector or not
 			if(cAction.bInit) { 
@@ -267,6 +268,7 @@ namespace MightyFights_Prototype
 				return false;
 			}
 
+
 			tDest =	nOpponent.RequestAttackPoint( this, out _iAttackingPos );
 			tDirVect = tDest - _tCenter;
 			bDir = tDirVect.X > 0 + float.Epsilon;
@@ -275,7 +277,7 @@ namespace MightyFights_Prototype
 			// move the sprite by the speed of run (this data should come from the template)
 			////ddhj Template add for speed of run
 			this.tPos += tDirVect * _fFinalMovementSpeed;
-			
+
 			// we are within weapon range so switch our system to attack 
 			if( InWeaponRange( false )) {
 //				this.tPos = tDest;
@@ -285,6 +287,21 @@ namespace MightyFights_Prototype
 				_bAttacking = true;
 				cAiData.cHeurisitics[EBattleHeuristics.Attack](DataStore.cInstance.cBattleData);
 
+				cAction.bConditionNotMet = false;
+				return false;
+			}
+
+			// okay we're chasing a guy, but lets look around and see if we run across someone not running away
+			nPasserby = ChooseZoneCombatantRand_NoFlee( this.cZone.naCombatantLists[_cTeam.iId ^ 1] );
+			if( nPasserby == null )
+				nPasserby = ChooseZoneCombatantRand_NearbyZones( this.cZone, _cTeam.iId ^ 1 );
+
+			if( nPasserby != null && nPasserby.cAiData.eState != EBattleAiStates.Flee )
+			{
+				// if we have an opponent at this point we need to charge them
+				cActionManager.AddAction(new Action(ChargeOpponent, null, null));
+				cAiData.eState = EBattleAiStates.Moving;
+				nTarget = null;
 				cAction.bConditionNotMet = false;
 				return false;
 			}
