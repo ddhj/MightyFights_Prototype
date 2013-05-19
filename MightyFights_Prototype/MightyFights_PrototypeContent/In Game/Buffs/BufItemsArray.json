@@ -17,7 +17,7 @@
 	"sourceSize": {"w":23,"h":23}
 },
 {
-	"filename": "claw00.png",
+	"filename": "crabclaw00.png",
 	"frame": {"x":25,"y":67,"w":13,"h":17},
 	"rotated": true,
 	"trimmed": true,
@@ -25,7 +25,7 @@
 	"sourceSize": {"w":23,"h":23}
 },
 {
-	"filename": "ear00.png",
+	"filename": "wolfear00.png",
 	"frame": {"x":2,"y":84,"w":13,"h":15},
 	"rotated": true,
 	"trimmed": true,
@@ -33,7 +33,7 @@
 	"sourceSize": {"w":23,"h":23}
 },
 {
-	"filename": "eye00.png",
+	"filename": "toadeye00.png",
 	"frame": {"x":21,"y":82,"w":15,"h":13},
 	"rotated": false,
 	"trimmed": true,
@@ -41,7 +41,7 @@
 	"sourceSize": {"w":23,"h":23}
 },
 {
-	"filename": "fang00.png",
+	"filename": "snakefang00.png",
 	"frame": {"x":2,"y":71,"w":11,"h":17},
 	"rotated": true,
 	"trimmed": true,
@@ -49,7 +49,7 @@
 	"sourceSize": {"w":23,"h":23}
 },
 {
-	"filename": "feather00.png",
+	"filename": "eaglefeather00.png",
 	"frame": {"x":25,"y":48,"w":17,"h":19},
 	"rotated": true,
 	"trimmed": true,
@@ -57,7 +57,7 @@
 	"sourceSize": {"w":23,"h":23}
 },
 {
-	"filename": "paw00.png",
+	"filename": "lionpaw00.png",
 	"frame": {"x":46,"y":48,"w":15,"h":17},
 	"rotated": false,
 	"trimmed": true,
@@ -65,7 +65,7 @@
 	"sourceSize": {"w":23,"h":23}
 },
 {
-	"filename": "wing00.png",
+	"filename": "dragonwing00.png",
 	"frame": {"x":2,"y":48,"w":21,"h":21},
 	"rotated": false,
 	"trimmed": true,

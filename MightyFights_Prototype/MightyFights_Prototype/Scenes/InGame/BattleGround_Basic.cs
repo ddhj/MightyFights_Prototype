@@ -230,7 +230,7 @@ namespace MightyFights_Prototype
 
 				// set an initial script for the trooper
 				cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
-				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(557 + iX * 35, iY * 36 + 100), null));
+				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(567 + iX * 35, iY * 36 + 100), null));
 
 				// set the trooper for battle
 				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
@@ -256,49 +256,49 @@ namespace MightyFights_Prototype
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
-			_cBuffContainerList.Add("claw", cTmpContainer = new BuffContainer(new Vector2(232, 519)));
+			_cBuffContainerList.Add("crabclaw", cTmpContainer = new BuffContainer(new Vector2(232, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
 			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
-			_cBuffContainerList.Add("ear", cTmpContainer = new BuffContainer(new Vector2(332, 519)));
+			_cBuffContainerList.Add("wolfear", cTmpContainer = new BuffContainer(new Vector2(332, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
 			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
-			_cBuffContainerList.Add("eye", cTmpContainer = new BuffContainer(new Vector2(432, 519)));
+			_cBuffContainerList.Add("toadeye", cTmpContainer = new BuffContainer(new Vector2(432, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
 			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
-			_cBuffContainerList.Add("fang", cTmpContainer = new BuffContainer(new Vector2(532, 519)));
+			_cBuffContainerList.Add("snakefang", cTmpContainer = new BuffContainer(new Vector2(532, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
 			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
-			_cBuffContainerList.Add("feather", cTmpContainer = new BuffContainer(new Vector2(632, 519)));
+			_cBuffContainerList.Add("eaglefeather", cTmpContainer = new BuffContainer(new Vector2(632, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
 			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
-			_cBuffContainerList.Add("paw", cTmpContainer = new BuffContainer(new Vector2(732, 519)));
+			_cBuffContainerList.Add("lionpaw", cTmpContainer = new BuffContainer(new Vector2(732, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
 			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
 
-			_cBuffContainerList.Add("wing", cTmpContainer = new BuffContainer(new Vector2(832, 519)));
+			_cBuffContainerList.Add("dragonwing", cTmpContainer = new BuffContainer(new Vector2(832, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
 			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 

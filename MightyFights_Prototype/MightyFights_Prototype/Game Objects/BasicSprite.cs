@@ -19,7 +19,7 @@ namespace MightyFights_Prototype
 		public int iId				{ get; set; }
 		public EObjectStates eObjState	{ get; set; }
 		public Texture2D cTexRef	{ get { return _cTexRef; } set { _cTexRef = value; }}
-		public Frame cFrame			{ get; set; }
+		public virtual Frame cFrame	{ get; set; }
 		public string sTexName		{ get; set; }
 		public DProcessClick dlProcessClick		{ get; set; }
 		public Rectangle cDrawnRect	{ get { return _cDrawnRect; } set { _cDrawnRect = value; }}

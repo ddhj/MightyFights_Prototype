@@ -37,7 +37,7 @@ namespace MightyFights_Prototype
 		public Dictionary<string, int> cActionIncrement	 { get { return _cActionIncrement; }}
 
 
-		public AnimationProcessor(AnimationData cAnimData, TemplateConfig cTemplateCfg)
+		public AnimationProcessor(AnimationData cAnimData)
 		{
 			_cAnimDataRef = cAnimData;
 		}

@@ -86,4 +86,16 @@ namespace MightyFights_Prototype
 		BuffContainerHeight = 44,
 		BuffContainerWidth = 60
 	}
+
+	public enum EBuffEffects
+	{
+		Wing,
+		Paw, 
+		Feather,
+		Fang, 
+		Eye, 
+		Ear, 
+		Claw,
+		Acorn
+	}
 }

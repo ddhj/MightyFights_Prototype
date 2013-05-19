@@ -291,6 +291,9 @@ namespace AnimationDataEx
 					// get the action data 
 					cRef.Add(sSubString, cActData = new ActionData());
 					cActData.iStartIndex = iIndex;
+
+					// default running speed
+					cActData.iIncrement = 100;
 					sCurAction = sSubString;
 				}
 

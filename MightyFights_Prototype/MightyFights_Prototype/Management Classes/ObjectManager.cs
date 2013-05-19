@@ -26,7 +26,7 @@ namespace MightyFights_Prototype
 		Dictionary<string, Texture2D>		_cTextureList = new Dictionary<string,Texture2D>();
 		ContentManager						_cContent;
 		int									_iCurObjId = 0;//int.MinValue;
-		string[]							_saBuffs = new string[] { "acorn", "claw", "ear", "eye", "fang", "feather", "paw", "wing" };
+		string[]							_saBuffs = new string[] { "acorn", "crabclaw", "wolfear", "toadeye", "snakefang", "eaglefeather", "lionpaw", "dragonwing" };
 
 		public int iCurObjId	{ get { return ++_iCurObjId; }}
 
@@ -54,7 +54,7 @@ namespace MightyFights_Prototype
 				_cTextureList.Add(cTemplateData.sColor, cTexData = _cContent.Load<Texture2D>(cTemplateData.sColor));
 
 			// build in the systems for the trooper
-			cTemplate.cAnimProcessorRef = new AnimationProcessor(cAnimData, cTemplateData);
+			cTemplate.cAnimProcessorRef = new AnimationProcessor(cAnimData);
 			cTemplate.cTextureRef = cTexData;
 			cTemplate.sTexName = cTemplateData.sColor;
 
@@ -85,20 +85,20 @@ namespace MightyFights_Prototype
 			BasicBuff			cBasicBuff;
 
 			// check to see if we are already referencing this animation 
-			if(!_cAnimationDataList.TryGetValue("Buffs", out cAnimData))
+			if(!_cAnimationDataList.TryGetValue(@"In Game\Buffs\DropsArray", out cAnimData))
 				// add it to the reference list
-				_cAnimationDataList.Add("Buffs", cAnimData = _cContent.Load<AnimationData>(@"In Game\Buffs\BufItemsArray"));
+				_cAnimationDataList.Add(@"In Game\Buffs\DropsArray", cAnimData = _cContent.Load<AnimationData>(@"In Game\Buffs\DropsArray"));
 
 			// check to see if we are already refencing this texture 
-			if(!_cTextureList.TryGetValue(@"In Game\Buffs\BufItems", out cTexData))
+			if(!_cTextureList.TryGetValue(@"In Game\Buffs\Drops", out cTexData))
 				// add the texture to the reference list 
-				_cTextureList.Add(@"In Game\Buffs\BufItems", cTexData = _cContent.Load<Texture2D>(@"In Game\Buffs\BufItems"));
+				_cTextureList.Add(@"In Game\Buffs\Drops", cTexData = _cContent.Load<Texture2D>(@"In Game\Buffs\Drops"));
 
 			// buff data
 			cBasicBuff = new BasicBuff(cAnimData, _saBuffs[cRand.Next(_saBuffs.Length)], 3);
 			cBasicBuff.cTexRef = cTexData;
 			cBasicBuff.tPos = nCombatant.tCenter;
-			cBasicBuff.sTexName = @"In Game\Buffs\BufItems";
+			cBasicBuff.sTexName = @"In Game\Buffs\Drop";
 
 			return cBasicBuff;
 		}
