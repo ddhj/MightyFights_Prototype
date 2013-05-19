@@ -31,5 +31,17 @@ namespace MightyFights_Prototype
 		{
 			_cBuffContainerList[((BasicBuff)oArgs).sType].AddBuff((BasicBuff)oArgs);
 		}
+
+		void ProcessCheck(object oSender, object oArgs)
+		{
+			BuffContainer cContainer = (BuffContainer)((System.Windows.Forms.CheckBox)oSender).Tag;
+			cContainer.bRad = ((System.Windows.Forms.CheckBox)oSender).Checked;
+		}
+
+		void ProcessValChange(object oSender, object oArgs) 
+		{
+			BuffContainer cContainer = (BuffContainer)((System.Windows.Forms.NumericUpDown)oSender).Tag;
+			cContainer.iRad = (int)((System.Windows.Forms.NumericUpDown)oSender).Value;
+		}
 	}
 }

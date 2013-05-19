@@ -15,7 +15,9 @@ namespace MightyFights_Prototype
 		SpriteFont	_cFont;
 		Vector2		_tBuffCountPos;
 
-		public override Vector2 tPos { get; set; }
+		public override Vector2 tPos	{ get; set; }
+		public bool	bRad				{ get; set; }
+		public int iRad					{ get; set; }
 
 		public BuffContainer(Vector2 tPos)
 		{
@@ -67,6 +69,11 @@ namespace MightyFights_Prototype
 			if(_iBuffCount > 0) { 
 				// remove a sprite from the list
 				--_iBuffCount;
+
+				// this is for the debug ballance data
+				if(this.bRad) 
+					DataStore.cInstance.cBattleData.ApplyBuffTeamRadius(this.iRad, _cBuff);
+				else DataStore.cInstance.cBattleData.ApplyBuffTeam(_cBuff);
 
 				if(_iBuffCount == 0)
 					_cBuff = null;

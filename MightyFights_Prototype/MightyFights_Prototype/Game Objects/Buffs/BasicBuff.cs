@@ -122,23 +122,73 @@ namespace MightyFights_Prototype
 		}
 	}
 
+	public delegate Stats DBuffEffect(Stats cStats);
+
 	public class BuffActionData
 	{
 		TimeSpan	_tLifetime,
-					_tCurrentSpan;
+					_tCurrentSpan = TimeSpan.Zero;
 
-		object		_oOldData;
-	
-		public object oParent	{ get; set; }
+		string		_sType;
 		
+		public DBuffEffect	dlBuffEffect		{ get; set; }
+		
+		public BuffActionData(TimeSpan tLifetime, string sType, DBuffEffect dlBuffEffect)
+		{
+			_tLifetime = tLifetime;
+			_sType = sType; 
+			this.dlBuffEffect = dlBuffEffect;
+		}
+
 		public bool BuffAction(Action cAction, GameTime cTime)
 		{
-			if(cAction.bInit) { 
-
-				cAction.bInit = false;
+			_tCurrentSpan += cTime.ElapsedGameTime;
+			
+			if(_tCurrentSpan > _tLifetime) { 
+				((Dictionary<string, BuffActionData>)cAction.oCanvas).Remove(_sType);
+				cAction.bConditionNotMet = false;
+				return false;
 			}
 
 			return true;
+		}
+	}
+
+	public static class BuffActions 
+	{
+		public static Stats DragonWing(Stats cStats)
+		{
+			return new Stats();
+		}
+
+		public static Stats ToadEye(Stats cStats)
+		{
+			return new Stats();
+		}
+
+		public static Stats WolfEar(Stats cStats)
+		{
+			return new Stats();
+		}
+
+		public static Stats LionPaw(Stats cStats)
+		{
+			return new Stats();
+		}
+
+		public static Stats SnakeFang(Stats cStats)
+		{
+			return new Stats();
+		}
+
+		public static Stats EagleFeather(Stats cStats)
+		{
+			return new Stats();
+		}
+
+		public static Stats Acorn(Stats cStats)
+		{
+			return new Stats();
 		}
 	}
 }

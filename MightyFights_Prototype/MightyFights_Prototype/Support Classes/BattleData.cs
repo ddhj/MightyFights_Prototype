@@ -213,5 +213,15 @@ namespace MightyFights_Prototype
 			foreach( Team cTeam in _caTeams )
 				cTeam.Clear( );
 		}
+
+		public void ApplyBuffTeam(BasicBuff cBuff)
+		{
+
+		}
+
+		public void ApplyBuffTeamRadius(int iRadius, BasicBuff cBuff)
+		{
+
+		}
 	}
 }

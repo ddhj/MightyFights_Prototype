@@ -131,6 +131,7 @@
     <Compile Include="Game Objects\Trooper\Trooper.cs" />
     <Compile Include="Game Objects\Trooper\Trooper_Actions.cs" />
     <Compile Include="Game Objects\Trooper\Trooper_Huristics.cs" />
+    <Compile Include="Interfaces\IBuffableObject.cs" />
     <Compile Include="Interfaces\IObject.cs" />
     <Compile Include="Management Classes\DataStore.cs" />
     <Compile Include="Management Classes\ObjectManager.cs" />

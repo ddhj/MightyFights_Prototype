@@ -47,12 +47,23 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
+		void ProcessBuffList()
+		{
+			Stats cStats = new Stats(_cStats);
+			foreach(KeyValuePair<string, BuffActionData> tBuff in _cBuffList)
+				cStats = tBuff.Value.dlBuffEffect(cStats);
+			_cStats = cStats;
+		}
+
 		public bool BasicBattleManager(Action cAction, GameTime cTime)
 		{
 			if(cAction.bInit) { 
 				_cBattleDataRef = (BattlegroundData)cAction.oData;
 				cAction.bInit = false;
 			}
+
+			// process the buff list, this will effect the stats which will in turn effect everything else in the system
+			//ProcessBuffList();
 
 			switch(_cBattleDataRef.eState) {
 				case EBattlegroundState.Battle:

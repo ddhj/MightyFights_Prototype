@@ -10,12 +10,13 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public partial class Trooper : IDrawable, IDrawableTexture, IAnimate, ICombatant, IActive<Trooper>, IObject
+	public partial class Trooper : IDrawable, IDrawableTexture, IAnimate, ICombatant, IActive<Trooper>, IObject, IBuffableObject
 	{	
 		Vector2		_tPos,
 					_tCenter;
 		Texture2D	_cTexRef;
-		Stats		_cStats;
+		Stats		_cStats,
+					_cInitialStats;
 		Team		_cTeam;
 		int			_iAvailablePositions = 6,
 					_iCurLeftAttackers = 0,
@@ -31,8 +32,8 @@ namespace MightyFights_Prototype
 		AnimationProcessor			_cAnimProc;
 		BattlegroundData			_cBattleDataRef = null;
 
+		Dictionary<string, BuffActionData>			_cBuffList = new Dictionary<string,BuffActionData>();
 		Dictionary<ETrooperAttackPos, ICombatant>	_cAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
-
 
 		////ddhj template stuff... not sure if it should go on trooper proper
 		float						_fFinalMovementSpeed;
@@ -56,8 +57,8 @@ namespace MightyFights_Prototype
 		public Vector2 tCenter			{ get { return _tCenter; } set { _tCenter = value; }}
 		public float fZorder			{ get { return _fZorder; }}
 
+		public Dictionary<string, BuffActionData> cBuffList		{ get { return _cBuffList; }}
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
-
 
 		public Trooper(int iId, Team cTeam, TrooperTemplate cTemplate)
 		{
@@ -68,7 +69,7 @@ namespace MightyFights_Prototype
 			_cTexRef = cTemplate.cTextureRef;
 			_cActionMgr = cTemplate.cActionMgr;
 			_cActionMgr.cData = this;
-			_cStats = cTemplate.cStats;
+			_cInitialStats = _cStats = cTemplate.cStats;
 			cAiData = cTemplate.cAiData;
 			sTexName = cTemplate.sTexName;
 			
