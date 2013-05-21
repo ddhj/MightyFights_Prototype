@@ -279,7 +279,7 @@ namespace MightyFights_Prototype
 			_cAcornRadCb.AutoSize = true;
 			_cAcornRadCb.Tag = cTmpContainer;
 			_cAcornRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			_cAcornRadCb.Checked = true;
+//			_cAcornRadCb.Checked = true;
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cAcornRadCb);
 			// radius value
 			_cAcornRad = new System.Windows.Forms.NumericUpDown();
@@ -304,7 +304,7 @@ namespace MightyFights_Prototype
 			_cClawRadCb.Text = _cClawRadCb.Name = "Rad";
 			_cClawRadCb.AutoSize = true;
 			_cClawRadCb.Tag = cTmpContainer;
-			_cClawRadCb.Checked = true;
+//			_cClawRadCb.Checked = true;
 			_cClawRadCb.CheckedChanged += new EventHandler(ProcessCheck);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cClawRadCb);
 			// radius value
@@ -331,7 +331,7 @@ namespace MightyFights_Prototype
 			_cWolfRadCb.AutoSize = true;
 			_cWolfRadCb.Tag = cTmpContainer;
 			_cWolfRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			_cWolfRadCb.Checked = true;
+//			_cWolfRadCb.Checked = true;
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cWolfRadCb);
 			// radius value
 			_cWolfRad = new System.Windows.Forms.NumericUpDown();
@@ -357,7 +357,7 @@ namespace MightyFights_Prototype
 			_cToadRadCb.AutoSize = true;
 			_cToadRadCb.Tag = cTmpContainer;
 			_cToadRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			_cToadRadCb.Checked = true;
+//			_cToadRadCb.Checked = true;
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToadRadCb);
 			// radius value
 			_cToadRad = new System.Windows.Forms.NumericUpDown();
@@ -383,7 +383,7 @@ namespace MightyFights_Prototype
 			_cSnakeRadCb.AutoSize = true;
 			_cSnakeRadCb.Tag = cTmpContainer;
 			_cSnakeRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			_cSnakeRadCb.Checked = true;
+//			_cSnakeRadCb.Checked = true;
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cSnakeRadCb);
 			// radius value
 			_cSnakeRad = new System.Windows.Forms.NumericUpDown();
@@ -409,7 +409,7 @@ namespace MightyFights_Prototype
 			_cEagleRadCb.AutoSize = true;
 			_cEagleRadCb.Tag = cTmpContainer;
 			_cEagleRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			_cEagleRadCb.Checked = true;
+//			_cEagleRadCb.Checked = true;
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cEagleRadCb);
 			// radius value
 			_cEagleRad = new System.Windows.Forms.NumericUpDown();
@@ -435,7 +435,7 @@ namespace MightyFights_Prototype
 			_cLionRadCb.AutoSize = true;
 			_cLionRadCb.Tag = cTmpContainer;
 			_cLionRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			_cLionRadCb.Checked = true;
+//			_cLionRadCb.Checked = true;
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cLionRadCb);
 			// radius value
 			_cLionRad = new System.Windows.Forms.NumericUpDown();
@@ -461,7 +461,7 @@ namespace MightyFights_Prototype
 			_cDragRadCb.AutoSize = true;
 			_cDragRadCb.Tag = cTmpContainer;
 			_cDragRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			_cDragRadCb.Checked = true;
+//			_cDragRadCb.Checked = true;
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cDragRadCb);
 			// radius value
 			_cDragRad = new System.Windows.Forms.NumericUpDown();

@@ -238,12 +238,9 @@ namespace MightyFights_Prototype
 			// check to see if the trooper has the buff in question 
  			if(cBuffList.ContainsKey(cBuff.eType)) 
 				// extend the time of the buff on the guy ( probably some upper limit??
-				cBuffList[cBuff.eType].tCurrentSpan += BuffActions.cLifeTimes[cBuff.eType];
+				cBuffList[cBuff.eType].tCurrentSpan += BuffActions.GetTimeSpan(cBuff.eType);
 			// there is no buff so create one 
-			else cBuffList.Add(cBuff.eType, new BuffActionData(BuffActions.cLifeTimes[cBuff.eType], cBuff.eType, 
-				// use the enum to get the method name (based on the buff effect) and refactor it to create the delegate needed... 
-				// this is an experiment and might need to be scrapped for a quick check and return
-				(DBuffEffect)Delegate.CreateDelegate(typeof(DBuffEffect), typeof(BuffActions).GetMethod(Enum.GetName(typeof(EBuffEffects), cBuff.eType)))));
+			else cBuffList.Add(cBuff.eType, new BuffActionData(BuffActions.GetTimeSpan(cBuff.eType), cBuff.eType, BuffActions.GetMethod(cBuff.eType)));
 		}
 
 		public void ApplyBuffTeam(BasicBuff cBuff)

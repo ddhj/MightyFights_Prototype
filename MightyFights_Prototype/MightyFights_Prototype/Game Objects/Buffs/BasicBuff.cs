@@ -292,55 +292,74 @@ namespace MightyFights_Prototype
 
 	public static class BuffActions 
 	{
-		public static Dictionary<EBuffEffects, TimeSpan> cLifeTimes = new Dictionary<EBuffEffects,TimeSpan> { 
+		static Dictionary<EBuffEffects, TimeSpan> _cLifeTimes = new Dictionary<EBuffEffects,TimeSpan> { 
 			{ EBuffEffects.Dragon_Wing, TimeSpan.FromMilliseconds(2000) }, 
 			{ EBuffEffects.Toad_Eye, TimeSpan.FromMilliseconds(2000) }, 
 			{ EBuffEffects.Wolf_Ear, TimeSpan.FromMilliseconds(2000) }, 
 			{ EBuffEffects.Lion_Paw, TimeSpan.FromMilliseconds(2000) }, 
 			{ EBuffEffects.Snake_Fang, TimeSpan.FromMilliseconds(2000) }, 
-			{ EBuffEffects.Eagle_Feather, TimeSpan.FromMilliseconds(2000) }, 
 			{ EBuffEffects.Crab_Claw, TimeSpan.FromMilliseconds(2000) },
 			{ EBuffEffects.Squirrel_Acorn, TimeSpan.FromMilliseconds(2000) }, 
 			{ EBuffEffects.Eagle_Feather, TimeSpan.FromMilliseconds(2000) }};
 
-		public static Stats Dragon_Wing(Stats cStats)
+		static Stats Dragon_Wing(Stats cStats)
 		{
 			return new Stats();
 		}
 
-		public static Stats Toad_Eye(Stats cStats)
+		static Stats Toad_Eye(Stats cStats)
 		{
 			return new Stats();
 		}
 
-		public static Stats Wolf_Ear(Stats cStats)
+		static Stats Wolf_Ear(Stats cStats)
 		{
 			return new Stats();
 		}
 
-		public static Stats Lion_Paw(Stats cStats)
+		static Stats Lion_Paw(Stats cStats)
 		{
 			return new Stats();
 		}
 
-		public static Stats Snake_Fang(Stats cStats)
+		static Stats Snake_Fang(Stats cStats)
 		{
 			return new Stats();
 		}
 
-		public static Stats Eagle_Feather(Stats cStats)
+		static Stats Eagle_Feather(Stats cStats)
 		{
 			return new Stats();
 		}
 
-		public static Stats Crab_Claw(Stats cStats)
+		static Stats Crab_Claw(Stats cStats)
 		{
 			return new Stats();
 		}
 
-		public static Stats Squirrel_Acorn(Stats cStats)
+		static Stats Squirrel_Acorn(Stats cStats)
 		{
 			return new Stats();
+		}
+
+		public static DBuffEffect GetMethod(EBuffEffects eType)
+		{
+			switch(eType) { 
+				case EBuffEffects.Crab_Claw: return Crab_Claw;
+				case EBuffEffects.Dragon_Wing: return Dragon_Wing;
+				case EBuffEffects.Eagle_Feather: return Eagle_Feather;
+				case EBuffEffects.Lion_Paw: return Lion_Paw;
+				case EBuffEffects.Snake_Fang: return Snake_Fang;
+				case EBuffEffects.Squirrel_Acorn: return Squirrel_Acorn;
+				case EBuffEffects.Toad_Eye: return Toad_Eye;
+				case EBuffEffects.Wolf_Ear: return Wolf_Ear;
+			}
+			return null;
+		}
+
+		public static TimeSpan GetTimeSpan(EBuffEffects eType)
+		{
+			return _cLifeTimes[eType];
 		}
 	}
 }
