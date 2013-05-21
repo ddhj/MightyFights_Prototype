@@ -32,7 +32,7 @@ namespace MightyFights_Prototype
 		AnimationProcessor			_cAnimProc;
 		BattlegroundData			_cBattleDataRef = null;
 
-		Dictionary<string, BuffActionData>			_cBuffList = new Dictionary<string,BuffActionData>();
+		Dictionary<EBuffEffects, BuffActionData>			_cBuffList = new Dictionary<EBuffEffects,BuffActionData>();
 		Dictionary<ETrooperAttackPos, ICombatant>	_cAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
 		////ddhj template stuff... not sure if it should go on trooper proper
@@ -57,7 +57,7 @@ namespace MightyFights_Prototype
 		public Vector2 tCenter			{ get { return _tCenter; } set { _tCenter = value; }}
 		public float fZorder			{ get { return _fZorder; }}
 
-		public Dictionary<string, BuffActionData> cBuffList		{ get { return _cBuffList; }}
+		public Dictionary<EBuffEffects, BuffActionData> cBuffList		{ get { return _cBuffList; }}
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
 
 		public Trooper(int iId, Team cTeam, TrooperTemplate cTemplate)
@@ -150,6 +150,22 @@ namespace MightyFights_Prototype
 				Color		cHpColor = Color.Green;
 				cHpColor.A = 85;
 				cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, _fZorder);
+			}
+
+			// draw the buffs above the troopers head 
+			if(_cBuffList.Count > 0) { 
+				int iDx = (int)this.tCenter.X;
+				BuffGem		cTmpGem;
+				if(_cBuffList.Count > 1) 
+					iDx -= (_cBuffList.Count - 1) * 5;
+
+				foreach(KeyValuePair<EBuffEffects, BuffActionData> tBuff in _cBuffList) { 
+					cTmpGem = tBuff.Value.cBuffGem;
+					cTmpGem.tPos = new Vector2(iDx, tCenter.Y - 20);
+					cTmpGem.fZorder = _fZorder + .01f;
+					cTmpGem.Draw(cBatch);
+					iDx += 12;
+				}
 			}
 
 
@@ -547,6 +563,10 @@ namespace MightyFights_Prototype
 		public void Process(GameTime cTime)
 		{
 			_cActionMgr.Process(cTime);
+
+			// walk the buff list and animate any of them if they are on the combatant
+			foreach(KeyValuePair<EBuffEffects, BuffActionData> tBuff in _cBuffList)
+				tBuff.Value.cBuffGem.Process(cTime);
 		}
 	}
 }

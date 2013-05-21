@@ -89,13 +89,14 @@ namespace MightyFights_Prototype
 
 	public enum EBuffEffects
 	{
-		Wing,
-		Paw, 
-		Feather,
-		Fang, 
-		Eye, 
-		Ear, 
-		Claw,
-		Acorn
+		Dragon_Wing,
+		Lion_Paw, 
+		Eagle_Feather,
+		Snake_Fang, 
+		Toad_Eye, 
+		Wolf_Ear, 
+		Crab_Claw,
+		Squirrel_Acorn,
+		MaxBuffs
 	}
 }

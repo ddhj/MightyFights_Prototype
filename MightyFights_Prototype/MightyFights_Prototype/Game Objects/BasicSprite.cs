@@ -62,7 +62,7 @@ namespace MightyFights_Prototype
 		public Texture2D cTexRef			{ get; set; }
 		public int iId						{ get; set; }
 		public EObjectStates eObjState		{ get; set; }
-		public Frame cFrame					{ get; set; }
+		public virtual Frame cFrame			{ get; set; }
 		public string sTexName				{ get; set; }
 		public Vector2 tPos					{ get; set; }
 

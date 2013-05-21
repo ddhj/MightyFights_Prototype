@@ -29,7 +29,7 @@ namespace MightyFights_Prototype
 
 		void ProcessBuffClick(object oSender, object oArgs)
 		{
-			_cBuffContainerList[((BasicBuff)oArgs).sType].AddBuff((BasicBuff)oArgs);
+			_cBuffContainerList[((BasicBuff)oArgs).eType].AddBuff((BasicBuff)oArgs);
 		}
 
 		void ProcessCheck(object oSender, object oArgs)

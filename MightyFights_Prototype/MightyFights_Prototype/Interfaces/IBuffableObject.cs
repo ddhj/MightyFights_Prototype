@@ -5,8 +5,8 @@ using System.Text;
 
 namespace MightyFights_Prototype
 {
-	interface IBuffableObject
+	public interface IBuffableObject
 	{
-		Dictionary<string, BuffActionData>	cBuffList		{ get; }
+		Dictionary<EBuffEffects, BuffActionData>	cBuffList		{ get; }
 	}
 }

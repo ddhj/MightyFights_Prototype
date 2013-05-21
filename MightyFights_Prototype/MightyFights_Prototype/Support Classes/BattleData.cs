@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
+
+using Microsoft.Xna.Framework;
 
 namespace MightyFights_Prototype
 {
@@ -27,6 +30,12 @@ namespace MightyFights_Prototype
 		{
 			_iX = iX;
 			_iY = iY;
+		}
+
+		public IntPoint(Point tPoint)
+		{
+			_iX = tPoint.X;
+			_iY = tPoint.Y;
 		}
 
 		public static bool operator ==(IntPoint cPoint1, IntPoint cPoint2)
@@ -91,7 +100,7 @@ namespace MightyFights_Prototype
 
 		public Cursor cCursor		{ get; set; }
 		public List<Team> caTeams	{ get { return _caTeams; }}
-		public Dictionary<string, BuffContainer> cBuffContainers	{ get; set; }
+		public Dictionary<EBuffEffects, BuffContainer> cBuffContainers	{ get; set; }
 		public Zone[][] caBattleZones			{ get { return _caBattleZones; }}
 		public EBattlegroundState eState		{ get; set; }
 		public ObjectManagerInstance cObjMgr	{ get; set; }
@@ -200,6 +209,14 @@ namespace MightyFights_Prototype
 			return _caBattleZones[iX][iY];
 		}
 
+		public Zone GetZoneByPosition(int iX, int iY)
+		{
+			int iXPos = (iX - 112) / (int)EZoneData.ZoneColWidth, 
+				iYPos = (iY - 70) / (int)EZoneData.ZoneRowHeight;
+
+			return GetZoneByCoords(iXPos, iYPos);
+		}
+
 		public void Clear()
 		{
 			foreach(Zone[] caZoneCols in _caBattleZones)
@@ -214,14 +231,74 @@ namespace MightyFights_Prototype
 				cTeam.Clear( );
 		}
 
+		void ApplyBuff(BasicBuff cBuff, ICombatant nCom)
+		{
+			Dictionary<EBuffEffects, BuffActionData> cBuffList = nCom.cBuffList;
+
+			// check to see if the trooper has the buff in question 
+ 			if(cBuffList.ContainsKey(cBuff.eType)) 
+				// extend the time of the buff on the guy ( probably some upper limit??
+				cBuffList[cBuff.eType].tCurrentSpan += BuffActions.cLifeTimes[cBuff.eType];
+			// there is no buff so create one 
+			else cBuffList.Add(cBuff.eType, new BuffActionData(BuffActions.cLifeTimes[cBuff.eType], cBuff.eType, 
+				// use the enum to get the method name (based on the buff effect) and refactor it to create the delegate needed... 
+				// this is an experiment and might need to be scrapped for a quick check and return
+				(DBuffEffect)Delegate.CreateDelegate(typeof(DBuffEffect), typeof(BuffActions).GetMethod(Enum.GetName(typeof(EBuffEffects), cBuff.eType)))));
+		}
+
 		public void ApplyBuffTeam(BasicBuff cBuff)
 		{
 
+			// walk the team and 
+			foreach(KeyValuePair<int, ICombatant> tCombatant in _caTeams[0].cActiveList) 
+				ApplyBuff(cBuff, tCombatant.Value);
 		}
 
-		public void ApplyBuffTeamRadius(int iRadius, BasicBuff cBuff)
+		public void ApplyBuffTeamRadius(int iRadius, BasicBuff cBuff, Point tStartPos)
 		{
+			// get the zone we are in and the surrounding ones based on the radius
+			Zone	cZone = GetZoneByPosition(tStartPos.X, tStartPos.Y),
+					cTmpZone;
 
+			int		iStartX, 
+					iStartY, 
+					iDx;
+			Vector2	tRadVect = new Vector2(tStartPos.X + iRadius, tStartPos.Y),
+					tCentVect = new Vector2(tStartPos.X, tStartPos.Y);
+			
+			float	fDstSq = (tRadVect - tCentVect).LengthSquared();
+
+			List<ICombatant>	naTeamInRad = new List<ICombatant>();
+
+			// check to see if we are out of the zoned areas
+			if(cZone == null) return;
+
+			// check if we can go left or right on our zone
+			if((cTmpZone = GetZoneByPosition(tStartPos.X + iRadius, tStartPos.Y)) == null)
+				cTmpZone = GetZoneByPosition(tStartPos.X - iRadius, tStartPos.Y);
+
+			// set the box coords
+			iDx = Math.Abs(cZone.iX - cTmpZone.iX);
+			iStartX = cZone.iX - iDx;
+			iStartY = cZone.iY - iDx;
+
+			// walk the zones and apply the buff
+			for(int iX = iStartX; iX < iStartX + iDx; ++iX)
+				for(int iY = iStartY; iY < iStartY + iDx; ++iY) { 
+					if(iX < 0 || iY < 0 || iX >= (int)EZoneData.ZoneColumns || iY >= (int)EZoneData.ZoneRows)
+						continue;
+
+					// get all the guys on the left team in this zone
+					if(_caBattleZones[iX][iY].naCombatantLists[0].Count > 0) 
+						naTeamInRad.AddRange(_caBattleZones[iX][iY].naCombatantLists[0]);
+				}
+
+			// walk the list of guys 
+			foreach(ICombatant nCom in naTeamInRad) 
+				// check dst squared 
+				if((tCentVect - nCom.tCenter).LengthSquared() < fDstSq)
+					// we are in our circle, so apply the buff to the guy
+					ApplyBuff(cBuff, nCom);
 		}
 	}
 }

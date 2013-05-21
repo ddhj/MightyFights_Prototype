@@ -50,7 +50,7 @@ namespace MightyFights_Prototype
 		void ProcessBuffList()
 		{
 			Stats cStats = new Stats(_cStats);
-			foreach(KeyValuePair<string, BuffActionData> tBuff in _cBuffList)
+			foreach(KeyValuePair<EBuffEffects, BuffActionData> tBuff in _cBuffList)
 				cStats = tBuff.Value.dlBuffEffect(cStats);
 			_cStats = cStats;
 		}

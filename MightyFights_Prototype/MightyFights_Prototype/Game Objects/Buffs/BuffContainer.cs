@@ -71,9 +71,11 @@ namespace MightyFights_Prototype
 				--_iBuffCount;
 
 				// this is for the debug ballance data
-				if(this.bRad) 
-					DataStore.cInstance.cBattleData.ApplyBuffTeamRadius(this.iRad, _cBuff);
-				else DataStore.cInstance.cBattleData.ApplyBuffTeam(_cBuff);
+				if(this.bRad) { 
+					// set a clickable object for the cursor in the object manager
+					BuffClickEvent cClickObj = new BuffClickEvent(this.iRad, _cBuff);
+					DataStore.cInstance.cBattleData.cObjMgr.AddClickObject(cClickObj, cClickObj.dlProcessClick);
+				} else DataStore.cInstance.cBattleData.ApplyBuffTeam(_cBuff);
 
 				if(_iBuffCount == 0)
 					_cBuff = null;

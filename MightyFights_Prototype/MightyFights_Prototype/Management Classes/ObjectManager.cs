@@ -25,8 +25,7 @@ namespace MightyFights_Prototype
 		Dictionary<string, AnimationData>	_cAnimationDataList = new Dictionary<string,AnimationData>();
 		Dictionary<string, Texture2D>		_cTextureList = new Dictionary<string,Texture2D>();
 		ContentManager						_cContent;
-		int									_iCurObjId = 0;//int.MinValue;
-		string[]							_saBuffs = new string[] { "acorn", "crabclaw", "wolfear", "toadeye", "snakefang", "eaglefeather", "lionpaw", "dragonwing" };
+		int									_iCurObjId = 0;
 
 		public int iCurObjId	{ get { return ++_iCurObjId; }}
 
@@ -95,12 +94,57 @@ namespace MightyFights_Prototype
 				_cTextureList.Add(@"In Game\Buffs\Drops", cTexData = _cContent.Load<Texture2D>(@"In Game\Buffs\Drops"));
 
 			// buff data
-			cBasicBuff = new BasicBuff(cAnimData, _saBuffs[cRand.Next(_saBuffs.Length)], 3);
+			cBasicBuff = new BasicBuff(cAnimData, (EBuffEffects)cRand.Next((int)EBuffEffects.MaxBuffs), 3);
 			cBasicBuff.cTexRef = cTexData;
 			cBasicBuff.tPos = nCombatant.tCenter;
 			cBasicBuff.sTexName = @"In Game\Buffs\Drop";
 
 			return cBasicBuff;
+		}
+
+		public void CreateBuffRadiusObj(BuffClickEvent cClickObj) 
+		{
+			AnimationData		cAnimData;
+			Random				cRand = DataStore.cInstance.cRand;
+			Texture2D			cTexData;
+
+			// check to see if we are already referencing this animation 
+			if(!_cAnimationDataList.TryGetValue(@"In Game\Buffs\GemsArray", out cAnimData))
+				// add it to the reference list
+				_cAnimationDataList.Add(@"In Game\Buffs\GemsArray", cAnimData = _cContent.Load<AnimationData>(@"In Game\Buffs\GemsArray"));
+
+			// check to see if we are already refencing this texture 
+			if(!_cTextureList.TryGetValue(@"In Game\Buffs\Gems", out cTexData))
+				// add the texture to the reference list 
+				_cTextureList.Add(@"In Game\Buffs\Gems", cTexData = _cContent.Load<Texture2D>(@"In Game\Buffs\Gems"));
+
+			cClickObj.cTexRef = cTexData;
+			cClickObj.sTexName = @"In Game\Buffs\Gems";
+			cClickObj.cAnimData = cAnimData;
+		}
+
+		public BuffGem CreateBuffGem(EBuffEffects eType) 
+		{
+			BuffGem				cNewGem;
+			AnimationData		cAnimData;
+			Random				cRand = DataStore.cInstance.cRand;
+			Texture2D			cTexData;
+
+			// check to see if we are already referencing this animation 
+			if(!_cAnimationDataList.TryGetValue(@"In Game\Buffs\GemsArray", out cAnimData))
+				// add it to the reference list
+				_cAnimationDataList.Add(@"In Game\Buffs\GemsArray", cAnimData = _cContent.Load<AnimationData>(@"In Game\Buffs\GemsArray"));
+
+			// check to see if we are already refencing this texture 
+			if(!_cTextureList.TryGetValue(@"In Game\Buffs\Gems", out cTexData))
+				// add the texture to the reference list 
+				_cTextureList.Add(@"In Game\Buffs\Gems", cTexData = _cContent.Load<Texture2D>(@"In Game\Buffs\Gems"));
+
+			cNewGem = new BuffGem(cAnimData, eType);
+			cNewGem.cTexRef = cTexData;
+			cNewGem.sTexName = @"In Game\Buffs\Gems";
+
+			return cNewGem;
 		}
 	}
 
@@ -164,6 +208,7 @@ namespace MightyFights_Prototype
 			IObject					nObj;
 			MouseState				cMouseState = Mouse.GetState();
 			Point					tPoint = new Point(cMouseState.X, cMouseState.Y);
+			List<IClickable>		naClickObjList = new List<IClickable>();
 
 			// preprocess lists
 			foreach(object oObj in _caMainObjectList.Values) { 
@@ -192,12 +237,15 @@ namespace MightyFights_Prototype
 			}
 
 			// check the mouse button click 
+			foreach(KeyValuePair<int, IClickable> tClickObj in _caClickable)
+				naClickObjList.Add(tClickObj.Value);
+
 			if(cMouseState.LeftButton == ButtonState.Pressed) { 
 				if(_bProcessClick == true) { 
-					foreach(KeyValuePair<int, IClickable> tClickObj in _caClickable)
-						if(tClickObj.Value.ContainsPoint(tPoint))
-							if(tClickObj.Value.dlProcessClick != null)
-								tClickObj.Value.dlProcessClick(this.cParentData, tClickObj.Value);
+					foreach(IClickable nClickObj in naClickObjList)
+						if(nClickObj.ContainsPoint(tPoint))
+							if(nClickObj.dlProcessClick != null)
+								nClickObj.dlProcessClick(this.cParentData, nClickObj);
 						
 					_bProcessClick = false;
 				}

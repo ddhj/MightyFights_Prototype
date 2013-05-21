@@ -5,11 +5,14 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
+	public delegate Stats DBuffEffect(Stats cStats);
+
 	public class BasicBuff : ClickableSprite, IActiveBasic, IAnimate
 	{
 		AnimationData	_cAnimData;
@@ -21,22 +24,21 @@ namespace MightyFights_Prototype
 		int				_iItteration = 0,
 						_iItterations;
 
-
-		//// this will be replaced when the buffs animate
-		public string sType		{ get; set; }
-		public override Vector2 tPos { get; set; }
-		public override Frame cFrame { get { return _cAnimProc.cCurFrame; } set { }}
+		public EBuffEffects	eType		{ get; set; }
+		public override Vector2 tPos	{ get; set; }
+		public override Frame cFrame	{ get { return _cAnimProc.cCurFrame; } set { }}
 		public AnimationProcessor cAnimationProcessor	{ get { return _cAnimProc; } set { _cAnimProc = value; }}
 
-		public BasicBuff(AnimationData cAnimData, string sBuff, int iItterations) : base()
+		public BasicBuff(AnimationData cAnimData, EBuffEffects eType, int iItterations) : base()
 		{
+			string	sBuffRef = Enum.GetName(eType.GetType(), eType).ToLower().Replace("_", "");
 			_cAnimData = cAnimData;
 			_cAnimProc = new AnimationProcessor(cAnimData);
-			_cAnimProc.SetAnimationCriteria("Main", "Sub", sBuff, -1);
+			_cAnimProc.SetAnimationCriteria("Main", "Sub", sBuffRef, -1);
 			_iItterations = iItterations;
 
 			this.eObjState = EObjectStates.Active | EObjectStates.Draw;
-			this.sType = sBuff;
+			this.eType = eType;
 
 			tPos = GetDestPos();
 		}
@@ -122,22 +124,156 @@ namespace MightyFights_Prototype
 		}
 	}
 
-	public delegate Stats DBuffEffect(Stats cStats);
+	public class BuffClickEvent : BasicSprite, IClickable, IDrawable, IDrawableTexture, IObject, IActiveBasic
+	{
+		int				_iRadius;
+		BasicBuff		_cBuff;
+		Point			_tClickPoint;
+		Color			_tRadTrans = Color.White;
+		float			_fScale;
+		AnimationData	_cAnimData;
+
+		// create the frame data on the set of the animation data
+		public AnimationData cAnimData		{ get { return _cAnimData; }
+			set {
+				// turn the buff effect enum into buff gem, 
+				//// ddhj: this really sucks and I am going to change naming convention so this shit does not happen
+				//// but for now just get it working
+				string	sBuffRef = Enum.GetName(typeof(EBuffEffects), _cBuff.eType);
+				if(sBuffRef.Contains('_'))
+					sBuffRef = sBuffRef.Substring(0, sBuffRef.IndexOf('_'));
+				sBuffRef = string.Format("{0}gem", sBuffRef).ToLower();
+
+				_cAnimData = value;
+			
+				int		iStartIdx = _cAnimData.cReferenceList["Main"]["Sub"][sBuffRef].iStartIndex;
+				this.cFrame = _cAnimData.caFrameData[iStartIdx];
+			}
+		}
+
+		public BuffClickEvent(int iRadius, BasicBuff cBuff) 
+		{
+			_iRadius = iRadius;
+			_cBuff = cBuff;
+
+			// get the draw data for this object
+			ObjectManager.cInstance.CreateBuffRadiusObj(this);
+
+			this.iId = ObjectManager.cInstance.iCurObjId;
+			this.eObjState = EObjectStates.Draw | EObjectStates.Active;
+
+			// set up our color so we have some transparency during draw
+			_tRadTrans.A = 15;
+			
+			// based on the buff we are going to select the first frame of the gems and draw that as our clickable radius 
+			// a normal gem has a 3.5 px radius so we are going to use that as the scale 
+			_fScale = _iRadius / 3.5f;
+
+			// set the process method for this click event to its own processor
+			this.dlProcessClick = ProcessClick;
+		}
+
+		#region IClickable Members
+
+		// this is a bit of a trick because its basically an event we want to fire on the mouse click
+		// and I am abusing the clickable object system on the object manager
+		public bool ContainsPoint(Point tPoint)			{ _tClickPoint = tPoint; return true; }
+		public bool ContainsPoint(Vector2 tLocation)	{ _tClickPoint = new Point((int)tLocation.X, (int)tLocation.Y); return true; }
+
+		public DProcessClick dlProcessClick		{ get; set; }
+
+		#endregion
+
+		#region IDrawable Members
+
+		public override void Draw(SpriteBatch cBatch)
+		{
+			cBatch.Draw(this.cTexRef, this.tPos, this.cFrame.tRect, _tRadTrans, 0, this.cFrame.tTopLeft, _fScale, SpriteEffects.None, .01f);
+		}
+
+		#endregion
+
+		void ProcessClick(object oSender, object oArgs)
+		{
+			DataStore.cInstance.cBattleData.ApplyBuffTeamRadius(_iRadius, _cBuff, _tClickPoint);
+			this.eObjState = 0;
+		}
+
+		#region IActiveBasic Members
+
+		public void Process(GameTime cTime)
+		{
+			// set the position on the mouse position 
+			MouseState tState = Mouse.GetState();
+			int iDx = (int)(3.5 * _fScale),
+				iDy = (int)(3.5 * _fScale);
+
+			this.tPos = new Vector2(tState.X - iDx, tState.Y - iDy);
+		}
+
+		#endregion
+	}
+
+	public class BuffGem : BasicSprite, IDrawable, IDrawableTexture, IActiveBasic
+	{
+		Color			_tRadTrans = Color.White;
+		AnimationData		_cAnimData;
+		AnimationProcessor	_cAnimProc;
+
+		public float fZorder		{ get; set; }
+		public override Frame cFrame	{ get { return _cAnimProc.cCurFrame; } set { }}
+
+		public BuffGem(AnimationData cAnimData, EBuffEffects eType)
+		{
+			string	sBuffRef = Enum.GetName(typeof(EBuffEffects), eType);
+			if(sBuffRef.Contains('_'))
+				sBuffRef = sBuffRef.Substring(0, sBuffRef.IndexOf('_'));
+			sBuffRef = string.Format("{0}gem", sBuffRef).ToLower();
+
+			_cAnimData = cAnimData;
+			_cAnimProc = new AnimationProcessor(cAnimData);
+			_cAnimProc.SetAnimationCriteria("Main", "Sub", sBuffRef, -1);
+		}
+
+		#region IDrawable Members
+
+		public override void Draw(SpriteBatch cBatch)
+		{
+			cBatch.Draw(this.cTexRef, this.tPos, this.cFrame.tRect, _tRadTrans, 0, this.cFrame.tTopLeft, 1, SpriteEffects.None, this.fZorder);
+		}
+
+		#endregion
+
+		#region IActiveBasic Members
+
+		public void Process(GameTime cTime)
+		{
+			_cAnimProc.Process(cTime);
+		}
+
+		#endregion
+	}
 
 	public class BuffActionData
 	{
 		TimeSpan	_tLifetime,
 					_tCurrentSpan = TimeSpan.Zero;
 
-		string		_sType;
+		BuffGem		_cBuffGem;
+
+		EBuffEffects	_eType;
 		
 		public DBuffEffect	dlBuffEffect		{ get; set; }
+		public TimeSpan		tCurrentSpan		{ get { return _tCurrentSpan; } set { _tCurrentSpan = value; }}
+		public BuffGem		cBuffGem			{ get { return _cBuffGem; }}
 		
-		public BuffActionData(TimeSpan tLifetime, string sType, DBuffEffect dlBuffEffect)
+		public BuffActionData(TimeSpan tLifetime, EBuffEffects eType, DBuffEffect dlBuffEffect)
 		{
 			_tLifetime = tLifetime;
-			_sType = sType; 
+			_eType = eType; 
 			this.dlBuffEffect = dlBuffEffect;
+
+			_cBuffGem = ObjectManager.cInstance.CreateBuffGem(eType);
 		}
 
 		public bool BuffAction(Action cAction, GameTime cTime)
@@ -145,7 +281,7 @@ namespace MightyFights_Prototype
 			_tCurrentSpan += cTime.ElapsedGameTime;
 			
 			if(_tCurrentSpan > _tLifetime) { 
-				((Dictionary<string, BuffActionData>)cAction.oCanvas).Remove(_sType);
+				((Dictionary<EBuffEffects, BuffActionData>)cAction.oCanvas).Remove(_eType);
 				cAction.bConditionNotMet = false;
 				return false;
 			}
@@ -156,37 +292,53 @@ namespace MightyFights_Prototype
 
 	public static class BuffActions 
 	{
-		public static Stats DragonWing(Stats cStats)
+		public static Dictionary<EBuffEffects, TimeSpan> cLifeTimes = new Dictionary<EBuffEffects,TimeSpan> { 
+			{ EBuffEffects.Dragon_Wing, TimeSpan.FromMilliseconds(2000) }, 
+			{ EBuffEffects.Toad_Eye, TimeSpan.FromMilliseconds(2000) }, 
+			{ EBuffEffects.Wolf_Ear, TimeSpan.FromMilliseconds(2000) }, 
+			{ EBuffEffects.Lion_Paw, TimeSpan.FromMilliseconds(2000) }, 
+			{ EBuffEffects.Snake_Fang, TimeSpan.FromMilliseconds(2000) }, 
+			{ EBuffEffects.Eagle_Feather, TimeSpan.FromMilliseconds(2000) }, 
+			{ EBuffEffects.Crab_Claw, TimeSpan.FromMilliseconds(2000) },
+			{ EBuffEffects.Squirrel_Acorn, TimeSpan.FromMilliseconds(2000) }, 
+			{ EBuffEffects.Eagle_Feather, TimeSpan.FromMilliseconds(2000) }};
+
+		public static Stats Dragon_Wing(Stats cStats)
 		{
 			return new Stats();
 		}
 
-		public static Stats ToadEye(Stats cStats)
+		public static Stats Toad_Eye(Stats cStats)
 		{
 			return new Stats();
 		}
 
-		public static Stats WolfEar(Stats cStats)
+		public static Stats Wolf_Ear(Stats cStats)
 		{
 			return new Stats();
 		}
 
-		public static Stats LionPaw(Stats cStats)
+		public static Stats Lion_Paw(Stats cStats)
 		{
 			return new Stats();
 		}
 
-		public static Stats SnakeFang(Stats cStats)
+		public static Stats Snake_Fang(Stats cStats)
 		{
 			return new Stats();
 		}
 
-		public static Stats EagleFeather(Stats cStats)
+		public static Stats Eagle_Feather(Stats cStats)
 		{
 			return new Stats();
 		}
 
-		public static Stats Acorn(Stats cStats)
+		public static Stats Crab_Claw(Stats cStats)
+		{
+			return new Stats();
+		}
+
+		public static Stats Squirrel_Acorn(Stats cStats)
 		{
 			return new Stats();
 		}

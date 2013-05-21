@@ -12,7 +12,7 @@ namespace MightyFights_Prototype
 		Vector2 tCenter			{ get; set; }
 	}
 
-	public interface ICombatant : IBattleObj
+	public interface ICombatant : IBattleObj, IBuffableObject
 	{
 		AiBattleData cAiData	{ get; set; }
 		int iWeaponRange		{ get; set; }
