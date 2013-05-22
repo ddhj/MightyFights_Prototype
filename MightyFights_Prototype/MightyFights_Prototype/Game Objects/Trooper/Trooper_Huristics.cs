@@ -253,12 +253,12 @@ namespace MightyFights_Prototype
 
 			for( int iY = -1; iY <= 1; ++iY )
 			{
-				if( this.cZone.iY + iY < 0 || this.cZone.iY + iY > _cBattleDataRef.caBattleZones.Length )
+				if( this.cZone.iY + iY < 0 || this.cZone.iY + iY >= _cBattleDataRef.caBattleZones[0].Length )
 					continue;
 
 				for( int iX = -1; iX <= 1; ++iX )
 				{
-					if( this.cZone.iX + iX < 0 || this.cZone.iX + iX > _cBattleDataRef.caBattleZones[0].Length )
+					if( this.cZone.iX + iX < 0 || this.cZone.iX + iX >= _cBattleDataRef.caBattleZones.Length )
 						continue;
 					naZoneList = _cBattleDataRef.caBattleZones[this.cZone.iX + iX][this.cZone.iY + iY].naCombatantLists[iOppIdx];
 					if( naZoneList.Count > 0 )

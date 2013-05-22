@@ -8,6 +8,7 @@ Content\Out Game\Template\AtkSpeedArray.xnb
 Content\Out Game\Template\HitPointsArray.xnb
 Content\In Game\Buffs\BufItemsArray.xnb
 Content\In Game\Buffs\DropsArray.xnb
+Content\In Game\Buffs\GemsArray.xnb
 Content\Sprite Data\Troopers\Halberd\Textures\fazure.xnb
 Content\Sprite Data\Troopers\Halberd\Textures\fbrown.xnb
 Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.xnb
@@ -46,6 +47,5 @@ Content\Backgrounds\dirt_grass 800x436.xnb
 Content\Backgrounds\dirt_grass 800x500.xnb
 Content\In Game\Buffs\ItemBox.xnb
 Content\In Game\Buffs\Drops.xnb
-Content\Shared\DebugFont.xnb
-Content\In Game\Buffs\GemsArray.xnb
 Content\In Game\Buffs\Gems.xnb
+Content\Shared\DebugFont.xnb

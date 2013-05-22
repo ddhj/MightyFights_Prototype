@@ -146,8 +146,8 @@ namespace MightyFights_Prototype
 		public void SetZone(ICombatant nCombatant)
 		{
 			// get the position of the trooper in the zones 
-			int iXPos = ((int)nCombatant.tPos.X - 112) / (int)EZoneData.ZoneColWidth, 
-				iYPos = ((int)nCombatant.tPos.Y - 70) / (int)EZoneData.ZoneRowHeight;
+			int iXPos = ((int)nCombatant.tCenter.X - 112) / (int)EZoneData.ZoneColWidth, 
+				iYPos = ((int)nCombatant.tCenter.Y - 70) / (int)EZoneData.ZoneRowHeight;
 
 			Zone cZone = nCombatant.cZone;
 
@@ -236,7 +236,7 @@ namespace MightyFights_Prototype
 			Dictionary<EBuffEffects, BuffActionData> cBuffList = nCom.cBuffList;
 
 			// check to see if the trooper has the buff in question 
- 			if(cBuffList.ContainsKey(cBuff.eType)) 
+			if(cBuffList.ContainsKey(cBuff.eType)) 
 				// extend the time of the buff on the guy ( probably some upper limit??
 				cBuffList[cBuff.eType].tCurrentSpan += BuffActions.GetTimeSpan(cBuff.eType);
 			// there is no buff so create one 
@@ -263,7 +263,7 @@ namespace MightyFights_Prototype
 			Vector2	tRadVect = new Vector2(tStartPos.X + iRadius, tStartPos.Y),
 					tCentVect = new Vector2(tStartPos.X, tStartPos.Y);
 			
-			float	fDstSq = (tRadVect - tCentVect).LengthSquared();
+			float	fDstSq = iRadius * iRadius;
 
 			List<ICombatant>	naTeamInRad = new List<ICombatant>();
 
@@ -276,19 +276,23 @@ namespace MightyFights_Prototype
 
 			// set the box coords
 			iDx = Math.Abs(cZone.iX - cTmpZone.iX);
-			iStartX = cZone.iX - iDx;
-			iStartY = cZone.iY - iDx;
+			if( iDx > 0 )
+			{
+				iStartX = cZone.iX - iDx;
+				iStartY = cZone.iY - iDx;
 
-			// walk the zones and apply the buff
-			for(int iX = iStartX; iX < iStartX + iDx; ++iX)
-				for(int iY = iStartY; iY < iStartY + iDx; ++iY) { 
-					if(iX < 0 || iY < 0 || iX >= (int)EZoneData.ZoneColumns || iY >= (int)EZoneData.ZoneRows)
-						continue;
+				// walk the zones and apply the buff
+				for(int iX = iStartX; iX < iStartX + iDx; ++iX)
+					for(int iY = iStartY; iY < iStartY + iDx; ++iY) { 
+						if(iX < 0 || iY < 0 || iX >= (int)EZoneData.ZoneColumns || iY >= (int)EZoneData.ZoneRows)
+							continue;
 
-					// get all the guys on the left team in this zone
-					if(_caBattleZones[iX][iY].naCombatantLists[0].Count > 0) 
-						naTeamInRad.AddRange(_caBattleZones[iX][iY].naCombatantLists[0]);
-				}
+						// get all the guys on the left team in this zone
+						if(_caBattleZones[iX][iY].naCombatantLists[0].Count > 0) 
+							naTeamInRad.AddRange(_caBattleZones[iX][iY].naCombatantLists[0]);
+					}
+			}
+			else	naTeamInRad.AddRange( cZone.naCombatantLists[0] );
 
 			// walk the list of guys 
 			foreach(ICombatant nCom in naTeamInRad) 
