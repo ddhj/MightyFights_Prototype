@@ -240,7 +240,11 @@ namespace MightyFights_Prototype
 				// extend the time of the buff on the guy ( probably some upper limit??
 				cBuffList[cBuff.eType].tCurrentSpan += BuffActions.GetTimeSpan(cBuff.eType);
 			// there is no buff so create one 
-			else cBuffList.Add(cBuff.eType, new BuffActionData(BuffActions.GetTimeSpan(cBuff.eType), cBuff.eType, BuffActions.GetMethod(cBuff.eType)));
+			else  { 
+				BuffActionData cActionData;
+				cBuffList.Add(cBuff.eType, cActionData = new BuffActionData(BuffActions.GetTimeSpan(cBuff.eType), cBuff.eType, BuffActions.GetMethod(cBuff.eType)));
+				((Trooper)nCom).cActionManager.AddPermAction(new Action(cActionData.BuffAction, cActionData, nCom.cBuffList));
+			}
 		}
 
 		public void ApplyBuffTeam(BasicBuff cBuff)
