@@ -106,13 +106,12 @@ namespace MightyFights_Prototype
 						case EBattleAiStates.Dead: { 
 							// one in 10 chance we get to spawn a buff
 							if(DataStore.cInstance.cRand.Next(10) == 1) 
-								_cBattleDataRef.cObjMgr.AddClickObject(ObjectManager.cInstance.CreateBuff(this), _cBattleDataRef.dlBuffClick);
+								_cBattleDataRef.CreateDrop(this);
 
 							// set so the object no longer is active
 							_eObjState &= ~EObjectStates.Active;
 							cAction.bConditionNotMet = false;
-
-
+							
 							return false;
 						}
 					}

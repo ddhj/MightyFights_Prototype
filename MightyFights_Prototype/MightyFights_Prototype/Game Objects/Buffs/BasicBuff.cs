@@ -15,20 +15,21 @@ namespace MightyFights_Prototype
 
 	public class BasicBuff : ClickableSprite, IActiveBasic, IAnimate
 	{
-		AnimationData	_cAnimData;
-		AnimationProcessor	_cAnimProc;
+		protected AnimationData			_cAnimData;
+		protected AnimationProcessor	_cAnimProc;
+		protected int				_iItteration = 0,
+									_iItterations;
 		Vector2			_tDest;
 		Color			_tAlpha = Color.White;
 		TimeSpan		_tVisible = TimeSpan.FromMilliseconds(3000), 
 						_tCurrentLife = TimeSpan.Zero;
-		int				_iItteration = 0,
-						_iItterations;
 
 		public EBuffEffects	eType		{ get; set; }
 		public override Vector2 tPos	{ get; set; }
 		public override Frame cFrame	{ get { return _cAnimProc.cCurFrame; } set { }}
 		public AnimationProcessor cAnimationProcessor	{ get { return _cAnimProc; } set { _cAnimProc = value; }}
 
+		public BasicBuff(){}
 		public BasicBuff(AnimationData cAnimData, EBuffEffects eType, int iItterations) : base()
 		{
 			string	sBuffRef = Enum.GetName(eType.GetType(), eType).ToLower().Replace("_", "");
@@ -43,7 +44,7 @@ namespace MightyFights_Prototype
 			tPos = GetDestPos();
 		}
 
-		Vector2 GetDestPos()
+		protected Vector2 GetDestPos()
 		{
 			List<Zone>	caZones = new List<Zone>();
 			Zone[][]	caZoneArray = DataStore.cInstance.cBattleData.caBattleZones;
@@ -60,8 +61,8 @@ namespace MightyFights_Prototype
 			cZone = caZones[cRand.Next(caZones.Count)];
 
 			// choose a vector from the zone
-			return new Vector2(cRand.Next(cZone.iX * (int)EZoneData.ZoneColWidth + ((int)EZoneData.ZoneColWidth - 23)) + 112,
-				cRand.Next(cZone.iY * (int)EZoneData.ZoneRowHeight + ((int)EZoneData.ZoneRowHeight - 23)) + 70);
+			return new Vector2(cRand.Next((int)EZoneData.ZoneColWidth - 23) + cZone.iX * (int)EZoneData.ZoneColWidth + 112,
+				cRand.Next((int)EZoneData.ZoneRowHeight - 23) + cZone.iY * (int)EZoneData.ZoneRowHeight + 70);
 		}
 
 		public virtual void Process(GameTime cTime)
@@ -121,6 +122,22 @@ namespace MightyFights_Prototype
 				this.eObjState = 0;
 				return true;
 			} else return false;
+		}
+	}
+
+	public class Drop : BasicBuff
+	{
+		public Drop(AnimationData cAnimData, string sDrop, int iItterations) : base()
+		{			
+			_cAnimData = cAnimData;
+			_cAnimProc = new AnimationProcessor(cAnimData);
+			_cAnimProc.SetAnimationCriteria("Main", "Sub", sDrop, -1);
+
+			_iItterations = iItterations;
+			this.eObjState = EObjectStates.Active | EObjectStates.Draw;
+			this.eType = eType;
+
+			tPos = GetDestPos();
 		}
 	}
 

@@ -31,7 +31,8 @@ namespace MightyFights_Prototype
 		////ddhj: debug data
 		TimeSpan		_cTime = TimeSpan.Zero;
 		int				_iFrameRate = 0,
-						_iFrameCtr = 0;
+						_iFrameCtr = 0,
+						_iHammerCtr = 0;
 		SpriteFont		_cFont;
 		Texture2D		_cBorder;
 		bool			_bUpdate = true;
@@ -191,6 +192,7 @@ namespace MightyFights_Prototype
 							_cBattleData.caTeams[0].cActiveList.Count, iLHp, iLPow, _cBattleData.caTeams[0].cActiveList.Count - iLFlee - iLHeal, iLFlee, iLHeal ), new Vector2(10, 10), Color.White);
 					_cSpriteBatch.DrawString(_cFont, string.Format("RightArmy: {0}  Right HP: {1}  Right Pow:{2}   Right Engaging: {3}  Right Fleeing: {4}  Right Healing: {5}",
 							_cBattleData.caTeams[1].cActiveList.Count, iRHp, iRPow,  _cBattleData.caTeams[1].cActiveList.Count - iRFlee - iRHeal, iRFlee, iRHeal ), new Vector2(10, 30), Color.White);
+					_cSpriteBatch.DrawString(_cFont, string.Format("x {0}", _iHammerCtr), new Vector2(955, 35), Color.White);
 				}
 
 				// if we are going to draw the active zones
@@ -498,6 +500,7 @@ namespace MightyFights_Prototype
 
 			_cBattleData.cObjMgr = _cObjMgr;
 			_cBattleData.dlBuffClick = ProcessBuffClick;
+			_cBattleData.dlDropClick = ProcessHammerClick;
 
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
@@ -545,6 +548,9 @@ namespace MightyFights_Prototype
 				// create the containers 
 				_cBattleData.cBuffContainers = _cBuffContainerList;
 				CreateBuffContainers();
+
+				// add the hammer
+				_cObjMgr.AddObject(ObjectManager.cInstance.CreateHammerIcon());
 
 				_cCursor = new Cursor();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");
@@ -621,6 +627,23 @@ namespace MightyFights_Prototype
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleDamageNumbers);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleSlowMo);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleZones);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cAcornRadCb);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cClawRadCb);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cWolfRadCb);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToadRadCb);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cSnakeRadCb);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cEagleRadCb);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cLionRadCb);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cDragRadCb);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cAllRadCb);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cAcornRad);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cClawRad);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cWolfRad);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToadRad);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cSnakeRad);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cEagleRad);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cLionRad);
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cDragRad);
 		}
 
 		void ResetBattle()

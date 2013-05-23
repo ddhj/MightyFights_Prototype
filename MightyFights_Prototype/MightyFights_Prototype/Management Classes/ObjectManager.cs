@@ -96,8 +96,7 @@ namespace MightyFights_Prototype
 			// buff data
 			cBasicBuff = new BasicBuff(cAnimData, (EBuffEffects)cRand.Next((int)EBuffEffects.MaxBuffs), 3);
 			cBasicBuff.cTexRef = cTexData;
-			cBasicBuff.tPos = nCombatant.tCenter;
-			cBasicBuff.sTexName = @"In Game\Buffs\Drop";
+			cBasicBuff.sTexName = @"In Game\Buffs\Drops";
 
 			return cBasicBuff;
 		}
@@ -163,6 +162,55 @@ namespace MightyFights_Prototype
 				DataStore.cInstance.cGraphics.Viewport.Height / 2 - cTexRef.Bounds.Height / 2);
 
 			return cNewAnimal;
+		}
+
+		public BasicSprite CreateHammerIcon()
+		{
+			BasicSprite		cHammer = new BasicSprite();
+			Texture2D		cTexData;
+			AnimationData	cAnimData;
+
+			// check to see if we are already referencing this animation 
+			if(!_cAnimationDataList.TryGetValue(@"In Game\Buffs\DropsArray", out cAnimData))
+				// add it to the reference list
+				_cAnimationDataList.Add(@"In Game\Buffs\DropsArray", cAnimData = _cContent.Load<AnimationData>(@"In Game\Buffs\DropsArray"));
+
+			// check to see if we are already refencing this texture 
+			if(!_cTextureList.TryGetValue(@"In Game\Buffs\Drops", out cTexData))
+				// add the texture to the reference list 
+				_cTextureList.Add(@"In Game\Buffs\Drops", cTexData = _cContent.Load<Texture2D>(@"In Game\Buffs\Drops"));
+
+			cHammer.cTexRef = cTexData;
+			cHammer.sTexName = @"In Game\Buffs\Drops";
+			cHammer.cFrame = cAnimData.GetFrame(cAnimData.GetActionData("Main", "Sub", "hammer"), 0);
+			cHammer.tPos = new Vector2(930, 30);
+
+			return cHammer;
+		}
+
+		public Drop CreateDrop(string sDrop)
+		{
+			AnimationData		cAnimData;
+			Random				cRand = DataStore.cInstance.cRand;
+			Texture2D			cTexData;
+			Drop				cBasicBuff;
+
+			// check to see if we are already referencing this animation 
+			if(!_cAnimationDataList.TryGetValue(@"In Game\Buffs\DropsArray", out cAnimData))
+				// add it to the reference list
+				_cAnimationDataList.Add(@"In Game\Buffs\DropsArray", cAnimData = _cContent.Load<AnimationData>(@"In Game\Buffs\DropsArray"));
+
+			// check to see if we are already refencing this texture 
+			if(!_cTextureList.TryGetValue(@"In Game\Buffs\Drops", out cTexData))
+				// add the texture to the reference list 
+				_cTextureList.Add(@"In Game\Buffs\Drops", cTexData = _cContent.Load<Texture2D>(@"In Game\Buffs\Drops"));
+
+			// buff data
+			cBasicBuff = new Drop(cAnimData, sDrop, 3);
+			cBasicBuff.cTexRef = cTexData;
+			cBasicBuff.sTexName = @"In Game\Buffs\Drops";
+
+			return cBasicBuff;
 		}
 	}
 

@@ -32,6 +32,11 @@ namespace MightyFights_Prototype
 			_cBuffContainerList[((BasicBuff)oArgs).eType].AddBuff((BasicBuff)oArgs);
 		}
 
+		void ProcessHammerClick(object oSender, object oArgs)
+		{
+			++_iHammerCtr;
+		}
+
 		void ProcessCheck(object oSender, object oArgs)
 		{
 			BuffContainer cContainer = (BuffContainer)((System.Windows.Forms.CheckBox)oSender).Tag;

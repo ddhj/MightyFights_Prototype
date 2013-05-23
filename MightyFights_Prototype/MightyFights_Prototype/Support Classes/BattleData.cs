@@ -105,6 +105,7 @@ namespace MightyFights_Prototype
 		public EBattlegroundState eState		{ get; set; }
 		public ObjectManagerInstance cObjMgr	{ get; set; }
 		public DProcessClick dlBuffClick		{ get; set; }
+		public DProcessClick dlDropClick		{ get; set; }
 		public BuffAnimal cAnimalEffect			{ get; set; }
 		
 		public List<Dictionary<IntPoint, Zone>>	caActiveZones		{ get { return _caActiveZones; }}
@@ -309,6 +310,13 @@ namespace MightyFights_Prototype
 				if((tCentVect - nCom.tCenter).LengthSquared() < fDstSq)
 					// we are in our circle, so apply the buff to the guy
 					ApplyBuff(cBuff, nCom);
+		}
+
+		public void CreateDrop(ICombatant nCombatant)
+		{
+			if(DataStore.cInstance.cRand.Next(10) > 6)
+				this.cObjMgr.AddClickObject(ObjectManager.cInstance.CreateDrop("hammer"), dlDropClick);
+			else this.cObjMgr.AddClickObject(ObjectManager.cInstance.CreateBuff(nCombatant), dlBuffClick);
 		}
 	}
 }
