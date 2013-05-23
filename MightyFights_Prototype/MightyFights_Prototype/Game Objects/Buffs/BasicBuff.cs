@@ -290,6 +290,46 @@ namespace MightyFights_Prototype
 		}
 	}
 
+	public class BuffAnimal : BasicSprite
+	{
+		TimeSpan	_tCurrentLife = TimeSpan.Zero;
+		Color		_tColor = Color.White;
+		float		_fScale = 0f;
+
+		public BuffAnimal(Texture2D cTexRef) 
+		{
+			this.cTexRef = cTexRef;
+			cFrame = new Frame(cTexRef.Bounds, new Vector2(cTexRef.Bounds.Width / 2, cTexRef.Bounds.Height / 2), new Vector2(0, 0), new Vector2(0, 0), new Vector2(), 
+				new Vector2(), new Vector2(), null, false, false);
+
+			_tColor.A = 50;
+
+			DataStore.cInstance.bSlowMo = true;
+		}
+
+		public bool Process(GameTime cTime) 
+		{
+			_tCurrentLife += cTime.ElapsedGameTime;
+
+			_fScale += .025f;
+
+			if(_tCurrentLife > TimeSpan.FromMilliseconds(2000)) { 
+				this.eObjState = 0;
+				DataStore.cInstance.bSlowMo = false;
+				return false;
+			}
+
+			return true;
+		}
+
+		public override void Draw(SpriteBatch cBatch) 
+		{
+			cBatch.Draw(this.cTexRef, this.tPos, this.cFrame.tRect, _tColor, this.cFrame.bRot ? -(float)Math.PI/2 : 0, 
+				// and 2: the direction vector
+				this.cFrame.tCenter, _fScale, SpriteEffects.None, .01f);
+		}
+	}
+
 	public static class BuffActions 
 	{
 		static Dictionary<EBuffEffects, TimeSpan> _cLifeTimes = new Dictionary<EBuffEffects,TimeSpan> { 

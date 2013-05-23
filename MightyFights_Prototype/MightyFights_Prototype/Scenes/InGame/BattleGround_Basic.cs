@@ -80,8 +80,13 @@ namespace MightyFights_Prototype
 //				else	_bUpdate = true;
 //			}
 
+			// the effect is outside the slowmo loop 
+			if(_cBattleData.cAnimalEffect != null)
+				if(!_cBattleData.cAnimalEffect.Process(cTime))
+					_cBattleData.cAnimalEffect = null;
+
 			//// debug slow down the game
-			if(_cToggleSlowMo.Checked) { 
+			if(DataStore.cInstance.bSlowMo) { 
 				_tSlowMo += cTime.ElapsedGameTime;
 				if(_tSlowMo < TimeSpan.FromMilliseconds(50)) 
 					return;
@@ -143,6 +148,10 @@ namespace MightyFights_Prototype
 			
 				// draw all objects in the manager
 				_cBattleData.cObjMgr.Draw(_cSpriteBatch);	
+
+				// check to see if we have an effect ( this may be replaced with a queue or stack of the effects )
+				if(_cBattleData.cAnimalEffect != null) 
+					_cBattleData.cAnimalEffect.Draw(_cSpriteBatch);
 
 				//// development interface
 				{
@@ -289,7 +298,7 @@ namespace MightyFights_Prototype
 			_cAcornRad.Maximum = 100;
 			_cAcornRad.Tag = cTmpContainer;
 			_cAcornRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cAcornRad.Value = 100;//cRand.Next(100);
+			_cAcornRad.Value = 50;//cRand.Next(100);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cAcornRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Crab_Claw, cTmpContainer = new BuffContainer(new Vector2(232, 519)));
@@ -314,7 +323,7 @@ namespace MightyFights_Prototype
 			_cClawRad.Maximum = 100;
 			_cClawRad.Tag = cTmpContainer;
 			_cClawRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cClawRad.Value = 100;//cRand.Next(100);
+			_cClawRad.Value = 50;//cRand.Next(100);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cClawRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Wolf_Ear, cTmpContainer = new BuffContainer(new Vector2(332, 519)));
@@ -339,7 +348,7 @@ namespace MightyFights_Prototype
 			_cWolfRad.Maximum = 100;
 			_cWolfRad.Tag = cTmpContainer;
 			_cWolfRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cWolfRad.Value = 100;//cRand.Next(100);
+			_cWolfRad.Value = 50;//cRand.Next(100);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cWolfRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Toad_Eye, cTmpContainer = new BuffContainer(new Vector2(432, 519)));
@@ -364,7 +373,7 @@ namespace MightyFights_Prototype
 			_cToadRad.Maximum = 100;
 			_cToadRad.Tag = cTmpContainer;
 			_cToadRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cToadRad.Value = 100;//cRand.Next(100);
+			_cToadRad.Value = 50;//cRand.Next(100);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToadRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Snake_Fang, cTmpContainer = new BuffContainer(new Vector2(532, 519)));
@@ -389,7 +398,7 @@ namespace MightyFights_Prototype
 			_cSnakeRad.Maximum = 100;
 			_cSnakeRad.Tag = cTmpContainer;
 			_cSnakeRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cSnakeRad.Value = 100;//cRand.Next(100);
+			_cSnakeRad.Value = 50;//cRand.Next(100);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cSnakeRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Eagle_Feather, cTmpContainer = new BuffContainer(new Vector2(632, 519)));
@@ -414,7 +423,7 @@ namespace MightyFights_Prototype
 			_cEagleRad.Maximum = 100;
 			_cEagleRad.Tag = cTmpContainer;
 			_cEagleRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cEagleRad.Value = 100;//cRand.Next(100);
+			_cEagleRad.Value = 50;//cRand.Next(100);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cEagleRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Lion_Paw, cTmpContainer = new BuffContainer(new Vector2(732, 519)));
@@ -439,7 +448,7 @@ namespace MightyFights_Prototype
 			_cLionRad.Maximum = 100;
 			_cLionRad.Tag = cTmpContainer;
 			_cLionRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cLionRad.Value = 100;//cRand.Next(100);
+			_cLionRad.Value = 50;//cRand.Next(100);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cLionRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Dragon_Wing, cTmpContainer = new BuffContainer(new Vector2(832, 519)));
@@ -464,7 +473,7 @@ namespace MightyFights_Prototype
 			_cDragRad.Maximum = 100;
 			_cDragRad.Tag = cTmpContainer;
 			_cDragRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cDragRad.Value = 100;//cRand.Next(100);
+			_cDragRad.Value = 50;//cRand.Next(100);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cDragRad);
 
 			_cAllRadCb = new System.Windows.Forms.CheckBox();

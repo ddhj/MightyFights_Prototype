@@ -146,6 +146,24 @@ namespace MightyFights_Prototype
 
 			return cNewGem;
 		}
+
+		public BuffAnimal CreateAnimalEffect(EBuffEffects eType) 
+		{
+			BuffAnimal	cNewAnimal;
+			string		sAnimalTex = string.Format(@"In Game\Buffs\Animals\{0}", Enum.GetName(typeof(EBuffEffects), eType).Split('_')[0]);
+			Texture2D	cTexRef;
+
+			if(!_cTextureList.TryGetValue(sAnimalTex, out cTexRef))
+				// add the texture to the reference list 
+				_cTextureList.Add(sAnimalTex, cTexRef = _cContent.Load<Texture2D>(sAnimalTex));
+				
+			cNewAnimal = new BuffAnimal(cTexRef);
+			cNewAnimal.sTexName = sAnimalTex;
+			cNewAnimal.tPos = new Vector2(DataStore.cInstance.cGraphics.Viewport.Width / 2 - cTexRef.Bounds.Width / 2, 
+				DataStore.cInstance.cGraphics.Viewport.Height / 2 - cTexRef.Bounds.Height / 2);
+
+			return cNewAnimal;
+		}
 	}
 
 	public class ObjectManagerInstance

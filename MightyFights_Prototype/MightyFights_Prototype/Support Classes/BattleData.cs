@@ -105,6 +105,7 @@ namespace MightyFights_Prototype
 		public EBattlegroundState eState		{ get; set; }
 		public ObjectManagerInstance cObjMgr	{ get; set; }
 		public DProcessClick dlBuffClick		{ get; set; }
+		public BuffAnimal cAnimalEffect			{ get; set; }
 		
 		public List<Dictionary<IntPoint, Zone>>	caActiveZones		{ get { return _caActiveZones; }}
 
@@ -255,11 +256,13 @@ namespace MightyFights_Prototype
 				cBuffList.Add(cBuff.eType, cActionData = new BuffActionData(BuffActions.GetTimeSpan(cBuff.eType), cBuff.eType, BuffActions.GetMethod(cBuff.eType)));
 				((Trooper)nCom).cActionManager.AddPermAction(new Action(cActionData.BuffAction, cActionData, nCom.cBuffList));
 			}
+
+			// set the animal effect
+			this.cAnimalEffect = ObjectManager.cInstance.CreateAnimalEffect(cBuff.eType);
 		}
 
 		public void ApplyBuffTeam(BasicBuff cBuff)
 		{
-
 			// walk the team and 
 			foreach(KeyValuePair<int, ICombatant> tCombatant in _caTeams[0].cActiveList) 
 				ApplyBuff(cBuff, tCombatant.Value);
