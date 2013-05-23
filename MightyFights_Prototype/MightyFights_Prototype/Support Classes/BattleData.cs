@@ -214,7 +214,17 @@ namespace MightyFights_Prototype
 			int iXPos = (iX - 112) / (int)EZoneData.ZoneColWidth, 
 				iYPos = (iY - 70) / (int)EZoneData.ZoneRowHeight;
 
-			return GetZoneByCoords(iXPos, iYPos);
+			if(iXPos < 0)
+				iXPos = 0;
+			else if(iXPos >= (int)EZoneData.ZoneColumns)
+				iXPos = (int)EZoneData.ZoneColumns - 1;
+
+			if(iYPos < 0)
+				iYPos = 0;
+			else if(iYPos >= (int)EZoneData.ZoneRows)
+				iYPos = (int)EZoneData.ZoneRows - 1;
+
+			return _caBattleZones[iXPos][iYPos];
 		}
 
 		public void Clear()
@@ -259,11 +269,11 @@ namespace MightyFights_Prototype
 		{
 			// get the zone we are in and the surrounding ones based on the radius
 			Zone	cZone = GetZoneByPosition(tStartPos.X, tStartPos.Y),
-					cTmpZone;
+					cLeftZone,
+					cRightZone,
+					cTopZone,
+					cBottomZone;
 
-			int		iStartX, 
-					iStartY, 
-					iDx;
 			Vector2	tRadVect = new Vector2(tStartPos.X + iRadius, tStartPos.Y),
 					tCentVect = new Vector2(tStartPos.X, tStartPos.Y);
 			
@@ -274,29 +284,21 @@ namespace MightyFights_Prototype
 			// check to see if we are out of the zoned areas
 			if(cZone == null) return;
 
-			// check if we can go left or right on our zone
-			if((cTmpZone = GetZoneByPosition(tStartPos.X + iRadius, tStartPos.Y)) == null)
-				cTmpZone = GetZoneByPosition(tStartPos.X - iRadius, tStartPos.Y);
+			// get the zones by radius
+			cLeftZone = GetZoneByPosition(tStartPos.X - iRadius, tStartPos.Y);
+			cRightZone = GetZoneByPosition(tStartPos.X + iRadius, tStartPos.Y);
+			cTopZone = GetZoneByPosition(tStartPos.X, tStartPos.Y - iRadius);
+			cBottomZone = GetZoneByPosition(tStartPos.X, tStartPos.Y + iRadius);
 
-			// set the box coords
-			iDx = Math.Abs(cZone.iX - cTmpZone.iX);
-			if( iDx > 0 )
-			{
-				iStartX = cZone.iX - iDx;
-				iStartY = cZone.iY - iDx;
-
+			if(cRightZone.iX - cLeftZone.iX > 0) {
 				// walk the zones and apply the buff
-				for(int iX = iStartX; iX < iStartX + iDx; ++iX)
-					for(int iY = iStartY; iY < iStartY + iDx; ++iY) { 
-						if(iX < 0 || iY < 0 || iX >= (int)EZoneData.ZoneColumns || iY >= (int)EZoneData.ZoneRows)
-							continue;
-
+				for(int iX = cLeftZone.iX; iX <= cRightZone.iX; ++iX)
+					for(int iY = cTopZone.iY; iY < cBottomZone.iY; ++iY) { 
 						// get all the guys on the left team in this zone
 						if(_caBattleZones[iX][iY].naCombatantLists[0].Count > 0) 
 							naTeamInRad.AddRange(_caBattleZones[iX][iY].naCombatantLists[0]);
 					}
-			}
-			else	naTeamInRad.AddRange( cZone.naCombatantLists[0] );
+			} else	naTeamInRad.AddRange( cZone.naCombatantLists[0] );
 
 			// walk the list of guys 
 			foreach(ICombatant nCom in naTeamInRad) 

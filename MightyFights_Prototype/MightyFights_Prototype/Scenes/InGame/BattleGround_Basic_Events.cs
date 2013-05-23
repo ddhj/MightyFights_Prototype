@@ -43,5 +43,17 @@ namespace MightyFights_Prototype
 			BuffContainer cContainer = (BuffContainer)((System.Windows.Forms.NumericUpDown)oSender).Tag;
 			cContainer.iRad = (int)((System.Windows.Forms.NumericUpDown)oSender).Value;
 		}
+
+		void ProcessAllCheck(object oSender, object oArgs)
+		{
+			_cAcornRadCb.Checked = 
+			_cClawRadCb.Checked = 
+			_cWolfRadCb.Checked = 
+			_cToadRadCb.Checked = 
+			_cSnakeRadCb.Checked = 
+			_cEagleRadCb.Checked = 
+			_cLionRadCb.Checked = 
+			_cDragRadCb.Checked = _cAllRadCb.Checked;
+		}
 	}
 }
