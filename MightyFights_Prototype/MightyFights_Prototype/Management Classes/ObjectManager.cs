@@ -94,7 +94,7 @@ namespace MightyFights_Prototype
 				_cTextureList.Add(@"In Game\Buffs\Drops", cTexData = _cContent.Load<Texture2D>(@"In Game\Buffs\Drops"));
 
 			// buff data
-			cBasicBuff = new BasicBuff(cAnimData, EBuffEffects.Squirrel_Acorn, 3);//(EBuffEffects)cRand.Next((int)EBuffEffects.MaxBuffs), 3);
+			cBasicBuff = new BasicBuff(cAnimData, (EBuffEffects)cRand.Next((int)EBuffEffects.MaxBuffs), 3);
 			cBasicBuff.cTexRef = cTexData;
 			cBasicBuff.sTexName = @"In Game\Buffs\Drops";
 

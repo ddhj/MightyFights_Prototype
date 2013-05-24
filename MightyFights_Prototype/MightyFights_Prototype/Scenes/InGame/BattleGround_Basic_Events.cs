@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.Runtime.Serialization.Json;
+
 namespace MightyFights_Prototype
 {
 	public partial class BattleGround_Basic : IGameScene
@@ -59,6 +61,22 @@ namespace MightyFights_Prototype
 			_cEagleRadCb.Checked = 
 			_cLionRadCb.Checked = 
 			_cDragRadCb.Checked = _cAllRadCb.Checked;
+		}
+
+		void WriteExpData()
+		{
+			DataContractJsonSerializer cExpDataSer = new DataContractJsonSerializer(typeof(ExperienceData));
+			System.IO.MemoryStream	cData = new System.IO.MemoryStream();
+
+			foreach( Team cTeam in _cBattleData.caTeams )
+				if( cTeam.cActiveList.Count != 0 ) 
+					foreach(ICombatant nCom in cTeam.cActiveList.Values)
+						cExpDataSer.WriteObject(cData, nCom.cExpData);
+			
+			using(var vFile = System.IO.File.Create(string.Format("ExpData_{0}.txt", DateTime.Now.ToString("u").Replace(":", "")))) { 
+				cData.Seek(0, System.IO.SeekOrigin.Begin);
+				cData.CopyTo(vFile);
+			}
 		}
 	}
 }

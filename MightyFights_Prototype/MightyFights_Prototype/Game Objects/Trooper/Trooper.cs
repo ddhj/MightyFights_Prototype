@@ -32,6 +32,8 @@ namespace MightyFights_Prototype
 		AnimationProcessor			_cAnimProc;
 		BattlegroundData			_cBattleDataRef = null;
 
+		ExperienceData				_cExpData = new ExperienceData();
+
 		Dictionary<EBuffEffects, BuffActionData>			_cBuffList = new Dictionary<EBuffEffects,BuffActionData>();
 		Dictionary<ETrooperAttackPos, ICombatant>	_cAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
@@ -54,6 +56,7 @@ namespace MightyFights_Prototype
 		public Vector2 tAttackPos		{ get; set; }
 		public Vector2 tCenter			{ get { return _tCenter; } set { _tCenter = value; }}
 		public float fZorder			{ get { return _fZorder; }}
+		public ExperienceData cExpData	{ get { return _cExpData; }}
 
 		//public Dictionary<EBuffEffects, BuffActionData> cBuffList		{ get { return _cBuffList; }}
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
@@ -169,7 +172,7 @@ namespace MightyFights_Prototype
 				cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, _fZorder);
 			}
 
-			// draw the buffs above the troopers head 
+			// draw the buffs above the troopers head unless they are dead ... then don't draw them behind the background because that looks strange
 			if(_cBuffList.Count > 0 && this.cAiData.eState != EBattleAiStates.Dead) { 
 				int iDx = (int)this.tCenter.X;
 				BuffGem		cTmpGem;
@@ -296,6 +299,8 @@ namespace MightyFights_Prototype
 
 		public void DealDamage(ICombatant nOpponent, int iDamage, bool bCrit)
 		{
+			++_cExpData.iAttacked;
+			
 			//// ddhj: yep armor class and all that shit 
 			if(cAiData.eState != EBattleAiStates.Defending) { 
 				Random cRand = DataStore.cInstance.cRand;
@@ -305,22 +310,34 @@ namespace MightyFights_Prototype
 
 				_cStats.fHp -= iFinalDamage;
 
-				// check to see if the blade is poisioned 
-				if(nOpponent.bPoisonBlade) 
-					// there is a percentage that they get poisioned 
-					if(cRand.Next(3) == 1)
-						// there should also be a check if they are already poisioned and just add to the time 
-						// also possible that it could be a certain threshold 
-
+				//// check to see if the blade is poisioned 
+				//if(nOpponent.bPoisonBlade) 
+				//    // there is a percentage that they get poisioned 
+				//    if(cRand.Next(3) == 1)
+				//        // there should also be a check if they are already poisioned and just add to the time 
+				//        // also possible that it could be a certain threshold 
+				++nOpponent.cExpData.iAttackSuccess;
+				if(bCrit) { 
+					++_cExpData.iCritsTaken;
+					++nOpponent.cExpData.iCritSuccess;
+				}
 
 				// check to see if we are spawning damage numbers
 				if(DataStore.cInstance.bDamageNumbers) 
 					DataStore.cInstance.cBattleData.cObjMgr.AddObject(new AnimatingDamage(iFinalDamage, _tCenter, bCrit, false, _cTeam));
-			}
-			else
+			} else { 
+				// tally experience data
+				++_cExpData.iDefendedAttacks;
+				++nOpponent.cExpData.iAttackDefended;
+				if(bCrit) { 
+					++_cExpData.iDefendedCrits;
+					++nOpponent.cExpData.iCritsDefended;
+				}
+
 				// check to see if we are spawning damage numbers
 				if(DataStore.cInstance.bDamageNumbers) 
 					DataStore.cInstance.cBattleData.cObjMgr.AddObject(new AnimatingDamage(0, _tCenter, bCrit, false, _cTeam));
+			}
 
 			// if I am attacking my attacker
 			if( this.nTarget == nOpponent )
@@ -620,6 +637,17 @@ namespace MightyFights_Prototype
 				CalibrateStats();
 			}
 
+			++_cExpData.iBuffsApplied;
+			switch(cBuff.eType) { 
+				case EBuffEffects.Crab_Claw:		++_cExpData.iCrabClaw;	break;
+				case EBuffEffects.Dragon_Wing:		++_cExpData.iDragonWing;	break;
+				case EBuffEffects.Eagle_Feather:	++_cExpData.iEagleFeather;	break;
+				case EBuffEffects.Lion_Paw:			++_cExpData.iLionPaw;	break;
+				case EBuffEffects.Snake_Fang:		++_cExpData.iSnakeFang;	break;
+				case EBuffEffects.Squirrel_Acorn:	++_cExpData.iSquirrelAcorn;	break;
+				case EBuffEffects.Toad_Eye:			++_cExpData.iToadEye;	break;
+				case EBuffEffects.Wolf_Ear:			++_cExpData.iWolfEar;	break;
+			}
 		}
 
 		public void RemoveBuff(EBuffEffects eType)

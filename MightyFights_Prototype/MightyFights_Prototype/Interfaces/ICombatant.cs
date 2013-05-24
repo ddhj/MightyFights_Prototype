@@ -22,6 +22,7 @@ namespace MightyFights_Prototype
 		IBattleObj nTarget		{ get; set; }
 		Team cTeam				{ get; }
 		bool bPoisonBlade		{ get; set; }
+		ExperienceData cExpData	{ get; }
 
 		void DealDamage(ICombatant nOpponent, int iDamage, bool bCrit);
 		float Heal( float fHp );

@@ -49,12 +49,14 @@ namespace MightyFights_Prototype
 
 			// we are going to crit
 			if(iAttckPercent > 90) { 
+				++_cExpData.iCrits;
 				switch(cRand.Next(2)) { 
 					case 0: _cAnimProc.SetAnimationCriteria("Attack", "Critical", "bigchop", 1); break;
 					case 1: _cAnimProc.SetAnimationCriteria("Attack", "Critical", "lunge", 1); break;
 				}
 			// we are going to do a normal attack
 			} else if(iAttckPercent > 10) { 
+				++_cExpData.iBasicAttacks;
 				switch(cRand.Next(3)) { 
 					case 0: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "low", 1); break;
 					case 1: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "stab", 1); break;
@@ -62,6 +64,7 @@ namespace MightyFights_Prototype
 				}
 			// we are going to parry
 			} else { 
+				++_cExpData.iDefenceAttempts;
 				cAiData.eState = EBattleAiStates.Defending;
 				switch(cRand.Next(2)) { 
 					case 0: _cAnimProc.SetAnimationCriteria("Defend", "Parry", "lp", 1); break;
@@ -102,6 +105,8 @@ namespace MightyFights_Prototype
 			SortedList<int,IHealer>	cHealersByDist = new SortedList<int,IHealer>( );
 			Random		cRand = DataStore.cInstance.cRand;
 			Vector2		tPos;
+
+			++_cExpData.iFlee;
 
 			// build up available healer list by distance
 			foreach( IHealer nHealer in _cTeam.cHealerList.Values )

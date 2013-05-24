@@ -106,10 +106,14 @@ namespace MightyFights_Prototype	{
 			{
 				foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
 				{
-					if( _fHp > 0 )
+					if( _fHp > 0 ) { 
+						// set the exp for times healed by a healer
+						++tPair.Value.cExpData.iHealed;
+
 						if( _fHp > _fHealRate )
 							_fHp -= tPair.Value.Heal( _fHealRate );
 						else	_fHp -= tPair.Value.Heal( _fHp );
+					}
 				}
 				if( _cAnimProc.sType == "Idle" )
 					_cAnimProc.SetAnimationCriteria("Defend", "Parry", "lp", 1);

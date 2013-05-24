@@ -108,6 +108,9 @@ namespace MightyFights_Prototype
 						foreach( Team cTeam in _cBattleData.caTeams )
 							if( cTeam.cActiveList.Count == 0 ) { 
 								_cBattleData.eState = EBattlegroundState.Victory;
+
+								// debug for exp 
+								WriteExpData();
 								break;
 							}
 					break;
@@ -119,10 +122,10 @@ namespace MightyFights_Prototype
 						else if(Mouse.GetState().RightButton == ButtonState.Pressed)
 							BackToMenu();
 
-						_tVictoryElapsed += cTime.ElapsedGameTime;
-						if(_tVictoryElapsed > TimeSpan.FromMilliseconds(2000)) { 
-							ResetBattle();
-						}
+						//_tVictoryElapsed += cTime.ElapsedGameTime;
+						//if(_tVictoryElapsed > TimeSpan.FromMilliseconds(2000)) { 
+						//    ResetBattle();
+						//}
 					break;
 				}
 

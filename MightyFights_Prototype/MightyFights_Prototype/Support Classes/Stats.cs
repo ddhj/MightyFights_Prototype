@@ -63,4 +63,40 @@ namespace MightyFights_Prototype
 		int iArmorClass	{ get; set; }
 		float fCrit		{ get; set; }
 	}
+
+	public class ExperienceData 
+	{
+		public int iAttacked		{ get; set; }
+		public int iAttacks			{ get; set; }
+		public int iAttackSuccess	{ get; set; }
+		public int iAttackDefended	{ get; set; }
+		public int iDefendedAttacks	{ get; set; }
+		public int iBasicAttacks	{ get; set; }
+		public int iCrits			{ get; set; }
+		public int iCritSuccess		{ get; set; }
+		public int iCritsTaken		{ get; set; } 
+		public int iCritsDefended	{ get; set; }
+		public int iDefendedCrits	{ get; set; }
+		public int iKills			{ get; set; }
+		public int iDefenceAttempts	{ get; set; }
+
+		public int iFlee			{ get; set; }
+		public int iHealed			{ get; set; }
+		public int iDarkEncounters	{ get; set; }
+		public int iDarkKills		{ get; set; }
+		public int iLightKills		{ get; set; }
+
+		public int iBattles			{ get; set; }
+		public int iRetreats		{ get; set; }
+
+		public int iBuffsApplied	{ get; set; }
+		public int iDragonWing		{ get; set; }
+		public int iLionPaw 		{ get; set; }
+		public int iEagleFeather	{ get; set; }
+		public int iSnakeFang		{ get; set; }
+		public int iToadEye 		{ get; set; }
+		public int iWolfEar 		{ get; set; }
+		public int iCrabClaw		{ get; set; }
+		public int iSquirrelAcorn	{ get; set; }
+	}
 }

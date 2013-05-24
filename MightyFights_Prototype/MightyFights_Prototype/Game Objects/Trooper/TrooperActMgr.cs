@@ -25,12 +25,15 @@ namespace MightyFights_Prototype
 			ICombatant	nOpponent = (ICombatant)cData.nTarget;
 
 			switch(_cKeyFrame.Type) { 
-				case "Collision":
-					if( cData.InWeaponRange( true ))
+				case "Collision": { 
+					if( cData.InWeaponRange( true )) { 
+						++this.cData.cExpData.iAttacks;
+
 						if( _cAnimProc.sSubType == "Critical" )
 							nOpponent.DealDamage( cData, cData.cStats.iPower * 3, true );
 						else	nOpponent.DealDamage( cData, cData.cStats.iPower, false );
-				break;
+					}
+				} break;
 			}
 		}
 
