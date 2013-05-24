@@ -66,19 +66,25 @@ namespace MightyFights_Prototype
 
 	public class ExperienceData 
 	{
-		public int iAttacked		{ get; set; }
 		public int iAttacks			{ get; set; }
 		public int iAttackSuccess	{ get; set; }
 		public int iAttackDefended	{ get; set; }
-		public int iDefendedAttacks	{ get; set; }
 		public int iBasicAttacks	{ get; set; }
 		public int iCrits			{ get; set; }
 		public int iCritSuccess		{ get; set; }
-		public int iCritsTaken		{ get; set; } 
 		public int iCritsDefended	{ get; set; }
-		public int iDefendedCrits	{ get; set; }
-		public int iKills			{ get; set; }
 		public int iDefenceAttempts	{ get; set; }
+		public int iKills			{ get; set; }
+		public int iFleeKills		{ get; set; }
+		public int iHealingKills	{ get; set; }
+		public int iBuffedKills		{ get; set; }
+		public int iAfflictedKills	{ get; set; }
+		public int iNearDeath		{ get; set; }
+
+		public int iAttacked		{ get; set; }
+		public int iCritted			{ get; set; } 
+		public int iDefendedAttacks	{ get; set; }
+		public int iDefendedCrits	{ get; set; }
 
 		public int iFlee			{ get; set; }
 		public int iHealed			{ get; set; }

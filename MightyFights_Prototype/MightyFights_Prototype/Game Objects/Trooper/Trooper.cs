@@ -318,7 +318,7 @@ namespace MightyFights_Prototype
 				//        // also possible that it could be a certain threshold 
 				++nOpponent.cExpData.iAttackSuccess;
 				if(bCrit) { 
-					++_cExpData.iCritsTaken;
+					++_cExpData.iCritted;
 					++nOpponent.cExpData.iCritSuccess;
 				}
 
