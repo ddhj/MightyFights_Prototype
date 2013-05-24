@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MightyFights_Prototype
 {
-	public class Stats
+	public class Stats: IBattleStats
 	{
 		public float fHp		{ get; set; }
 		public int iMaxHp		{ get; set; }
@@ -41,6 +41,26 @@ namespace MightyFights_Prototype
 			this.iFleePoint = cSrc.iFleePoint;
 			this.iAtkSpeed = cSrc.iAtkSpeed;
 			this.iMovement = cSrc.iMovement;
+			this.iArmorClass = cSrc.iArmorClass;
+			this.fCrit = cSrc.fCrit;
 		}
+
+		public void SetStats(IBattleStats nStats)
+		{
+			this.iPower = nStats.iPower;
+			this.iAtkSpeed = nStats.iAtkSpeed;
+			this.iMovement = nStats.iMovement;
+			this.iArmorClass = nStats.iArmorClass;
+			this.fCrit = nStats.fCrit;
+		}
+	}
+
+	public interface IBattleStats
+	{
+		int iPower		{ get; set; }
+		int iAtkSpeed	{ get; set; }
+		int iMovement	{ get; set; }
+		int iArmorClass	{ get; set; }
+		float fCrit		{ get; set; }
 	}
 }

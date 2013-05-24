@@ -49,10 +49,12 @@ namespace MightyFights_Prototype
 
 		void ProcessBuffList()
 		{
-			Stats cStats = new Stats(_cStats);
+			// if there are buffs to process
+			IBattleStats nStats = new Stats(_cInitialStats);
 			foreach(KeyValuePair<EBuffEffects, BuffActionData> tBuff in _cBuffList)
-				tBuff.Value.dlBuffEffect(cStats);
-			_cStats = cStats;
+				tBuff.Value.dlBuffEffect(nStats);
+			_cStats.SetStats(nStats);
+			CalcMovementSpeed();
 		}
 
 		public bool BasicBattleManager(Action cAction, GameTime cTime)

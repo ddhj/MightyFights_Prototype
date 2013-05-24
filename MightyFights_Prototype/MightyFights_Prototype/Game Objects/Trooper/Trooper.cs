@@ -38,13 +38,10 @@ namespace MightyFights_Prototype
 		////ddhj template stuff... not sure if it should go on trooper proper
 		float						_fFinalMovementSpeed;
 
-		// i dont particularly like this here, need to figure out a way to get it into the battleground processor 
-		List<AnimatingDamage>		_caDamageList = new List<AnimatingDamage>();
-
 		public int iId					{ get; set; }
 		public bool bActive				{ get; set; }
 		public bool bDir				{ get; set; }
-		public bool bPoisionBlade		{ get; set; }
+		public bool bPoisonBlade		{ get; set; }
 		public IBattleObj nTarget		{ get; set; }
 		public AiBattleData cAiData		{ get; set; }
 		public int iWeaponRange			{ get; set; }
@@ -77,7 +74,7 @@ namespace MightyFights_Prototype
 			_cActionMgr.AddPermAction(new Action(this.TrooperUpkeep, null, null));
 
 			////ddhj: this is the initial area for the template config, this will probably change over time
-			_fFinalMovementSpeed = 2.5f * (1.0f + cTemplate.cStats.iMovement / 100f);
+			CalcMovementSpeed();
 
 			// use the template data to set up the heuristics... 
 			//// there is a problem here since the object manager should have set this up but the heuristics are methods on an instance of trooper,
@@ -98,6 +95,12 @@ namespace MightyFights_Prototype
 
 			// get the id from the object manager proper
 			this.iId = ObjectManager.cInstance.iCurObjId;
+		}
+		
+		void CalcMovementSpeed()
+		{
+			////ddhj: this is the initial area for the template config, this will probably change over time
+			_fFinalMovementSpeed = 2.5f * (1.0f + _cStats.iMovement / 100f);
 		}
 
 		#region IDrawable Members
@@ -290,7 +293,7 @@ namespace MightyFights_Prototype
 				_cStats.fHp -= iFinalDamage;
 
 				// check to see if the blade is poisioned 
-				if(nOpponent.bPoisionBlade) 
+				if(nOpponent.bPoisonBlade) 
 					// there is a percentage that they get poisioned 
 					if(cRand.Next(3) == 1)
 						// there should also be a check if they are already poisioned and just add to the time 

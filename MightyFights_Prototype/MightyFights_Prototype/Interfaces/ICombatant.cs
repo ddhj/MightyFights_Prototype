@@ -21,7 +21,7 @@ namespace MightyFights_Prototype
 		Stats cStats			{ get; set; }
 		IBattleObj nTarget		{ get; set; }
 		Team cTeam				{ get; }
-		bool bPoisionBlade		{ get; set; }
+		bool bPoisonBlade		{ get; set; }
 
 		void DealDamage(ICombatant nOpponent, int iDamage, bool bCrit);
 		float Heal( float fHp );

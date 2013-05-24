@@ -11,7 +11,7 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public delegate void DBuffEffect(Stats cStats);
+	public delegate void DBuffEffect(IBattleStats nStats);
 
 	public class BasicBuff : ClickableSprite, IActiveBasic, IAnimate
 	{
@@ -360,52 +360,52 @@ namespace MightyFights_Prototype
 			{ EBuffEffects.Squirrel_Acorn, TimeSpan.FromMilliseconds(4000) }, 
 			{ EBuffEffects.Eagle_Feather, TimeSpan.FromMilliseconds(4000) }};
 
-		static void Dragon_Wing(Stats cStats)
+		static void Dragon_Wing(IBattleStats nStats)
 		{
-			cStats.iArmorClass += 3;
-			cStats.iPower += 5;
-			cStats.iMovement -= 1;
+			nStats.iArmorClass += 3;
+			nStats.iPower += 5;
+			nStats.iMovement -= 1;
 		}
 
-		static void Toad_Eye(Stats cStats)
-		{
-
-		}
-
-		static void Wolf_Ear(Stats cStats)
-		{
-			cStats.fCrit += .15f;
-			cStats.iMovement += 3;
-		}
-
-		static void Lion_Paw(Stats cStats)
-		{
-			cStats.iPower += 3;
-			cStats.iAtkSpeed += 4;
-		}
-
-		static void Snake_Fang(Stats cStats)
+		static void Toad_Eye(IBattleStats nStats)
 		{
 
 		}
 
-		static void Eagle_Feather(Stats cStats)
+		static void Wolf_Ear(IBattleStats nStats)
 		{
-			cStats.iMovement += 2;
-			cStats.iAtkSpeed += 2;
+			nStats.fCrit += .15f;
+			nStats.iMovement += 3;
 		}
 
-		static void Crab_Claw(Stats cStats)
+		static void Lion_Paw(IBattleStats nStats)
 		{
-			cStats.iMovement -= 2;
-			cStats.iPower += 4;
+			nStats.iPower += 3;
+			nStats.iAtkSpeed += 4;
 		}
 
-		static void Squirrel_Acorn(Stats cStats)
+		static void Snake_Fang(IBattleStats nStats)
 		{
-			cStats.iPower -= 1;
-			cStats.iAtkSpeed += 4;
-			cStats.iMovement += 3;
+
+		}
+
+		static void Eagle_Feather(IBattleStats nStats)
+		{
+			nStats.iMovement += 2;
+			nStats.iAtkSpeed += 2;
+		}
+
+		static void Crab_Claw(IBattleStats nStats)
+		{
+			nStats.iMovement -= 2;
+			nStats.iPower += 4;
+		}
+
+		static void Squirrel_Acorn(IBattleStats nStats)
+		{
+			nStats.iPower -= 1;
+			nStats.iAtkSpeed += 4;
+			nStats.iMovement += 3;
 		}
 
 		public static DBuffEffect GetMethod(EBuffEffects eType)
