@@ -170,7 +170,7 @@ namespace MightyFights_Prototype
 			}
 
 			// draw the buffs above the troopers head 
-			if(_cBuffList.Count > 0) { 
+			if(_cBuffList.Count > 0 && this.cAiData.eState != EBattleAiStates.Dead) { 
 				int iDx = (int)this.tCenter.X;
 				BuffGem		cTmpGem;
 				if(_cBuffList.Count > 1) 

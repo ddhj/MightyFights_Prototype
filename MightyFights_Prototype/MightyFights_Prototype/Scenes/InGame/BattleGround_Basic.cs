@@ -50,7 +50,8 @@ namespace MightyFights_Prototype
 											_cEagleRadCb,
 											_cLionRadCb,
 											_cDragRadCb,
-											_cAllRadCb;
+											_cAllRadCb,
+											_cShowBackgroundCb;
 
 		System.Windows.Forms.NumericUpDown	_cAcornRad, 
 											_cClawRad,
@@ -145,7 +146,8 @@ namespace MightyFights_Prototype
 			++_iFrameCtr;
 
 			_cSpriteBatch.Begin(SpriteSortMode.BackToFront, null); { 
-				_cSpriteBatch.Draw(_cBackground, new Vector2(112, 70), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, 1); 
+				if(_cShowBackgroundCb.Checked)
+					_cSpriteBatch.Draw(_cBackground, new Vector2(112, 70), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, 1); 
 			
 				// draw all objects in the manager
 				_cBattleData.cObjMgr.Draw(_cSpriteBatch);	
@@ -600,6 +602,13 @@ namespace MightyFights_Prototype
 				_cToggleHealSpots.AutoSize = true;
 				_cToggleHealSpots.CheckedChanged += new EventHandler(ToggleHealSpots);
 				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleHealSpots);
+
+				_cShowBackgroundCb = new System.Windows.Forms.CheckBox();
+				_cShowBackgroundCb.Location = new System.Drawing.Point(0, _cToggleHealSpots.Location.Y + 20);
+				_cShowBackgroundCb.Text = _cShowBackgroundCb.Name = "Show Bg";
+				_cShowBackgroundCb.AutoSize = true;
+				_cShowBackgroundCb.Checked = true;
+				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cShowBackgroundCb);
 
 				// set the start of battle
 				SetBattleStart();
