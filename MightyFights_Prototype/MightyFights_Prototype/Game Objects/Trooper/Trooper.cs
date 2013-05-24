@@ -44,6 +44,7 @@ namespace MightyFights_Prototype
 		public int iId					{ get; set; }
 		public bool bActive				{ get; set; }
 		public bool bDir				{ get; set; }
+		public bool bPoisionBlade		{ get; set; }
 		public IBattleObj nTarget		{ get; set; }
 		public AiBattleData cAiData		{ get; set; }
 		public int iWeaponRange			{ get; set; }
@@ -281,11 +282,24 @@ namespace MightyFights_Prototype
 		{
 			//// ddhj: yep armor class and all that shit 
 			if(cAiData.eState != EBattleAiStates.Defending) { 
-				_cStats.fHp -= iDamage;
+				Random cRand = DataStore.cInstance.cRand;
+				
+				// this is a rough percentage of the armor class not taking into account flank
+				int iFinalDamage = iDamage - _cStats.iArmorClass * (cRand.Next(80, 100) / 100);
+
+				_cStats.fHp -= iFinalDamage;
+
+				// check to see if the blade is poisioned 
+				if(nOpponent.bPoisionBlade) 
+					// there is a percentage that they get poisioned 
+					if(cRand.Next(3) == 1)
+						// there should also be a check if they are already poisioned and just add to the time 
+						// also possible that it could be a certain threshold 
+
 
 				// check to see if we are spawning damage numbers
 				if(DataStore.cInstance.bDamageNumbers) 
-					DataStore.cInstance.cBattleData.cObjMgr.AddObject(new AnimatingDamage(iDamage, _tCenter, bCrit, false, _cTeam));
+					DataStore.cInstance.cBattleData.cObjMgr.AddObject(new AnimatingDamage(iFinalDamage, _tCenter, bCrit, false, _cTeam));
 			}
 			else
 				// check to see if we are spawning damage numbers

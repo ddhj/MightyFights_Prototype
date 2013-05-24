@@ -11,7 +11,7 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public delegate Stats DBuffEffect(Stats cStats);
+	public delegate void DBuffEffect(Stats cStats);
 
 	public class BasicBuff : ClickableSprite, IActiveBasic, IAnimate
 	{
@@ -287,6 +287,7 @@ namespace MightyFights_Prototype
 		public BuffActionData(TimeSpan tLifetime, EBuffEffects eType, DBuffEffect dlBuffEffect)
 		{
 			_tLifetime = tLifetime;
+
 			_eType = eType; 
 			this.dlBuffEffect = dlBuffEffect;
 
@@ -350,53 +351,61 @@ namespace MightyFights_Prototype
 	public static class BuffActions 
 	{
 		static Dictionary<EBuffEffects, TimeSpan> _cLifeTimes = new Dictionary<EBuffEffects,TimeSpan> { 
-			{ EBuffEffects.Dragon_Wing, TimeSpan.FromMilliseconds(2000) }, 
-			{ EBuffEffects.Toad_Eye, TimeSpan.FromMilliseconds(2000) }, 
-			{ EBuffEffects.Wolf_Ear, TimeSpan.FromMilliseconds(2000) }, 
-			{ EBuffEffects.Lion_Paw, TimeSpan.FromMilliseconds(2000) }, 
-			{ EBuffEffects.Snake_Fang, TimeSpan.FromMilliseconds(2000) }, 
-			{ EBuffEffects.Crab_Claw, TimeSpan.FromMilliseconds(2000) },
-			{ EBuffEffects.Squirrel_Acorn, TimeSpan.FromMilliseconds(2000) }, 
-			{ EBuffEffects.Eagle_Feather, TimeSpan.FromMilliseconds(2000) }};
+			{ EBuffEffects.Dragon_Wing, TimeSpan.FromMilliseconds(4000) }, 
+			{ EBuffEffects.Toad_Eye, TimeSpan.FromMilliseconds(4000) }, 
+			{ EBuffEffects.Wolf_Ear, TimeSpan.FromMilliseconds(4000) }, 
+			{ EBuffEffects.Lion_Paw, TimeSpan.FromMilliseconds(4000) }, 
+			{ EBuffEffects.Snake_Fang, TimeSpan.FromMilliseconds(4000) }, 
+			{ EBuffEffects.Crab_Claw, TimeSpan.FromMilliseconds(4000) },
+			{ EBuffEffects.Squirrel_Acorn, TimeSpan.FromMilliseconds(4000) }, 
+			{ EBuffEffects.Eagle_Feather, TimeSpan.FromMilliseconds(4000) }};
 
-		static Stats Dragon_Wing(Stats cStats)
+		static void Dragon_Wing(Stats cStats)
 		{
-			return new Stats();
+			cStats.iArmorClass += 3;
+			cStats.iPower += 5;
+			cStats.iMovement -= 1;
 		}
 
-		static Stats Toad_Eye(Stats cStats)
+		static void Toad_Eye(Stats cStats)
 		{
-			return new Stats();
+
 		}
 
-		static Stats Wolf_Ear(Stats cStats)
+		static void Wolf_Ear(Stats cStats)
 		{
-			return new Stats();
+			cStats.fCrit += .15f;
+			cStats.iMovement += 3;
 		}
 
-		static Stats Lion_Paw(Stats cStats)
+		static void Lion_Paw(Stats cStats)
 		{
-			return new Stats();
+			cStats.iPower += 3;
+			cStats.iAtkSpeed += 4;
 		}
 
-		static Stats Snake_Fang(Stats cStats)
+		static void Snake_Fang(Stats cStats)
 		{
-			return new Stats();
+
 		}
 
-		static Stats Eagle_Feather(Stats cStats)
+		static void Eagle_Feather(Stats cStats)
 		{
-			return new Stats();
+			cStats.iMovement += 2;
+			cStats.iAtkSpeed += 2;
 		}
 
-		static Stats Crab_Claw(Stats cStats)
+		static void Crab_Claw(Stats cStats)
 		{
-			return new Stats();
+			cStats.iMovement -= 2;
+			cStats.iPower += 4;
 		}
 
-		static Stats Squirrel_Acorn(Stats cStats)
+		static void Squirrel_Acorn(Stats cStats)
 		{
-			return new Stats();
+			cStats.iPower -= 1;
+			cStats.iAtkSpeed += 4;
+			cStats.iMovement += 3;
 		}
 
 		public static DBuffEffect GetMethod(EBuffEffects eType)

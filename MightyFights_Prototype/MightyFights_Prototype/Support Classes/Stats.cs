@@ -14,6 +14,8 @@ namespace MightyFights_Prototype
 		public int iPower		{ get; set; }
 		public int iAtkSpeed	{ get; set; }
 		public int iMovement	{ get; set; }
+		public int iArmorClass	{ get; set; }
+		public float fCrit		{ get; set; }
 
 		public Stats()
 		{
@@ -27,11 +29,13 @@ namespace MightyFights_Prototype
 			this.iPower = cRand.Next(5, 15);
 			this.iAtkSpeed = cRand.Next(0, 15);
 			this.iMovement = cRand.Next(0, 15);
+			this.iArmorClass = cRand.Next(0, 10);
 		}
 
 		public Stats(Stats cSrc)
 		{ 
-			this.fHp = this.iMaxHp = cSrc.iMaxHp;
+			this.fHp = cSrc.fHp;
+			this.iMaxHp = cSrc.iMaxHp;
 			this.iPower = cSrc.iPower;
 			this.iHealPoint = cSrc.iHealPoint;
 			this.iFleePoint = cSrc.iFleePoint;

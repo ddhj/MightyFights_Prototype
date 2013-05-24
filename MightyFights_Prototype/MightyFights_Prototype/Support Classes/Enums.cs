@@ -99,4 +99,11 @@ namespace MightyFights_Prototype
 		Squirrel_Acorn,
 		MaxBuffs
 	}
+
+	public enum EStatusEffects
+	{
+		Poision,
+		Stun,
+		Berzerk
+	}
 }

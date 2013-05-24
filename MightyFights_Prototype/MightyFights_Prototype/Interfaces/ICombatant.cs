@@ -21,6 +21,7 @@ namespace MightyFights_Prototype
 		Stats cStats			{ get; set; }
 		IBattleObj nTarget		{ get; set; }
 		Team cTeam				{ get; }
+		bool bPoisionBlade		{ get; set; }
 
 		void DealDamage(ICombatant nOpponent, int iDamage, bool bCrit);
 		float Heal( float fHp );
@@ -44,5 +45,9 @@ namespace MightyFights_Prototype
 		void TakeSpot( ICombatant nSoldier );
 		void FreeSpot( ICombatant nSoldier );
 		void DoDamage( float fDamage );
+	}
+
+	public interface IStatusEffects { 
+		//Dictionary<EStatusEffects, StatusEffectData>
 	}
 }

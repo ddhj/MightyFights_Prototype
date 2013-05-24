@@ -51,7 +51,7 @@ namespace MightyFights_Prototype
 		{
 			Stats cStats = new Stats(_cStats);
 			foreach(KeyValuePair<EBuffEffects, BuffActionData> tBuff in _cBuffList)
-				cStats = tBuff.Value.dlBuffEffect(cStats);
+				tBuff.Value.dlBuffEffect(cStats);
 			_cStats = cStats;
 		}
 
@@ -63,7 +63,7 @@ namespace MightyFights_Prototype
 			}
 
 			// process the buff list, this will effect the stats which will in turn effect everything else in the system
-			//ProcessBuffList();
+			ProcessBuffList();
 
 			switch(_cBattleDataRef.eState) {
 				case EBattlegroundState.Battle:
