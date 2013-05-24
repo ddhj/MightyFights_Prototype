@@ -299,7 +299,8 @@ namespace MightyFights_Prototype
 			_tCurrentSpan += cTime.ElapsedGameTime;
 			
 			if(_tCurrentSpan > _tLifetime) { 
-				((Dictionary<EBuffEffects, BuffActionData>)cAction.oCanvas).Remove(_eType);
+				((IBuffableObject)cAction.oCanvas).RemoveBuff(_eType);
+				_cBuffGem.eObjState = 0;
 				cAction.bConditionNotMet = false;
 				return false;
 			}
@@ -364,7 +365,7 @@ namespace MightyFights_Prototype
 		{
 			nStats.iArmorClass += 3;
 			nStats.iPower += 5;
-			nStats.iMovement -= 1;
+			nStats.iMovement -= 10;
 		}
 
 		static void Toad_Eye(IBattleStats nStats)
@@ -375,13 +376,13 @@ namespace MightyFights_Prototype
 		static void Wolf_Ear(IBattleStats nStats)
 		{
 			nStats.fCrit += .15f;
-			nStats.iMovement += 3;
+			nStats.iMovement += 15;
 		}
 
 		static void Lion_Paw(IBattleStats nStats)
 		{
 			nStats.iPower += 3;
-			nStats.iAtkSpeed += 4;
+			nStats.iAtkSpeed += 15;
 		}
 
 		static void Snake_Fang(IBattleStats nStats)
@@ -391,21 +392,23 @@ namespace MightyFights_Prototype
 
 		static void Eagle_Feather(IBattleStats nStats)
 		{
-			nStats.iMovement += 2;
-			nStats.iAtkSpeed += 2;
+			nStats.iMovement += 20;
+			nStats.iAtkSpeed += 20;
 		}
 
 		static void Crab_Claw(IBattleStats nStats)
 		{
-			nStats.iMovement -= 2;
+			nStats.iMovement -= 20;
 			nStats.iPower += 4;
 		}
 
 		static void Squirrel_Acorn(IBattleStats nStats)
 		{
 			nStats.iPower -= 1;
-			nStats.iAtkSpeed += 4;
-			nStats.iMovement += 3;
+			nStats.iAtkSpeed += 40;
+
+			// movement is a percentage adjustment
+			nStats.iMovement += 35;
 		}
 
 		public static DBuffEffect GetMethod(EBuffEffects eType)

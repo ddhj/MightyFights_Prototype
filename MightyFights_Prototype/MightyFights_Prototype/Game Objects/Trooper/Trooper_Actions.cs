@@ -49,12 +49,6 @@ namespace MightyFights_Prototype
 
 		void ProcessBuffList()
 		{
-			// if there are buffs to process
-			IBattleStats nStats = new Stats(_cInitialStats);
-			foreach(KeyValuePair<EBuffEffects, BuffActionData> tBuff in _cBuffList)
-				tBuff.Value.dlBuffEffect(nStats);
-			_cStats.SetStats(nStats);
-			CalcMovementSpeed();
 		}
 
 		public bool BasicBattleManager(Action cAction, GameTime cTime)
@@ -63,9 +57,6 @@ namespace MightyFights_Prototype
 				_cBattleDataRef = (BattlegroundData)cAction.oData;
 				cAction.bInit = false;
 			}
-
-			// process the buff list, this will effect the stats which will in turn effect everything else in the system
-			ProcessBuffList();
 
 			switch(_cBattleDataRef.eState) {
 				case EBattlegroundState.Battle:

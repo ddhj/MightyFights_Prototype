@@ -60,7 +60,7 @@ namespace MightyFights_Prototype
 			////ddhj modifications to the attack speed increment based on the template data. not sure if this 
 			// is where we are going to want this to go 
 			foreach(KeyValuePair<string, ActionData> tAction in cAnimData.cReferenceList["Attack"]["Basic"]) { 
-				iMod = -tAction.Value.iIncrement * (cTemplateData.cStats.iAtkSpeed / 100);
+				iMod = (int)(-tAction.Value.iIncrement * ((float)cTemplateData.cStats.iAtkSpeed / 100));
 				cTemplate.cAnimProcessorRef.cActionIncrement.Add(tAction.Key, iMod);
 			}
 
@@ -94,7 +94,7 @@ namespace MightyFights_Prototype
 				_cTextureList.Add(@"In Game\Buffs\Drops", cTexData = _cContent.Load<Texture2D>(@"In Game\Buffs\Drops"));
 
 			// buff data
-			cBasicBuff = new BasicBuff(cAnimData, (EBuffEffects)cRand.Next((int)EBuffEffects.MaxBuffs), 3);
+			cBasicBuff = new BasicBuff(cAnimData, EBuffEffects.Squirrel_Acorn, 3);//(EBuffEffects)cRand.Next((int)EBuffEffects.MaxBuffs), 3);
 			cBasicBuff.cTexRef = cTexData;
 			cBasicBuff.sTexName = @"In Game\Buffs\Drops";
 

@@ -55,7 +55,7 @@ namespace MightyFights_Prototype
 		public Vector2 tCenter			{ get { return _tCenter; } set { _tCenter = value; }}
 		public float fZorder			{ get { return _fZorder; }}
 
-		public Dictionary<EBuffEffects, BuffActionData> cBuffList		{ get { return _cBuffList; }}
+		//public Dictionary<EBuffEffects, BuffActionData> cBuffList		{ get { return _cBuffList; }}
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
 
 		public Trooper(int iId, Team cTeam, TrooperTemplate cTemplate)
@@ -67,7 +67,8 @@ namespace MightyFights_Prototype
 			_cTexRef = cTemplate.cTextureRef;
 			_cActionMgr = cTemplate.cActionMgr;
 			_cActionMgr.cData = this;
-			_cInitialStats = _cStats = cTemplate.cStats;
+			_cInitialStats = new Stats(cTemplate.cStats);
+			_cStats = cTemplate.cStats;
 			cAiData = cTemplate.cAiData;
 			sTexName = cTemplate.sTexName;
 			
@@ -101,6 +102,18 @@ namespace MightyFights_Prototype
 		{
 			////ddhj: this is the initial area for the template config, this will probably change over time
 			_fFinalMovementSpeed = 2.5f * (1.0f + _cStats.iMovement / 100f);
+		}
+
+		void CalcAtackSpeeds()
+		{
+			int iMod;
+			
+			// since we are a trooper and we know that we have basic attacks we are going to walk the list of them 
+			// and modify their values by our attack speed
+			foreach(KeyValuePair<string, ActionData> tAction in _cAnimProc.cAnimData.cReferenceList["Attack"]["Basic"]) { 
+				iMod = (int)(-tAction.Value.iIncrement * ((float)_cStats.iAtkSpeed / 100));
+				_cAnimProc.cActionIncrement[tAction.Key] = iMod;
+			}
 		}
 
 		#region IDrawable Members
@@ -576,6 +589,46 @@ namespace MightyFights_Prototype
 		}
 
 		#endregion
+
+		void CalibrateStats()
+		{
+			// if there are buffs to process
+			IBattleStats nStats = new Stats(_cInitialStats);
+
+			foreach(KeyValuePair<EBuffEffects, BuffActionData> tBuff in _cBuffList)
+				tBuff.Value.dlBuffEffect(nStats);
+
+			_cStats.SetStats(nStats);
+
+			CalcMovementSpeed();
+			CalcAtackSpeeds();
+		}
+
+		public void AddBuff(BasicBuff cBuff)
+		{
+			// check to see if the trooper has the buff in question 
+			if(_cBuffList.ContainsKey(cBuff.eType)) 
+				// extend the time of the buff on the guy ( probably some upper limit??
+				_cBuffList[cBuff.eType].tCurrentSpan -= BuffActions.GetTimeSpan(cBuff.eType);
+			// there is no buff so create one 
+			else  { 
+				BuffActionData cActionData;
+				_cBuffList.Add(cBuff.eType, cActionData = new BuffActionData(BuffActions.GetTimeSpan(cBuff.eType), cBuff.eType, BuffActions.GetMethod(cBuff.eType)));
+				_cActionMgr.AddPermAction(new Action(cActionData.BuffAction, cActionData, this));
+
+				// a new stat buff has been added calibrate the stats to reflect it
+				CalibrateStats();
+			}
+
+		}
+
+		public void RemoveBuff(EBuffEffects eType)
+		{
+			_cBuffList.Remove(eType);
+
+			// since one has now been removed recalibrate the stats
+			CalibrateStats();
+		}
 
 		public void Process(GameTime cTime)
 		{

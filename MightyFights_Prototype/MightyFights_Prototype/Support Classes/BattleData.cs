@@ -243,20 +243,10 @@ namespace MightyFights_Prototype
 				cTeam.Clear( );
 		}
 
-		void ApplyBuff(BasicBuff cBuff, ICombatant nCom)
+		void ApplyBuff(BasicBuff cBuff, IBuffableObject nCom)
 		{
-			Dictionary<EBuffEffects, BuffActionData> cBuffList = nCom.cBuffList;
-
-			// check to see if the trooper has the buff in question 
-			if(cBuffList.ContainsKey(cBuff.eType)) 
-				// extend the time of the buff on the guy ( probably some upper limit??
-				cBuffList[cBuff.eType].tCurrentSpan += BuffActions.GetTimeSpan(cBuff.eType);
-			// there is no buff so create one 
-			else  { 
-				BuffActionData cActionData;
-				cBuffList.Add(cBuff.eType, cActionData = new BuffActionData(BuffActions.GetTimeSpan(cBuff.eType), cBuff.eType, BuffActions.GetMethod(cBuff.eType)));
-				((Trooper)nCom).cActionManager.AddPermAction(new Action(cActionData.BuffAction, cActionData, nCom.cBuffList));
-			}
+			// put the buff on the combatant
+			nCom.AddBuff(cBuff);
 
 			// set the animal effect
 			this.cAnimalEffect = ObjectManager.cInstance.CreateAnimalEffect(cBuff.eType);

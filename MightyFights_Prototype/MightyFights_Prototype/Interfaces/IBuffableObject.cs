@@ -7,6 +7,7 @@ namespace MightyFights_Prototype
 {
 	public interface IBuffableObject
 	{
-		Dictionary<EBuffEffects, BuffActionData>	cBuffList		{ get; }
+		void AddBuff(BasicBuff cBuff);
+		void RemoveBuff(EBuffEffects eType);
 	}
 }

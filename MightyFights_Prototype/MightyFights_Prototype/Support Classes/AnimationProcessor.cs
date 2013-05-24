@@ -27,15 +27,14 @@ namespace MightyFights_Prototype
 
 		Dictionary<string, int>		_cActionIncrement = new Dictionary<string,int>();
 
-
 		public Frame cCurFrame	{ get { return _cCurFrame; }}
 		public string sType		{ get { return _sActionType; }}
 		public string sSubType	{ get { return _sSubCat; }}
 		public string sAction	{ get { return _sAction; }}
 		public bool	bActive		{ get; set; }
+		public AnimationData cAnimData	{ get { return _cAnimDataRef; }}
 
 		public Dictionary<string, int> cActionIncrement	 { get { return _cActionIncrement; }}
-
 
 		public AnimationProcessor(AnimationData cAnimData)
 		{
