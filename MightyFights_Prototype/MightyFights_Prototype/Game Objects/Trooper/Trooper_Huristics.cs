@@ -120,12 +120,12 @@ namespace MightyFights_Prototype
 			// add the flee to healer/point action 
 			if( cHealersByDist.Count > 0 )
 			{
-				this.nTarget = cHealersByDist.Values[0];
+//				this.nTarget = cHealersByDist.Values[0];
+				this.nTarget = cHealersByDist.Values[cRand.Next( cHealersByDist.Count )];
 				_cActionMgr.cActionQueue.Add( new Action( FleeToHealer, null, null ));
 			}
 			else	{
-				Action	cAction = new Action(FleeToPoint, 
-						new Vector2( 132 + ( _cTeam.bDirection ? 0 : 470 ) + cRand.Next( 150 ), 90 + cRand.Next(306)), null);
+				Action	cAction = new Action(FleeToPoint, _cBattleDataRef.GetFleeSpot( this ), null);
 				_cActionMgr.cActionQueue.Add(cAction);
 			}
 			cHealersByDist.Clear( );

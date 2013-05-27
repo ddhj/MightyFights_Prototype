@@ -20,7 +20,7 @@ namespace MightyFights_Prototype
 		Dictionary<string, List<IDrawable>>		_cDrawList = new Dictionary<string,List<IDrawable>>();
 		Dictionary<string, List<ICombatant>>	_cTrooperRef = new Dictionary<string,List<ICombatant>>();
 		BattlegroundData	_cBattleData = new BattlegroundData();
-		ObjectManagerInstance	_cObjMgr = new ObjectManagerInstance();
+		ObjectManager	_cObjMgr = new ObjectManager();
 		Dictionary<EBuffEffects, BuffContainer>		_cBuffContainerList = new Dictionary<EBuffEffects,BuffContainer>();
 
 		TimeSpan			_tVictoryElapsed = TimeSpan.Zero,
@@ -215,6 +215,11 @@ namespace MightyFights_Prototype
 						}
 					}
 				}
+			} _cSpriteBatch.End();
+
+			_cSpriteBatch.Begin(); { 
+				// draw all objects in the manager
+				_cBattleData.cObjMgr.DrawParticles(_cSpriteBatch);
 			} _cSpriteBatch.End();
 		}
 
@@ -500,7 +505,7 @@ namespace MightyFights_Prototype
 			Trooper			cTmpTrooper = null;
 			TemplateConfig	cLeft = cData.cLeftConfig, 
 							cRight = cData.cRightConfig;
-			ObjectManager	cObjMgr = ObjectManager.cInstance;
+			ObjectCreationManager	cObjMgr = ObjectCreationManager.cInstance;
 			Team			cTeam;
 
 			_cBattleData.cObjMgr = _cObjMgr;
@@ -555,7 +560,7 @@ namespace MightyFights_Prototype
 				CreateBuffContainers();
 
 				// add the hammer
-				_cObjMgr.AddObject(ObjectManager.cInstance.CreateHammerIcon());
+				_cObjMgr.AddObject(ObjectCreationManager.cInstance.CreateHammerIcon());
 
 				_cCursor = new Cursor();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");

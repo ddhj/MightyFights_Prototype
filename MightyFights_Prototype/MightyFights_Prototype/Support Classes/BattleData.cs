@@ -103,7 +103,7 @@ namespace MightyFights_Prototype
 		public Dictionary<EBuffEffects, BuffContainer> cBuffContainers	{ get; set; }
 		public Zone[][] caBattleZones			{ get { return _caBattleZones; }}
 		public EBattlegroundState eState		{ get; set; }
-		public ObjectManagerInstance cObjMgr	{ get; set; }
+		public ObjectManager cObjMgr	{ get; set; }
 		public DProcessClick dlBuffClick		{ get; set; }
 		public DProcessClick dlDropClick		{ get; set; }
 		public BuffAnimal cAnimalEffect			{ get; set; }
@@ -249,7 +249,7 @@ namespace MightyFights_Prototype
 			nCom.AddBuff(cBuff);
 
 			// set the animal effect
-			this.cAnimalEffect = ObjectManager.cInstance.CreateAnimalEffect(cBuff.eType);
+			this.cAnimalEffect = ObjectCreationManager.cInstance.CreateAnimalEffect(cBuff.eType);
 		}
 
 		public void ApplyBuffTeam(BasicBuff cBuff)
@@ -305,8 +305,53 @@ namespace MightyFights_Prototype
 		public void CreateDrop(ICombatant nCombatant)
 		{
 			if(DataStore.cInstance.cRand.Next(10) > 6)
-				this.cObjMgr.AddClickObject(ObjectManager.cInstance.CreateDrop("hammer"), dlDropClick);
-			else this.cObjMgr.AddClickObject(ObjectManager.cInstance.CreateBuff(nCombatant), dlBuffClick);
+				this.cObjMgr.AddClickObject(ObjectCreationManager.cInstance.CreateDrop("hammer"), dlDropClick);
+			else this.cObjMgr.AddClickObject(ObjectCreationManager.cInstance.CreateBuff(nCombatant), dlBuffClick);
+		}
+
+		public Vector2 GetFleeSpot( ICombatant nCombatant )
+		{
+			Random		cRand = DataStore.cInstance.cRand;
+			int		iX = 0,
+					iY = 0,
+					iXOff = 0,
+					iYOff = 0;
+			switch( cRand.Next( 3 ))
+			{
+			// side
+			case 0:
+				iX = nCombatant.cTeam.iId == 0 ? 0 : ((int)EZoneData.ZoneColumns - 1 );
+				iY = 1 + cRand.Next((int)EZoneData.ZoneRows - 2 );
+				break;
+
+			// top
+			case 1:
+				iX = (int)EZoneData.ZoneColumns / 2;
+				iX = cRand.Next( iX - 1 ) + ( nCombatant.cTeam.iId == 0 ? 0 : ( iX + 1 ));
+				iY = 0;
+				break;
+
+			// bottom
+			case 2:
+				iX = (int)EZoneData.ZoneColumns / 2;
+				iX = cRand.Next( iX - 1 ) + ( nCombatant.cTeam.iId == 0 ? 0 : ( iX + 1 ));
+				iY = (int)EZoneData.ZoneRows - 1;
+				break;
+			}
+			if( iX == (int)EZoneData.ZoneColumns || iY == (int)EZoneData.ZoneRows )
+				iX.ToString( );
+			if( iX == 0 )
+				iXOff = 20;
+			else if( iX == ((int)EZoneData.ZoneColumns - 1 ))
+				iXOff = -20;
+
+			if( iY == 0 )
+				iYOff = 20;
+			else if( iY == ((int)EZoneData.ZoneRows - 1 ))
+				iYOff = -20;
+
+			return new Vector2( iX * (int)EZoneData.ZoneColWidth + 112 + cRand.Next((int)EZoneData.ZoneColWidth - Math.Abs( iXOff )) + iXOff,
+											iY * (int)EZoneData.ZoneRowHeight + 70 + cRand.Next((int)EZoneData.ZoneRowHeight - Math.Abs( iYOff )) + iYOff );
 		}
 	}
 }

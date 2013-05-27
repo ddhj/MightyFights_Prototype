@@ -1,24 +1,31 @@
-﻿using System;
+﻿// system includes
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+// 3rd party includes
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using ProjectMercury;
+using ProjectMercury.Emitters;
+using ProjectMercury.Renderers;
+
+// project includes
 using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public class ObjectManager
+	public class ObjectCreationManager
 	{
 		#region Singleton Implementation
 		
-		private static readonly ObjectManager _cInstance = new ObjectManager();
-		public static ObjectManager cInstance	{ get { return _cInstance; }} 
-		private ObjectManager() {}
+		private static readonly ObjectCreationManager _cInstance = new ObjectCreationManager();
+		public static ObjectCreationManager cInstance	{ get { return _cInstance; }} 
+		private ObjectCreationManager() {}
 		
 		#endregion
 
@@ -212,18 +219,47 @@ namespace MightyFights_Prototype
 
 			return cBasicBuff;
 		}
+
+		public ParticleEffect CreateParticleSystem( string sEffect )
+		{
+			ParticleEffect	cEffect = _cContent.Load<ParticleEffect>( string.Format( @"Particles\{0}", sEffect ));
+
+			// push the defined texture name into the proper directory
+			foreach( Emitter cEmitter in cEffect )
+				cEmitter.ParticleTextureAssetName = string.Format( @"Particles\{0}", cEmitter.ParticleTextureAssetName );
+			cEffect.LoadContent( _cContent );
+			cEffect.Initialise( );
+
+			return cEffect;
+		}
+
+		public TerminatingParticleEffect CreateTerminatingParticleSystem( string sEffect )
+		{
+			TerminatingParticleEffect	cEffect = new TerminatingParticleEffect( _cContent.Load<ParticleEffect>( string.Format( @"Particles\{0}", sEffect )));
+
+			// push the defined texture name into the proper directory
+			foreach( Emitter cEmitter in cEffect )
+				cEmitter.ParticleTextureAssetName = string.Format( @"Particles\{0}", cEmitter.ParticleTextureAssetName );
+			cEffect.LoadContent( _cContent );
+			cEffect.Initialise( );
+
+			return cEffect;
+		}
 	}
 
-	public class ObjectManagerInstance
+	public class ObjectManager
 	{
-		Dictionary<string, Dictionary<int, IDrawable>>		_caDrawRefList = new Dictionary<string,Dictionary<int,IDrawable>>();
-		Dictionary<int, IActiveBasic>						_caActiveList = new Dictionary<int,IActiveBasic>();
-		Dictionary<int, object>								_caMainObjectList = new Dictionary<int,object>();
-		Dictionary<int, IClickable>							_caClickable = new Dictionary<int,IClickable>();
+		Dictionary<string, Dictionary<int, IDrawable>>		_cDrawRefList = new Dictionary<string,Dictionary<int,IDrawable>>();
+		Dictionary<int, TerminatingParticleEffectManager>	_cParticleSystems = new Dictionary<int,TerminatingParticleEffectManager>( );
+		Dictionary<int, IActiveBasic>	_cActiveList = new Dictionary<int,IActiveBasic>();
+		Dictionary<int, object>			_cMainObjectList = new Dictionary<int,object>();
+		Dictionary<int, IClickable>		_cClickable = new Dictionary<int,IClickable>();
 
 		bool		_bProcessClick = true;
 
-		public BattlegroundData cParentData					{ get; set; }
+
+		public BattlegroundData cParentData		{ get; set; }
+
 
 		public void AddObject(object oData)
 		{
@@ -231,18 +267,18 @@ namespace MightyFights_Prototype
 			Dictionary<int, IDrawable> caDrawList = null;
 
 			// add the object to the mater list 
-			_caMainObjectList.Add(nObj.iId, oData);
+			_cMainObjectList.Add(nObj.iId, oData);
 
 			// check if the object being added has a draw component
 			if(oData is IDrawable) { 
 				// check to see if the drawable component is a texture
 				if(oData is IDrawableTexture) { 
-					if(!_caDrawRefList.TryGetValue(((IDrawableTexture)oData).sTexName, out caDrawList))
-						_caDrawRefList.Add(((IDrawableTexture)oData).sTexName, caDrawList = new Dictionary<int, IDrawable>());
+					if(!_cDrawRefList.TryGetValue(((IDrawableTexture)oData).sTexName, out caDrawList))
+						_cDrawRefList.Add(((IDrawableTexture)oData).sTexName, caDrawList = new Dictionary<int, IDrawable>());
 				// the object is a drawable font
 				} else if(oData is IDrawableFont) { 
-					if(!_caDrawRefList.TryGetValue(((IDrawableFont)oData).sFontName, out caDrawList))
-						_caDrawRefList.Add(((IDrawableFont)oData).sFontName, caDrawList = new Dictionary<int, IDrawable>());
+					if(!_cDrawRefList.TryGetValue(((IDrawableFont)oData).sFontName, out caDrawList))
+						_cDrawRefList.Add(((IDrawableFont)oData).sFontName, caDrawList = new Dictionary<int, IDrawable>());
 				}
 
 				// check to see if the draw has data 
@@ -252,7 +288,7 @@ namespace MightyFights_Prototype
 
 			// check to see if the object has an active component 
 			if(oData is IActiveBasic) 
-				_caActiveList.Add(nObj.iId, (IActiveBasic)oData);
+				_cActiveList.Add(nObj.iId, (IActiveBasic)oData);
 		}
 
 		public void AddClickObject(object oData, DProcessClick dlProcess)
@@ -263,8 +299,22 @@ namespace MightyFights_Prototype
 			// this object should be a clickable object, otherwize why the hell is AddClickObject getting called
 			if(oData is IClickable) { 
 				((IClickable)oData).dlProcessClick = dlProcess;
-				_caClickable.Add(((IObject)oData).iId, (IClickable)oData);
+				_cClickable.Add(((IObject)oData).iId, (IClickable)oData);
 			}
+		}
+
+		public TerminatingParticleEffectManager AddParticleManager( int iId )
+		{
+			Renderer	cRenderer = new SpriteBatchRenderer( );
+			TerminatingParticleEffectManager	cMgr;
+
+			cRenderer.GraphicsDeviceService = DataStore.cInstance.cGfxMgr;
+			cRenderer.LoadContent( DataStore.cInstance.cContent );
+			cMgr = new TerminatingParticleEffectManager( cRenderer );
+
+			_cParticleSystems.Add( iId, cMgr );
+
+			return cMgr;
 		}
 
 		public void Process(GameTime cTime)
@@ -277,24 +327,24 @@ namespace MightyFights_Prototype
 			List<IClickable>		naClickObjList = new List<IClickable>();
 
 			// preprocess lists
-			foreach(object oObj in _caMainObjectList.Values) { 
+			foreach(object oObj in _cMainObjectList.Values) { 
 				nObj = (IObject)oObj;
 				// take care of the objects that no longer need to draw
 				if(oObj is IDrawable)
 					if((nObj.eObjState & EObjectStates.Draw) != EObjectStates.Draw) { 
 						if(oObj is IDrawableFont)
-							_caDrawRefList[((IDrawableFont)oObj).sFontName].Remove(nObj.iId);
-						else _caDrawRefList[((IDrawableTexture)oObj).sTexName].Remove(nObj.iId);
+							_cDrawRefList[((IDrawableFont)oObj).sFontName].Remove(nObj.iId);
+						else _cDrawRefList[((IDrawableTexture)oObj).sTexName].Remove(nObj.iId);
 
 						// remove the clickable since you can't see it 
-						_caClickable.Remove(nObj.iId);
+						_cClickable.Remove(nObj.iId);
 					}
 
 				// remove any objects no longer active
 				if(oObj is IActiveBasic) { 
 					if((nObj.eObjState & EObjectStates.Active) == EObjectStates.Active)
 						naActive.Add((IActiveBasic)oObj);
-					else _caActiveList.Remove(nObj.iId);
+					else _cActiveList.Remove(nObj.iId);
 				}
 
 				// if the object has no state left then blow it away
@@ -303,7 +353,7 @@ namespace MightyFights_Prototype
 			}
 
 			// check the mouse button click 
-			foreach(KeyValuePair<int, IClickable> tClickObj in _caClickable)
+			foreach(KeyValuePair<int, IClickable> tClickObj in _cClickable)
 				naClickObjList.Add(tClickObj.Value);
 
 			if(cMouseState.LeftButton == ButtonState.Pressed) { 
@@ -319,7 +369,7 @@ namespace MightyFights_Prototype
 
 			// remove all objects from the main processing list
 			foreach(int iObj in iaRemList)
-				_caMainObjectList.Remove(iObj);
+				_cMainObjectList.Remove(iObj);
 
 			// process all the active objects
 			foreach(IActiveBasic nActiveObj in naActive)
@@ -329,18 +379,35 @@ namespace MightyFights_Prototype
 		public void Draw(SpriteBatch cBatch)
 		{
 			// draw each object by their texture
-			foreach(KeyValuePair<string, Dictionary<int, IDrawable>> tDrawList in _caDrawRefList)
-				foreach(KeyValuePair<int, IDrawable> tObj in tDrawList.Value)
-					tObj.Value.Draw(cBatch);
+			foreach(Dictionary<int, IDrawable> cDrawList in _cDrawRefList.Values)
+				foreach(IDrawable nObj in cDrawList.Values)
+					nObj.Draw(cBatch);
+		}
+
+		public void DrawParticles( SpriteBatch cBatch )
+		{
+			// draw each object by their texture
+			foreach( ParticleEffectManager cMgr in _cParticleSystems.Values )
+				if( cMgr.Count > 0 )
+					cMgr.Draw( );
 		}
 
 		public void Clear()
 		{
-			_caActiveList.Clear();
-			foreach(KeyValuePair<string, Dictionary<int, IDrawable>> tDrawList in _caDrawRefList)
-				tDrawList.Value.Clear();
-			_caDrawRefList.Clear();
-			_caMainObjectList.Clear();
+			_cActiveList.Clear();
+			foreach(Dictionary<int, IDrawable> cDrawList in _cDrawRefList.Values)
+				cDrawList.Clear();
+			_cDrawRefList.Clear();
+			_cMainObjectList.Clear();
+
+			// clear the effect managers
+			foreach( ParticleEffectManager cMgr in _cParticleSystems.Values )
+			{
+				foreach( ParticleEffect cEffect in cMgr )
+					cEffect.Terminate( );
+				cMgr.Clear( );
+			}
+			_cParticleSystems.Clear( );
 		}
 	}
 }

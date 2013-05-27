@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="ProjectMercury.ParticleEffect">
+    <Item Type="ProjectMercury.Emitters.ConeEmitter">
+      <Name>Mist</Name>
+      <Budget>60</Budget>
+      <Term>0.5</Term>
+      <ReleaseQuantity>5</ReleaseQuantity>
+      <Enabled>True</Enabled>
+      <ReleaseSpeed>
+        <Value>160</Value>
+        <Variation>32</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>0.8666667 0.945098042 1</Value>
+        <Variation>0 0 0</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>1</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>32</Value>
+        <Variation>16</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>3.14</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>Water001</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="ProjectMercury.Modifiers.LinearGravityModifier">
+          <Gravity>0 100</Gravity>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.TrajectoryRotationModifier">
+          <RotationOffset>75</RotationOffset>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.OpacityInterpolatorModifier">
+          <InitialOpacity>0.4</InitialOpacity>
+          <MiddleOpacity>0.4</MiddleOpacity>
+          <MiddlePosition>0.1</MiddlePosition>
+          <FinalOpacity>0</FinalOpacity>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.RotationModifier">
+          <RotationRate>1.57079637</RotationRate>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.ColourModifier">
+          <InitialColour>0.8745098 0 0</InitialColour>
+          <UltimateColour>0.819607854 0.1509804 0.1784314</UltimateColour>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.ScaleMergeModifier">
+          <MergeScale>32</MergeScale>
+        </Item>
+      </Modifiers>
+      <BlendMode>Alpha</BlendMode>
+      <TriggerOffset>0 0</TriggerOffset>
+      <MinimumTriggerPeriod>0</MinimumTriggerPeriod>
+      <Direction>4.414758</Direction>
+      <ConeAngle>0.225750238</ConeAngle>
+    </Item>
+    <Item Type="ProjectMercury.Emitters.ConeEmitter">
+      <Name>Spray</Name>
+      <Budget>60</Budget>
+      <Term>0.5</Term>
+      <ReleaseQuantity>15</ReleaseQuantity>
+      <Enabled>True</Enabled>
+      <ReleaseSpeed>
+        <Value>160</Value>
+        <Variation>32</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>0.8666667 0.1 0.1</Value>
+        <Variation>0 0 0</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>1</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>16</Value>
+        <Variation>0</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>0</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>Spray001</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="ProjectMercury.Modifiers.TrajectoryRotationModifier">
+          <RotationOffset>75</RotationOffset>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.ScaleModifier">
+          <InitialScale>16</InitialScale>
+          <UltimateScale>32</UltimateScale>
+        </Item>
+        <Item Type="ProjectMercury.Modifiers.OpacityInterpolatorModifier">
+          <InitialOpacity>0.5</InitialOpacity>
+          <MiddleOpacity>0.1</MiddleOpacity>
+          <MiddlePosition>0.5</MiddlePosition>
+          <FinalOpacity>0</FinalOpacity>
+        </Item>
+      </Modifiers>
+      <BlendMode>Alpha</BlendMode>
+      <TriggerOffset>0 0</TriggerOffset>
+      <MinimumTriggerPeriod>0</MinimumTriggerPeriod>
+      <Direction>4.400859</Direction>
+      <ConeAngle>0.225750238</ConeAngle>
+    </Item>
+    <Name>Particle Effect</Name>
+    <Author />
+    <Description />
+  </Asset>
+</XnaContent>

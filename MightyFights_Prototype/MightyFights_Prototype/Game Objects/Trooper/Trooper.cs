@@ -1,11 +1,16 @@
-﻿using System;
+﻿// system includes
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+// 3rd party includes
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using ProjectMercury;
+
+// project includes
 using MightyFights_Support;
 
 namespace MightyFights_Prototype
@@ -34,7 +39,8 @@ namespace MightyFights_Prototype
 
 		ExperienceData				_cExpData = new ExperienceData();
 
-		Dictionary<EBuffEffects, BuffActionData>			_cBuffList = new Dictionary<EBuffEffects,BuffActionData>();
+		TerminatingParticleEffectManager			_cMgr;
+		Dictionary<EBuffEffects, BuffActionData>	_cBuffList = new Dictionary<EBuffEffects,BuffActionData>();
 		Dictionary<ETrooperAttackPos, ICombatant>	_cAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
 		////ddhj template stuff... not sure if it should go on trooper proper
@@ -98,7 +104,9 @@ namespace MightyFights_Prototype
 			_eObjState = EObjectStates.Active | EObjectStates.Draw;
 
 			// get the id from the object manager proper
-			this.iId = ObjectManager.cInstance.iCurObjId;
+			this.iId = ObjectCreationManager.cInstance.iCurObjId;
+
+			_cMgr = DataStore.cInstance.cBattleData.cObjMgr.AddParticleManager( iId );
 		}
 		
 		void CalcMovementSpeed()
@@ -373,6 +381,9 @@ namespace MightyFights_Prototype
 				cAction.bConditionNotMet = false;
 			_bAttacking = false;
 			this.nTarget = null;
+
+			if( bCrit )
+				_cMgr.Add( ObjectCreationManager.cInstance.CreateTerminatingParticleSystem( "BloodSpray" ));
 		}
 
 		public float Heal( float fHp )
@@ -665,6 +676,13 @@ namespace MightyFights_Prototype
 			// walk the buff list and animate any of them if they are on the combatant
 			foreach(KeyValuePair<EBuffEffects, BuffActionData> tBuff in _cBuffList)
 				tBuff.Value.cBuffGem.Process(cTime);
+
+			if( _cMgr.Count > 0 )
+			{
+				foreach( ParticleEffect cEffect in _cMgr )
+					cEffect.Trigger( new Vector2( _tCenter.X + 0, _tCenter.Y - 18 ));
+				_cMgr.Update( cTime );
+			}
 		}
 	}
 }

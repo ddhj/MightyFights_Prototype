@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using ProjectMercury;
+
 // project includes
 using MightyFights_Support;
 
@@ -29,6 +31,7 @@ namespace MightyFights_Prototype	{
 		Texture2D	_cTexRef;
 		EObjectStates		_eObjState;
 		AnimationProcessor	_cAnimProc;
+		ParticleEffectManager		_cMgr;
 
 	// Properties
 		public int iId			{ get { return _iId; }}
@@ -65,6 +68,8 @@ namespace MightyFights_Prototype	{
 
 			this.tPos = tPos;
 			_cSupportZone = new FleeSpot( iMaxSlots, 60, new Vector2( _tCenter.X + ( cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
+
+			_cMgr = DataStore.cInstance.cBattleData.cObjMgr.AddParticleManager( iId );
 		}
 
 	// Functions
@@ -100,7 +105,11 @@ namespace MightyFights_Prototype	{
 					else	_fHp += _fRegenRate;
 
 				if( _cAnimProc.sType != "Idle" )
+				{
 					_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
+					_cMgr[0].Terminate( );
+					_cMgr.RemoveAt( 0 );
+				}
 			}
 			else if( _fHp > 0 )
 			{
@@ -116,14 +125,30 @@ namespace MightyFights_Prototype	{
 					}
 				}
 				if( _cAnimProc.sType == "Idle" )
+				{
+					ParticleEffect	cEffect  = ObjectCreationManager.cInstance.CreateParticleSystem( "HealingCircle" );
+					_cMgr.Add( cEffect );
+					cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
 					_cAnimProc.SetAnimationCriteria("Defend", "Parry", "lp", 1);
+				}
 			}
 			else	{
 				foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
 					tPair.Value.RemoveHeal( );
 				_cSupportZone.ResetSpots( );
 				if( _cAnimProc.sType != "Idle" )
+				{
 					_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
+					_cMgr[0].Terminate( );
+					_cMgr.RemoveAt( 0 );
+				}
+			}
+
+			if( _cMgr.Count > 0 )
+			{
+				foreach( ParticleEffect cEffect in _cMgr )
+					cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
+				_cMgr.Update((float)cTime.ElapsedGameTime.TotalSeconds, true );
 			}
 
 			// handle the animation

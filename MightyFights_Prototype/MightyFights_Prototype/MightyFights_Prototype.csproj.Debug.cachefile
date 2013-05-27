@@ -8,6 +8,7 @@ Content\Out Game\Template\AtkSpeedArray.xnb
 Content\Out Game\Template\HitPointsArray.xnb
 Content\In Game\Buffs\BufItemsArray.xnb
 Content\In Game\Buffs\DropsArray.xnb
+Content\In Game\Buffs\GemsArray.xnb
 Content\Sprite Data\Troopers\Halberd\Textures\fazure.xnb
 Content\Sprite Data\Troopers\Halberd\Textures\fbrown.xnb
 Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.xnb
@@ -46,8 +47,6 @@ Content\Backgrounds\dirt_grass 800x436.xnb
 Content\Backgrounds\dirt_grass 800x500.xnb
 Content\In Game\Buffs\ItemBox.xnb
 Content\In Game\Buffs\Drops.xnb
-Content\Shared\DebugFont.xnb
-Content\In Game\Buffs\GemsArray.xnb
 Content\In Game\Buffs\Gems.xnb
 Content\In Game\Buffs\Animals\crab.xnb
 Content\In Game\Buffs\Animals\dragon.xnb
@@ -57,3 +56,48 @@ Content\In Game\Buffs\Animals\snake.xnb
 Content\In Game\Buffs\Animals\squirrel.xnb
 Content\In Game\Buffs\Animals\toad.xnb
 Content\In Game\Buffs\Animals\wolf.xnb
+Content\Particles\Beam.xnb
+Content\Particles\BeamBlurred.xnb
+Content\Particles\Cloud001.xnb
+Content\Particles\Cloud002.xnb
+Content\Particles\Cloud003.xnb
+Content\Particles\Cloud004.xnb
+Content\Particles\Elipse001.xnb
+Content\Particles\Flame.xnb
+Content\Particles\FlowerBurst.xnb
+Content\Particles\Laser.xnb
+Content\Particles\LensFlare.xnb
+Content\Particles\MultiDot.xnb
+Content\Particles\Particle001.xnb
+Content\Particles\Particle002.xnb
+Content\Particles\Particle003.xnb
+Content\Particles\Particle004.xnb
+Content\Particles\Particle005.xnb
+Content\Particles\Particle006.xnb
+Content\Particles\Particle007.xnb
+Content\Particles\Ring001.xnb
+Content\Particles\Ring002.xnb
+Content\Particles\SoftClumpy.xnb
+Content\Particles\SoftSmokey.xnb
+Content\Particles\Spikey001.xnb
+Content\Particles\Spikey002.xnb
+Content\Particles\Splash.xnb
+Content\Particles\Spray001.xnb
+Content\Particles\Star.xnb
+Content\Particles\Water001.xnb
+Content\Particles\Water002.xnb
+Content\Particles\Weeds.xnb
+Content\Shared\DebugFont.xnb
+Content\Particles\BasicExplosion.xnb
+Content\Particles\BasicFireball.xnb
+Content\Particles\BasicSmokePlume.xnb
+Content\Particles\BeamMeUp.xnb
+Content\Particles\BloodSpray.xnb
+Content\Particles\CampFire.xnb
+Content\Particles\FlowerBloom.xnb
+Content\Particles\HealingCircle.xnb
+Content\Particles\MagicTrail.xnb
+Content\Particles\Paparazzi.xnb
+Content\Particles\SimpleRain.xnb
+Content\Particles\StarTrail.xnb
+Content\Particles\WaterJet.xnb

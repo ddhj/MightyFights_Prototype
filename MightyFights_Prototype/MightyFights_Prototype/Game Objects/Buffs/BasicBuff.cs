@@ -174,9 +174,9 @@ namespace MightyFights_Prototype
 			_cBuff = cBuff;
 
 			// get the draw data for this object
-			ObjectManager.cInstance.CreateBuffRadiusObj(this);
+			ObjectCreationManager.cInstance.CreateBuffRadiusObj(this);
 
-			this.iId = ObjectManager.cInstance.iCurObjId;
+			this.iId = ObjectCreationManager.cInstance.iCurObjId;
 			this.eObjState = EObjectStates.Draw | EObjectStates.Active;
 
 			// set up our color so we have some transparency during draw
@@ -291,7 +291,7 @@ namespace MightyFights_Prototype
 			_eType = eType; 
 			this.dlBuffEffect = dlBuffEffect;
 
-			_cBuffGem = ObjectManager.cInstance.CreateBuffGem(eType);
+			_cBuffGem = ObjectCreationManager.cInstance.CreateBuffGem(eType);
 		}
 
 		public bool BuffAction(Action cAction, GameTime cTime)

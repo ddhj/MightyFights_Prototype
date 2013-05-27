@@ -18,7 +18,7 @@ namespace MightyFights_Prototype
 	/// </summary>
 	public class GameShell : Microsoft.Xna.Framework.Game
 	{
-		GraphicsDeviceManager graphics;
+		public GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
 		public GameShell()
@@ -40,19 +40,20 @@ namespace MightyFights_Prototype
 		protected override void Initialize()
 		{
 			// init the data store
-			DataStore.cInstance.cContent = Content;
-			DataStore.cInstance.cGraphics = GraphicsDevice;
+			DataStore.cInstance.cContent = this.Content;
+			DataStore.cInstance.cGraphics = this.GraphicsDevice;
+			DataStore.cInstance.cGfxMgr = this.graphics;
 			DataStore.cInstance.cGame = this;
 			DataStore.cInstance.cRand = new Random();
 
 			// init the object manager
-			ObjectManager.cInstance.Init();
+			ObjectCreationManager.cInstance.Init();
 
 			// set the scene manager
 			SceneManager	cManager = new SceneManager(this);
 
 			// add the main menu as the initial drawing object
-			IGameScene nScene = new MainMenu();
+			IGameScene		nScene = new MainMenu();
 			if(nScene.Init()) { 
 				cManager.AddScene(nScene);
 				Components.Add(cManager);

@@ -103,6 +103,9 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
+    <Reference Include="ProjectMercury">
+      <HintPath>..\..\3rd Party\ProjectMercury.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -163,6 +166,7 @@
     <Compile Include="Support Classes\Enums.cs" />
     <Compile Include="Interfaces\ICombatant.cs" />
     <Compile Include="Interfaces\IUpdate.cs" />
+    <Compile Include="Support Classes\Particle System Objects.cs" />
     <Compile Include="Support Classes\Stats.cs" />
     <Compile Include="Support Classes\TemplateConfig.cs" />
     <Compile Include="Support Classes\TrooperTemplate.cs" />
