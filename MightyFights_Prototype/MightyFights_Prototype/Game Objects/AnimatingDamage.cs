@@ -42,8 +42,10 @@ namespace MightyFights_Prototype
 			_tPos = tPos;
 			_cFont = DataStore.cInstance.cFont;
 
+			if( iDamage == 0 )
+				_tTextColor = Color.DarkGray;
 			// get text color from nature of damage and which team it was done to
-			if( !bHeal )
+			else if( !bHeal )
 				if( cTeam.bDirection )
 					if( bCrit )
 						_tTextColor = Color.Orange;

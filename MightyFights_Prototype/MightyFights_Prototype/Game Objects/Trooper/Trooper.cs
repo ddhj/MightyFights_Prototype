@@ -6,6 +6,7 @@ using System.Text;
 
 // 3rd party includes
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 using ProjectMercury;
@@ -32,14 +33,16 @@ namespace MightyFights_Prototype
 		byte		_byAttakPos;
 		bool		_bAttacking;
 
+		ParticleEffect				_cBloodSpray;
 		EObjectStates				_eObjState;
 		ActionManager<Trooper>		_cActionMgr;
 		AnimationProcessor			_cAnimProc;
 		BattlegroundData			_cBattleDataRef = null;
 
 		ExperienceData				_cExpData = new ExperienceData();
+		SoundEffectInstance			_cSfxCrit,
+									_cSfxParry;
 
-		TerminatingParticleEffectManager			_cMgr;
 		Dictionary<EBuffEffects, BuffActionData>	_cBuffList = new Dictionary<EBuffEffects,BuffActionData>();
 		Dictionary<ETrooperAttackPos, ICombatant>	_cAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
@@ -106,7 +109,9 @@ namespace MightyFights_Prototype
 			// get the id from the object manager proper
 			this.iId = ObjectCreationManager.cInstance.iCurObjId;
 
-			_cMgr = DataStore.cInstance.cBattleData.cObjMgr.AddParticleManager( iId );
+			_cSfxCrit = ObjectCreationManager.cInstance.CreateSfx( "Decapitation-SoundBible.com-800292304" );
+			_cSfxParry = ObjectCreationManager.cInstance.CreateSfx( "Swords_Collide-Sound_Explorer-2015600826" );
+			_cSfxCrit.Volume = _cSfxParry.Volume = .6f;
 		}
 		
 		void CalcMovementSpeed()
@@ -307,12 +312,11 @@ namespace MightyFights_Prototype
 
 		public void DealDamage(ICombatant nOpponent, int iDamage, bool bCrit)
 		{
+			Random	cRand = DataStore.cInstance.cRand;
 			++_cExpData.iAttacked;
 			
 			//// ddhj: yep armor class and all that shit 
-			if(cAiData.eState != EBattleAiStates.Defending) { 
-				Random cRand = DataStore.cInstance.cRand;
-				
+			if(cAiData.eState != EBattleAiStates.Defending) {
 				// this is a rough percentage of the armor class not taking into account flank
 				int iFinalDamage = iDamage - _cStats.iArmorClass * (cRand.Next(80, 100) / 100);
 
@@ -328,6 +332,12 @@ namespace MightyFights_Prototype
 				if(bCrit) { 
 					++_cExpData.iCritted;
 					++nOpponent.cExpData.iCritSuccess;
+					if( _cSfxCrit.State != SoundState.Stopped )
+						_cSfxCrit.Stop( );
+					_cSfxCrit.Play( );
+
+					_cBloodSpray = ObjectCreationManager.cInstance.CreateTerminatingParticleSystem( "BloodSpray" );
+					_cBattleDataRef.cObjMgr.AddParticleEffect( _cBloodSpray );
 				}
 
 				// check to see if we are spawning damage numbers
@@ -337,14 +347,27 @@ namespace MightyFights_Prototype
 				// tally experience data
 				++_cExpData.iDefendedAttacks;
 				++nOpponent.cExpData.iAttackDefended;
-				if(bCrit) { 
+				if(bCrit) {
+					// this is a rough percentage of the armor class not taking into account flank
+					int iFinalDamage = iDamage / 4 - _cStats.iArmorClass * (cRand.Next(80, 100) / 100);
+
+					_cStats.fHp -= iFinalDamage;
+
 					++_cExpData.iDefendedCrits;
 					++nOpponent.cExpData.iCritsDefended;
-				}
 
-				// check to see if we are spawning damage numbers
-				if(DataStore.cInstance.bDamageNumbers) 
-					DataStore.cInstance.cBattleData.cObjMgr.AddObject(new AnimatingDamage(0, _tCenter, bCrit, false, _cTeam));
+					// check to see if we are spawning damage numbers
+					if(DataStore.cInstance.bDamageNumbers) 
+						DataStore.cInstance.cBattleData.cObjMgr.AddObject(new AnimatingDamage(iFinalDamage, _tCenter, bCrit, false, _cTeam));
+				}
+				else	{
+					// check to see if we are spawning damage numbers
+					if(DataStore.cInstance.bDamageNumbers) 
+						DataStore.cInstance.cBattleData.cObjMgr.AddObject(new AnimatingDamage(0, _tCenter, bCrit, false, _cTeam));
+				}
+				if( _cSfxParry.State != SoundState.Stopped )
+					_cSfxParry.Stop( );
+				_cSfxParry.Play( );
 			}
 
 			// if I am attacking my attacker
@@ -381,9 +404,6 @@ namespace MightyFights_Prototype
 				cAction.bConditionNotMet = false;
 			_bAttacking = false;
 			this.nTarget = null;
-
-			if( bCrit )
-				_cMgr.Add( ObjectCreationManager.cInstance.CreateTerminatingParticleSystem( "BloodSpray" ));
 		}
 
 		public float Heal( float fHp )
@@ -677,12 +697,10 @@ namespace MightyFights_Prototype
 			foreach(KeyValuePair<EBuffEffects, BuffActionData> tBuff in _cBuffList)
 				tBuff.Value.cBuffGem.Process(cTime);
 
-			if( _cMgr.Count > 0 )
-			{
-				foreach( ParticleEffect cEffect in _cMgr )
-					cEffect.Trigger( new Vector2( _tCenter.X + 0, _tCenter.Y - 18 ));
-				_cMgr.Update( cTime );
-			}
+			if( _cBloodSpray != null )
+				if(((TerminatingParticleEffect)_cBloodSpray ).bTimeElapsed )
+					_cBloodSpray = null;
+				else	_cBloodSpray.Trigger( new Vector2( _tCenter.X + 0, _tCenter.Y - 18 ));
 		}
 	}
 }

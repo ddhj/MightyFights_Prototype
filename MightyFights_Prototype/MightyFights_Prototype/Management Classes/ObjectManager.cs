@@ -6,9 +6,11 @@ using System.Text;
 
 // 3rd party includes
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 using ProjectMercury;
 using ProjectMercury.Emitters;
@@ -31,6 +33,9 @@ namespace MightyFights_Prototype
 
 		Dictionary<string, AnimationData>	_cAnimationDataList = new Dictionary<string,AnimationData>();
 		Dictionary<string, Texture2D>		_cTextureList = new Dictionary<string,Texture2D>();
+		Dictionary<string, ParticleEffect>	_cParticles = new Dictionary<string,ParticleEffect>( );
+		Dictionary<string, SoundEffect>		_cSfx = new Dictionary<string,SoundEffect>( );
+		Dictionary<string, Song>			_cSongs = new Dictionary<string,Song>( );
 		ContentManager						_cContent;
 		int									_iCurObjId = 0;
 
@@ -222,12 +227,18 @@ namespace MightyFights_Prototype
 
 		public ParticleEffect CreateParticleSystem( string sEffect )
 		{
-			ParticleEffect	cEffect = _cContent.Load<ParticleEffect>( string.Format( @"Particles\{0}", sEffect ));
+			ParticleEffect	cEffect;
 
-			// push the defined texture name into the proper directory
-			foreach( Emitter cEmitter in cEffect )
-				cEmitter.ParticleTextureAssetName = string.Format( @"Particles\{0}", cEmitter.ParticleTextureAssetName );
-			cEffect.LoadContent( _cContent );
+			if( _cParticles.TryGetValue( sEffect, out cEffect ))
+				cEffect = cEffect.DeepCopy( );
+			else	{
+				cEffect = _cContent.Load<ParticleEffect>( string.Format( @"Particles\{0}", sEffect ));
+				// push the defined texture name into the proper directory
+				foreach( Emitter cEmitter in cEffect )
+					cEmitter.ParticleTextureAssetName = string.Format( @"Particles\{0}", cEmitter.ParticleTextureAssetName );
+				cEffect.LoadContent( _cContent );
+				_cParticles.Add( sEffect, cEffect );
+			}
 			cEffect.Initialise( );
 
 			return cEffect;
@@ -235,25 +246,58 @@ namespace MightyFights_Prototype
 
 		public TerminatingParticleEffect CreateTerminatingParticleSystem( string sEffect )
 		{
-			TerminatingParticleEffect	cEffect = new TerminatingParticleEffect( _cContent.Load<ParticleEffect>( string.Format( @"Particles\{0}", sEffect )));
-
-			// push the defined texture name into the proper directory
-			foreach( Emitter cEmitter in cEffect )
-				cEmitter.ParticleTextureAssetName = string.Format( @"Particles\{0}", cEmitter.ParticleTextureAssetName );
+			ParticleEffect		cEffect;
+			
+			if( _cParticles.TryGetValue( sEffect, out cEffect ))
+				cEffect = new TerminatingParticleEffect( cEffect.DeepCopy( ));
+			else	{
+				cEffect = new TerminatingParticleEffect( _cContent.Load<ParticleEffect>( string.Format( @"Particles\{0}", sEffect )));
+				// push the defined texture name into the proper directory
+				foreach( Emitter cEmitter in cEffect )
+					cEmitter.ParticleTextureAssetName = string.Format( @"Particles\{0}", cEmitter.ParticleTextureAssetName );
+			//	cEffect.LoadContent( _cContent );
+				_cParticles.Add( sEffect, cEffect );
+			}
 			cEffect.LoadContent( _cContent );
 			cEffect.Initialise( );
 
-			return cEffect;
+			return (TerminatingParticleEffect)cEffect;
+		}
+
+		public Song CreateMusic( string sSong )
+		{
+			Song		cSong;
+
+			if( !_cSongs.TryGetValue( sSong, out cSong ))
+			{
+				cSong = _cContent.Load<Song>( string.Format( @"Music\{0}", sSong ));
+				_cSongs.Add( sSong, cSong );
+			}
+
+			return cSong;
+		}
+
+		public SoundEffectInstance CreateSfx( string sSfx )
+		{
+			SoundEffect	cSfx;
+
+			if( !_cSfx.TryGetValue( sSfx, out cSfx ))
+			{
+				cSfx = _cContent.Load<SoundEffect>( string.Format( @"SFX\{0}", sSfx ));
+				_cSfx.Add( sSfx, cSfx );
+			}
+
+			return cSfx.CreateInstance( );
 		}
 	}
 
 	public class ObjectManager
 	{
 		Dictionary<string, Dictionary<int, IDrawable>>		_cDrawRefList = new Dictionary<string,Dictionary<int,IDrawable>>();
-		Dictionary<int, TerminatingParticleEffectManager>	_cParticleSystems = new Dictionary<int,TerminatingParticleEffectManager>( );
-		Dictionary<int, IActiveBasic>	_cActiveList = new Dictionary<int,IActiveBasic>();
-		Dictionary<int, object>			_cMainObjectList = new Dictionary<int,object>();
-		Dictionary<int, IClickable>		_cClickable = new Dictionary<int,IClickable>();
+		TerminatingParticleEffectManager	_cParticleSystemMgr;
+		Dictionary<int, IActiveBasic>		_cActiveList = new Dictionary<int,IActiveBasic>();
+		Dictionary<int, object>				_cMainObjectList = new Dictionary<int,object>();
+		Dictionary<int, IClickable>			_cClickable = new Dictionary<int,IClickable>();
 
 		bool		_bProcessClick = true;
 
@@ -303,18 +347,18 @@ namespace MightyFights_Prototype
 			}
 		}
 
-		public TerminatingParticleEffectManager AddParticleManager( int iId )
+		public void CreateParticleManager( )
 		{
 			Renderer	cRenderer = new SpriteBatchRenderer( );
-			TerminatingParticleEffectManager	cMgr;
 
 			cRenderer.GraphicsDeviceService = DataStore.cInstance.cGfxMgr;
 			cRenderer.LoadContent( DataStore.cInstance.cContent );
-			cMgr = new TerminatingParticleEffectManager( cRenderer );
+			_cParticleSystemMgr = new TerminatingParticleEffectManager( cRenderer );
+		}
 
-			_cParticleSystems.Add( iId, cMgr );
-
-			return cMgr;
+		public void AddParticleEffect( ParticleEffect cEffect )
+		{
+			_cParticleSystemMgr.Add( cEffect );
 		}
 
 		public void Process(GameTime cTime)
@@ -374,6 +418,8 @@ namespace MightyFights_Prototype
 			// process all the active objects
 			foreach(IActiveBasic nActiveObj in naActive)
 				nActiveObj.Process(cTime);
+
+			_cParticleSystemMgr.Update( cTime );
 		}
 
 		public void Draw(SpriteBatch cBatch)
@@ -387,9 +433,8 @@ namespace MightyFights_Prototype
 		public void DrawParticles( SpriteBatch cBatch )
 		{
 			// draw each object by their texture
-			foreach( ParticleEffectManager cMgr in _cParticleSystems.Values )
-				if( cMgr.Count > 0 )
-					cMgr.Draw( );
+			if( _cParticleSystemMgr.Count > 0 )
+				_cParticleSystemMgr.Draw( );
 		}
 
 		public void Clear()
@@ -399,15 +444,12 @@ namespace MightyFights_Prototype
 				cDrawList.Clear();
 			_cDrawRefList.Clear();
 			_cMainObjectList.Clear();
+			_cParticleSystemMgr.Clear( );
 
 			// clear the effect managers
-			foreach( ParticleEffectManager cMgr in _cParticleSystems.Values )
-			{
-				foreach( ParticleEffect cEffect in cMgr )
-					cEffect.Terminate( );
-				cMgr.Clear( );
-			}
-			_cParticleSystems.Clear( );
+			foreach( ParticleEffect cEffect in _cParticleSystemMgr )
+				cEffect.Terminate( );
+			_cParticleSystemMgr.Clear( );
 		}
 	}
 }

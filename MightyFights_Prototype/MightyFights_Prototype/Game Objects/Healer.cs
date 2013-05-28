@@ -31,7 +31,8 @@ namespace MightyFights_Prototype	{
 		Texture2D	_cTexRef;
 		EObjectStates		_eObjState;
 		AnimationProcessor	_cAnimProc;
-		ParticleEffectManager		_cMgr;
+		ParticleEffect		_cEffect;
+		BattlegroundData	_cBtlGndData;
 
 	// Properties
 		public int iId			{ get { return _iId; }}
@@ -49,7 +50,7 @@ namespace MightyFights_Prototype	{
 		public string sTexName		{ get; set; }
 
 	// Constructor
-		public Priest( int iId, int iMaxHp, int iMaxSlots, float fHealRate, float fRegenRate, Vector2 tPos, Team cTeam, TrooperTemplate cTemplate )
+		public Priest( int iId, int iMaxHp, int iMaxSlots, float fHealRate, float fRegenRate, Vector2 tPos, Team cTeam, BattlegroundData cBtlGndData, TrooperTemplate cTemplate )
 		{
 			_iId = iId;
 			_fHp = _iMaxHp = iMaxHp;
@@ -57,6 +58,7 @@ namespace MightyFights_Prototype	{
 			_fHealRate = fHealRate;
 			_fZOrder = 1 - _tCenter.Y / 684;
 			_cTeam = cTeam;
+			_cBtlGndData = cBtlGndData;
 
 			_cTexRef = cTemplate.cTextureRef;
 			_cAnimProc = cTemplate.cAnimProcessorRef;
@@ -69,7 +71,8 @@ namespace MightyFights_Prototype	{
 			this.tPos = tPos;
 			_cSupportZone = new FleeSpot( iMaxSlots, 60, new Vector2( _tCenter.X + ( cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
 
-			_cMgr = DataStore.cInstance.cBattleData.cObjMgr.AddParticleManager( iId );
+			_cEffect = ObjectCreationManager.cInstance.CreateParticleSystem( "HealingCircle" );
+			_cBtlGndData.cObjMgr.AddParticleEffect( _cEffect );
 		}
 
 	// Functions
@@ -105,11 +108,7 @@ namespace MightyFights_Prototype	{
 					else	_fHp += _fRegenRate;
 
 				if( _cAnimProc.sType != "Idle" )
-				{
 					_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
-					_cMgr[0].Terminate( );
-					_cMgr.RemoveAt( 0 );
-				}
 			}
 			else if( _fHp > 0 )
 			{
@@ -125,30 +124,17 @@ namespace MightyFights_Prototype	{
 					}
 				}
 				if( _cAnimProc.sType == "Idle" )
-				{
-					ParticleEffect	cEffect  = ObjectCreationManager.cInstance.CreateParticleSystem( "HealingCircle" );
-					_cMgr.Add( cEffect );
-					cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
 					_cAnimProc.SetAnimationCriteria("Defend", "Parry", "lp", 1);
-				}
+
+				if( _cSupportZone.cUsedSpots.Count > 0 )
+					_cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
 			}
 			else	{
 				foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
 					tPair.Value.RemoveHeal( );
 				_cSupportZone.ResetSpots( );
 				if( _cAnimProc.sType != "Idle" )
-				{
 					_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
-					_cMgr[0].Terminate( );
-					_cMgr.RemoveAt( 0 );
-				}
-			}
-
-			if( _cMgr.Count > 0 )
-			{
-				foreach( ParticleEffect cEffect in _cMgr )
-					cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
-				_cMgr.Update((float)cTime.ElapsedGameTime.TotalSeconds, true );
 			}
 
 			// handle the animation

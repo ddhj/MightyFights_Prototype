@@ -32,7 +32,7 @@ namespace MightyFights_Prototype	{
 			this.Name = cEffect.Name;
 		}
 	// functions
-		public new void Initialise( )
+		public override void Initialise( )
 		{
 			long	lEmitter;
 			base.Initialise( );

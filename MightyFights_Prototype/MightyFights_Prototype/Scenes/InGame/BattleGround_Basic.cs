@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 using MightyFights_Support;
 
@@ -22,9 +23,10 @@ namespace MightyFights_Prototype
 		BattlegroundData	_cBattleData = new BattlegroundData();
 		ObjectManager	_cObjMgr = new ObjectManager();
 		Dictionary<EBuffEffects, BuffContainer>		_cBuffContainerList = new Dictionary<EBuffEffects,BuffContainer>();
+		Song			_cBgm;
 
-		TimeSpan			_tVictoryElapsed = TimeSpan.Zero,
-							_tSlowMo = TimeSpan.Zero;
+		TimeSpan		_tVictoryElapsed = TimeSpan.Zero,
+						_tSlowMo = TimeSpan.Zero;
 
 		Cursor			_cCursor;
 
@@ -108,6 +110,10 @@ namespace MightyFights_Prototype
 						foreach( Team cTeam in _cBattleData.caTeams )
 							if( cTeam.cActiveList.Count == 0 ) { 
 								_cBattleData.eState = EBattlegroundState.Victory;
+
+								MediaPlayer.Stop( );
+								_cBgm = ObjectCreationManager.cInstance.CreateMusic( "Minibossies_FinalFantasy6_VictoryFanfare" );
+								MediaPlayer.Play( _cBgm );
 
 								// debug for exp 
 								WriteExpData();
@@ -281,6 +287,13 @@ namespace MightyFights_Prototype
 					++iX;
 				}
 			}
+
+			string[] saMusic = new string[] { "Final_Fantasy_4_The_Flying_Machine_OC_ReMix", "Final_Fantasy_4_Treason_OC_ReMix", "Final_Fantasy_6_Desertion_OC_ReMix", "Final_Fantasy_6_Smooth_Alexander_OC_ReMix",
+																				"Final_Fantasy_7_Fight_On_OC_ReMix",  "Final_Fantasy_Duque_Battle_OC_ReMix", "Final_Fantasy_Hostility_OC_ReMix", "Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix" };
+			_cBgm = ObjectCreationManager.cInstance.CreateMusic( saMusic[DataStore.cInstance.cRand.Next( saMusic.Length )] );
+			MediaPlayer.IsRepeating = true;
+			MediaPlayer.Volume = .6f;
+			MediaPlayer.Play( _cBgm );
 		}
 
 		void CreateBuffContainers()
@@ -516,6 +529,8 @@ namespace MightyFights_Prototype
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 				_cBackground = cContent.Load<Texture2D>(@"Backgrounds\dirt_grass 800x436");
 
+				_cObjMgr.CreateParticleManager( );
+
 				// set the battle data to the datastore for reference 
 				DataStore.cInstance.cBattleData = _cBattleData;
 
@@ -532,7 +547,7 @@ namespace MightyFights_Prototype
 				}
 				for( int iCount = 0; iCount < 2; ++iCount )
 				{
-					Priest	cHealer = new Priest( cObjMgr.iCurObjId, 1500, 7, 1.6f, .1f, new Vector2( 50, 180 + 120 * iCount ), cTeam, cObjMgr.CreateTemplate(cLeft) );
+					Priest	cHealer = new Priest( cObjMgr.iCurObjId, 1500, 7, 1.6f, .1f, new Vector2( 50, 180 + 120 * iCount ), cTeam, _cBattleData, cObjMgr.CreateTemplate(cLeft) );
 					cTeam.cHealerList.Add( cHealer.iId, cHealer );
 					_cObjMgr.AddObject(cHealer);
 				}
@@ -550,7 +565,7 @@ namespace MightyFights_Prototype
 				}
 				for( int iCount = 0; iCount < 2; ++iCount )
 				{
-					Priest	cHealer = new Priest( cObjMgr.iCurObjId, 1500, 7, 1.6f, .1f, new Vector2( 880, 180 + 120 * iCount ), cTeam, cObjMgr.CreateTemplate(cRight) );
+					Priest	cHealer = new Priest( cObjMgr.iCurObjId, 1500, 7, 1.6f, .1f, new Vector2( 880, 180 + 120 * iCount ), cTeam, _cBattleData, cObjMgr.CreateTemplate(cRight) );
 					cTeam.cHealerList.Add( cHealer.iId, cHealer );
 					_cObjMgr.AddObject(cHealer);
 				}
@@ -665,6 +680,7 @@ namespace MightyFights_Prototype
 
 		void ResetBattle()
 		{
+			MediaPlayer.Stop( );
 			PartialClean();
 			Init();
 			_cBattleData.eState = EBattlegroundState.Init;
@@ -673,6 +689,7 @@ namespace MightyFights_Prototype
 
 		void CleanData()
 		{
+			MediaPlayer.Stop( );
 			_cSpriteBatch.Dispose();
 			_cDrawList.Clear();
 			_cTrooperRef.Clear();
