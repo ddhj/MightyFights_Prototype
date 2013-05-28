@@ -172,7 +172,8 @@ namespace MightyFights_Prototype	{
 			// or particle effect drawing calls
 
 			// draw the lifebar 
-			if(DataStore.cInstance.bLifeBars) { 
+//			if( DataStore.cInstance.bLifeBars )
+			{ 
 				Texture2D	cBorder = DataStore.cInstance.cBorder;
 				Rectangle	tRect = new Rectangle((int)_tPos.X + 20, (int)_tPos.Y + 30, (int)( _fHp / _iMaxHp * 100 * .3 ), 5);
 				Color		cHpColor = Color.Green;
