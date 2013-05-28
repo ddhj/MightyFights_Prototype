@@ -50,9 +50,9 @@ namespace MightyFights_Prototype	{
 		public string sTexName		{ get; set; }
 
 	// Constructor
-		public Priest( int iId, int iMaxHp, int iMaxSlots, float fHealRate, float fRegenRate, Vector2 tPos, Team cTeam, BattlegroundData cBtlGndData, TrooperTemplate cTemplate )
+		public Priest(int iMaxHp, int iMaxSlots, float fHealRate, float fRegenRate, Vector2 tPos, Team cTeam, AnimationData cAnimData, BattlegroundData cBtlGndData)
 		{
-			_iId = iId;
+			_iId = ObjectCreationManager.cInstance.iCurObjId;
 			_fHp = _iMaxHp = iMaxHp;
 			_fRegenRate = fRegenRate;
 			_fHealRate = fHealRate;
@@ -60,10 +60,8 @@ namespace MightyFights_Prototype	{
 			_cTeam = cTeam;
 			_cBtlGndData = cBtlGndData;
 
-			_cTexRef = cTemplate.cTextureRef;
-			_cAnimProc = cTemplate.cAnimProcessorRef;
-			this.sTexName = cTemplate.sTexName;
-			_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
+			_cAnimProc = new AnimationProcessor(cAnimData);
+			_cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_mainidle", -1);
 
 			// set its states
 			_eObjState = EObjectStates.Active | EObjectStates.Draw;
@@ -100,6 +98,8 @@ namespace MightyFights_Prototype	{
 
 		public void Process( GameTime cTime )
 		{
+			Random	cRand = DataStore.cInstance.cRand;
+
 			if( _cSupportZone.cUsedSpots.Count == 0 )
 			{
 				if( _fHp < _iMaxHp )
@@ -108,7 +108,10 @@ namespace MightyFights_Prototype	{
 					else	_fHp += _fRegenRate;
 
 				if( _cAnimProc.sType != "Idle" )
-					_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
+					if(cRand.Next(5) == 1) { 
+						_cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_blink", 1);
+					} else _cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_mainidle", -1);
+				
 			}
 			else if( _fHp > 0 )
 			{
@@ -124,7 +127,9 @@ namespace MightyFights_Prototype	{
 					}
 				}
 				if( _cAnimProc.sType == "Idle" )
-					_cAnimProc.SetAnimationCriteria("Defend", "Parry", "lp", 1);
+					if(cRand.Next(5) == 1) 
+						_cAnimProc.SetAnimationCriteria("Heal", "Basic", "chaplain_healb", 1);
+					else _cAnimProc.SetAnimationCriteria("Heal", "Basic", "chaplain_heal", 1);
 
 				if( _cSupportZone.cUsedSpots.Count > 0 )
 					_cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
@@ -134,7 +139,9 @@ namespace MightyFights_Prototype	{
 					tPair.Value.RemoveHeal( );
 				_cSupportZone.ResetSpots( );
 				if( _cAnimProc.sType != "Idle" )
-					_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
+					if(cRand.Next(5) == 1) { 
+						_cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_blink", 1);
+					} else _cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_mainidle", -1);
 			}
 
 			// handle the animation
@@ -151,7 +158,7 @@ namespace MightyFights_Prototype	{
 			Color			tColor = Color.White;
 
 			// check to see if we need to perform a flip 
-			if(_cTeam.bDirection) {
+			if(!_cTeam.bDirection) {
 				// if we are rotated first then we need to flip the frame differently 
 				if(cCurFrame.bRot)
 					// since the texture packer rotates we need to flip the sprite across the x axis 
@@ -175,7 +182,11 @@ namespace MightyFights_Prototype	{
 //			if( DataStore.cInstance.bLifeBars )
 			{ 
 				Texture2D	cBorder = DataStore.cInstance.cBorder;
-				Rectangle	tRect = new Rectangle((int)_tPos.X + 20, (int)_tPos.Y + 30, (int)( _fHp / _iMaxHp * 100 * .3 ), 5);
+				Rectangle	tRect;
+				if(!_cTeam.bDirection)
+					tRect = new Rectangle((int)_tPos.X + 50, (int)_tPos.Y + 10, (int)( _fHp / _iMaxHp * 100 * .3 ), 5);
+				else tRect = new Rectangle((int)_tPos.X + 10, (int)_tPos.Y + 10, (int)( _fHp / _iMaxHp * 100 * .3 ), 5);
+
 				Color		cHpColor = Color.Green;
 				cHpColor.A = 85;
 				cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, _fZOrder);

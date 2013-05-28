@@ -520,6 +520,7 @@ namespace MightyFights_Prototype
 							cRight = cData.cRightConfig;
 			ObjectCreationManager	cObjMgr = ObjectCreationManager.cInstance;
 			Team			cTeam;
+			Priest			cHealer;
 
 			_cBattleData.cObjMgr = _cObjMgr;
 			_cBattleData.dlBuffClick = ProcessBuffClick;
@@ -547,7 +548,7 @@ namespace MightyFights_Prototype
 				}
 				for( int iCount = 0; iCount < 2; ++iCount )
 				{
-					Priest	cHealer = new Priest( cObjMgr.iCurObjId, 1500, 7, 1.6f, .1f, new Vector2( 50, 180 + 120 * iCount ), cTeam, _cBattleData, cObjMgr.CreateTemplate(cLeft) );
+					cHealer = cObjMgr.CreatePriest(new Vector2( 50, 180 + 120 * iCount ), cTeam,  1500, 7, 1.6f, .1f, _cBattleData);
 					cTeam.cHealerList.Add( cHealer.iId, cHealer );
 					_cObjMgr.AddObject(cHealer);
 				}
@@ -565,7 +566,7 @@ namespace MightyFights_Prototype
 				}
 				for( int iCount = 0; iCount < 2; ++iCount )
 				{
-					Priest	cHealer = new Priest( cObjMgr.iCurObjId, 1500, 7, 1.6f, .1f, new Vector2( 880, 180 + 120 * iCount ), cTeam, _cBattleData, cObjMgr.CreateTemplate(cRight) );
+					cHealer = cObjMgr.CreatePriest(new Vector2( 880, 180 + 120 * iCount ), cTeam,  1500, 7, 1.6f, .1f, _cBattleData);
 					cTeam.cHealerList.Add( cHealer.iId, cHealer );
 					_cObjMgr.AddObject(cHealer);
 				}

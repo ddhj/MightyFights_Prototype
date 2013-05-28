@@ -88,6 +88,29 @@ namespace MightyFights_Prototype
 			return cTemplate;
 		}
 
+		public Priest CreatePriest(Vector2 tPos, Team cTeam, int iMaxHp, int iMaxSlots, float fHealRate, float fRegenRate, BattlegroundData cBtlGndData) 
+		{
+			Priest			cPriest;
+			AnimationData	cAnimData;
+			Texture2D		cTexData;
+
+			// check to see if we are already referencing this animation 
+			if(!_cAnimationDataList.TryGetValue(@"Sprite Data\Chaplain\ChaplainArray", out cAnimData))
+				// add it to the reference list
+				_cAnimationDataList.Add(@"Sprite Data\Chaplain\ChaplainArray", cAnimData = _cContent.Load<AnimationData>(@"Sprite Data\Chaplain\ChaplainArray"));
+
+			// check to see if we are already refencing this texture 
+			if(!_cTextureList.TryGetValue(@"Sprite Data\Chaplain\Chaplain", out cTexData))
+				// add the texture to the reference list 
+				_cTextureList.Add(@"Sprite Data\Chaplain\Chaplain", cTexData = _cContent.Load<Texture2D>(@"Sprite Data\Chaplain\Chaplain"));
+
+			cPriest = new Priest(iMaxHp, iMaxSlots, fHealRate, fRegenRate, tPos, cTeam, cAnimData, cBtlGndData);
+			cPriest.cTexRef = cTexData;
+			cPriest.sTexName = @"Sprite Data\Chaplain\Chaplain";
+
+			return cPriest;
+		}
+
 		public BasicBuff CreateBuff(ICombatant nCombatant)
 		{
 			AnimationData		cAnimData;
