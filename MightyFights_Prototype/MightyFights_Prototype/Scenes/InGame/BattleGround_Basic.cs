@@ -1,14 +1,20 @@
-﻿using System;
+﻿// system includes
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+// 3rd party includes
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using ProjectMercury;
+
+// project includes
 using MightyFights_Support;
 
 namespace MightyFights_Prototype
@@ -18,17 +24,22 @@ namespace MightyFights_Prototype
 		ESceneStates	_eState;
 		Texture2D		_cBackground;
 		SpriteBatch		_cSpriteBatch;
+		ObjectManager	_cObjMgr = new ObjectManager();
+		Cursor			_cCursor;
+		BattlegroundData	_cBattleData = new BattlegroundData();
+
 		Dictionary<string, List<IDrawable>>		_cDrawList = new Dictionary<string,List<IDrawable>>();
 		Dictionary<string, List<ICombatant>>	_cTrooperRef = new Dictionary<string,List<ICombatant>>();
-		BattlegroundData	_cBattleData = new BattlegroundData();
-		ObjectManager	_cObjMgr = new ObjectManager();
 		Dictionary<EBuffEffects, BuffContainer>		_cBuffContainerList = new Dictionary<EBuffEffects,BuffContainer>();
-		Song			_cBgm;
 
-		TimeSpan		_tVictoryElapsed = TimeSpan.Zero,
-						_tSlowMo = TimeSpan.Zero;
 
-		Cursor			_cCursor;
+		TimeSpan	_tVictoryElapsed = TimeSpan.Zero,
+					_tSlowMo = TimeSpan.Zero;
+
+
+		Song		_cBgm;
+		SoundEffectInstance		_cBuffSfx,
+								_cHammerSfx;
 
 		////ddhj: debug data
 		TimeSpan		_cTime = TimeSpan.Zero;
@@ -530,7 +541,13 @@ namespace MightyFights_Prototype
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 				_cBackground = cContent.Load<Texture2D>(@"Backgrounds\dirt_grass 800x436");
 
+
 				_cObjMgr.CreateParticleManager( );
+
+				_cBuffSfx = ObjectCreationManager.cInstance.CreateSfx( "Magic Wand Noise-SoundBible.com-375928671" );
+				_cHammerSfx = ObjectCreationManager.cInstance.CreateSfx( "Electronic_Chime-KevanGC-495939803" );
+				_cBuffSfx.Volume = _cHammerSfx.Volume = .8f;
+
 
 				// set the battle data to the datastore for reference 
 				DataStore.cInstance.cBattleData = _cBattleData;

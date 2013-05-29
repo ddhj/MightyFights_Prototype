@@ -111,7 +111,7 @@ namespace MightyFights_Prototype
 			return cPriest;
 		}
 
-		public BasicBuff CreateBuff(ICombatant nCombatant)
+		public BasicBuff CreateBuff(ICombatant nCombatant, BattlegroundData cBgData)
 		{
 			AnimationData		cAnimData;
 			Random				cRand = DataStore.cInstance.cRand;
@@ -129,7 +129,7 @@ namespace MightyFights_Prototype
 				_cTextureList.Add(@"In Game\Buffs\Drops", cTexData = _cContent.Load<Texture2D>(@"In Game\Buffs\Drops"));
 
 			// buff data
-			cBasicBuff = new BasicBuff(cAnimData, (EBuffEffects)cRand.Next((int)EBuffEffects.MaxBuffs), 3);
+			cBasicBuff = new BasicBuff(cAnimData, (EBuffEffects)cRand.Next((int)EBuffEffects.MaxBuffs), 3, cBgData);
 			cBasicBuff.cTexRef = cTexData;
 			cBasicBuff.sTexName = @"In Game\Buffs\Drops";
 
@@ -223,7 +223,7 @@ namespace MightyFights_Prototype
 			return cHammer;
 		}
 
-		public Drop CreateDrop(string sDrop)
+		public Drop CreateDrop(string sDrop, BattlegroundData cBgData)
 		{
 			AnimationData		cAnimData;
 			Random				cRand = DataStore.cInstance.cRand;
@@ -241,7 +241,7 @@ namespace MightyFights_Prototype
 				_cTextureList.Add(@"In Game\Buffs\Drops", cTexData = _cContent.Load<Texture2D>(@"In Game\Buffs\Drops"));
 
 			// buff data
-			cBasicBuff = new Drop(cAnimData, sDrop, 3);
+			cBasicBuff = new Drop(cAnimData, sDrop, 3, cBgData);
 			cBasicBuff.cTexRef = cTexData;
 			cBasicBuff.sTexName = @"In Game\Buffs\Drops";
 

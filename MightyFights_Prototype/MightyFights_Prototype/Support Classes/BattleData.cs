@@ -305,8 +305,8 @@ namespace MightyFights_Prototype
 		public void CreateDrop(ICombatant nCombatant)
 		{
 			if(DataStore.cInstance.cRand.Next(10) > 6)
-				this.cObjMgr.AddClickObject(ObjectCreationManager.cInstance.CreateDrop("hammer"), dlDropClick);
-			else this.cObjMgr.AddClickObject(ObjectCreationManager.cInstance.CreateBuff(nCombatant), dlBuffClick);
+				this.cObjMgr.AddClickObject(ObjectCreationManager.cInstance.CreateDrop("hammer", this), dlDropClick);
+			else this.cObjMgr.AddClickObject(ObjectCreationManager.cInstance.CreateBuff(nCombatant, this), dlBuffClick);
 		}
 
 		public Vector2 GetFleeSpot( ICombatant nCombatant )

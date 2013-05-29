@@ -47,10 +47,10 @@
         </Item>
       </Modifiers>
       <BlendMode>Add</BlendMode>
-      <TriggerOffset>0 -100</TriggerOffset>
+      <TriggerOffset>0 -50</TriggerOffset>
       <MinimumTriggerPeriod>0</MinimumTriggerPeriod>
       <Width>100</Width>
-      <Height>150</Height>
+      <Height>90</Height>
       <Rotation>0</Rotation>
       <Frame>false</Frame>
     </Item>
@@ -58,7 +58,7 @@
       <Name>Fast Beams</Name>
       <Budget>500</Budget>
       <Term>0.5</Term>
-      <ReleaseQuantity>3</ReleaseQuantity>
+      <ReleaseQuantity>5</ReleaseQuantity>
       <Enabled>True</Enabled>
       <ReleaseSpeed>
         <Value>0</Value>
@@ -73,7 +73,7 @@
         <Variation>0</Variation>
       </ReleaseOpacity>
       <ReleaseScale>
-        <Value>196</Value>
+        <Value>120</Value>
         <Variation>0</Variation>
       </ReleaseScale>
       <ReleaseRotation>
@@ -91,7 +91,7 @@
         </Item>
       </Modifiers>
       <BlendMode>Add</BlendMode>
-      <TriggerOffset>0 -80</TriggerOffset>
+      <TriggerOffset>0 -40</TriggerOffset>
       <MinimumTriggerPeriod>0.05</MinimumTriggerPeriod>
       <Width>100</Width>
       <Height>30</Height>
@@ -102,7 +102,7 @@
       <Name>Slow Beams</Name>
       <Budget>100</Budget>
       <Term>1.5</Term>
-      <ReleaseQuantity>3</ReleaseQuantity>
+      <ReleaseQuantity>5</ReleaseQuantity>
       <Enabled>True</Enabled>
       <ReleaseSpeed>
         <Value>0</Value>
@@ -117,7 +117,7 @@
         <Variation>0</Variation>
       </ReleaseOpacity>
       <ReleaseScale>
-        <Value>280</Value>
+        <Value>160</Value>
         <Variation>0</Variation>
       </ReleaseScale>
       <ReleaseRotation>
@@ -135,7 +135,7 @@
         </Item>
       </Modifiers>
       <BlendMode>Alpha</BlendMode>
-      <TriggerOffset>0 -80</TriggerOffset>
+      <TriggerOffset>0 -40</TriggerOffset>
       <MinimumTriggerPeriod>0.25</MinimumTriggerPeriod>
       <Width>120</Width>
       <Height>30</Height>
@@ -168,7 +168,7 @@
         <Value>0</Value>
         <Variation>0</Variation>
       </ReleaseRotation>
-      <ReleaseImpulse>0 -200</ReleaseImpulse>
+      <ReleaseImpulse>0 -150</ReleaseImpulse>
       <ParticleTextureAssetName>Elipse001</ParticleTextureAssetName>
       <Modifiers>
         <Item Type="ProjectMercury.Modifiers.OpacityOscillator">

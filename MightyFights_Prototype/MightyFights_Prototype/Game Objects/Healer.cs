@@ -6,6 +6,7 @@ using System.Text;
 
 // 3rd party includes
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -31,8 +32,10 @@ namespace MightyFights_Prototype	{
 		Texture2D	_cTexRef;
 		EObjectStates		_eObjState;
 		AnimationProcessor	_cAnimProc;
-		ParticleEffect		_cEffect;
 		BattlegroundData	_cBtlGndData;
+
+		ParticleEffect		_cEffect;
+		SoundEffectInstance	_cHealingSfx;
 
 	// Properties
 		public int iId			{ get { return _iId; }}
@@ -71,6 +74,12 @@ namespace MightyFights_Prototype	{
 
 			_cEffect = ObjectCreationManager.cInstance.CreateParticleSystem( "HealingCircle" );
 			_cBtlGndData.cObjMgr.AddParticleEffect( _cEffect );
+
+			_cHealingSfx = ObjectCreationManager.cInstance.CreateSfx( "Appear-KP-1137861048" );
+//			_cHealingSfx = ObjectCreationManager.cInstance.CreateSfx( "Computer_Magic-Microsift-1901299923" );
+//			_cHealingSfx = ObjectCreationManager.cInstance.CreateSfx( "Electrical_Sweep-Sweeper-1760111493" );
+
+			_cHealingSfx.Volume = .6f;
 		}
 
 	// Functions
@@ -108,10 +117,12 @@ namespace MightyFights_Prototype	{
 					else	_fHp += _fRegenRate;
 
 				if( _cAnimProc.sType != "Idle" )
+				{
+					_cHealingSfx.Stop( );
 					if(cRand.Next(5) == 1) { 
 						_cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_blink", 1);
 					} else _cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_mainidle", -1);
-				
+				}
 			}
 			else if( _fHp > 0 )
 			{
@@ -132,16 +143,23 @@ namespace MightyFights_Prototype	{
 					else _cAnimProc.SetAnimationCriteria("Heal", "Basic", "chaplain_heal", 1);
 
 				if( _cSupportZone.cUsedSpots.Count > 0 )
+				{
 					_cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
+					if( _cHealingSfx.State == SoundState.Stopped )
+						_cHealingSfx.Play( );
+				}
 			}
 			else	{
 				foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
 					tPair.Value.RemoveHeal( );
 				_cSupportZone.ResetSpots( );
 				if( _cAnimProc.sType != "Idle" )
+				{
+					_cHealingSfx.Stop( );
 					if(cRand.Next(5) == 1) { 
 						_cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_blink", 1);
 					} else _cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_mainidle", -1);
+				}
 			}
 
 			// handle the animation

@@ -1,12 +1,16 @@
-﻿using System;
+﻿// system includes
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+// 3rd party includes
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using ProjectMercury;
+// project includes
 using MightyFights_Support;
 
 namespace MightyFights_Prototype
@@ -23,25 +27,35 @@ namespace MightyFights_Prototype
 		Color			_tAlpha = Color.White;
 		TimeSpan		_tVisible = TimeSpan.FromMilliseconds(3000), 
 						_tCurrentLife = TimeSpan.Zero;
+		ParticleEffect	_cSparkle;
+		BattlegroundData	_cBgData;
 
 		public EBuffEffects	eType		{ get; set; }
 		public override Vector2 tPos	{ get; set; }
 		public override Frame cFrame	{ get { return _cAnimProc.cCurFrame; } set { }}
 		public AnimationProcessor cAnimationProcessor	{ get { return _cAnimProc; } set { _cAnimProc = value; }}
 
-		public BasicBuff(){}
-		public BasicBuff(AnimationData cAnimData, EBuffEffects eType, int iItterations) : base()
+		public BasicBuff(BattlegroundData cBgData)
+		{
+			_cBgData = cBgData;
+			_cSparkle = ObjectCreationManager.cInstance.CreateParticleSystem( "Buff Sparkle" );
+			_cBgData.cObjMgr.AddParticleEffect( _cSparkle );
+		}
+		public BasicBuff(AnimationData cAnimData, EBuffEffects eType, int iItterations, BattlegroundData cBgData) : base()
 		{
 			string	sBuffRef = Enum.GetName(eType.GetType(), eType).ToLower().Replace("_", "");
 			_cAnimData = cAnimData;
 			_cAnimProc = new AnimationProcessor(cAnimData);
 			_cAnimProc.SetAnimationCriteria("Main", "Sub", sBuffRef, -1);
 			_iItterations = iItterations;
+			_cBgData = cBgData;
 
 			this.eObjState = EObjectStates.Active | EObjectStates.Draw;
 			this.eType = eType;
 
 			tPos = GetDestPos();
+			_cSparkle = ObjectCreationManager.cInstance.CreateParticleSystem( "Buff Sparkle" );
+			_cBgData.cObjMgr.AddParticleEffect( _cSparkle );
 		}
 
 		protected Vector2 GetDestPos()
@@ -74,6 +88,23 @@ namespace MightyFights_Prototype
 
 			_tCurrentLife += cTime.ElapsedGameTime;
 			_cAnimProc.Process(cTime);
+			{
+				Vector2	tVect = this.tPos;
+				Frame	cCurFrame = this.cFrame;
+				Vector2	tTopLeft = cCurFrame.tTopLeft;
+				if(this.cFrame.bRot) { 
+					tVect.X += Math.Abs(tTopLeft.Y);
+					tVect.Y += tTopLeft.X - cCurFrame.tRect.Width;
+					tVect.X += cCurFrame.tRect.Height / 2;
+					tVect.Y += cCurFrame.tRect.Width / 2;
+				} else { 
+					tVect.X += Math.Abs(tTopLeft.X);
+					tVect.Y += Math.Abs(tTopLeft.Y);
+					tVect.X += cCurFrame.tRect.Width / 2;
+					tVect.Y += cCurFrame.tRect.Height / 2;
+				}
+				_cSparkle.Trigger( tVect );
+			}
 
 			if(_tCurrentLife > _tVisible) {
 				++_iItteration;
@@ -127,7 +158,7 @@ namespace MightyFights_Prototype
 
 	public class Drop : BasicBuff
 	{
-		public Drop(AnimationData cAnimData, string sDrop, int iItterations) : base()
+		public Drop(AnimationData cAnimData, string sDrop, int iItterations, BattlegroundData cBgData) : base(cBgData)
 		{			
 			_cAnimData = cAnimData;
 			_cAnimProc = new AnimationProcessor(cAnimData);

@@ -706,6 +706,40 @@
       <Processor>ContentProcessor1</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\Appear-KP-1137861048.mp3">
+      <Name>Appear-KP-1137861048</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Computer_Magic-Microsift-1901299923.mp3">
+      <Name>Computer_Magic-Microsift-1901299923</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Electrical_Sweep-Sweeper-1760111493.mp3">
+      <Name>Electrical_Sweep-Sweeper-1760111493</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Electronic_Chime-KevanGC-495939803.mp3">
+      <Name>Electronic_Chime-KevanGC-495939803</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Magic Wand Noise-SoundBible.com-375928671.mp3">
+      <Name>Magic Wand Noise-SoundBible.com-375928671</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Particles\Buff Sparkle.xml">
+      <Name>Buff Sparkle</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

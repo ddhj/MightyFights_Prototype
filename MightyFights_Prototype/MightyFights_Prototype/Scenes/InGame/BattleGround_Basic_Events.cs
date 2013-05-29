@@ -32,11 +32,17 @@ namespace MightyFights_Prototype
 		void ProcessBuffClick(object oSender, object oArgs)
 		{
 			_cBuffContainerList[((BasicBuff)oArgs).eType].AddBuff((BasicBuff)oArgs);
+			if( _cBuffSfx.State == Microsoft.Xna.Framework.Audio.SoundState.Playing )
+				_cBuffSfx.Stop( );
+			_cBuffSfx.Play( );
 		}
 
 		void ProcessHammerClick(object oSender, object oArgs)
 		{
 			++_iHammerCtr;
+			if( _cHammerSfx.State == Microsoft.Xna.Framework.Audio.SoundState.Playing )
+				_cHammerSfx.Stop( );
+			_cHammerSfx.Play( );
 		}
 
 		void ProcessCheck(object oSender, object oArgs)
