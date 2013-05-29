@@ -105,6 +105,7 @@ namespace MightyFights_Prototype
 			SortedList<int,IHealer>	cHealersByDist = new SortedList<int,IHealer>( );
 			Random		cRand = DataStore.cInstance.cRand;
 			Vector2		tPos;
+			int			iDst;
 
 			++_cExpData.iFlee;
 
@@ -114,7 +115,13 @@ namespace MightyFights_Prototype
 				{
 					tPos = nHealer.GetOpenLocation( );
 					tPos = _tPos - tPos;
-					cHealersByDist.Add((int)tPos.LengthSquared( ), nHealer );
+					iDst = (int)tPos.LengthSquared( );
+					
+					// in the unlikely event that the healer is actually the same int distance away from 
+					// another healer 
+					if(!cHealersByDist.ContainsKey(iDst))
+						cHealersByDist.Add(iDst, nHealer );
+					else cHealersByDist.Add(iDst + 1, nHealer);
 				}
 
 			// add the flee to healer/point action 
@@ -144,18 +151,15 @@ namespace MightyFights_Prototype
 
 		public object Pant(BattlegroundData cData)
 		{
-			// check to see if we are still panting 
-			_cStats.fHp += .3f;
-			if(_cStats.fHp > _cStats.iHealPoint) 
-			{
+			// check to see if we should still be healing 
+			if(_cStats.fHp > _cStats.iHealPoint) {
 				if( this.nTarget != null )
 					((IHealer)this.nTarget ).FreeSpot( this );
 				this.nTarget = null;
 
 				cAiData.eState = EBattleAiStates.Ready;
 			}
-			if(DataStore.cInstance.bDamageNumbers) 
-				DataStore.cInstance.cBattleData.cObjMgr.AddObject( new AnimatingDamage( 1, _tCenter, false, true, _cTeam ));
+
 			return null;
 		}
 

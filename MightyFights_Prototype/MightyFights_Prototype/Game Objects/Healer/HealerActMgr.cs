@@ -9,35 +9,22 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public class TrooperActMgr : ActionManager<Trooper>
+	public class PriestActMgr : ActionManager<Priest>
 	{
 		AnimationProcessor	_cAnimProc;
 		KeyFrame			_cKeyFrame;
 
-		public TrooperActMgr(AnimationProcessor cAnimProc)
+		public PriestActMgr(AnimationProcessor cAnimProc)
 		{
 			_cAnimProc = cAnimProc;
-			_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
 		}
 
 		void ProcessKeyFrame()
 		{
 			switch(_cKeyFrame.Type) { 
-				case "Collision": { 
-					ICombatant	nOpponent = (ICombatant)this.cData.nTarget;
-
-					if( this.cData.InWeaponRange( true )) { 
-						++this.cData.cExpData.iAttacks;
-
-						if( _cAnimProc.sSubType == "Critical" )
-							nOpponent.DealDamage( cData, cData.cStats.iPower * 3, true );
-						else	nOpponent.DealDamage( cData, cData.cStats.iPower, false );
-					}
+				case "Heal": { 
+					this.cData.Heal();
 				} break;
-
-				case "SelfHeal": { 
-					this.cData.Heal(Convert.ToSingle(_cKeyFrame.oData));
-				} break; 
 			}
 		}
 
@@ -64,9 +51,9 @@ namespace MightyFights_Prototype
 				else cActionQueue.RemoveAt(0);
 			}
 			
-			// handle the animation 
-			//// ddhj: not sure I want this to be here ... but it is specific to the object type so it might be a good place for it ... 
+			// handle the animation
 			if((_cKeyFrame = _cAnimProc.Process(cTime)) != null) 
+				// there was a keyframe on the animation, process it
 				ProcessKeyFrame();
 		}
 	}

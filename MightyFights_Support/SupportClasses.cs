@@ -14,10 +14,12 @@ namespace MightyFights_Support
 {
 	public class KeyFrame 
 	{
-		string _sType;
-		object _oData;
+		string	_sType;
+		object	_oData;
+		bool	_bProcess;
 		public string Type { get { return _sType; } set { _sType = value; } }
 		public object oData { get { return _oData; } set { _oData = value; } }
+		public bool bProcess { get { return _bProcess; } set { _bProcess = value; }}
 	}
 
 	public class Frame

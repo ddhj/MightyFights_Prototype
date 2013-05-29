@@ -63,6 +63,8 @@ namespace MightyFights_Prototype
 
 		public KeyFrame Process(GameTime cTime)
 		{
+			KeyFrame		cKeyFrame = null;
+
 			// check to see if we are self terminating
 			if(_iCount > -1) 
 				// check to see if we are past the count
@@ -82,12 +84,16 @@ namespace MightyFights_Prototype
 						_iCurFrame = 0;
 						++_iItteration;
 					}
-						
+					
+					// set the keyframe for this frame, we only want this to happen the first time we are in the frame and not during 
+					// the delta between increments 
+					cKeyFrame = _cCurFrame.cKeyFrame;
+
 					_tTime = TimeSpan.Zero;
-				}
+				}		
 			}
 
-			return _cCurFrame.cKeyFrame;
+			return cKeyFrame;
 		}
 	}
 }

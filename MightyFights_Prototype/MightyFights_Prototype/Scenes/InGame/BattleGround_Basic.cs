@@ -565,7 +565,7 @@ namespace MightyFights_Prototype
 				}
 				for( int iCount = 0; iCount < 2; ++iCount )
 				{
-					cHealer = cObjMgr.CreatePriest(new Vector2( 50, 180 + 120 * iCount ), cTeam,  1500, 7, 1.6f, .1f, _cBattleData);
+					cHealer = cObjMgr.CreatePriest(new Vector2( 50, 180 + 120 * iCount ), cTeam,  1500, 7, 20f, .1f, _cBattleData);
 					cTeam.cHealerList.Add( cHealer.iId, cHealer );
 					_cObjMgr.AddObject(cHealer);
 				}
@@ -583,7 +583,7 @@ namespace MightyFights_Prototype
 				}
 				for( int iCount = 0; iCount < 2; ++iCount )
 				{
-					cHealer = cObjMgr.CreatePriest(new Vector2( 880, 180 + 120 * iCount ), cTeam,  1500, 7, 1.6f, .1f, _cBattleData);
+					cHealer = cObjMgr.CreatePriest(new Vector2( 880, 180 + 120 * iCount ), cTeam,  1500, 7, 20f, .1f, _cBattleData);
 					cTeam.cHealerList.Add( cHealer.iId, cHealer );
 					_cObjMgr.AddObject(cHealer);
 				}
@@ -622,6 +622,7 @@ namespace MightyFights_Prototype
 				_cToggleDamageNumbers.Text = _cToggleDamageNumbers.Name = "Toggle Dmg #";
 				_cToggleDamageNumbers.AutoSize = true;
 				_cToggleDamageNumbers.CheckedChanged += new EventHandler(ToggleDamageNumbersChange);
+				_cToggleDamageNumbers.Checked = true;
 				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleDamageNumbers);
 
 				_cToggleSlowMo = new System.Windows.Forms.CheckBox();

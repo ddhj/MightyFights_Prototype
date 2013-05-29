@@ -106,4 +106,10 @@ namespace MightyFights_Prototype
 		Stun,
 		Berzerk
 	}
+
+	public enum EHealerStates
+	{
+		Idle, 
+		Healing
+	}
 }

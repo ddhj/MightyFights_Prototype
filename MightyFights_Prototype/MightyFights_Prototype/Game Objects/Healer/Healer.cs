@@ -17,7 +17,8 @@ using ProjectMercury;
 using MightyFights_Support;
 
 namespace MightyFights_Prototype	{
-	public class Priest : IHealer, IDrawable, IDrawableTexture, IAnimate, IActiveBasic	{
+	public partial class Priest : IHealer, IDrawable, IDrawableTexture, IAnimate, IActive<Priest>	
+	{
 	// Data
 		int			_iId,
 					_iMaxHp;
@@ -25,17 +26,23 @@ namespace MightyFights_Prototype	{
 					_fRegenRate,
 					_fHealRate,
 					_fZOrder;
+		bool		_bCooldown;
+
+		TimeSpan	_tCooldown, 
+					_tUniqueIdle;
 		Vector2		_tPos,
 					_tCenter;
 		Team		_cTeam;
 		FleeSpot	_cSupportZone;
 		Texture2D	_cTexRef;
 		EObjectStates		_eObjState;
+		EHealerStates		_eState;
 		AnimationProcessor	_cAnimProc;
 		BattlegroundData	_cBtlGndData;
 
 		ParticleEffect		_cEffect;
 		SoundEffectInstance	_cHealingSfx;
+		ActionManager<Priest>	_cActMgr;
 
 	// Properties
 		public int iId			{ get { return _iId; }}
@@ -52,6 +59,8 @@ namespace MightyFights_Prototype	{
 		public Frame cFrame			{ get { return _cAnimProc.cCurFrame; } set{}}
 		public string sTexName		{ get; set; }
 
+		public ActionManager<Priest> cActionManager { get { return _cActMgr; } set { _cActMgr = value; }}
+
 	// Constructor
 		public Priest(int iMaxHp, int iMaxSlots, float fHealRate, float fRegenRate, Vector2 tPos, Team cTeam, AnimationData cAnimData, BattlegroundData cBtlGndData)
 		{
@@ -65,6 +74,11 @@ namespace MightyFights_Prototype	{
 
 			_cAnimProc = new AnimationProcessor(cAnimData);
 			_cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_mainidle", -1);
+			
+			// create the action manager and add the perminant actions
+			_cActMgr = new PriestActMgr(_cAnimProc);
+			_cActMgr.cData = this;
+			_cActMgr.AddPermAction(new Action(Upkeep, null, null));
 
 			// set its states
 			_eObjState = EObjectStates.Active | EObjectStates.Draw;
@@ -80,6 +94,8 @@ namespace MightyFights_Prototype	{
 //			_cHealingSfx = ObjectCreationManager.cInstance.CreateSfx( "Electrical_Sweep-Sweeper-1760111493" );
 
 			_cHealingSfx.Volume = .6f;
+
+			// add the upkeep to the perm action
 		}
 
 	// Functions
@@ -105,66 +121,30 @@ namespace MightyFights_Prototype	{
 			else	_fHp = 0;
 		}
 
+		public void Heal()
+		{
+			// process the effects 
+			_cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
+			if( _cHealingSfx.State == SoundState.Stopped )
+				_cHealingSfx.Play( );
+
+			// heal all the troopers in the zone
+			foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
+			{
+				if( _fHp > 0 ) { 
+					// set the exp for times healed by a healer
+					++tPair.Value.cExpData.iHealed;
+
+					if( _fHp > _fHealRate )
+						_fHp -= tPair.Value.Heal( _fHealRate );
+					else	_fHp -= tPair.Value.Heal( _fHp );
+				}
+			}
+		}
+
 		public void Process( GameTime cTime )
 		{
-			Random	cRand = DataStore.cInstance.cRand;
-
-			if( _cSupportZone.cUsedSpots.Count == 0 )
-			{
-				if( _fHp < _iMaxHp )
-					if( _fHp + _fRegenRate > _iMaxHp )
-						_fHp = _iMaxHp;
-					else	_fHp += _fRegenRate;
-
-				if( _cAnimProc.sType != "Idle" )
-				{
-					_cHealingSfx.Stop( );
-					if(cRand.Next(5) == 1) { 
-						_cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_blink", 1);
-					} else _cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_mainidle", -1);
-				}
-			}
-			else if( _fHp > 0 )
-			{
-				foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
-				{
-					if( _fHp > 0 ) { 
-						// set the exp for times healed by a healer
-						++tPair.Value.cExpData.iHealed;
-
-						if( _fHp > _fHealRate )
-							_fHp -= tPair.Value.Heal( _fHealRate );
-						else	_fHp -= tPair.Value.Heal( _fHp );
-					}
-				}
-				if( _cAnimProc.sType == "Idle" )
-					if(cRand.Next(5) == 1) 
-						_cAnimProc.SetAnimationCriteria("Heal", "Basic", "chaplain_healb", 1);
-					else _cAnimProc.SetAnimationCriteria("Heal", "Basic", "chaplain_heal", 1);
-
-				if( _cSupportZone.cUsedSpots.Count > 0 )
-				{
-					_cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
-					if( _cHealingSfx.State == SoundState.Stopped )
-						_cHealingSfx.Play( );
-				}
-			}
-			else	{
-				foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
-					tPair.Value.RemoveHeal( );
-				_cSupportZone.ResetSpots( );
-				if( _cAnimProc.sType != "Idle" )
-				{
-					_cHealingSfx.Stop( );
-					if(cRand.Next(5) == 1) { 
-						_cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_blink", 1);
-					} else _cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_mainidle", -1);
-				}
-			}
-
-			// handle the animation
-				//// CBD: probably do more stuff here
-			_cAnimProc.Process(cTime);
+			_cActMgr.Process(cTime);
 		}
 
 		public void Draw(SpriteBatch cBatch)

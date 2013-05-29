@@ -408,13 +408,16 @@ namespace MightyFights_Prototype
 
 		public float Heal( float fHp )
 		{
-			//// hp should be a float at some point
+			// check to see if we are at max for the healing number 
 			if( _cStats.fHp + fHp > _cStats.iMaxHp )
 				fHp = _cStats.iMaxHp - _cStats.fHp;
+
+			// increase our stats
 			_cStats.fHp += fHp;
 
 			if(DataStore.cInstance.bDamageNumbers) 
 				DataStore.cInstance.cBattleData.cObjMgr.AddObject(new AnimatingDamage((int)Math.Round( fHp ), _tCenter, false, true, _cTeam));
+
 			return fHp;
 		}
 
