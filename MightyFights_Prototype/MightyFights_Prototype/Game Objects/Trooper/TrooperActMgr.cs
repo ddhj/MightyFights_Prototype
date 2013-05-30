@@ -35,8 +35,9 @@ namespace MightyFights_Prototype
 					}
 				} break;
 
-				case "SelfHeal": { 
-					this.cData.Heal(Convert.ToSingle(_cKeyFrame.oData));
+				case "SelfHeal": {
+					if( this.cData.nTarget == null || !( this.cData.nTarget is IHealer ))
+						this.cData.Heal(Convert.ToSingle(_cKeyFrame.oData));
 				} break; 
 			}
 		}

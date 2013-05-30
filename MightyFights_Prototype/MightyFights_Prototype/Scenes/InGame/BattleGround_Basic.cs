@@ -565,7 +565,7 @@ namespace MightyFights_Prototype
 				}
 				for( int iCount = 0; iCount < 2; ++iCount )
 				{
-					cHealer = cObjMgr.CreatePriest(new Vector2( 50, 180 + 120 * iCount ), cTeam,  1500, 7, 20f, .1f, _cBattleData);
+					cHealer = cObjMgr.CreatePriest(new Vector2( 50, 180 + 120 * iCount ), cTeam,  1500, 7, 30f, .1f, _cBattleData);
 					cTeam.cHealerList.Add( cHealer.iId, cHealer );
 					_cObjMgr.AddObject(cHealer);
 				}
@@ -583,7 +583,7 @@ namespace MightyFights_Prototype
 				}
 				for( int iCount = 0; iCount < 2; ++iCount )
 				{
-					cHealer = cObjMgr.CreatePriest(new Vector2( 880, 180 + 120 * iCount ), cTeam,  1500, 7, 20f, .1f, _cBattleData);
+					cHealer = cObjMgr.CreatePriest(new Vector2( 880, 180 + 120 * iCount ), cTeam,  1500, 7, 30f, .1f, _cBattleData);
 					cTeam.cHealerList.Add( cHealer.iId, cHealer );
 					_cObjMgr.AddObject(cHealer);
 				}
