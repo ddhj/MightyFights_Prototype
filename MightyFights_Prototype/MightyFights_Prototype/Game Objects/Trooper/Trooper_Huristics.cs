@@ -17,7 +17,7 @@ namespace MightyFights_Prototype
 		public object Attack_Basic(BattlegroundData cData)
 		{
 			Random		cRand = DataStore.cInstance.cRand;
-			int			iAttckPercent;
+			int			iAttackPercent;
 			ICombatant	nOpponent = (ICombatant)this.nTarget;
 
 			// check to see if our opponent is living 
@@ -43,32 +43,45 @@ namespace MightyFights_Prototype
 
 			// get our percent for this attack
 			////ddhj: good time for the other stuff for percent attack crit weighting and all that jaz
-			iAttckPercent = cRand.Next(100);
+			iAttackPercent = cRand.Next(100);
 
 			cAiData.eState = EBattleAiStates.Attacking;
 
 			// we are going to crit
-			if(iAttckPercent > 90) { 
+			if(iAttackPercent > 90) { 
 				++_cExpData.iCrits;
 				switch(cRand.Next(2)) { 
 					case 0: _cAnimProc.SetAnimationCriteria("Attack", "Critical", "bigchop", 1); break;
 					case 1: _cAnimProc.SetAnimationCriteria("Attack", "Critical", "lunge", 1); break;
 				}
-			// we are going to do a normal attack
-			} else if(iAttckPercent > 10) { 
+			}
+			// check how many attackers are on us
+				// tank if there are too many
+			else if( _iAvailablePositions < 4 )
+			{
+				if( iAttackPercent > ( 50 - ( 3 - _iAvailablePositions ) * 15 ))
+				{ 
+					++_cExpData.iDefenceAttempts;
+					cAiData.eState = EBattleAiStates.Defending;
+					switch(cRand.Next(2)) { 
+						case 0: _cAnimProc.SetAnimationCriteria("Defend", "Parry", "lp", 1); break;
+						case 1: _cAnimProc.SetAnimationCriteria("Defend", "Parry", "sp", 1); break;
+					}
+				}
+				else	{
+					++_cExpData.iBasicAttacks;
+					switch(cRand.Next(3)) { 
+						case 0: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "low", 1); break;
+						case 1: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "stab", 1); break;
+						case 2: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "stick", 1); break;
+					}
+				}
+			} else { 
 				++_cExpData.iBasicAttacks;
 				switch(cRand.Next(3)) { 
 					case 0: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "low", 1); break;
 					case 1: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "stab", 1); break;
 					case 2: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "stick", 1); break;
-				}
-			// we are going to parry
-			} else { 
-				++_cExpData.iDefenceAttempts;
-				cAiData.eState = EBattleAiStates.Defending;
-				switch(cRand.Next(2)) { 
-					case 0: _cAnimProc.SetAnimationCriteria("Defend", "Parry", "lp", 1); break;
-					case 1: _cAnimProc.SetAnimationCriteria("Defend", "Parry", "sp", 1); break;
 				}
 			}
 
