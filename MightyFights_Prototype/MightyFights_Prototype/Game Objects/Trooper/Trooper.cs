@@ -318,7 +318,7 @@ namespace MightyFights_Prototype
 			//// ddhj: yep armor class and all that shit 
 			if(cAiData.eState != EBattleAiStates.Defending) {
 				// this is a rough percentage of the armor class not taking into account flank
-				int iFinalDamage = iDamage - _cStats.iArmorClass * (cRand.Next(80, 100) / 100);
+				int iFinalDamage = (int)(iDamage - _cStats.iArmorClass * ((float)cRand.Next(60, 100) / 100));
 
 				_cStats.fHp -= iFinalDamage;
 

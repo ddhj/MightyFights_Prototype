@@ -81,6 +81,9 @@ namespace MightyFights_Prototype
 
 		public virtual void Process(GameTime cTime)
 		{
+			if(_cBgData.eState != EBattlegroundState.Battle) 
+				return;
+
 			if(_iItteration > _iItterations) { 
 				this.eObjState = 0;
 				return;
@@ -109,7 +112,7 @@ namespace MightyFights_Prototype
 			if(_tCurrentLife > _tVisible) {
 				++_iItteration;
 				_tCurrentLife = TimeSpan.Zero;
-				this.tPos = GetDestPos();
+				//this.tPos = GetDestPos();
 			}
 		}
 

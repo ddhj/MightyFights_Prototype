@@ -28,42 +28,44 @@ namespace MightyFights_Prototype
 				}
 			}
 
-			switch(_eState) { 
-				case EHealerStates.Healing: { 
-					// process the effects 
-					_cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
+			if(_cBtlGndData.eState == EBattlegroundState.Battle) { 
+				switch(_eState) { 
+					case EHealerStates.Healing: { 
+						// process the effects 
+						_cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
 		
-					if(!_bCooldown) { 
-						if(cRand.Next(5) == 1)
-							_cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_blink", 1);
-						else _cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_mainidle", -1);
+						if(!_bCooldown) { 
+							if(cRand.Next(5) == 1)
+								_cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_blink", 1);
+							else _cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_mainidle", -1);
 	
-						_eState = EHealerStates.Idle;
-					}
-				} break;
-
-				case EHealerStates.Idle: { 
-					// check to see if we have some guys in our circle
-					if(_cSupportZone.cUsedSpots.Count > 0) { 
-						// can we actually heal at all
-						if(_fHp > 0) { 
-							// set the healing action 
-							_cActMgr.AddAction(new Action(HealInit, null, null));
-						} else { 
-							// tell everyone to go away
-							foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
-								tPair.Value.RemoveHeal( );
-							_cSupportZone.ResetSpots( );
+							_eState = EHealerStates.Idle;
 						}
-					// we are recharging our hp
-					} else { 
-						// check to see if we are at our max, if we are then no need to continue, 
-						if( _fHp < _iMaxHp )
-							if( _fHp + _fRegenRate > _iMaxHp )
-								_fHp = _iMaxHp;
-							else	_fHp += _fRegenRate;
-					}
-				} break;
+					} break;
+
+					case EHealerStates.Idle: { 
+						// check to see if we have some guys in our circle
+						if(_cSupportZone.cUsedSpots.Count > 0) { 
+							// can we actually heal at all
+							if(_fHp > 0) { 
+								// set the healing action 
+								_cActMgr.AddAction(new Action(HealInit, null, null));
+							} else { 
+								// tell everyone to go away
+								foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
+									tPair.Value.RemoveHeal( );
+								_cSupportZone.ResetSpots( );
+							}
+						// we are recharging our hp
+						} else { 
+							// check to see if we are at our max, if we are then no need to continue, 
+							if( _fHp < _iMaxHp )
+								if( _fHp + _fRegenRate > _iMaxHp )
+									_fHp = _iMaxHp;
+								else	_fHp += _fRegenRate;
+						}
+					} break;
+				}
 			}
 
 			return true;

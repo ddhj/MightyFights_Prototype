@@ -13,6 +13,7 @@ namespace MightyFights_Prototype
 	{
 		AnimationProcessor	_cAnimProc;
 		KeyFrame			_cKeyFrame;
+		int					_iTmp = 0;
 
 		public TrooperActMgr(AnimationProcessor cAnimProc)
 		{
@@ -36,8 +37,9 @@ namespace MightyFights_Prototype
 				} break;
 
 				case "SelfHeal": {
-					if( this.cData.nTarget == null || !( this.cData.nTarget is IHealer ))
+					if( this.cData.nTarget == null || !( this.cData.nTarget is IHealer )) {
 						this.cData.Heal(Convert.ToSingle(_cKeyFrame.oData));
+					}
 				} break; 
 			}
 		}

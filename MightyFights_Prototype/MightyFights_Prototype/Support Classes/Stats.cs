@@ -29,7 +29,7 @@ namespace MightyFights_Prototype
 			this.iPower = cRand.Next(5, 15);
 			this.iAtkSpeed = cRand.Next(0, 15);
 			this.iMovement = cRand.Next(0, 15);
-			this.iArmorClass = cRand.Next(0, 10);
+			this.iArmorClass = cRand.Next(1, 5);
 		}
 
 		public Stats(Stats cSrc)

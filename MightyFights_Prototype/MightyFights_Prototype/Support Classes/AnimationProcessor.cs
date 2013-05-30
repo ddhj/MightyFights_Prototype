@@ -82,6 +82,7 @@ namespace MightyFights_Prototype
 						_cCurFrame = _cAnimDataRef.caFrameData[_iCurFrameIdx + _iCurFrame++];
 					else { 
 						_iCurFrame = 0;
+						_cCurFrame = _cAnimDataRef.caFrameData[_iCurFrameIdx];
 						++_iItteration;
 					}
 					
