@@ -123,8 +123,6 @@ namespace MightyFights_Prototype	{
 
 		public void Heal()
 		{
-			// process the effects 
-			_cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
 			if( _cHealingSfx.State == SoundState.Stopped )
 				_cHealingSfx.Play( );
 

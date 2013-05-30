@@ -24,8 +24,8 @@ namespace MightyFights_Prototype
 //			Random	cRand = DataStore.cInstance.cRand;
 			Random	cRand = new Random();
 			this.fHp = this.iMaxHp = cRand.Next(100, 300);
-			this.iHealPoint = (int)( .6 * this.iMaxHp );
-			this.iFleePoint = (int)( .2 * this.iMaxHp );
+			this.iHealPoint = (int)( .4 * this.iMaxHp );
+			this.iFleePoint = (int)( .1 * this.iMaxHp );
 			this.iPower = cRand.Next(5, 15);
 			this.iAtkSpeed = cRand.Next(0, 15);
 			this.iMovement = cRand.Next(0, 15);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 using ProjectMercury;
 
@@ -29,9 +30,8 @@ namespace MightyFights_Prototype
 
 			switch(_eState) { 
 				case EHealerStates.Healing: { 
-					// check to see if the effect has stopped
-					if(_cEffect.ActiveParticlesCount == 0)
-						_cHealingSfx.Stop();
+					// process the effects 
+					_cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
 		
 					if(!_bCooldown) { 
 						if(cRand.Next(5) == 1)
