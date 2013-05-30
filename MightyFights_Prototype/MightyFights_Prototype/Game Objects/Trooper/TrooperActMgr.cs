@@ -66,7 +66,7 @@ namespace MightyFights_Prototype
 			
 			// handle the animation 
 			//// ddhj: not sure I want this to be here ... but it is specific to the object type so it might be a good place for it ... 
-			if((_cKeyFrame = _cAnimProc.Process(cTime)) != null) 
+			 if((_cKeyFrame = _cAnimProc.Process(cTime)) != null) 
 				ProcessKeyFrame();
 		}
 	}

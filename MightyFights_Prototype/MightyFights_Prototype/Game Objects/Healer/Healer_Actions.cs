@@ -21,7 +21,7 @@ namespace MightyFights_Prototype
 			// for now just check to see if we are in a cool down state or if we should start recharging our hp 
 			if(_bCooldown) { 
 				_tCooldown += cTime.ElapsedGameTime;
-				if(_tCooldown > TimeSpan.FromMilliseconds(4000)) { 
+				if(_tCooldown > TimeSpan.FromMilliseconds(2000)) { 
 					_bCooldown = false;
 					_tCooldown = TimeSpan.Zero;
 				}

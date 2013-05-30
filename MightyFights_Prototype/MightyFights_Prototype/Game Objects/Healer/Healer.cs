@@ -182,8 +182,8 @@ namespace MightyFights_Prototype	{
 				Texture2D	cBorder = DataStore.cInstance.cBorder;
 				Rectangle	tRect;
 				if(!_cTeam.bDirection)
-					tRect = new Rectangle((int)_tPos.X + 50, (int)_tPos.Y + 10, (int)( _fHp / _iMaxHp * 100 * .3 ), 5);
-				else tRect = new Rectangle((int)_tPos.X + 10, (int)_tPos.Y + 10, (int)( _fHp / _iMaxHp * 100 * .3 ), 5);
+					tRect = new Rectangle((int)_tPos.X + 60, (int)_tPos.Y, (int)( _fHp / _iMaxHp * 100 * .3 ), 5);
+				else tRect = new Rectangle((int)_tPos.X + 10, (int)_tPos.Y, (int)( _fHp / _iMaxHp * 100 * .3 ), 5);
 
 				Color		cHpColor = Color.Green;
 				cHpColor.A = 85;
