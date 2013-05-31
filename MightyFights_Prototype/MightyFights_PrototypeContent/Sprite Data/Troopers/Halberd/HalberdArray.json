@@ -15,7 +15,7 @@
 		"MainType": "Idle",
 		"SubTypes": [
 			{ "Type": "Normal", "Actions": [ {"sAction":"transition", "iIncrement":100} ] },
-			{ "Type": "Pant", "Actions": [ {"sAction":"pant", "iIncrement":1000} ] },
+			{ "Type": "Pant", "Actions": [ {"sAction":"pant", "iIncrement":300} ] },
 			{ "Type": "Victory", "Actions": [ {"sAction":"victory", "iIncrement":95} ] } ]
 	}, 
 	{ 

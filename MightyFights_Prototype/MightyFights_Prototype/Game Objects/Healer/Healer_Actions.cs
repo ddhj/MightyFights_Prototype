@@ -19,22 +19,13 @@ namespace MightyFights_Prototype
 		{
 			Random		cRand = DataStore.cInstance.cRand;
 
-			// for now just check to see if we are in a cool down state or if we should start recharging our hp 
-			if(_bCooldown) { 
-				_tCooldown += cTime.ElapsedGameTime;
-				if(_tCooldown > TimeSpan.FromMilliseconds(1000)) { 
-					_bCooldown = false;
-					_tCooldown = TimeSpan.Zero;
-				}
-			}
-
 			if(_cBtlGndData.eState == EBattlegroundState.Battle) { 
 				switch(_eState) { 
 					case EHealerStates.Healing: { 
 						// process the effects 
 						_cHealingFx.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y + 40 ));
 		
-						if(!_bCooldown) { 
+						if(!_cAnimProc.bActive) { 
 							if(cRand.Next(5) == 1)
 								_cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_blink", 1);
 							else _cAnimProc.SetAnimationCriteria("Idle", "Normal", "chaplain_mainidle", -1);

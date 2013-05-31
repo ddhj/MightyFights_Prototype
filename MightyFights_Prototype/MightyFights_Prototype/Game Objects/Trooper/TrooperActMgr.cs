@@ -13,7 +13,6 @@ namespace MightyFights_Prototype
 	{
 		AnimationProcessor	_cAnimProc;
 		KeyFrame			_cKeyFrame;
-		int					_iTmp = 0;
 
 		public TrooperActMgr(AnimationProcessor cAnimProc)
 		{
