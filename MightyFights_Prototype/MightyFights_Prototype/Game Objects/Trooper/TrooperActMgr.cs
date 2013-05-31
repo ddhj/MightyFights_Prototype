@@ -27,12 +27,15 @@ namespace MightyFights_Prototype
 				case "Collision": { 
 					ICombatant	nOpponent = (ICombatant)this.cData.nTarget;
 
-					if( this.cData.InWeaponRange( true )) { 
-						++this.cData.cExpData.iAttacks;
+					if( !nOpponent.IsDead( ))
+					{
+						if( this.cData.InWeaponRange( true )) { 
+							++this.cData.cExpData.iAttacks;
 
-						if( _cAnimProc.sSubType == "Critical" )
-							nOpponent.DealDamage( cData, cData.cStats.iPower * 3, true );
-						else	nOpponent.DealDamage( cData, cData.cStats.iPower, false );
+							if( _cAnimProc.sSubType == "Critical" )
+								nOpponent.DealDamage( cData, cData.cStats.iPower * 3, true );
+							else	nOpponent.DealDamage( cData, cData.cStats.iPower, false );
+						}
 					}
 				} break;
 
@@ -49,14 +52,15 @@ namespace MightyFights_Prototype
 			List<Action>	cTmpActionList = new List<Action>();
 			Action			cCurAction; 
 
-			foreach(Action cAction in cPerminantActions)
-				cTmpActionList.Add(cAction);
+			cTmpActionList.AddRange( cPerminantActions );
 
 			// do the perminant actions (they are removable but the conditions are much longer term
 			foreach(Action cAction in cTmpActionList) {
 				if(cAction.bConditionNotMet)
 					cAction.dHeuristic(cAction, cTime);
-				else cPerminantActions.Remove(cAction);
+
+				if(!cAction.bConditionNotMet)
+					cPerminantActions.Remove(cAction);
 			}
 
 			// do the last item in the action list 
@@ -64,7 +68,9 @@ namespace MightyFights_Prototype
 				cCurAction = cActionQueue[0];
 				if(cCurAction.bConditionNotMet)
 					cCurAction.dHeuristic(cCurAction, cTime);
-				else cActionQueue.RemoveAt(0);
+
+				if(!cCurAction.bConditionNotMet)
+					cActionQueue.RemoveAt(0);
 			}
 			
 			// handle the animation 

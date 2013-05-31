@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 using MightyFights_Support;
 
@@ -33,6 +34,8 @@ namespace MightyFights_Prototype
 						_bInTemplate = false;
 		NumericUpDown	_cP1Count, 
 						_cP2Count;
+
+		Song			_cMusic;
 		
 		#region IGameScene Members
 
@@ -123,6 +126,8 @@ namespace MightyFights_Prototype
 				_cLeft = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fazure");
 				_cRight = new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fstorm");
 
+				_cMusic = ObjectCreationManager.cInstance.CreateMusic( "Final_Fantasy_4_Submission_OC_ReMix" );
+
 				_cCursor = new ClickableSprite();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");
 				_cCursor.tPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
@@ -171,7 +176,7 @@ namespace MightyFights_Prototype
 				_cP1Count.Location = new System.Drawing.Point((int)_cP1Card.tPos.X - 108, (int)_cP1Card.tPos.Y + 20);
 				_cP1Count.Minimum = 1;
 				_cP1Count.Maximum = 100;
-				_cP1Count.Value = 51;//cRand.Next(100);
+				_cP1Count.Value = 100;//cRand.Next(100);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP1Count);
 				
 				_cP2Count = new NumericUpDown();
@@ -184,6 +189,7 @@ namespace MightyFights_Prototype
 
 				_cBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 
+				MediaPlayer.Play( _cMusic );
 				return true;
 			} catch(Exception xEx) {
 				xEx.ToString( );
@@ -198,6 +204,7 @@ namespace MightyFights_Prototype
 			_cToBattle.Dispose();
 			_cTrooperTex.Dispose();
 			_cTroopers.Dispose();
+			MediaPlayer.Stop( );
 		}
 
 		public void ToggleControls()

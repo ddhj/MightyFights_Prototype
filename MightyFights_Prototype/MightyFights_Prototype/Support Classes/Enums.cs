@@ -110,6 +110,7 @@ namespace MightyFights_Prototype
 	public enum EHealerStates
 	{
 		Idle, 
-		Healing
+		Healing,
+		Recharging
 	}
 }

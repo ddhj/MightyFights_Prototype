@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="ProjectMercury.ParticleEffect">
+    <Item Type="ProjectMercury.Emitters.CircleEmitter">
+      <Name>Implosion</Name>
+      <Budget>100</Budget>
+      <Term>1</Term>
+      <ReleaseQuantity>2</ReleaseQuantity>
+      <Enabled>True</Enabled>
+      <ReleaseSpeed>
+        <Value>-55</Value>
+        <Variation>-25</Variation>
+      </ReleaseSpeed>
+      <ReleaseColour>
+        <Value>0 0.8 0</Value>
+        <Variation>0 0.2 0</Variation>
+      </ReleaseColour>
+      <ReleaseOpacity>
+        <Value>1</Value>
+        <Variation>0</Variation>
+      </ReleaseOpacity>
+      <ReleaseScale>
+        <Value>64</Value>
+        <Variation>4</Variation>
+      </ReleaseScale>
+      <ReleaseRotation>
+        <Value>0</Value>
+        <Variation>0</Variation>
+      </ReleaseRotation>
+      <ReleaseImpulse>0 0</ReleaseImpulse>
+      <ParticleTextureAssetName>LensFlare</ParticleTextureAssetName>
+      <Modifiers>
+        <Item Type="ProjectMercury.Modifiers.OpacityFastFadeModifier" />
+        <Item Type="ProjectMercury.Modifiers.HueShiftModifier">
+          <HueShift>-120</HueShift>
+        </Item>
+      </Modifiers>
+      <BlendMode>Alpha</BlendMode>
+      <TriggerOffset>0 0</TriggerOffset>
+      <MinimumTriggerPeriod>0.05</MinimumTriggerPeriod>
+      <Radius>80</Radius>
+      <Ring>true</Ring>
+      <Radiate>true</Radiate>
+    </Item>
+    <Name>Healer Charging</Name>
+    <Author />
+    <Description />
+  </Asset>
+</XnaContent>

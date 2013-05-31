@@ -181,11 +181,7 @@ namespace MightyFights_Prototype
 					int		iLHp = 0,
 							iRHp = 0,
 							iLPow = 0,
-							iRPow = 0,
-							iLFlee = 0,
-							iRFlee = 0,
-							iLHeal = 0,
-							iRHeal = 0;
+							iRPow = 0;
 
 					foreach( Team cTeam in _cBattleData.caTeams )
 						foreach( Trooper cTrooper in cTeam.cActiveList.Values )
@@ -193,27 +189,17 @@ namespace MightyFights_Prototype
 							{
 								iLHp += (int)cTrooper.cStats.fHp;
 								iLPow += cTrooper.cStats.iPower;
-								switch( cTrooper.cAiData.eState )
-								{
-								case EBattleAiStates.Flee:		++iLFlee;	break;
-								case EBattleAiStates.Panting:	++iLHeal;	break;
-								}
 							}
 							else	{
 								iRHp += (int)cTrooper.cStats.fHp;
 								iRPow += cTrooper.cStats.iPower;
-								switch( cTrooper.cAiData.eState )
-								{
-								case EBattleAiStates.Flee:		++iRFlee;	break;
-								case EBattleAiStates.Panting:	++iRHeal;	break;
-								}
 							}
 
 					_cSpriteBatch.DrawString(_cFont, string.Format("fps: {0}", _iFrameRate ), new Vector2(900, 10), Color.White);
-					_cSpriteBatch.DrawString(_cFont, string.Format("LeftArmy: {0}    Left HP: {1}    Left Pow: {2}    Left Engaging: {3}   Left Fleeing: {4}   Left Healing: {5}",
-							_cBattleData.caTeams[0].cActiveList.Count, iLHp, iLPow, _cBattleData.caTeams[0].cActiveList.Count - iLFlee - iLHeal, iLFlee, iLHeal ), new Vector2(10, 10), Color.White);
-					_cSpriteBatch.DrawString(_cFont, string.Format("RightArmy: {0}  Right HP: {1}  Right Pow:{2}   Right Engaging: {3}  Right Fleeing: {4}  Right Healing: {5}",
-							_cBattleData.caTeams[1].cActiveList.Count, iRHp, iRPow,  _cBattleData.caTeams[1].cActiveList.Count - iRFlee - iRHeal, iRFlee, iRHeal ), new Vector2(10, 30), Color.White);
+					_cSpriteBatch.DrawString(_cFont, string.Format("LeftArmy: {0}    Left HP: {1}    Left Pow: {2}    ",
+							_cBattleData.caTeams[0].cActiveList.Count, iLHp, iLPow ), new Vector2(10, 10), Color.White);
+					_cSpriteBatch.DrawString(_cFont, string.Format("RightArmy: {0}  Right HP: {1}  Right Pow:{2}   ",
+							_cBattleData.caTeams[1].cActiveList.Count, iRHp, iRPow ), new Vector2(10, 30), Color.White);
 					_cSpriteBatch.DrawString(_cFont, string.Format("x {0}", _iHammerCtr), new Vector2(955, 35), Color.White);
 				}
 
@@ -263,16 +249,19 @@ namespace MightyFights_Prototype
 
 				// set an initial script for the trooper
 				cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
-				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(147 + iX * 35, iY * 36 + 100), null));
+				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(147 + iX * 17, iY * 18 + 100), null));
 
 				// set the trooper for battle
 				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
 				
 				// increment our grid counters
 				++iY;
-				if(iY > 9) { 
+				if(iY > 19) { 
 					iY = 0;
 					--iX;
+
+					if(( iX & 1 ) == 1 )
+						iX -= 2;
 				}
 			}
 
@@ -286,15 +275,17 @@ namespace MightyFights_Prototype
 
 				// set an initial script for the trooper
 				cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, iCount += 50, TimeSpan.Zero));
-				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(567 + iX * 35, iY * 36 + 100), null));
+				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(717 + iX * 17, iY * 18 + 100), null));
 
 				// set the trooper for battle
 				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
 				
 				// increment our grid counters
 				++iY;
-				if(iY > 9) { 
+				if(iY > 19) { 
 					iY = 0;
+					if(( iX & 1 ) == 1 )
+						iX += 2;
 					++iX;
 				}
 			}
@@ -565,7 +556,7 @@ namespace MightyFights_Prototype
 				}
 				for( int iCount = 0; iCount < 2; ++iCount )
 				{
-					cHealer = cObjMgr.CreatePriest(new Vector2( 50, 180 + 120 * iCount ), cTeam,  1500, 7, 30f, .1f, _cBattleData);
+					cHealer = cObjMgr.CreatePriest(new Vector2( 50, 180 + 120 * iCount ), cTeam,   (int)( 40f * 7 * 6 ), 7, 40f, 1.3333f, _cBattleData);
 					cTeam.cHealerList.Add( cHealer.iId, cHealer );
 					_cObjMgr.AddObject(cHealer);
 				}
@@ -583,7 +574,7 @@ namespace MightyFights_Prototype
 				}
 				for( int iCount = 0; iCount < 2; ++iCount )
 				{
-					cHealer = cObjMgr.CreatePriest(new Vector2( 880, 180 + 120 * iCount ), cTeam,  1500, 7, 30f, .1f, _cBattleData);
+					cHealer = cObjMgr.CreatePriest(new Vector2( 880, 180 + 120 * iCount ), cTeam,  (int)( 40f * 7 * 6 ), 7, 40f, 1.3333f, _cBattleData);
 					cTeam.cHealerList.Add( cHealer.iId, cHealer );
 					_cObjMgr.AddObject(cHealer);
 				}

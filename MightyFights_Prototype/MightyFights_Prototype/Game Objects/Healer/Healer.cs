@@ -40,7 +40,8 @@ namespace MightyFights_Prototype	{
 		AnimationProcessor	_cAnimProc;
 		BattlegroundData	_cBtlGndData;
 
-		ParticleEffect		_cEffect;
+		ParticleEffect		_cHealingFx,
+							_cRechargeFx;
 		SoundEffectInstance	_cHealingSfx;
 		ActionManager<Priest>	_cActMgr;
 
@@ -50,7 +51,7 @@ namespace MightyFights_Prototype	{
 		public float fHp		{ get { return _fHp; } set { _fHp = value; }}
 		public Vector2 tPos		{ get { return _tPos; } set { _tPos = value; UpdateRefPoints(); }}
 		public Vector2 tCenter	{ get { return _tCenter; } set { _tCenter = value; }}
-		public bool bActive		{ get { return _fHp > 20; }}
+		public bool bActive		{ get { return _eState != EHealerStates.Recharging; }}
 		public EObjectStates eObjState	{ get { return _eObjState; } set { _eObjState = value; }}
 		public bool bAvailableSpots		{ get { return _cSupportZone.bOpen; }}
 		public AnimationProcessor cAnimationProcessor { get { return _cAnimProc; } set { _cAnimProc = value; }}
@@ -86,8 +87,10 @@ namespace MightyFights_Prototype	{
 			this.tPos = tPos;
 			_cSupportZone = new FleeSpot( iMaxSlots, 60, new Vector2( _tCenter.X + ( cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
 
-			_cEffect = ObjectCreationManager.cInstance.CreateParticleSystem( "HealingCircle" );
-			_cBtlGndData.cObjMgr.AddParticleEffect( _cEffect );
+			_cHealingFx = ObjectCreationManager.cInstance.CreateParticleSystem( "HealingCircle" );
+			_cBtlGndData.cObjMgr.AddParticleEffect( _cHealingFx );
+			_cRechargeFx = ObjectCreationManager.cInstance.CreateParticleSystem( "HealerRecharge" );
+			_cBtlGndData.cObjMgr.AddParticleEffect( _cRechargeFx );
 
 			_cHealingSfx = ObjectCreationManager.cInstance.CreateSfx( "Appear-KP-1137861048" );
 //			_cHealingSfx = ObjectCreationManager.cInstance.CreateSfx( "Computer_Magic-Microsift-1901299923" );
@@ -107,6 +110,7 @@ namespace MightyFights_Prototype	{
 		public void TakeSpot( ICombatant nSoldier )
 		{
 			_cSupportZone.TakeSpot( nSoldier );
+			++nSoldier.cExpData.iHealed;
 		}
 
 		public void FreeSpot( ICombatant nSoldier )
@@ -137,6 +141,15 @@ namespace MightyFights_Prototype	{
 						_fHp -= tPair.Value.Heal( _fHealRate );
 					else	_fHp -= tPair.Value.Heal( _fHp );
 				}
+			}
+
+			// out of hp to give, toss everyone out
+			if( _fHp <= float.Epsilon )
+			{
+				foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
+					tPair.Value.RemoveHeal( );
+				_cSupportZone.ResetSpots( );
+				_eState = EHealerStates.Recharging;
 			}
 		}
 
@@ -189,16 +202,17 @@ namespace MightyFights_Prototype	{
 			}
 
 			// draw the flee point 
-			if(DataStore.cInstance.bHealSpots) { 
-				foreach( Vector2 tSpot in _cSupportZone.taOpenSpots )
-				{ 
-					Texture2D	cBorder = DataStore.cInstance.cBorder;
-					Rectangle	tRect = new Rectangle((int)tSpot.X - 5, (int)tSpot.Y - 5, 10, 10 );
-					Color		cHpColor = Color.WhiteSmoke;
-					cHpColor.A = 35;
-					cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0);
+			if( this.bActive )
+				if(DataStore.cInstance.bHealSpots) { 
+					foreach( Vector2 tSpot in _cSupportZone.taOpenSpots )
+					{ 
+						Texture2D	cBorder = DataStore.cInstance.cBorder;
+						Rectangle	tRect = new Rectangle((int)tSpot.X - 5, (int)tSpot.Y - 5, 10, 10 );
+						Color		cHpColor = Color.WhiteSmoke;
+						cHpColor.A = 35;
+						cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0);
+					}
 				}
-			}
 		}
 
 		void UpdateRefPoints()

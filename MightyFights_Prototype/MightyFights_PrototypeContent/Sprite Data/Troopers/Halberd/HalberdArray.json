@@ -514,7 +514,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":14,"w":22,"h":46},
 	"sourceSize": {"w":100,"h":64},
-	"KeyFrame": { "Type":"SelfHeal", "oData":"3" }
+	"KeyFrame": { "Type":"SelfHeal", "oData":"100" }
 },
 {
 	"filename": "retreat00.png",

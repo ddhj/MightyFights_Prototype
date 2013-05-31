@@ -49,14 +49,14 @@ namespace MightyFights_Prototype
 				if( cTeam.bDirection )
 					if( bCrit )
 						_tTextColor = Color.Orange;
-					else	_tTextColor = Color.Red;
+					else	_tTextColor = Color.LightGoldenrodYellow;
 				else 
 					if( bCrit )
-						_tTextColor = Color.Yellow;
+						_tTextColor = Color.Red;
 					else	_tTextColor = Color.White;
 			else 
 				if( cTeam.bDirection )
-					_tTextColor = Color.Green;
+					_tTextColor = Color.LightGreen;
 				else	_tTextColor = Color.Turquoise;
 
 			_iStartY = (int)tPos.Y;

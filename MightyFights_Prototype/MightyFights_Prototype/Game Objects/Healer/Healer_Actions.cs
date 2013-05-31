@@ -22,7 +22,7 @@ namespace MightyFights_Prototype
 			// for now just check to see if we are in a cool down state or if we should start recharging our hp 
 			if(_bCooldown) { 
 				_tCooldown += cTime.ElapsedGameTime;
-				if(_tCooldown > TimeSpan.FromMilliseconds(2000)) { 
+				if(_tCooldown > TimeSpan.FromMilliseconds(1000)) { 
 					_bCooldown = false;
 					_tCooldown = TimeSpan.Zero;
 				}
@@ -32,7 +32,7 @@ namespace MightyFights_Prototype
 				switch(_eState) { 
 					case EHealerStates.Healing: { 
 						// process the effects 
-						_cEffect.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
+						_cHealingFx.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y + 40 ));
 		
 						if(!_bCooldown) { 
 							if(cRand.Next(5) == 1)
@@ -65,6 +65,15 @@ namespace MightyFights_Prototype
 								else	_fHp += _fRegenRate;
 						}
 					} break;
+
+					case EHealerStates.Recharging:
+						// process the effects 
+						_cRechargeFx.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? -1 : 1 ) * 50, _tCenter.Y ));
+
+						if( _fHp > _iMaxHp / 2 )
+							_eState = EHealerStates.Idle;
+						else	_fHp += _fRegenRate;
+					break;
 				}
 			}
 

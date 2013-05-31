@@ -169,6 +169,7 @@ namespace MightyFights_Prototype
 			if(cAction.bInit) { 
 				// set our animation to charge 
 				_cAnimProc.SetAnimationCriteria("Move", "Flee", "retreat", -1);
+				_lFleeCurTime = 0;
 
 				cAction.bInit = false;
 			} 
@@ -180,19 +181,17 @@ namespace MightyFights_Prototype
 				return false;
 			}
 
-			Vector2 tOldCen = _tCenter;
-			Vector2 tOldPos = _tPos;
 			tDest = nHealer.GetOpenLocation( );
 			tDirVect = tDest - _tCenter;
 			bDir = tDirVect.X > 0 + float.Epsilon;
 			tDirVect.Normalize();
 
-			// move the sprite by the speed of run (this data should come from the template)
-			////ddhj Template add for speed of run
-			this.tPos += tDirVect * _fFinalMovementSpeed;
-
-			if(( tDest - tOldCen ).LengthSquared( ) < ( tDest - _tCenter ).LengthSquared( ))
-				tDest.ToString( );
+			// move the sprite by the speed of walk (this data should come from the template)
+		////ddhj Template add for speed of walk
+			if( _lFleeCurTime < _lFleeRunStop )
+				this.tPos += tDirVect * _fRunMovementSpeed;
+			else	this.tPos += tDirVect * _fWalkMovementSpeed;
+			_lFleeCurTime += cTime.ElapsedGameTime.Milliseconds;
 			
 			// we are within weapon range so switch our system to attack 
 			if(((tDest - _tCenter).LengthSquared()) < 4) {  
@@ -220,6 +219,7 @@ namespace MightyFights_Prototype
 				tDirVect.Normalize();
 				cAction.oCanvas = tDirVect;
 				_cAnimProc.SetAnimationCriteria("Move", "Flee", "retreat", -1);
+				_lFleeCurTime = 0;
 
 				cAction.bInit = false;
 			} else tDirVect = (Vector2)cAction.oCanvas;
@@ -229,8 +229,11 @@ namespace MightyFights_Prototype
 			tDirVect.Normalize();
 
 			// move the sprite by the speed of walk (this data should come from the template)
-			////ddhj Template add for speed of walk
-			this.tPos += tDirVect * _fFinalMovementSpeed;
+		////ddhj Template add for speed of walk
+			if( _lFleeCurTime < _lFleeRunStop )
+				this.tPos += tDirVect * _fRunMovementSpeed;
+			else	this.tPos += tDirVect * _fWalkMovementSpeed;
+			_lFleeCurTime += cTime.ElapsedGameTime.Milliseconds;
 
 			if((tDest - _tCenter).LengthSquared() < 4) { 
 				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", -1);
@@ -276,8 +279,10 @@ namespace MightyFights_Prototype
 			tDirVect.Normalize();
 
 			// move the sprite by the speed of run (this data should come from the template)
-			////ddhj Template add for speed of run
-			this.tPos += tDirVect * _fFinalMovementSpeed;
+		////ddhj Template add for speed of run
+			if(( tDest - _tCenter ).LengthSquared( ) < 60000 )
+				this.tPos += tDirVect * _fRunMovementSpeed;
+			else	this.tPos += tDirVect * _fWalkMovementSpeed;
 
 			// we are within weapon range so switch our system to attack 
 			if( InWeaponRange( false )) {
@@ -349,8 +354,10 @@ namespace MightyFights_Prototype
 			tDirVect.Normalize();
 
 			// move the sprite by the speed of run (this data should come from the template)
-			////ddhj Template add for speed of run
-			this.tPos += tDirVect * _fFinalMovementSpeed;
+		////ddhj Template add for speed of run
+			if(( tDest - _tCenter ).LengthSquared( ) < 60000 )
+				this.tPos += tDirVect * _fRunMovementSpeed;
+			else	this.tPos += tDirVect * _fWalkMovementSpeed;
 			
 			// we are within weapon range so switch our system to attack 
 			if( InWeaponRange( false )) { 

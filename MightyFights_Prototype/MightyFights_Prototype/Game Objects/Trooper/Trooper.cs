@@ -47,7 +47,10 @@ namespace MightyFights_Prototype
 		Dictionary<ETrooperAttackPos, ICombatant>	_cAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
 
 		////ddhj template stuff... not sure if it should go on trooper proper
-		float						_fFinalMovementSpeed;
+		float	_fRunMovementSpeed,
+				_fWalkMovementSpeed;
+		long	_lFleeRunStop = 2000,
+				_lFleeCurTime;
 
 		public int iId					{ get; set; }
 		public bool bActive				{ get; set; }
@@ -117,7 +120,8 @@ namespace MightyFights_Prototype
 		void CalcMovementSpeed()
 		{
 			////ddhj: this is the initial area for the template config, this will probably change over time
-			_fFinalMovementSpeed = 2.5f * (1.0f + _cStats.iMovement / 100f);
+			_fRunMovementSpeed = 2.5f * (1.0f + _cStats.iMovement / 100f);
+			_fWalkMovementSpeed = (1.0f + _cStats.iMovement / 100f);
 		}
 
 		void CalcAtackSpeeds()
@@ -370,6 +374,15 @@ namespace MightyFights_Prototype
 				_cSfxParry.Play( );
 			}
 
+			if( _cStats.fHp <= 0 )
+			{
+				++nOpponent.cExpData.iKills;
+				if( cAiData.eState == EBattleAiStates.Panting )
+					++nOpponent.cExpData.iHealingKills;
+				if( cAiData.eState == EBattleAiStates.Flee )
+					++nOpponent.cExpData.iFleeKills;
+			}
+
 			// if I am attacking my attacker
 			if( this.nTarget == nOpponent )
 				return;
@@ -386,7 +399,7 @@ namespace MightyFights_Prototype
 					return;
 
 				case EBattleAiStates.Panting:
-					if( _cStats.fHp < _cStats.iFleePoint )
+					if( this.nTarget is IHealer )
 						return;
 					break;
 				}
@@ -399,11 +412,7 @@ namespace MightyFights_Prototype
 				else if( this.nTarget is IHealer )
 					((IHealer)this.nTarget ).FreeSpot( this );
 
-			this.cAiData.eState = EBattleAiStates.Ready;
-			foreach( Action cAction in _cActionMgr.cActionQueue )
-				cAction.bConditionNotMet = false;
-			_bAttacking = false;
-			this.nTarget = null;
+			RemoveHeal( );
 		}
 
 		public float Heal( float fHp )
@@ -423,6 +432,10 @@ namespace MightyFights_Prototype
 
 		public void RemoveHeal( )
 		{
+			this.cAiData.eState = EBattleAiStates.Ready;
+			foreach( Action cAction in _cActionMgr.cActionQueue )
+				cAction.bConditionNotMet = false;
+			_bAttacking = false;
 			this.nTarget = null;
 		}
 

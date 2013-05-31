@@ -320,21 +320,22 @@ namespace MightyFights_Prototype
 			{
 			// side
 			case 0:
-				iX = nCombatant.cTeam.iId == 0 ? 0 : ((int)EZoneData.ZoneColumns - 1 );
+				iX = cRand.Next( 2 );
+				iX = nCombatant.cTeam.iId == 0 ? iX : ((int)EZoneData.ZoneColumns - 2 + iX );
 				iY = 1 + cRand.Next((int)EZoneData.ZoneRows - 2 );
 				break;
 
 			// top
 			case 1:
-				iX = (int)EZoneData.ZoneColumns / 2;
-				iX = cRand.Next( iX - 1 ) + ( nCombatant.cTeam.iId == 0 ? 0 : ( iX + 1 ));
+				iX = cRand.Next( 2 );
+				iX = nCombatant.cTeam.iId == 0 ? iX : ((int)EZoneData.ZoneColumns - 2 + iX );
 				iY = 0;
 				break;
 
 			// bottom
 			case 2:
-				iX = (int)EZoneData.ZoneColumns / 2;
-				iX = cRand.Next( iX - 1 ) + ( nCombatant.cTeam.iId == 0 ? 0 : ( iX + 1 ));
+				iX = cRand.Next( 2 );
+				iX = nCombatant.cTeam.iId == 0 ? iX : ((int)EZoneData.ZoneColumns - 2 + iX );
 				iY = (int)EZoneData.ZoneRows - 1;
 				break;
 			}

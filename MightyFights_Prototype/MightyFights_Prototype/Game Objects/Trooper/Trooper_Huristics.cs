@@ -165,12 +165,27 @@ namespace MightyFights_Prototype
 		public object Pant(BattlegroundData cData)
 		{
 			// check to see if we should still be healing 
-			if(_cStats.fHp > _cStats.iHealPoint) {
-				if( this.nTarget != null )
+			if( this.nTarget != null )
+			{
+				if(_cStats.fHp > _cStats.iHealPoint)
+				{
 					((IHealer)this.nTarget ).FreeSpot( this );
-				this.nTarget = null;
 
-				cAiData.eState = EBattleAiStates.Ready;
+					RemoveHeal( );
+				}
+			}
+			// use a lower heal point for self-healing
+			else if( _cStats.fHp > _cStats.iFleePoint * 2 )
+				RemoveHeal( );
+
+			// if the zone is threatened, switch to ready to choose opponent or re-flee
+				// technically, you can be attacked from a nearby zone if near the edges, so there is that
+				// being healed by a healer disengages the threatened response
+			if( this.nTarget == null && cAiData.eState != EBattleAiStates.Ready && BuildNearbyZoneOpponenents( cZone, _cTeam.iId ^ 1 ).Count > 0 )
+			{
+				RemoveHeal( );
+//				if( this.nTarget != null && this.nTarget is IHealer )
+//					((IHealer)this.nTarget ).FreeSpot( this );
 			}
 
 			return null;
@@ -264,14 +279,10 @@ namespace MightyFights_Prototype
 			return null;
 		}
 
-		ICombatant ChooseZoneCombatantRand_NearbyZones( Zone cZone, int iOppIdx )
+		List<ICombatant> BuildNearbyZoneOpponenents( Zone cZone, int iOppIdx )
 		{
-			int			iIndex;
-			Random		cRand = DataStore.cInstance.cRand;
-			ICombatant	nCombatant;
 			List<ICombatant>	naNearbyList = new List<ICombatant>( ),
-								naZoneList,
-								naFleeing = new List<ICombatant>( );
+								naZoneList;
 
 			for( int iY = -1; iY <= 1; ++iY )
 			{
@@ -287,6 +298,18 @@ namespace MightyFights_Prototype
 						naNearbyList.AddRange( naZoneList );
 				}
 			}
+
+			return naNearbyList;
+		}
+		ICombatant ChooseZoneCombatantRand_NearbyZones( Zone cZone, int iOppIdx )
+		{
+			int			iIndex;
+			Random		cRand = DataStore.cInstance.cRand;
+			ICombatant	nCombatant;
+			List<ICombatant>	naNearbyList = new List<ICombatant>( ),
+								naFleeing = new List<ICombatant>( );
+
+			naNearbyList = BuildNearbyZoneOpponenents( cZone, iOppIdx );
 			if( naNearbyList.Count > 0 )
 			{
 				// skip fleeing guys at first
