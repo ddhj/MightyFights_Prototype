@@ -121,6 +121,7 @@ namespace MightyFights_Prototype
 			int			iDst;
 
 			++_cExpData.iFlee;
+			this.nTarget = null;
 
 			// build up available healer list by distance
 			foreach( IHealer nHealer in _cTeam.cHealerList.Values )
@@ -175,7 +176,7 @@ namespace MightyFights_Prototype
 				}
 			}
 			// use a lower heal point for self-healing
-			else if( _cStats.fHp > _cStats.iFleePoint * 2 )
+			else if( _cStats.fHp > _cStats.iFleePoint * 4 )
 				RemoveHeal( );
 
 			// if the zone is threatened, switch to ready to choose opponent or re-flee
@@ -184,6 +185,8 @@ namespace MightyFights_Prototype
 			if( this.nTarget == null && cAiData.eState != EBattleAiStates.Ready && BuildNearbyZoneOpponenents( cZone, _cTeam.iId ^ 1 ).Count > 0 )
 			{
 				RemoveHeal( );
+				if( _cStats.fHp < _cStats.iFleePoint )
+					_cStats.fHp = _cStats.iFleePoint;
 //				if( this.nTarget != null && this.nTarget is IHealer )
 //					((IHealer)this.nTarget ).FreeSpot( this );
 			}

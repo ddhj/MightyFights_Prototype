@@ -15,7 +15,7 @@
 		"MainType": "Idle",
 		"SubTypes": [
 			{ "Type": "Normal", "Actions": [ {"sAction":"transition", "iIncrement":100} ] },
-			{ "Type": "Pant", "Actions": [ {"sAction":"pant", "iIncrement":300} ] },
+			{ "Type": "Pant", "Actions": [ {"sAction":"pant", "iIncrement":1000} ] },
 			{ "Type": "Victory", "Actions": [ {"sAction":"victory", "iIncrement":95} ] } ]
 	}, 
 	{ 
@@ -514,7 +514,7 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":14,"w":22,"h":46},
 	"sourceSize": {"w":100,"h":64},
-	"KeyFrame": { "Type":"SelfHeal", "oData":"100" }
+	"KeyFrame": { "Type":"SelfHeal", "oData":"10" }
 },
 {
 	"filename": "retreat00.png",

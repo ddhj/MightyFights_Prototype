@@ -33,16 +33,16 @@ namespace MightyFights_Prototype
 		Dictionary<EBuffEffects, BuffContainer>		_cBuffContainerList = new Dictionary<EBuffEffects,BuffContainer>();
 
 
-		TimeSpan	_tVictoryElapsed = TimeSpan.Zero,
-					_tSlowMo = TimeSpan.Zero;
-
-
 		Song		_cBgm;
 		SoundEffectInstance		_cBuffSfx,
 								_cHammerSfx;
 
 		////ddhj: debug data
-		TimeSpan		_cTime = TimeSpan.Zero;
+		TimeSpan		_cTime = TimeSpan.Zero,
+						_tVictoryElapsed = TimeSpan.Zero,
+						_tSlowMo = TimeSpan.Zero,
+						_cEllapsedTime;
+
 		int				_iFrameRate = 0,
 						_iFrameCtr = 0,
 						_iHammerCtr = 0;
@@ -164,6 +164,7 @@ namespace MightyFights_Prototype
 		public void Draw(GameTime cTime)
 		{
 			++_iFrameCtr;
+			_cEllapsedTime += cTime.ElapsedGameTime;
 
 			_cSpriteBatch.Begin(SpriteSortMode.BackToFront, null); { 
 				if(_cShowBackgroundCb.Checked)
@@ -195,11 +196,12 @@ namespace MightyFights_Prototype
 								iRPow += cTrooper.cStats.iPower;
 							}
 
-					_cSpriteBatch.DrawString(_cFont, string.Format("fps: {0}", _iFrameRate ), new Vector2(900, 10), Color.White);
 					_cSpriteBatch.DrawString(_cFont, string.Format("LeftArmy: {0}    Left HP: {1}    Left Pow: {2}    ",
 							_cBattleData.caTeams[0].cActiveList.Count, iLHp, iLPow ), new Vector2(10, 10), Color.White);
 					_cSpriteBatch.DrawString(_cFont, string.Format("RightArmy: {0}  Right HP: {1}  Right Pow:{2}   ",
 							_cBattleData.caTeams[1].cActiveList.Count, iRHp, iRPow ), new Vector2(10, 30), Color.White);
+					_cSpriteBatch.DrawString(_cFont, string.Format("fps: {0}", _iFrameRate ), new Vector2(820, 10), Color.White);
+					_cSpriteBatch.DrawString(_cFont, string.Format("Time: {0}", _cEllapsedTime.ToString( "c" )), new Vector2(860, 10), Color.White);
 					_cSpriteBatch.DrawString(_cFont, string.Format("x {0}", _iHammerCtr), new Vector2(955, 35), Color.White);
 				}
 
@@ -528,6 +530,7 @@ namespace MightyFights_Prototype
 			_cBattleData.dlBuffClick = ProcessBuffClick;
 			_cBattleData.dlDropClick = ProcessHammerClick;
 
+			_cEllapsedTime = TimeSpan.Zero;
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 				_cBackground = cContent.Load<Texture2D>(@"Backgrounds\dirt_grass 800x436");
