@@ -58,6 +58,7 @@ namespace MightyFights_Prototype
 			_iCurFrameIdx = _cCurAction.iStartIndex;
 			_cCurFrame = _cAnimDataRef.caFrameData[_cCurAction.iStartIndex];
 			_iItteration = 0;
+			_tTime = TimeSpan.Zero;
 			bActive = true;
 		}
 
@@ -77,7 +78,7 @@ namespace MightyFights_Prototype
 
 				// if we have moved past the elapsed time for the animation, move to the next frame in the animation, 
 				// or reset it to zero
-				if((_tTime += cTime.ElapsedGameTime) > TimeSpan.FromMilliseconds(_iCurIncrement)) { 
+				if( _tTime > TimeSpan.FromMilliseconds(_iCurIncrement)) { 
 					if(_iCurFrame < _cCurAction.iMaxFrames)
 						_cCurFrame = _cAnimDataRef.caFrameData[_iCurFrameIdx + _iCurFrame++];
 					else { 
