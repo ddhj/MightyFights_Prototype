@@ -28,5 +28,25 @@ namespace MightyFights_Prototype
 			this.iTopLevel = 0;
 			this.iBottomLevel = 0;
 		}
+
+		public TemplateConfig(TemplateConfig cSrc)
+		{
+			_sTrooperType = cSrc.sTrooperType;
+			_sColor = cSrc.sColor;
+			this.cStats = new Stats(cSrc.cStats);
+			this.iBottomLevel = cSrc.iBottomLevel;
+			this.iTopLevel = cSrc.iTopLevel;
+			this.iCount = cSrc.iCount;
+		}
+
+		public void SetData(TemplateConfig cSrc)
+		{
+			_sTrooperType = cSrc.sTrooperType;
+			_sColor = cSrc.sColor;
+			this.cStats = new Stats(cSrc.cStats);
+			this.iBottomLevel = cSrc.iBottomLevel;
+			this.iTopLevel = cSrc.iTopLevel;
+			this.iCount = cSrc.iCount;
+		}
 	}
 }

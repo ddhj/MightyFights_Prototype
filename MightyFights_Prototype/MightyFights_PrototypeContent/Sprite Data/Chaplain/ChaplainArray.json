@@ -2,7 +2,7 @@
 	{	
 		"MainType": "Heal", 
 		"SubTypes": [
-			{ "Type": "Basic", "Actions": [ {"sAction":"chaplain_heal", "iIncrement":150}, {"sAction":"chaplain_healb", "iIncrement":180} ] } ]
+			{ "Type": "Basic", "Actions": [ {"sAction":"chaplain_heal", "iIncrement":110}, {"sAction":"chaplain_healb", "iIncrement":140} ] } ]
 	}, 
 	{
 		"MainType": "Idle",

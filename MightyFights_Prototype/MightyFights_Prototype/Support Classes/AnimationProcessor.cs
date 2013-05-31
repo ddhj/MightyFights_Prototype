@@ -79,18 +79,18 @@ namespace MightyFights_Prototype
 				// if we have moved past the elapsed time for the animation, move to the next frame in the animation, 
 				// or reset it to zero
 				if( _tTime > TimeSpan.FromMilliseconds(_iCurIncrement)) { 
-					if(_iCurFrame < _cCurAction.iMaxFrames)
+					if(_iCurFrame < _cCurAction.iMaxFrames) { 
 						_cCurFrame = _cAnimDataRef.caFrameData[_iCurFrameIdx + _iCurFrame++];
-					else { 
+						// set the keyframe for this frame, we only want this to happen the first time we are in the frame and not during 
+						// the delta between increments 
+						cKeyFrame = _cCurFrame.cKeyFrame;
+					} else { 
 						_iCurFrame = 0;
-						_cCurFrame = _cAnimDataRef.caFrameData[_iCurFrameIdx];
 						++_iItteration;
+						if(_iItteration < _iCount)
+							_cCurFrame = _cAnimDataRef.caFrameData[_iCurFrameIdx];
 					}
 					
-					// set the keyframe for this frame, we only want this to happen the first time we are in the frame and not during 
-					// the delta between increments 
-					cKeyFrame = _cCurFrame.cKeyFrame;
-
 					_tTime = TimeSpan.Zero;
 				}		
 			}
