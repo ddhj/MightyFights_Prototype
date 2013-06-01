@@ -13,8 +13,8 @@ namespace MightyFights_Prototype
 	public interface IGameScene
 	{
 		ESceneStates eState { get; set;}
-		void Update(GameTime tTime);
-		void Draw(GameTime tTime);
+		void Update(GameTime cTime);
+		void Draw(GameTime cTime);
 		bool Init();
 		void Unload();
 

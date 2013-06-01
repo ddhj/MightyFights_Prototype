@@ -68,9 +68,9 @@ namespace MightyFights_Prototype
 			this.iId = ObjectCreationManager.cInstance.iCurObjId;
 		}
 
-		public void Process(GameTime tTime)
+		public void Process(GameTime cTime)
 		{
-			_tLifetime += tTime.ElapsedGameTime;
+			_tLifetime += cTime.ElapsedGameTime;
 
 			if(_tLifetime > _tTotalDuration) {
 				this.eObjState = 0;

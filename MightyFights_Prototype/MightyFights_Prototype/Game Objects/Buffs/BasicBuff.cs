@@ -79,7 +79,7 @@ namespace MightyFights_Prototype
 				cRand.Next((int)EZoneData.ZoneRowHeight - 23) + cZone.iY * (int)EZoneData.ZoneRowHeight + 70);
 		}
 
-		public virtual void Process(GameTime tTime)
+		public virtual void Process(GameTime cTime)
 		{
 			if(_cBgData.eState != EBattlegroundState.Battle) 
 				return;
@@ -89,8 +89,8 @@ namespace MightyFights_Prototype
 				return;
 			}
 
-			_tCurrentLife += tTime.ElapsedGameTime;
-			_cAnimProc.Process(tTime);
+			_tCurrentLife += cTime.ElapsedGameTime;
+			_cAnimProc.Process(cTime);
 			{
 				Vector2	tVect = this.tPos;
 				Frame	cCurFrame = this.cFrame;
@@ -252,7 +252,7 @@ namespace MightyFights_Prototype
 
 		#region IActiveBasic Members
 
-		public void Process(GameTime tTime)
+		public void Process(GameTime cTime)
 		{
 			// set the position on the mouse position 
 			MouseState tState = Mouse.GetState();
@@ -297,9 +297,9 @@ namespace MightyFights_Prototype
 
 		#region IActiveBasic Members
 
-		public void Process(GameTime tTime)
+		public void Process(GameTime cTime)
 		{
-			_cAnimProc.Process(tTime);
+			_cAnimProc.Process(cTime);
 		}
 
 		#endregion
@@ -328,9 +328,9 @@ namespace MightyFights_Prototype
 			_cBuffGem = ObjectCreationManager.cInstance.CreateBuffGem(eType);
 		}
 
-		public bool BuffAction(Action cAction, GameTime tTime)
+		public bool BuffAction(Action cAction, GameTime cTime)
 		{
-			_tCurrentSpan += tTime.ElapsedGameTime;
+			_tCurrentSpan += cTime.ElapsedGameTime;
 			
 			if(_tCurrentSpan > _tLifetime) { 
 				((IBuffableObject)cAction.oCanvas).RemoveBuff(_eType);
@@ -360,9 +360,9 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.bSlowMo = true;
 		}
 
-		public bool Process(GameTime tTime) 
+		public bool Process(GameTime cTime) 
 		{
-			_tCurrentLife += tTime.ElapsedGameTime;
+			_tCurrentLife += cTime.ElapsedGameTime;
 
 			_fScale += .025f;
 

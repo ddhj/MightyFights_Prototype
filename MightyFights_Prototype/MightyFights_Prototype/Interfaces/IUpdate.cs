@@ -9,6 +9,6 @@ namespace MightyFights_Prototype
 {
 	interface IUpdate
 	{
-		void Update(GameTime tTime);
+		void Update(GameTime cTime);
 	}
 }

@@ -64,7 +64,7 @@ namespace MightyFights_Prototype
 			bActive = true;
 		}
 
-		public KeyFrame Process(GameTime tTime)
+		public KeyFrame Process(GameTime cTime)
 		{
 			KeyFrame		cKeyFrame = null;
 
@@ -76,7 +76,7 @@ namespace MightyFights_Prototype
 	
 			if(bActive) { 
 				// move the time for processing
-				_tTime += tTime.ElapsedGameTime;
+				_tTime += cTime.ElapsedGameTime;
 
 				// if we have moved past the elapsed time for the animation, move to the next frame in the animation, 
 				// or reset it to zero

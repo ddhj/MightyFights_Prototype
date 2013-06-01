@@ -41,7 +41,7 @@ namespace MightyFights_Prototype
 
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
 
-		public void Update(GameTime tTime)
+		public void Update(GameTime cTime)
 		{
 			MouseState	cState = Mouse.GetState();
 			Microsoft.Xna.Framework.Point		tPoint = new Microsoft.Xna.Framework.Point(cState.X, cState.Y);
@@ -87,7 +87,7 @@ namespace MightyFights_Prototype
 			} else _bProcessPress = true;	
 		}
 
-		public void Draw(GameTime tTime)
+		public void Draw(GameTime cTime)
 		{
 			_cGraphics.Clear(Microsoft.Xna.Framework.Color.Black);
 

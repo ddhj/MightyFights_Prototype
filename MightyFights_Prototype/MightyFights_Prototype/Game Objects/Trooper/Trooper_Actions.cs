@@ -9,7 +9,7 @@ namespace MightyFights_Prototype
 {
 	public partial class Trooper 
 	{
-		public bool TrooperUpkeep(Action cAction, GameTime tTime)
+		public bool TrooperUpkeep(Action cAction, GameTime cTime)
 		{
 			if(_cStats.fHp <= 0) { 
 				cAiData.eState = EBattleAiStates.Dying;
@@ -51,7 +51,7 @@ namespace MightyFights_Prototype
 		{
 		}
 
-		public bool BasicBattleManager(Action cAction, GameTime tTime)
+		public bool BasicBattleManager(Action cAction, GameTime cTime)
 		{
 			if(cAction.bInit) { 
 				_cBattleDataRef = (BattlegroundData)cAction.oData;
@@ -122,7 +122,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool MoveToPoint(Action cAction, GameTime tTime)
+		public bool MoveToPoint(Action cAction, GameTime cTime)
 		{
 			Vector2		tDest = (Vector2)cAction.oData,
 						tDirVect;
@@ -159,7 +159,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool FleeToHealer(Action cAction, GameTime tTime)
+		public bool FleeToHealer(Action cAction, GameTime cTime)
 		{
 			IHealer		nHealer = (IHealer)this.nTarget;
 			Vector2		tDest,
@@ -191,7 +191,7 @@ namespace MightyFights_Prototype
 			if( _lFleeCurTime < _lFleeRunStop )
 				this.tPos += tDirVect * _fRunMovementSpeed;
 			else	this.tPos += tDirVect * _fWalkMovementSpeed;
-			_lFleeCurTime += tTime.ElapsedGameTime.Milliseconds;
+			_lFleeCurTime += cTime.ElapsedGameTime.Milliseconds;
 			
 			// we are within weapon range so switch our system to attack 
 			if(((tDest - _tCenter).LengthSquared()) < 4) {  
@@ -206,7 +206,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool FleeToPoint(Action cAction, GameTime tTime)
+		public bool FleeToPoint(Action cAction, GameTime cTime)
 		{
 			Vector2		tDest = (Vector2)cAction.oData,
 						tDirVect;
@@ -233,7 +233,7 @@ namespace MightyFights_Prototype
 			if( _lFleeCurTime < _lFleeRunStop )
 				this.tPos += tDirVect * _fRunMovementSpeed;
 			else	this.tPos += tDirVect * _fWalkMovementSpeed;
-			_lFleeCurTime += tTime.ElapsedGameTime.Milliseconds;
+			_lFleeCurTime += cTime.ElapsedGameTime.Milliseconds;
 
 			if((tDest - _tCenter).LengthSquared() < 4) { 
 				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", -1);
@@ -246,7 +246,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool PersueOpponent(Action cAction, GameTime tTime)
+		public bool PersueOpponent(Action cAction, GameTime cTime)
 		{
 			Vector2		tDest,
 						tDirVect;
@@ -314,7 +314,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool ChargeOpponent(Action cAction, GameTime tTime)
+		public bool ChargeOpponent(Action cAction, GameTime cTime)
 		{
 			Vector2		tDest,
 						tDirVect;
@@ -392,7 +392,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool Wait(Action cAction, GameTime tTime)
+		public bool Wait(Action cAction, GameTime cTime)
 		{
 			// check to see if the canvas (time) is longer than the data in (time) 
 			TimeSpan	tWaitTime = (TimeSpan)cAction.oCanvas;
@@ -402,7 +402,7 @@ namespace MightyFights_Prototype
 				cAction.bInit = false;
 			}
 
-			cAction.oCanvas = tWaitTime += tTime.ElapsedGameTime;
+			cAction.oCanvas = tWaitTime += cTime.ElapsedGameTime;
 			if(tWaitTime > TimeSpan.FromMilliseconds((int)cAction.oData)) { 
 				cAction.bConditionNotMet = false;
 				return false;

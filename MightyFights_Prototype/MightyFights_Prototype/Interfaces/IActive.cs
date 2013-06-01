@@ -9,7 +9,7 @@ namespace MightyFights_Prototype
 {
 	interface IActiveBasic
 	{
-		void Process(GameTime tTime);
+		void Process(GameTime cTime);
 	}
 
 	interface IActive<T> : IActiveBasic

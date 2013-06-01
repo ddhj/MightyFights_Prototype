@@ -80,14 +80,14 @@ namespace MightyFights_Prototype
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
 	
 		#region IGameScene Members
-		public void Update(GameTime tTime)
+		public void Update(GameTime cTime)
 		{
 
 			// set the datastore elapsed time for the action and heuristic processing 
-			DataStore.cInstance.tTime = tTime;
+			DataStore.cInstance.tTime = cTime;
 
 			// process the cursor
-			_cCursor.Update(tTime);
+			_cCursor.Update(cTime);
 
 			//// CBD, just a way to pause the screen for the moment
 //			{
@@ -99,12 +99,12 @@ namespace MightyFights_Prototype
 
 			// the effect is outside the slowmo loop 
 			if(_cBattleData.cAnimalEffect != null)
-				if(!_cBattleData.cAnimalEffect.Process(tTime))
+				if(!_cBattleData.cAnimalEffect.Process(cTime))
 					_cBattleData.cAnimalEffect = null;
 
 			//// debug slow down the game
 			if(DataStore.cInstance.bSlowMo) { 
-				_tSlowMo += tTime.ElapsedGameTime;
+				_tSlowMo += cTime.ElapsedGameTime;
 				if(_tSlowMo < _tSlowMoTrigger) 
 					return;
 			}			
@@ -149,11 +149,11 @@ namespace MightyFights_Prototype
 				}
 
 				// process the battle actions
-				_cBattleData.cObjMgr.Process(tTime);
+				_cBattleData.cObjMgr.Process(cTime);
 			}
 
 			// this is for the debug 
-			_tTime += tTime.ElapsedGameTime;
+			_tTime += cTime.ElapsedGameTime;
 			if(_tTime > _tOneSecond) { 
 				_tTime -= _tOneSecond;
 				_iFrameRate = _iFrameCtr;
@@ -163,11 +163,11 @@ namespace MightyFights_Prototype
 			_tSlowMo = TimeSpan.Zero;
 		}
 
-		public void Draw(GameTime tTime)
+		public void Draw(GameTime cTime)
 		{
 			++_iFrameCtr;
 			if( _cBattleData.eState == EBattlegroundState.Battle )
-				_tEllapsedTime += tTime.ElapsedGameTime;
+				_tEllapsedTime += cTime.ElapsedGameTime;
 
 			_cSpriteBatch.Begin(SpriteSortMode.BackToFront, null); { 
 				if(_cShowBackgroundCb.Checked)

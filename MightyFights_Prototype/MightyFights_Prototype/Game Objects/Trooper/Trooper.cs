@@ -705,13 +705,13 @@ namespace MightyFights_Prototype
 			CalibrateStats();
 		}
 
-		public void Process(GameTime tTime)
+		public void Process(GameTime cTime)
 		{
-			_cActionMgr.Process(tTime);
+			_cActionMgr.Process(cTime);
 
 			// walk the buff list and animate any of them if they are on the combatant
 			foreach(KeyValuePair<EBuffEffects, BuffActionData> tBuff in _cBuffList)
-				tBuff.Value.cBuffGem.Process(tTime);
+				tBuff.Value.cBuffGem.Process(cTime);
 
 			if( _cBloodSpray != null )
 				if(((TerminatingParticleEffect)_cBloodSpray ).bTimeElapsed )

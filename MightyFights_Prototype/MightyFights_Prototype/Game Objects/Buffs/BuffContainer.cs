@@ -45,7 +45,7 @@ namespace MightyFights_Prototype
 
 		#region IActiveBasic Members
 
-		public void Process(GameTime tTime)
+		public void Process(GameTime cTime)
 		{
 			
 		}

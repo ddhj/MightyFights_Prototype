@@ -46,7 +46,7 @@ namespace MightyFights_Prototype
 			}
 		}
 
-		public override void Process(GameTime tTime)
+		public override void Process(GameTime cTime)
 		{
 			List<Action>	cTmpActionList = new List<Action>();
 			Action			cCurAction; 
@@ -56,7 +56,7 @@ namespace MightyFights_Prototype
 			// do the perminant actions (they are removable but the conditions are much longer term
 			foreach(Action cAction in cTmpActionList) {
 				if(cAction.bConditionNotMet)
-					cAction.dHeuristic(cAction, tTime);
+					cAction.dHeuristic(cAction, cTime);
 
 				if(!cAction.bConditionNotMet)
 					cPerminantActions.Remove(cAction);
@@ -66,7 +66,7 @@ namespace MightyFights_Prototype
 			if(cActionQueue.Count > 0) { 
 				cCurAction = cActionQueue[0];
 				if(cCurAction.bConditionNotMet)
-					cCurAction.dHeuristic(cCurAction, tTime);
+					cCurAction.dHeuristic(cCurAction, cTime);
 
 				if(!cCurAction.bConditionNotMet)
 					cActionQueue.RemoveAt(0);
@@ -74,7 +74,7 @@ namespace MightyFights_Prototype
 			
 			// handle the animation 
 			//// ddhj: not sure I want this to be here ... but it is specific to the object type so it might be a good place for it ... 
-			 if((_cKeyFrame = _cAnimProc.Process(tTime)) != null) 
+			 if((_cKeyFrame = _cAnimProc.Process(cTime)) != null) 
 				ProcessKeyFrame();
 		}
 	}

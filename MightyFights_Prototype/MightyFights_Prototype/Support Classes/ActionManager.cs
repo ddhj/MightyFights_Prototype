@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace MightyFights_Prototype
 {
-	public delegate bool DActionHeuristic(Action cAction, GameTime tTime);
+	public delegate bool DActionHeuristic(Action cAction, GameTime cTime);
 
 	public abstract class ActionManager<T>
 	{
@@ -19,7 +19,7 @@ namespace MightyFights_Prototype
 		
 		public List<Action> cActionQueue	{ get { return _cActionQueue; } set { _cActionQueue = value; }}
 		public List<Action> cPerminantActions	{ get { return _cPerminantActions; } set { _cPerminantActions = value; }}
-		public abstract void Process(GameTime tTime);
+		public abstract void Process(GameTime cTime);
 
 		public void AddAction(Action cAction)
 		{ 
