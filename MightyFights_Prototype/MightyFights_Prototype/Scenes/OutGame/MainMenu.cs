@@ -25,8 +25,12 @@ namespace MightyFights_Prototype
 		ClickableSprite		_cPlayer1, 
 						_cPlayer2,
 						_cCursor,
-						_cP1Card, 
-						_cP2Card,
+						_cP1CaptainCard,
+ 						_cP1Template1,
+						_cP1Template2,
+						_cP2CaptainCard,
+						_cP2Template1,
+						_cP2Template2,
 						_cToBattle;
 		TemplateConfig	_cLeft, 
 						_cRight;
@@ -67,14 +71,40 @@ namespace MightyFights_Prototype
 						if(nBattleGround.Init()) { 
 							DataStore.cInstance.cSceneMgr.AddScene(nBattleGround);
 						}
-					} else if(((IClickable)_cP1Card).ContainsPoint(tPoint)) { 
+					} else if(((IClickable)_cP1CaptainCard).ContainsPoint(tPoint)) { 
 						IGameScene nTemplate = new Template(_cLeft, _cRight.sColor);
 						if(nTemplate.Init()) { 
 							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
 						}
 
 						_bInTemplate = true;
-					} else if(((IClickable)_cP2Card).ContainsPoint(tPoint)) { 
+					} else if(((IClickable)_cP1Template1).ContainsPoint(tPoint)) { 
+						IGameScene nTemplate = new Template(_cLeft, _cRight.sColor);
+						if(nTemplate.Init()) { 
+							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
+						}
+
+						_bInTemplate = true;
+					} else if(((IClickable)_cP1Template2).ContainsPoint(tPoint)) { 
+						IGameScene nTemplate = new Template(_cLeft, _cRight.sColor);
+						if(nTemplate.Init()) { 
+							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
+						}
+
+						_bInTemplate = true;
+					} else if(((IClickable)_cP2CaptainCard).ContainsPoint(tPoint)) { 
+						IGameScene nTemplate = new Template(_cRight, _cLeft.sColor);
+						if(nTemplate.Init()) { 
+							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
+						}
+						_bInTemplate = true;
+					} else if(((IClickable)_cP2Template1).ContainsPoint(tPoint)) { 
+						IGameScene nTemplate = new Template(_cRight, _cLeft.sColor);
+						if(nTemplate.Init()) { 
+							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
+						}
+						_bInTemplate = true;
+					} else if(((IClickable)_cP2Template2).ContainsPoint(tPoint)) { 
 						IGameScene nTemplate = new Template(_cRight, _cLeft.sColor);
 						if(nTemplate.Init()) { 
 							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
