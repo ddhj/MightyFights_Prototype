@@ -48,7 +48,7 @@ namespace MightyFights_Prototype
 			cAiData.eState = EBattleAiStates.Attacking;
 
 			// we are going to crit
-			if(iAttackPercent > 90) { 
+			if(iAttackPercent > 96) { 
 				++_cExpData.iCrits;
 				switch(cRand.Next(2)) { 
 					case 0: _cAnimProc.SetAnimationCriteria("Attack", "Critical", "bigchop", 1); break;
@@ -378,16 +378,16 @@ namespace MightyFights_Prototype
 				Vector2 tZone = new Vector2(cZone.iX, cZone.iY),
 						tNewZone;
 
-				Dictionary<IntPoint, Zone>	caActiveZones = cData.caActiveZones[iOpponentIdx];
+				Dictionary<int, Zone>	caActiveZones = cData.caActiveZones[iOpponentIdx];
 				SortedList<int, List<Zone>>	cClosestZones = new SortedList<int,List<Zone>>();
 				List<Zone>	caZoneList = null;
 
 				// walk through the active zones 
-				foreach(KeyValuePair<IntPoint, Zone> tZoneData in caActiveZones) { 
+				foreach(Zone cActiveZone in caActiveZones.Values) { 
 					// check to see if we have any opponents in this zone 
-					if(tZoneData.Value.naCombatantLists[iOpponentIdx].Count > 0) {
+					if(cActiveZone.naCombatantLists[iOpponentIdx].Count > 0) {
 						// make a vecotor and store the zone in a sorted list by distance
-						tNewZone = new Vector2(tZoneData.Value.cPoint.iX, tZoneData.Value.cPoint.iY);
+						tNewZone = new Vector2(cActiveZone.cPoint.iX, cActiveZone.cPoint.iY);
 						tNewZone = tZone - tNewZone;
 						
 						// get distnace and add to sorted list
@@ -396,7 +396,7 @@ namespace MightyFights_Prototype
 							cClosestZones.Add(iTmp, caZoneList = new List<Zone>());
 						
 						// add zone to internal list for collision on distance
-						caZoneList.Add(tZoneData.Value);
+						caZoneList.Add(cActiveZone);
 					}
 				}
 

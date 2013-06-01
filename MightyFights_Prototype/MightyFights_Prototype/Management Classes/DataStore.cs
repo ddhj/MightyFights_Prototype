@@ -21,7 +21,7 @@ namespace MightyFights_Prototype
 		#endregion
 
 		public Game			cGame		{ get; set; }
-		public GameTime		cTime		{ get; set; }
+		public GameTime		tTime		{ get; set; }
 		public SpriteFont	cFont		{ get; set; }
 		public Random		cRand		{ get; set; }
 		public SceneManager		cSceneMgr	{ get; set; }

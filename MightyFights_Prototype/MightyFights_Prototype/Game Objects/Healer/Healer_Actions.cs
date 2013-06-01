@@ -15,7 +15,7 @@ namespace MightyFights_Prototype
 {
 	public partial class Priest : IHealer, IDrawable, IDrawableTexture, IAnimate, IActiveBasic
 	{
-		bool Upkeep(Action cAction, GameTime cTime) 
+		bool Upkeep(Action cAction, GameTime tTime) 
 		{
 			Random		cRand = DataStore.cInstance.cRand;
 
@@ -71,7 +71,7 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		bool HealInit(Action cAction, GameTime cTime) 
+		bool HealInit(Action cAction, GameTime tTime) 
 		{
 			Random	cRand = DataStore.cInstance.cRand;
 			if(cAction.bInit) { 

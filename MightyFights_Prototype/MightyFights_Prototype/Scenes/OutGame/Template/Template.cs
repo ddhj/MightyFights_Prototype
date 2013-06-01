@@ -75,11 +75,11 @@ namespace MightyFights_Prototype
 			_cConfig.iTopLevel = _cTopLevels.SelectedIndex;
 		}
 
-		public void Update(GameTime cTime)
+		public void Update(GameTime tTime)
 		{
 			MouseState	cState = Mouse.GetState();
 			Point		tPoint = new Point(cState.X, cState.Y);
-			_cCursor.Update(cTime);
+			_cCursor.Update(tTime);
 			if(cState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed) { 
 				if(_bProcessPress) { 
 					if(_cTopSlider.ContainsPoint(tPoint)) { 
@@ -107,8 +107,8 @@ namespace MightyFights_Prototype
 				_bProcessPress = true;
 			}
 
-			_cTopSlider.Update(cTime);
-			_cBottomSlider.Update(cTime);
+			_cTopSlider.Update(tTime);
+			_cBottomSlider.Update(tTime);
 
 			_cAtkPower.SetDisplay(_cTopSlider.iLeftPos);
 			_cAtkSpeed.SetDisplay(_cTopSlider.iRightPos);
@@ -116,7 +116,7 @@ namespace MightyFights_Prototype
 			_cMoveSpeed.SetDisplay(_cBottomSlider.iRightPos);
 		}
 
-		public void Draw(GameTime cTime)
+		public void Draw(GameTime tTime)
 		{
 			_cGraphics.Clear(Color.Black);
 			_cBatch.Begin(SpriteSortMode.Immediate, null); { 

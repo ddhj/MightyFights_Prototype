@@ -17,10 +17,10 @@ namespace MightyFights_Prototype
 		ActionData		_cCurAction;
 		int				_iCount, 
 						_iItteration,
-						_iCurIncrement,
 						_iCurFrameIdx,
 						_iCurFrame;
-		TimeSpan		_tTime;
+		TimeSpan		_tTime,
+						_tIncrementTime;
 		string			_sActionType,
 						_sSubCat,
 						_sAction;
@@ -43,26 +43,28 @@ namespace MightyFights_Prototype
 
 		public void SetAnimationCriteria(string sActionType, string sSubCat, string sAction, int iCount)
 		{
+			int		iCurIncrement;
 			_sActionType = sActionType;
 			_sSubCat = sSubCat;
 			_sAction = sAction;
 
 			_cCurAction = _cAnimDataRef.cReferenceList[sActionType][sSubCat][sAction];
 			_iCount = iCount;
-			_iCurIncrement = _cCurAction.iIncrement;
+			iCurIncrement = _cCurAction.iIncrement;
 
 			// check to see if we have an additional increment to the action
 			if(_cActionIncrement.ContainsKey(sAction))
-				_iCurIncrement += _cActionIncrement[sAction];
+				iCurIncrement += _cActionIncrement[sAction];
 
 			_iCurFrameIdx = _cCurAction.iStartIndex;
 			_cCurFrame = _cAnimDataRef.caFrameData[_cCurAction.iStartIndex];
 			_iItteration = 0;
 			_tTime = TimeSpan.Zero;
+			_tIncrementTime = TimeSpan.FromMilliseconds( iCurIncrement );
 			bActive = true;
 		}
 
-		public KeyFrame Process(GameTime cTime)
+		public KeyFrame Process(GameTime tTime)
 		{
 			KeyFrame		cKeyFrame = null;
 
@@ -74,11 +76,11 @@ namespace MightyFights_Prototype
 	
 			if(bActive) { 
 				// move the time for processing
-				_tTime += cTime.ElapsedGameTime;
+				_tTime += tTime.ElapsedGameTime;
 
 				// if we have moved past the elapsed time for the animation, move to the next frame in the animation, 
 				// or reset it to zero
-				if( _tTime > TimeSpan.FromMilliseconds(_iCurIncrement)) { 
+				if( _tTime > _tIncrementTime ) { 
 					if(_iCurFrame < _cCurAction.iMaxFrames) { 
 						_cCurFrame = _cAnimDataRef.caFrameData[_iCurFrameIdx + _iCurFrame++];
 						// set the keyframe for this frame, we only want this to happen the first time we are in the frame and not during 

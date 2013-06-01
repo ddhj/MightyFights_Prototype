@@ -13,7 +13,7 @@ namespace MightyFights_Prototype
 	{
 		#region IUpdate Members
 
-		public void Update(GameTime cTime)
+		public void Update(GameTime tTime)
 		{
 			MouseState	cState = Mouse.GetState();
 			Point		tPoint = new Point(cState.X, cState.Y);

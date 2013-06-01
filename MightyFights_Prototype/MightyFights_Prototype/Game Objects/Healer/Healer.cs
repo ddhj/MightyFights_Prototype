@@ -153,9 +153,9 @@ namespace MightyFights_Prototype	{
 			}
 		}
 
-		public void Process( GameTime cTime )
+		public void Process( GameTime tTime )
 		{
-			_cActMgr.Process(cTime);
+			_cActMgr.Process(tTime);
 		}
 
 		public void Draw(SpriteBatch cBatch)

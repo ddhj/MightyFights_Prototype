@@ -38,10 +38,12 @@ namespace MightyFights_Prototype
 								_cHammerSfx;
 
 		////ddhj: debug data
-		TimeSpan		_cTime = TimeSpan.Zero,
+		TimeSpan		_tTime = TimeSpan.Zero,
 						_tVictoryElapsed = TimeSpan.Zero,
 						_tSlowMo = TimeSpan.Zero,
-						_cEllapsedTime;
+						_tEllapsedTime,
+						_tOneSecond = TimeSpan.FromSeconds( 1 ),
+						_tSlowMoTrigger = TimeSpan.FromMilliseconds( 50 );
 
 		int				_iFrameRate = 0,
 						_iFrameCtr = 0,
@@ -78,14 +80,14 @@ namespace MightyFights_Prototype
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
 	
 		#region IGameScene Members
-		public void Update(GameTime cTime)
+		public void Update(GameTime tTime)
 		{
 
 			// set the datastore elapsed time for the action and heuristic processing 
-			DataStore.cInstance.cTime = cTime;
+			DataStore.cInstance.tTime = tTime;
 
 			// process the cursor
-			_cCursor.Update(cTime);
+			_cCursor.Update(tTime);
 
 			//// CBD, just a way to pause the screen for the moment
 //			{
@@ -97,13 +99,13 @@ namespace MightyFights_Prototype
 
 			// the effect is outside the slowmo loop 
 			if(_cBattleData.cAnimalEffect != null)
-				if(!_cBattleData.cAnimalEffect.Process(cTime))
+				if(!_cBattleData.cAnimalEffect.Process(tTime))
 					_cBattleData.cAnimalEffect = null;
 
 			//// debug slow down the game
 			if(DataStore.cInstance.bSlowMo) { 
-				_tSlowMo += cTime.ElapsedGameTime;
-				if(_tSlowMo < TimeSpan.FromMilliseconds(50)) 
+				_tSlowMo += tTime.ElapsedGameTime;
+				if(_tSlowMo < _tSlowMoTrigger) 
 					return;
 			}			
 
@@ -139,7 +141,7 @@ namespace MightyFights_Prototype
 						else if(Mouse.GetState().RightButton == ButtonState.Pressed)
 							BackToMenu();
 
-						//_tVictoryElapsed += cTime.ElapsedGameTime;
+						//_tVictoryElapsed += tTime.ElapsedGameTime;
 						//if(_tVictoryElapsed > TimeSpan.FromMilliseconds(2000)) { 
 						//    ResetBattle();
 						//}
@@ -147,13 +149,13 @@ namespace MightyFights_Prototype
 				}
 
 				// process the battle actions
-				_cBattleData.cObjMgr.Process(cTime);
+				_cBattleData.cObjMgr.Process(tTime);
 			}
 
 			// this is for the debug 
-			_cTime += cTime.ElapsedGameTime;
-			if(_cTime > TimeSpan.FromSeconds(1)) { 
-				_cTime -= TimeSpan.FromSeconds(1);
+			_tTime += tTime.ElapsedGameTime;
+			if(_tTime > _tOneSecond) { 
+				_tTime -= _tOneSecond;
 				_iFrameRate = _iFrameCtr;
 				_iFrameCtr = 0;
 			}
@@ -161,10 +163,11 @@ namespace MightyFights_Prototype
 			_tSlowMo = TimeSpan.Zero;
 		}
 
-		public void Draw(GameTime cTime)
+		public void Draw(GameTime tTime)
 		{
 			++_iFrameCtr;
-			_cEllapsedTime += cTime.ElapsedGameTime;
+			if( _cBattleData.eState == EBattlegroundState.Battle )
+				_tEllapsedTime += tTime.ElapsedGameTime;
 
 			_cSpriteBatch.Begin(SpriteSortMode.BackToFront, null); { 
 				if(_cShowBackgroundCb.Checked)
@@ -182,7 +185,9 @@ namespace MightyFights_Prototype
 					int		iLHp = 0,
 							iRHp = 0,
 							iLPow = 0,
-							iRPow = 0;
+							iRPow = 0,
+							iLAc = 0,
+							iRAc = 0;
 
 					foreach( Team cTeam in _cBattleData.caTeams )
 						foreach( Trooper cTrooper in cTeam.cActiveList.Values )
@@ -190,28 +195,30 @@ namespace MightyFights_Prototype
 							{
 								iLHp += (int)cTrooper.cStats.fHp;
 								iLPow += cTrooper.cStats.iPower;
+								iLAc += cTrooper.cStats.iArmorClass;
 							}
 							else	{
 								iRHp += (int)cTrooper.cStats.fHp;
 								iRPow += cTrooper.cStats.iPower;
+								iRAc += cTrooper.cStats.iArmorClass;
 							}
 
-					_cSpriteBatch.DrawString(_cFont, string.Format("LeftArmy: {0}    Left HP: {1}    Left Pow: {2}    ",
-							_cBattleData.caTeams[0].cActiveList.Count, iLHp, iLPow ), new Vector2(10, 10), Color.White);
-					_cSpriteBatch.DrawString(_cFont, string.Format("RightArmy: {0}  Right HP: {1}  Right Pow:{2}   ",
-							_cBattleData.caTeams[1].cActiveList.Count, iRHp, iRPow ), new Vector2(10, 30), Color.White);
+					_cSpriteBatch.DrawString(_cFont, string.Format("LeftArmy: {0}    Left HP: {1}    Left Pow: {2}    Left AC: {3}",
+							_cBattleData.caTeams[0].cActiveList.Count, iLHp, iLPow, iLAc ), new Vector2(10, 10), Color.White);
+					_cSpriteBatch.DrawString(_cFont, string.Format("RightArmy: {0}  Right HP: {1}  Right Pow:{2}   Right AC: {3}",
+							_cBattleData.caTeams[1].cActiveList.Count, iRHp, iRPow, iRAc ), new Vector2(10, 30), Color.White);
 					_cSpriteBatch.DrawString(_cFont, string.Format("fps: {0}", _iFrameRate ), new Vector2(820, 10), Color.White);
-					_cSpriteBatch.DrawString(_cFont, string.Format("Time: {0}", _cEllapsedTime.ToString( "c" )), new Vector2(860, 10), Color.White);
+					_cSpriteBatch.DrawString(_cFont, string.Format("Time: {0}", _tEllapsedTime.ToString( "c" )), new Vector2(860, 10), Color.White);
 					_cSpriteBatch.DrawString(_cFont, string.Format("x {0}", _iHammerCtr), new Vector2(955, 35), Color.White);
 				}
 
 				// if we are going to draw the active zones
 				if(_cToggleZones.Checked) { 
 					Vector2	tZone;
-					foreach(Dictionary<IntPoint, Zone> cZoneList in _cBattleData.caActiveZones) { 
-						foreach(IntPoint cZonePos in cZoneList.Keys) { 
-							tZone.X = cZonePos.iX * (int)EZoneData.ZoneColWidth + 112;
-							tZone.Y = cZonePos.iY * (int)EZoneData.ZoneRowHeight + 70;
+					foreach(Dictionary<int, Zone> cZoneList in _cBattleData.caActiveZones) { 
+						foreach(Zone cZone in cZoneList.Values) { 
+							tZone.X = cZone.cPoint.iX * (int)EZoneData.ZoneColWidth + 112;
+							tZone.Y = cZone.cPoint.iY * (int)EZoneData.ZoneRowHeight + 70;
 
 							_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
 							_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X + (int)EZoneData.ZoneColWidth, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
@@ -530,7 +537,7 @@ namespace MightyFights_Prototype
 			_cBattleData.dlBuffClick = ProcessBuffClick;
 			_cBattleData.dlDropClick = ProcessHammerClick;
 
-			_cEllapsedTime = TimeSpan.Zero;
+			_tEllapsedTime = TimeSpan.Zero;
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 				_cBackground = cContent.Load<Texture2D>(@"Backgrounds\dirt_grass 800x436");

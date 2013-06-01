@@ -56,9 +56,9 @@ namespace MightyFights_Prototype	{
 	public class TerminatingParticleEffectManager : ParticleEffectManager	{
 
 		public TerminatingParticleEffectManager( Renderer cRenderer ) : base( cRenderer ) {}
-		public void Update( GameTime cTime )
+		public void Update( GameTime tTime )
 		{
-			base.Update((float)cTime.ElapsedGameTime.TotalSeconds, false );
+			base.Update((float)tTime.ElapsedGameTime.TotalSeconds, false );
 
 			for( int iCount = 0; iCount < this.Count; ++iCount )
 				if( this[iCount] is TerminatingParticleEffect )

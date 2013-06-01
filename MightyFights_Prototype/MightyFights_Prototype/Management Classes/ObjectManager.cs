@@ -384,7 +384,7 @@ namespace MightyFights_Prototype
 			_cParticleSystemMgr.Add( cEffect );
 		}
 
-		public void Process(GameTime cTime)
+		public void Process(GameTime tTime)
 		{
 			List<int>				iaRemList = new List<int>();
 			List<IActiveBasic>		naActive = new List<IActiveBasic>();
@@ -440,9 +440,9 @@ namespace MightyFights_Prototype
 
 			// process all the active objects
 			foreach(IActiveBasic nActiveObj in naActive)
-				nActiveObj.Process(cTime);
+				nActiveObj.Process(tTime);
 
-			_cParticleSystemMgr.Update( cTime );
+			_cParticleSystemMgr.Update( tTime );
 		}
 
 		public void Draw(SpriteBatch cBatch)
