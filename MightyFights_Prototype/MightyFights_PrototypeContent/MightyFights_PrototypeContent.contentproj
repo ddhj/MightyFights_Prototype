@@ -708,8 +708,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\Footman.png">
-      <Name>Footman</Name>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\ftenne.png">
+      <Name>ftenne</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
