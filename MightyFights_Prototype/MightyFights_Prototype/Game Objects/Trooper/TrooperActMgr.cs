@@ -17,7 +17,7 @@ namespace MightyFights_Prototype
 		public TrooperActMgr(AnimationProcessor cAnimProc)
 		{
 			_cAnimProc = cAnimProc;
-			_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
+			_cAnimProc.SetAnimationCriteria("Idle", "Normal", "idle", -1);
 		}
 
 		void ProcessKeyFrame()

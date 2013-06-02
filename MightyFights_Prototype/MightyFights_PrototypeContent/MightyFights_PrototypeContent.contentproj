@@ -52,83 +52,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fazure.png">
-      <Name>fazure</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fbrown.png">
-      <Name>fbrown</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fcrimson.png">
-      <Name>fcrimson</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fgrey.png">
-      <Name>fgrey</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fgules.png">
-      <Name>fgules</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fmidnight.png">
-      <Name>fmidnight</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fpurple.png">
-      <Name>fpurple</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\frust.png">
-      <Name>frust</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fsable.png">
-      <Name>fsable</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fsteel.png">
-      <Name>fsteel</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fstorm.png">
-      <Name>fstorm</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\ftenne.png">
-      <Name>ftenne</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fvert.png">
-      <Name>fvert</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fvert2.png">
-      <Name>fvert2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fzombie.png">
-      <Name>fzombie</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\AnimationDataEx\AnimationDataEx.csproj">
       <Project>{D8CF0B3E-117F-4F6A-BD4B-EAAD2457D808}</Project>
       <Name>AnimationDataEx</Name>
@@ -174,7 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="In Game\Hud\" />
-    <Folder Include="Sprite Data\Troopers\Footman\Textures\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Shared\arrow_cursor.png">
@@ -753,6 +675,83 @@
       <Name>ChaplainArray</Name>
       <Importer>ContentImporter1</Importer>
       <Processor>ContentProcessor1</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fazure.png">
+      <Name>fazure</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fbrown.png">
+      <Name>fbrown</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fcrimson.png">
+      <Name>fcrimson</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fgrey.png">
+      <Name>fgrey</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fgules.png">
+      <Name>fgules</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fmidnight.png">
+      <Name>fmidnight</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\Footman.png">
+      <Name>Footman</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fpurple.png">
+      <Name>fpurple</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\frust.png">
+      <Name>frust</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fsable.png">
+      <Name>fsable</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fsteel.png">
+      <Name>fsteel</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fstorm.png">
+      <Name>fstorm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fvert.png">
+      <Name>fvert</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fvert2.png">
+      <Name>fvert2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprite Data\Troopers\Halberd\Textures\fzombie.png">
+      <Name>fzombie</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

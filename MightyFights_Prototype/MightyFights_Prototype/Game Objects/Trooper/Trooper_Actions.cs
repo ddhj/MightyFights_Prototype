@@ -14,7 +14,9 @@ namespace MightyFights_Prototype
 			if(_cStats.fHp <= 0) { 
 				cAiData.eState = EBattleAiStates.Dying;
 				_cActionMgr.cActionQueue.Clear();
-				_cAnimProc.SetAnimationCriteria("Death", "Normal", "death", 1);
+				if(DataStore.cInstance.cRand.Next(2) == 1) 
+					_cAnimProc.SetAnimationCriteria("Death", "Normal", "death", 1);
+				else _cAnimProc.SetAnimationCriteria("Death", "Normal", "deathb", 1);
 
 				// remove ourselves from our opponents attaking point
 				if(this.nTarget != null)
@@ -149,7 +151,7 @@ namespace MightyFights_Prototype
 			this.tPos += tDirVect * 1.5f;
 
 			if((tDest - _tCenter).LengthSquared() < 4) { 
-				_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
+				_cAnimProc.SetAnimationCriteria("Idle", "Battle", "ready", -1);
 				cAction.bConditionNotMet = false;
 				cAiData.eState = EBattleAiStates.Ready;
 
@@ -398,7 +400,7 @@ namespace MightyFights_Prototype
 			TimeSpan	tWaitTime = (TimeSpan)cAction.oCanvas;
 
 			if(cAction.bInit) { 
-				_cAnimProc.SetAnimationCriteria("Idle", "Normal", "transition", -1);
+				_cAnimProc.SetAnimationCriteria("Idle", "Battle", "stance", -1);
 				cAction.bInit = false;
 			}
 

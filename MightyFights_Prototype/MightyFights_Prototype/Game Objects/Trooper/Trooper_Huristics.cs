@@ -63,25 +63,26 @@ namespace MightyFights_Prototype
 				{ 
 					++_cExpData.iDefenceAttempts;
 					cAiData.eState = EBattleAiStates.Defending;
-					switch(cRand.Next(2)) { 
-						case 0: _cAnimProc.SetAnimationCriteria("Defend", "Parry", "lp", 1); break;
-						case 1: _cAnimProc.SetAnimationCriteria("Defend", "Parry", "sp", 1); break;
-					}
+					_cAnimProc.SetAnimationCriteria("Defend", "Parry", "parry", 1);
 				}
 				else	{
 					++_cExpData.iBasicAttacks;
-					switch(cRand.Next(3)) { 
+					switch(cRand.Next(5)) { 
 						case 0: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "low", 1); break;
 						case 1: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "stab", 1); break;
 						case 2: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "stick", 1); break;
+						case 3: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "chop", 1); break;
+						case 4: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "chopb", 1); break;
 					}
 				}
 			} else { 
 				++_cExpData.iBasicAttacks;
-				switch(cRand.Next(3)) { 
+				switch(cRand.Next(5)) { 
 					case 0: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "low", 1); break;
 					case 1: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "stab", 1); break;
 					case 2: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "stick", 1); break;
+					case 3: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "chop", 1); break;
+					case 4: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "chopb", 1); break;
 				}
 			}
 
