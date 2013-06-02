@@ -46,6 +46,8 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cGame = this;
 			DataStore.cInstance.cRand = new Random();
 
+			//// ddhj: the prototype steward gets three templates
+
 			// init the object manager
 			ObjectCreationManager.cInstance.Init();
 

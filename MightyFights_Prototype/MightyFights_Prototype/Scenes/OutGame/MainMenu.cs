@@ -25,8 +25,12 @@ namespace MightyFights_Prototype
 		ClickableSprite		_cPlayer1, 
 						_cPlayer2,
 						_cCursor,
-						_cP1Card, 
-						_cP2Card,
+						_cP1CaptainCard,
+ 						_cP1Template1,
+						_cP1Template2,
+						_cP2CaptainCard,
+						_cP2Template1,
+						_cP2Template2,
 						_cToBattle;
 		TemplateConfig	_cLeft, 
 						_cRight;
@@ -67,14 +71,40 @@ namespace MightyFights_Prototype
 						if(nBattleGround.Init()) { 
 							DataStore.cInstance.cSceneMgr.AddScene(nBattleGround);
 						}
-					} else if(((IClickable)_cP1Card).ContainsPoint(tPoint)) { 
+					} else if(((IClickable)_cP1CaptainCard).ContainsPoint(tPoint)) { 
 						IGameScene nTemplate = new Template(_cLeft, _cRight.sColor);
 						if(nTemplate.Init()) { 
 							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
 						}
 
 						_bInTemplate = true;
-					} else if(((IClickable)_cP2Card).ContainsPoint(tPoint)) { 
+					} else if(((IClickable)_cP1Template1).ContainsPoint(tPoint)) { 
+						IGameScene nTemplate = new Template(_cLeft, _cRight.sColor);
+						if(nTemplate.Init()) { 
+							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
+						}
+
+						_bInTemplate = true;
+					} else if(((IClickable)_cP1Template2).ContainsPoint(tPoint)) { 
+						IGameScene nTemplate = new Template(_cLeft, _cRight.sColor);
+						if(nTemplate.Init()) { 
+							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
+						}
+
+						_bInTemplate = true;
+					} else if(((IClickable)_cP2CaptainCard).ContainsPoint(tPoint)) { 
+						IGameScene nTemplate = new Template(_cRight, _cLeft.sColor);
+						if(nTemplate.Init()) { 
+							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
+						}
+						_bInTemplate = true;
+					} else if(((IClickable)_cP2Template1).ContainsPoint(tPoint)) { 
+						IGameScene nTemplate = new Template(_cRight, _cLeft.sColor);
+						if(nTemplate.Init()) { 
+							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
+						}
+						_bInTemplate = true;
+					} else if(((IClickable)_cP2Template2).ContainsPoint(tPoint)) { 
 						IGameScene nTemplate = new Template(_cRight, _cLeft.sColor);
 						if(nTemplate.Init()) { 
 							DataStore.cInstance.cSceneMgr.AddScene(nTemplate);
@@ -93,8 +123,8 @@ namespace MightyFights_Prototype
 
 			_cBatch.Begin(); { 
 				// draw the cards and the to battle items
-				_cBatch.Draw(_cP1Card.cTexRef, _cP1Card.tPos, _cP1Card.cFrame.tRect, Microsoft.Xna.Framework.Color.White);
-				_cBatch.Draw(_cP2Card.cTexRef, _cP2Card.tPos, _cP2Card.cFrame.tRect, Microsoft.Xna.Framework.Color.White);
+				_cBatch.Draw(_cP1CaptainCard.cTexRef, _cP1CaptainCard.tPos, _cP1CaptainCard.cFrame.tRect, Microsoft.Xna.Framework.Color.White);
+				_cBatch.Draw(_cP2CaptainCard.cTexRef, _cP2CaptainCard.tPos, _cP2CaptainCard.cFrame.tRect, Microsoft.Xna.Framework.Color.White);
 				_cBatch.Draw(_cToBattle.cTexRef, _cToBattle.tPos, _cToBattle.cFrame.tRect, Microsoft.Xna.Framework.Color.White);
 
 				// the troopers and their colors and all that will have to pay attention to the rotation and all of that 
@@ -134,18 +164,18 @@ namespace MightyFights_Prototype
 				_cCursor.cFrame = new Frame(_cCursor.cTexRef.Bounds, new Vector2(_cCursor.cTexRef.Bounds.Width / 2, _cCursor.cTexRef.Bounds.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cCursor.cTexRef.Bounds.Width, _cCursor.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
-				_cP1Card = new ClickableSprite();
-				_cP1Card.cTexRef = cCard1;
-				_cP1Card.cFrame = new Frame(cCard1.Bounds, new Vector2(cCard1.Bounds.Width / 2, cCard1.Bounds.Height / 2), 
+				_cP1CaptainCard = new ClickableSprite();
+				_cP1CaptainCard.cTexRef = cCard1;
+				_cP1CaptainCard.cFrame = new Frame(cCard1.Bounds, new Vector2(cCard1.Bounds.Width / 2, cCard1.Bounds.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(cCard1.Bounds.Width, cCard1.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 				// 152 is the width of the to battle button
-				_cP1Card.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - cBattle.Bounds.Width, 400);
+				_cP1CaptainCard.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - cBattle.Bounds.Width, 400);
 
-				_cP2Card = new ClickableSprite();
-				_cP2Card.cTexRef = cCard2;
-				_cP2Card.cFrame = new Frame(cCard2.Bounds, new Vector2(cCard2.Bounds.Width / 2, cCard2.Bounds.Height / 2), 
+				_cP2CaptainCard = new ClickableSprite();
+				_cP2CaptainCard.cTexRef = cCard2;
+				_cP2CaptainCard.cFrame = new Frame(cCard2.Bounds, new Vector2(cCard2.Bounds.Width / 2, cCard2.Bounds.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(cCard2.Bounds.Width, cCard2.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				_cP2Card.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + cBattle.Bounds.Width - cCard2.Bounds.Width, 400);
+				_cP2CaptainCard.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + cBattle.Bounds.Width - cCard2.Bounds.Width, 400);
 	
 				_cToBattle = new ClickableSprite();
 				_cToBattle.cTexRef = cBattle;
@@ -161,19 +191,19 @@ namespace MightyFights_Prototype
 				_cPlayer1.cFrame = _cTroopers.caFrameData[_cTroopers.cReferenceList["Main"]["Sub"]["azure"].iStartIndex];
 				_cPlayer1.cTexRef = _cTrooperTex;
 				_cPlayer1.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - _cToBattle.cTexRef.Bounds.Width + 
-												_cP1Card.cTexRef.Bounds.Width / 2 - _cPlayer1.cFrame.tRect.Width / 2, 400 + _cP1Card.cTexRef.Bounds.Width / 2 - 
+												_cP1CaptainCard.cTexRef.Bounds.Width / 2 - _cPlayer1.cFrame.tRect.Width / 2, 400 + _cP1CaptainCard.cTexRef.Bounds.Width / 2 - 
 												_cPlayer1.cFrame.tRect.Height / 2);
 
 				_cPlayer2 = new ClickableSprite();
 				_cPlayer2.cFrame = _cTroopers.caFrameData[_cTroopers.cReferenceList["Main"]["Sub"]["blood zombie"].iStartIndex];
 				_cPlayer2.cTexRef = _cTrooperTex;
-				_cPlayer2.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + _cToBattle.cTexRef.Bounds.Width - _cP2Card.cTexRef.Bounds.Width + 
-												_cPlayer2.cFrame.tRect.Width / 2, 400 + _cP2Card.cTexRef.Bounds.Width / 2 - 
+				_cPlayer2.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + _cToBattle.cTexRef.Bounds.Width - _cP2CaptainCard.cTexRef.Bounds.Width + 
+												_cPlayer2.cFrame.tRect.Width / 2, 400 + _cP2CaptainCard.cTexRef.Bounds.Width / 2 - 
 												_cPlayer2.cFrame.tRect.Height / 2);
 				
 				_cP1Count = new NumericUpDown();
 				_cP1Count.Size = new System.Drawing.Size(58, 20);
-				_cP1Count.Location = new System.Drawing.Point((int)_cP1Card.tPos.X - 108, (int)_cP1Card.tPos.Y + 20);
+				_cP1Count.Location = new System.Drawing.Point((int)_cP1CaptainCard.tPos.X - 108, (int)_cP1CaptainCard.tPos.Y + 20);
 				_cP1Count.Minimum = 1;
 				_cP1Count.Maximum = 100;
 				_cP1Count.Value = 100;//cRand.Next(100);
@@ -181,7 +211,7 @@ namespace MightyFights_Prototype
 				
 				_cP2Count = new NumericUpDown();
 				_cP2Count.Size = new System.Drawing.Size(58, 20);
-				_cP2Count.Location = new System.Drawing.Point((int)_cP2Card.tPos.X + 50 + _cP1Card.cTexRef.Bounds.Width, (int)_cP1Card.tPos.Y + 20);
+				_cP2Count.Location = new System.Drawing.Point((int)_cP2CaptainCard.tPos.X + 50 + _cP1CaptainCard.cTexRef.Bounds.Width, (int)_cP1CaptainCard.tPos.Y + 20);
 				_cP2Count.Minimum = 1;
 				_cP2Count.Maximum = 100;
 				_cP2Count.Value = _cP1Count.Value;
@@ -199,8 +229,8 @@ namespace MightyFights_Prototype
 
 		public void Unload()
 		{
-			_cP1Card.Dispose();
-			_cP2Card.Dispose();
+			_cP1CaptainCard.Dispose();
+			_cP2CaptainCard.Dispose();
 			_cToBattle.Dispose();
 			_cTrooperTex.Dispose();
 			_cTroopers.Dispose();

@@ -17,9 +17,7 @@ namespace MightyFights_Prototype
 
 	public class Steward
 	{
-		Dictionary<EBuffEffects, int>		_cBuffs;
-		List<TemplateCfgMaster>				_cTemplates;
-
-
+		Dictionary<EBuffEffects, int>		_cBuffs = new Dictionary<EBuffEffects,int>();
+		List<TemplateCfgMaster>				_cTemplates = new List<TemplateCfgMaster>();
 	}
 }
