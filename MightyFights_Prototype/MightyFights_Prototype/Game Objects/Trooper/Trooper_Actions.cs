@@ -170,7 +170,7 @@ namespace MightyFights_Prototype
 			// check to see if we need to make the direction vector or not
 			if(cAction.bInit) { 
 				// set our animation to charge 
-				_cAnimProc.SetAnimationCriteria("Move", "Flee", "retreat", -1);
+				_cAnimProc.SetAnimationCriteria("Move", "Flee", "flee", -1);
 				_lFleeCurTime = 0;
 
 				cAction.bInit = false;
@@ -220,7 +220,7 @@ namespace MightyFights_Prototype
 				this.bDir = tDirVect.X > 0;
 				tDirVect.Normalize();
 				cAction.oCanvas = tDirVect;
-				_cAnimProc.SetAnimationCriteria("Move", "Flee", "retreat", -1);
+				_cAnimProc.SetAnimationCriteria("Move", "Flee", "flee", -1);
 				_lFleeCurTime = 0;
 
 				cAction.bInit = false;

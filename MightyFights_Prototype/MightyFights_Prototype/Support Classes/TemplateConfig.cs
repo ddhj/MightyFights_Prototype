@@ -33,7 +33,10 @@ namespace MightyFights_Prototype
 		{
 			_sTrooperType = cSrc.sTrooperType;
 			_sColor = cSrc.sColor;
-			this.cStats = new Stats(cSrc.cStats);
+			if(cSrc.cStats != null)
+				this.cStats = new Stats(cSrc.cStats);
+			else this.cStats = new Stats();
+
 			this.iBottomLevel = cSrc.iBottomLevel;
 			this.iTopLevel = cSrc.iTopLevel;
 			this.iCount = cSrc.iCount;
@@ -43,7 +46,10 @@ namespace MightyFights_Prototype
 		{
 			_sTrooperType = cSrc.sTrooperType;
 			_sColor = cSrc.sColor;
-			this.cStats = new Stats(cSrc.cStats);
+			if(cSrc.cStats != null)
+				this.cStats = new Stats(cSrc.cStats);
+			else this.cStats = new Stats();
+
 			this.iBottomLevel = cSrc.iBottomLevel;
 			this.iTopLevel = cSrc.iTopLevel;
 			this.iCount = cSrc.iCount;

@@ -44,6 +44,7 @@ namespace MightyFights_Prototype
 		public bool				bHealSpots		{ get; set; }
 
 		// the steward for the battle 
-		public Steward			cSteward		{ get; set; }
+		public Steward			cLSteward		{ get; set; }
+		public Steward			cRSteward		{ get; set; }
 	}
 }

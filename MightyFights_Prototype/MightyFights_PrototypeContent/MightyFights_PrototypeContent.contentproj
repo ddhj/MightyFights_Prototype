@@ -65,20 +65,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprite Data\Troopers\Halberd\Front Facing\Guys.png">
-      <Name>Guys</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sprite Data\Troopers\Halberd\Front Facing\GuysArray.json">
-      <Name>GuysArray</Name>
-      <Importer>ContentImporter1</Importer>
-      <Processor>ContentProcessor1</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Out Game\Main Menu\green_card.png">
       <Name>green_card</Name>
       <Importer>TextureImporter</Importer>
@@ -708,11 +694,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Sprite Data\Troopers\Halberd\Textures\ftenne.png">
-      <Name>ftenne</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Sprite Data\Troopers\Halberd\Textures\fpurple.png">
       <Name>fpurple</Name>
       <Importer>TextureImporter</Importer>
@@ -752,6 +733,20 @@
       <Name>fzombie</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprite Data\Troopers\Halberd\Front Facing\front.png">
+      <Name>front</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprite Data\Troopers\Halberd\Front Facing\frontarray.json">
+      <Name>frontarray</Name>
+      <Importer>ContentImporter1</Importer>
+      <Processor>ContentProcessor1</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

@@ -19,5 +19,8 @@ namespace MightyFights_Prototype
 	{
 		Dictionary<EBuffEffects, int>		_cBuffs = new Dictionary<EBuffEffects,int>();
 		List<TemplateCfgMaster>				_cTemplates = new List<TemplateCfgMaster>();
+
+		public List<TemplateCfgMaster> cTemplates	{ get { return _cTemplates; }}
+		public Dictionary<EBuffEffects, int> cBuffs		{ get { return _cBuffs; }}
 	}
 }

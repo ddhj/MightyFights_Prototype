@@ -78,7 +78,8 @@
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":12,"y":10,"w":70,"h":50},
-	"sourceSize": {"w":100,"h":64}
+	"sourceSize": {"w":100,"h":64},
+	"KeyFrame": { "Type":"Collision", "oData":"" }
 },
 {
 	"filename": "bigchop06.png",
@@ -174,7 +175,8 @@
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":15,"y":12,"w":68,"h":48},
-	"sourceSize": {"w":100,"h":64}
+	"sourceSize": {"w":100,"h":64},
+	"KeyFrame": { "Type":"Collision", "oData":"" }
 },
 {
 	"filename": "chop05.png",
@@ -286,7 +288,8 @@
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":23,"y":34,"w":48,"h":26},
-	"sourceSize": {"w":100,"h":64}
+	"sourceSize": {"w":100,"h":64},
+	"KeyFrame": { "Type":"Collision", "oData":"" }
 },
 {
 	"filename": "chopb08.png",
@@ -894,7 +897,8 @@
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":23,"y":34,"w":48,"h":26},
-	"sourceSize": {"w":100,"h":64}
+	"sourceSize": {"w":100,"h":64},
+	"KeyFrame": { "Type":"Collision", "oData":"" }
 },
 {
 	"filename": "low05.png",
@@ -966,7 +970,8 @@
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":8,"y":38,"w":60,"h":22},
-	"sourceSize": {"w":100,"h":64}
+	"sourceSize": {"w":100,"h":64},
+	"KeyFrame": { "Type":"Collision", "oData":"" }
 },
 {
 	"filename": "lunge06.png",
@@ -1070,7 +1075,8 @@
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":14,"w":22,"h":46},
-	"sourceSize": {"w":100,"h":64}
+	"sourceSize": {"w":100,"h":64},
+	"KeyFrame": { "Type":"SelfHeal", "oData":"10" }
 },
 {
 	"filename": "parry00.png",
@@ -1174,7 +1180,8 @@
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":43,"y":12,"w":28,"h":48},
-	"sourceSize": {"w":100,"h":64}
+	"sourceSize": {"w":100,"h":64},
+	"KeyFrame": { "Type":"Collision", "oData":"" }
 },
 {
 	"filename": "punch06.png",
@@ -1350,7 +1357,8 @@
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":34,"w":56,"h":26},
-	"sourceSize": {"w":100,"h":64}
+	"sourceSize": {"w":100,"h":64},
+	"KeyFrame": { "Type":"Collision", "oData":"" }
 },
 {
 	"filename": "stab05.png",
@@ -1462,7 +1470,8 @@
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":13,"y":36,"w":58,"h":24},
-	"sourceSize": {"w":100,"h":64}
+	"sourceSize": {"w":100,"h":64},
+	"KeyFrame": { "Type":"Collision", "oData":"" }
 },
 {
 	"filename": "stick06.png",

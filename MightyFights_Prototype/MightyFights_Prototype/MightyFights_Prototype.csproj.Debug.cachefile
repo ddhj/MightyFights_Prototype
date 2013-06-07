@@ -1,5 +1,4 @@
 Content\Sprite Data\Troopers\Halberd\HalberdArray.xnb
-Content\Sprite Data\Troopers\Halberd\Front Facing\GuysArray.xnb
 Content\Out Game\Template\BottomSlidersArray.xnb
 Content\Out Game\Template\TopSlidersArray.xnb
 Content\Out Game\Template\AtkPowerArray.xnb
@@ -10,8 +9,21 @@ Content\In Game\Buffs\BufItemsArray.xnb
 Content\In Game\Buffs\DropsArray.xnb
 Content\In Game\Buffs\GemsArray.xnb
 Content\Sprite Data\Chaplain\ChaplainArray.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fazure.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fbrown.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fgrey.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fgules.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fmidnight.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fpurple.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\frust.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fsable.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fsteel.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fstorm.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fvert.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fvert2.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fzombie.xnb
 Content\Backgrounds\dirt_grass_large.xnb
-Content\Sprite Data\Troopers\Halberd\Front Facing\Guys.xnb
 Content\Out Game\Main Menu\green_card.xnb
 Content\Out Game\Main Menu\red_card.xnb
 Content\Out Game\Main Menu\to_battle!-1.xnb
@@ -74,20 +86,6 @@ Content\Particles\Water001.xnb
 Content\Particles\Water002.xnb
 Content\Particles\Weeds.xnb
 Content\Sprite Data\Chaplain\Chaplain.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fazure.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fbrown.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fgrey.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fgules.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fmidnight.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fpurple.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\frust.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fsable.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fsteel.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fstorm.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fvert.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fvert2.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fzombie.xnb
 Content\Shared\DebugFont.xnb
 Content\Particles\BasicExplosion.xnb
 Content\Particles\BasicFireball.xnb
@@ -103,7 +101,6 @@ Content\Particles\SimpleRain.xnb
 Content\Particles\StarTrail.xnb
 Content\Particles\WaterJet.xnb
 Content\Particles\Buff Sparkle.xnb
-Content\Particles\HealerRecharge.xnb
 Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.xnb
 Content\Music\Final_Fantasy_4_Treason_OC_ReMix.xnb
 Content\Music\Final_Fantasy_6_Desertion_OC_ReMix.xnb
@@ -120,8 +117,11 @@ Content\SFX\Computer_Magic-Microsift-1901299923.xnb
 Content\SFX\Electrical_Sweep-Sweeper-1760111493.xnb
 Content\SFX\Electronic_Chime-KevanGC-495939803.xnb
 Content\SFX\Magic Wand Noise-SoundBible.com-375928671.xnb
+Content\Particles\HealerRecharge.xnb
 Content\Music\Final_Fantasy_4_Submission_OC_ReMix.xnb
 Content\Sprite Data\Troopers\Halberd\Textures\ftenne.xnb
+Content\Sprite Data\Troopers\Halberd\Front Facing\frontarray.xnb
+Content\Sprite Data\Troopers\Halberd\Front Facing\front.xnb
 Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.wma
 Content\Music\Final_Fantasy_4_Treason_OC_ReMix.wma
 Content\Music\Final_Fantasy_6_Desertion_OC_ReMix.wma

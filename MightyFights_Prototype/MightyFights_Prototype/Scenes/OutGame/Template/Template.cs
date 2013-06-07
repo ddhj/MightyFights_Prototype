@@ -40,7 +40,7 @@ namespace MightyFights_Prototype
 						_cBottomLevels;
 
 		TemplateConfig	_cConfig;
-		string			_sOpposingColor;
+		Dictionary<string, bool>	_cTakenColors;
 
 		bool			_bProcessPress= true;
 
@@ -57,10 +57,10 @@ namespace MightyFights_Prototype
 
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
 
-		public Template(TemplateConfig cConfig, string sOpposingColor)
+		public Template(TemplateConfig cConfig, Dictionary<string, bool> cTakenColors)
 		{
 			_cConfig = cConfig;
-			_sOpposingColor = sOpposingColor;
+			_cTakenColors = cTakenColors;
 		}
 
 		void PopulateConfig()
@@ -200,7 +200,7 @@ namespace MightyFights_Prototype
 					"Level 6", "Level 7", "Level 8", "Level 9", "Level 10", "Level 11", "Level 12", "Level 13", "Level 14" });
 
 				_cTopLevels.SelectedIndexChanged += new System.EventHandler(SelectChange);
-				_cTopLevels.SelectedIndex = 0;
+				_cTopLevels.SelectedIndex = _cConfig.iTopLevel;
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cTopLevels);
 
 				_cBottomLevels = new ComboBox();
@@ -209,13 +209,8 @@ namespace MightyFights_Prototype
 					"Level 6", "Level 7", "Level 8", "Level 9", "Level 10", "Level 11", "Level 12", "Level 13", "Level 14" });
 
 				_cBottomLevels.SelectedIndexChanged += new System.EventHandler(SelectChange);
-				_cBottomLevels.SelectedIndex = 0;
+				_cBottomLevels.SelectedIndex = _cConfig.iBottomLevel;
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cBottomLevels);
-
-				_cFrontGuys = new FrontGuys(cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\GuysArray"), _cConfig.sColor);
-				_cFrontGuys.cTexRef = cContent.Load<Texture2D>(@"Sprite Data\Troopers\Halberd\Front Facing\Guys");
-				_cFrontGuys.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - 12, _cGraphics.Viewport.Height / 2);
-				_cFrontGuys.SetOpponent(_sOpposingColor);
 
 				_cLargeLeftArrow = new ClickableSprite();
 				_cLargeLeftArrow.cTexRef = cContent.Load<Texture2D>(@"Out Game\Template\Left Arrow Large");
@@ -228,6 +223,10 @@ namespace MightyFights_Prototype
 				_cLargeRightArrow.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + 20, _cGraphics.Viewport.Height / 2 + 35);
 				_cLargeRightArrow.cFrame = new Frame(_cLargeRightArrow.cTexRef.Bounds, new Vector2(_cLargeRightArrow.cTexRef.Bounds.Width / 2, _cLargeRightArrow.cTexRef.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cLargeRightArrow.cTexRef.Bounds.Width, _cLargeRightArrow.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+
+				_cFrontGuys = new FrontGuys(cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"), _cConfig.sColor, _cTakenColors);
+				_cFrontGuys.cTexRef = cContent.Load<Texture2D>(@"Sprite Data\Troopers\Halberd\Front Facing\front");
+				_cFrontGuys.tPos = new Vector2(_cLargeLeftArrow.tPos.X - 8, _cGraphics.Viewport.Height / 2 - 5);
 
 				return true;
 			} catch { 
