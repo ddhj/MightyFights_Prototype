@@ -52,7 +52,8 @@ namespace MightyFights_Prototype
 						_cP2CapCount,
 						_cP2T1Count,
 						_cP2T2Count;
-
+		int				_iLCount, 
+						_iRCount;
 		Song			_cMusic;
 
 		Dictionary<string, bool>	 _cTakenColors = new Dictionary<string,bool>();
@@ -73,7 +74,13 @@ namespace MightyFights_Prototype
 				if(_bProcessPress) { 
 					if(((IClickable)_cToBattle).ContainsPoint(tPoint)) { 
 						IGameScene nBattleGround = new BattleGround_Basic();
-					
+						// set the counts for the stewards
+						_cLCap.iCount = (int)_cP1CapCount.Value;
+						_cLT1.iCount = (int)_cP1T1Count.Value;
+						_cLT2.iCount = (int)_cP1T2Count.Value;
+						_cRCap.iCount = (int)_cP2CapCount.Value;
+						_cRT1.iCount = (int)_cP2T1Count.Value;
+						_cRT2.iCount = (int)_cP2T2Count.Value;
 						if(nBattleGround.Init()) { 
 							DataStore.cInstance.cSceneMgr.AddScene(nBattleGround);
 						}
@@ -292,20 +299,23 @@ namespace MightyFights_Prototype
 				_cP1CapCount.Minimum = 1;
 				_cP1CapCount.Maximum = 10;
 				_cP1CapCount.Value = 10;//cRand.Next(100);
+				_cP1CapCount.ValueChanged += new EventHandler(Count_ValueChanged);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP1CapCount);
 				_cP1T1Count = new NumericUpDown();
 				_cP1T1Count.Size = new System.Drawing.Size(58, 20);
 				_cP1T1Count.Location = new System.Drawing.Point((int)_cP1Template1.tPos.X - 65, (int)_cP1Template1.tPos.Y + 20);
 				_cP1T1Count.Minimum = 1;
-				_cP1T1Count.Maximum = 45;
+				_cP1T1Count.Maximum = 100;
 				_cP1T1Count.Value = 45;//cRand.Next(100);
+				_cP1T1Count.ValueChanged += new EventHandler(Count_ValueChanged);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP1T1Count);
 				_cP1T2Count = new NumericUpDown();
 				_cP1T2Count.Size = new System.Drawing.Size(58, 20);
 				_cP1T2Count.Location = new System.Drawing.Point((int)_cP1Template2.tPos.X - 65, (int)_cP1Template2.tPos.Y + 20);
 				_cP1T2Count.Minimum = 1;
-				_cP1T2Count.Maximum = 45;
+				_cP1T2Count.Maximum = 100;
 				_cP1T2Count.Value = 45;//cRand.Next(100);
+				_cP1T2Count.ValueChanged += new EventHandler(Count_ValueChanged);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP1T2Count);
 				
 				_cP2CapCount = new NumericUpDown();
@@ -314,20 +324,23 @@ namespace MightyFights_Prototype
 				_cP2CapCount.Minimum = 1;
 				_cP2CapCount.Maximum = 10;
 				_cP2CapCount.Value = 10;//cRand.Next(100);
+				_cP2CapCount.ValueChanged += new EventHandler(Count_ValueChanged);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP2CapCount);
 				_cP2T1Count = new NumericUpDown();
 				_cP2T1Count.Size = new System.Drawing.Size(58, 20);
 				_cP2T1Count.Location = new System.Drawing.Point((int)_cP2Template1.tPos.X + 50, (int)_cP2Template1.tPos.Y + 20);
 				_cP2T1Count.Minimum = 1;
-				_cP2T1Count.Maximum = 45;
+				_cP2T1Count.Maximum = 100;
 				_cP2T1Count.Value = 45;//cRand.Next(100);
+				_cP2T1Count.ValueChanged += new EventHandler(Count_ValueChanged);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP2T1Count);
 				_cP2T2Count = new NumericUpDown();
 				_cP2T2Count.Size = new System.Drawing.Size(58, 20);
 				_cP2T2Count.Location = new System.Drawing.Point((int)_cP2Template2.tPos.X + 50, (int)_cP2Template2.tPos.Y + 20);
 				_cP2T2Count.Minimum = 1;
-				_cP2T2Count.Maximum = 45;
+				_cP2T2Count.Maximum = 100;
 				_cP2T2Count.Value = 45;//cRand.Next(100);
+				_cP2T2Count.ValueChanged += new EventHandler(Count_ValueChanged);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP2T2Count);
 
 				_cBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
@@ -337,6 +350,29 @@ namespace MightyFights_Prototype
 			} catch(Exception xEx) {
 				System.Windows.Forms.MessageBox.Show(xEx.ToString());
 				return false;
+			}
+		}
+
+		bool CheckLeftCount()
+		{
+			return _cP1CapCount.Value + _cP1T1Count.Value + _cP1T2Count.Value <= 100;
+		}
+
+		bool CheckRightCount()
+		{
+			return _cP2CapCount.Value + _cP2T1Count.Value + _cP2T2Count.Value <= 100;
+		}
+
+		void Count_ValueChanged(object sender, EventArgs e)
+		{
+			bool	bNotValid;
+			if(sender == _cP1CapCount || sender == _cP1T1Count || sender == _cP1T2Count) 
+				bNotValid = !CheckLeftCount();
+			else bNotValid = !CheckRightCount();
+				
+			if(bNotValid) { 
+				System.Windows.Forms.MessageBox.Show("There can only be 100 per army");
+				--((NumericUpDown)sender).Value;
 			}
 		}
 

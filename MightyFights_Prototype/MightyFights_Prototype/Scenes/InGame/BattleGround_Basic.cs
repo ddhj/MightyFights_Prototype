@@ -31,8 +31,9 @@ namespace MightyFights_Prototype
 		Dictionary<string, List<IDrawable>>		_cDrawList = new Dictionary<string,List<IDrawable>>();
 		Dictionary<string, List<ICombatant>>	_cTrooperRef = new Dictionary<string,List<ICombatant>>();
 		Dictionary<EBuffEffects, BuffContainer>		_cBuffContainerList = new Dictionary<EBuffEffects,BuffContainer>();
+		List<TrooperTemplate>	_cTmpList = new List<TrooperTemplate>();
 
-
+		Random		_cRand = DataStore.cInstance.cRand;
 		Song		_cBgm;
 		SoundEffectInstance		_cBuffSfx,
 								_cHammerSfx;
@@ -520,6 +521,26 @@ namespace MightyFights_Prototype
 			_cAllRadCb.CheckedChanged += new EventHandler(ProcessAllCheck);
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cAllRadCb);
 		}
+		
+		void InitTemplateList(List<TemplateCfgMaster> cList)
+		{
+			_cTmpList.Clear();
+			foreach(TemplateCfgMaster cTmplateCfg in cList)
+				for(int i = 0; i < cTmplateCfg.iCount; ++i)
+					_cTmpList.Add(ObjectCreationManager.cInstance.CreateTemplate(cTmplateCfg));
+		}
+
+		bool GetTrooperTemplate(out TrooperTemplate cTemplate)
+		{
+			cTemplate = null;
+			if(_cTmpList.Count == 0)
+				return false;
+
+			int iIndex = _cRand.Next(_cTmpList.Count);
+			cTemplate = _cTmpList[iIndex];
+			_cTmpList.RemoveAt(iIndex);
+			return true;
+		}
 
 		public bool Init()
 		{
@@ -527,11 +548,10 @@ namespace MightyFights_Prototype
 			ContentManager	cContent = cData.cContent;
 			GraphicsDevice	cGraphics = cData.cGraphics;
 			Trooper			cTmpTrooper = null;
-			TemplateConfig	cLeft = cData.cLeftConfig, 
-							cRight = cData.cRightConfig;
 			ObjectCreationManager	cObjMgr = ObjectCreationManager.cInstance;
 			Team			cTeam;
 			Priest			cHealer;
+			TrooperTemplate cTemplate;
 
 			_cBattleData.cObjMgr = _cObjMgr;
 			_cBattleData.dlBuffClick = ProcessBuffClick;
@@ -555,15 +575,17 @@ namespace MightyFights_Prototype
 
 				cTeam = _cBattleData.caTeams[0];
 				// make a block of troopers
-				for(int i = 0; i < cLeft.iCount; ++i) { 
+				InitTemplateList(cData.cLSteward.cTemplates);
+				while(GetTrooperTemplate(out cTemplate)) { 
 					// add the newly created trooper to the active list and set some initial battle data
-					cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cObjMgr.CreateTemplate(cLeft));
+					cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cTemplate);
 					cTeam.cActiveList.Add(cTmpTrooper.iId, cTmpTrooper);
 					cTmpTrooper.tPos = new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2);
 
 					// add the new object to the object manager
 					_cObjMgr.AddObject(cTmpTrooper);
 				}
+
 				for( int iCount = 0; iCount < 2; ++iCount )
 				{
 					cHealer = cObjMgr.CreatePriest(new Vector2( 50, 180 + 120 * iCount ), cTeam,   (int)( 40f * 7 * 6 ), 7, 40f, 1.3333f, _cBattleData);
@@ -573,9 +595,10 @@ namespace MightyFights_Prototype
 
 				cTeam = _cBattleData.caTeams[1];
 				// make a block of opponents
-				for(int i = 0; i < cRight.iCount; ++i) { 
+				InitTemplateList(cData.cLSteward.cTemplates);
+				while(GetTrooperTemplate(out cTemplate)) { 
 					// set the opponents to the acitve list 
-					cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cObjMgr.CreateTemplate(cRight));
+					cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cTemplate);
 					cTeam.cActiveList.Add(cTmpTrooper.iId, cTmpTrooper);
 					cTmpTrooper.tPos = new Vector2(950, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2);
 
