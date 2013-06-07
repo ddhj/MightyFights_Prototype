@@ -125,7 +125,7 @@ namespace MightyFights_Prototype
 						_bInTemplate = true;
 					} else if(((IClickable)_cP2Template1).ContainsPoint(tPoint)) { 
 						_cEditedTemplate = _cRT1;
-						_cEditedGuy = _cP2CapGuy;
+						_cEditedGuy = _cP2T1Guy;
 						_cTakenColors.Remove(_cEditedTemplate.sColor);
 						IGameScene nTemplate = new Template(_cRT1, _cTakenColors);
 						if(nTemplate.Init()) { 
@@ -134,7 +134,7 @@ namespace MightyFights_Prototype
 						_bInTemplate = true;
 					} else if(((IClickable)_cP2Template2).ContainsPoint(tPoint)) { 
 						_cEditedTemplate = _cRT2;
-						_cEditedGuy = _cP2CapGuy;
+						_cEditedGuy = _cP2T2Guy;
 						_cTakenColors.Remove(_cEditedTemplate.sColor);
 						IGameScene nTemplate = new Template(_cRT2, _cTakenColors);
 						if(nTemplate.Init()) { 

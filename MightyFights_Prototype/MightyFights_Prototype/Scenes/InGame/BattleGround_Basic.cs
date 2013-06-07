@@ -595,7 +595,7 @@ namespace MightyFights_Prototype
 
 				cTeam = _cBattleData.caTeams[1];
 				// make a block of opponents
-				InitTemplateList(cData.cLSteward.cTemplates);
+				InitTemplateList(cData.cRSteward.cTemplates);
 				while(GetTrooperTemplate(out cTemplate)) { 
 					// set the opponents to the acitve list 
 					cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cTemplate);
