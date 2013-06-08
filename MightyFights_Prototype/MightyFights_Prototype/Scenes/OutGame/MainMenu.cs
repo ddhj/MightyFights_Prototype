@@ -298,7 +298,7 @@ namespace MightyFights_Prototype
 				_cP1CapCount.Location = new System.Drawing.Point((int)_cP1CaptainCard.tPos.X - 65, (int)_cP1CaptainCard.tPos.Y + 20);
 				_cP1CapCount.Minimum = 1;
 				_cP1CapCount.Maximum = 10;
-				_cP1CapCount.Value = 5;//cRand.Next(100);
+				_cP1CapCount.Value = 10;//cRand.Next(100);
 				_cP1CapCount.ValueChanged += new EventHandler(Count_ValueChanged);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP1CapCount);
 				_cP1T1Count = new NumericUpDown();
@@ -306,7 +306,7 @@ namespace MightyFights_Prototype
 				_cP1T1Count.Location = new System.Drawing.Point((int)_cP1Template1.tPos.X - 65, (int)_cP1Template1.tPos.Y + 20);
 				_cP1T1Count.Minimum = 1;
 				_cP1T1Count.Maximum = 100;
-				_cP1T1Count.Value = 5;//cRand.Next(100);
+				_cP1T1Count.Value = 45;//cRand.Next(100);
 				_cP1T1Count.ValueChanged += new EventHandler(Count_ValueChanged);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP1T1Count);
 				_cP1T2Count = new NumericUpDown();
@@ -314,7 +314,7 @@ namespace MightyFights_Prototype
 				_cP1T2Count.Location = new System.Drawing.Point((int)_cP1Template2.tPos.X - 65, (int)_cP1Template2.tPos.Y + 20);
 				_cP1T2Count.Minimum = 1;
 				_cP1T2Count.Maximum = 100;
-				_cP1T2Count.Value = 5;//cRand.Next(100);
+				_cP1T2Count.Value = 45;//cRand.Next(100);
 				_cP1T2Count.ValueChanged += new EventHandler(Count_ValueChanged);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP1T2Count);
 				
@@ -323,7 +323,7 @@ namespace MightyFights_Prototype
 				_cP2CapCount.Location = new System.Drawing.Point((int)_cP2CaptainCard.tPos.X + 50, (int)_cP2CaptainCard.tPos.Y + 20);
 				_cP2CapCount.Minimum = 1;
 				_cP2CapCount.Maximum = 10;
-				_cP2CapCount.Value = 5;//cRand.Next(100);
+				_cP2CapCount.Value = 10;//cRand.Next(100);
 				_cP2CapCount.ValueChanged += new EventHandler(Count_ValueChanged);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP2CapCount);
 				_cP2T1Count = new NumericUpDown();
@@ -331,7 +331,7 @@ namespace MightyFights_Prototype
 				_cP2T1Count.Location = new System.Drawing.Point((int)_cP2Template1.tPos.X + 50, (int)_cP2Template1.tPos.Y + 20);
 				_cP2T1Count.Minimum = 1;
 				_cP2T1Count.Maximum = 100;
-				_cP2T1Count.Value = 5;//cRand.Next(100);
+				_cP2T1Count.Value = 45;//cRand.Next(100);
 				_cP2T1Count.ValueChanged += new EventHandler(Count_ValueChanged);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP2T1Count);
 				_cP2T2Count = new NumericUpDown();
@@ -339,7 +339,7 @@ namespace MightyFights_Prototype
 				_cP2T2Count.Location = new System.Drawing.Point((int)_cP2Template2.tPos.X + 50, (int)_cP2Template2.tPos.Y + 20);
 				_cP2T2Count.Minimum = 1;
 				_cP2T2Count.Maximum = 100;
-				_cP2T2Count.Value = 5;//cRand.Next(100);
+				_cP2T2Count.Value = 45;//cRand.Next(100);
 				_cP2T2Count.ValueChanged += new EventHandler(Count_ValueChanged);
 				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cP2T2Count);
 

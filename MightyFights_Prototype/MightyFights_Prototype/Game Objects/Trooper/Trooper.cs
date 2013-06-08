@@ -29,7 +29,8 @@ namespace MightyFights_Prototype
 					_iCurRightAttakers = 0,
 					_iId,
 					_iAttackingPos;
-		float		_fZorder;
+		float		_fZorder,
+					_fScale = 1.25f;
 		byte		_byAttakPos;
 		bool		_bAttacking;
 
@@ -93,6 +94,9 @@ namespace MightyFights_Prototype
 			
 			//// ddhj stats dialog 
 			this.sTemplateName = cTemplate.sTemplateName;
+			//// this is just a test of scale captains
+			if(this.sTemplateName.Contains("Cap"))
+				_fScale = 1.4f;
 
 			_cActionMgr.AddPermAction(new Action(this.TrooperUpkeep, null, null));
 
@@ -179,7 +183,7 @@ namespace MightyFights_Prototype
 			}
 
 			// draw is pretty straight forward sans two issues 1: the rotation in the sprite sheet
-			cBatch.Draw(_cTexRef, _tPos, cCurFrame.tRect, tColor, cCurFrame.bRot ? -(float)Math.PI/2 : 0, tTopLeft, 1, 
+			cBatch.Draw(_cTexRef, _tPos, cCurFrame.tRect, tColor, cCurFrame.bRot ? -(float)Math.PI/2 : 0, tTopLeft, _fScale, 
 				// and 2: the direction vector
 				eEffect, _fZorder);
 
