@@ -23,7 +23,7 @@ namespace MightyFights_Prototype
 				switch(_eState) { 
 					case EHealerStates.Healing: { 
 						// process the effects 
-						_cHealingFx.Trigger( new Vector2( _tCenter.X + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y + 40 ));
+						_cHealingFx.Trigger( new Vector2( _tCenter.X - (_cTeam.bDirection ? 50 : -80) + ( _cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y + 70 ));
 		
 						if(!_cAnimProc.bActive) { 
 							if(cRand.Next(5) == 1)

@@ -85,7 +85,8 @@ namespace MightyFights_Prototype	{
 			_eObjState = EObjectStates.Active | EObjectStates.Draw;
 
 			this.tPos = tPos;
-			_cSupportZone = new FleeSpot( iMaxSlots, 60, new Vector2( _tCenter.X + ( cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y ));
+			// had to change this because i scaled the healers
+			_cSupportZone = new FleeSpot( iMaxSlots, 60, new Vector2( _tCenter.X - (cTeam.bDirection ? 50 : -80) + ( cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y + 10 ));
 
 			_cHealingFx = ObjectCreationManager.cInstance.CreateParticleSystem( "HealingCircle" );
 			_cBtlGndData.cObjMgr.AddParticleEffect( _cHealingFx );
