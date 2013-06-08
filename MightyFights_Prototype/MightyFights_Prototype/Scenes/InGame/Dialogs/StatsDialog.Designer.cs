@@ -449,6 +449,8 @@
 			this.dataGridView6.Name = "dataGridView6";
 			this.dataGridView6.ReadOnly = true;
 			this.dataGridView6.RowHeadersVisible = false;
+			this.dataGridView6.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Transparent;
+			this.dataGridView6.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
 			this.dataGridView6.ShowEditingIcon = false;
 			this.dataGridView6.Size = new System.Drawing.Size(487, 111);
 			this.dataGridView6.TabIndex = 1;
@@ -515,6 +517,8 @@
 			this.dataGridView5.Name = "dataGridView5";
 			this.dataGridView5.ReadOnly = true;
 			this.dataGridView5.RowHeadersVisible = false;
+			this.dataGridView5.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Transparent;
+			this.dataGridView5.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
 			this.dataGridView5.ShowEditingIcon = false;
 			this.dataGridView5.Size = new System.Drawing.Size(485, 111);
 			this.dataGridView5.TabIndex = 1;
@@ -581,6 +585,8 @@
 			this.dataGridView4.Name = "dataGridView4";
 			this.dataGridView4.ReadOnly = true;
 			this.dataGridView4.RowHeadersVisible = false;
+			this.dataGridView4.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Transparent;
+			this.dataGridView4.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
 			this.dataGridView4.ShowEditingIcon = false;
 			this.dataGridView4.Size = new System.Drawing.Size(487, 119);
 			this.dataGridView4.TabIndex = 1;
@@ -647,6 +653,8 @@
 			this.dataGridView3.Name = "dataGridView3";
 			this.dataGridView3.ReadOnly = true;
 			this.dataGridView3.RowHeadersVisible = false;
+			this.dataGridView3.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Transparent;
+			this.dataGridView3.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
 			this.dataGridView3.ShowEditingIcon = false;
 			this.dataGridView3.Size = new System.Drawing.Size(485, 119);
 			this.dataGridView3.TabIndex = 1;
@@ -666,6 +674,7 @@
 			// 
 			this.dataGridView2.AllowUserToAddRows = false;
 			this.dataGridView2.AllowUserToDeleteRows = false;
+			this.dataGridView2.AllowUserToResizeRows = false;
 			dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(205)))));
 			this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
 			this.dataGridView2.AutoGenerateColumns = false;
@@ -713,6 +722,8 @@
 			this.dataGridView2.Name = "dataGridView2";
 			this.dataGridView2.ReadOnly = true;
 			this.dataGridView2.RowHeadersVisible = false;
+			this.dataGridView2.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Transparent;
+			this.dataGridView2.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
 			this.dataGridView2.ShowEditingIcon = false;
 			this.dataGridView2.Size = new System.Drawing.Size(487, 105);
 			this.dataGridView2.TabIndex = 1;
@@ -779,6 +790,8 @@
 			this._cLCap.Name = "_cLCap";
 			this._cLCap.ReadOnly = true;
 			this._cLCap.RowHeadersVisible = false;
+			this._cLCap.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Transparent;
+			this._cLCap.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
 			this._cLCap.ShowEditingIcon = false;
 			this._cLCap.Size = new System.Drawing.Size(485, 105);
 			this._cLCap.TabIndex = 0;
@@ -845,7 +858,8 @@
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.ReadOnly = true;
 			this.dataGridView1.RowHeadersVisible = false;
-			this.dataGridView1.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.dataGridView1.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Transparent;
+			this.dataGridView1.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
 			this.dataGridView1.ShowEditingIcon = false;
 			this.dataGridView1.Size = new System.Drawing.Size(487, 60);
 			this.dataGridView1.TabIndex = 2;
@@ -913,7 +927,8 @@
 			this.dataGridView7.ReadOnly = true;
 			this.dataGridView7.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
 			this.dataGridView7.RowHeadersVisible = false;
-			this.dataGridView7.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.dataGridView7.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Transparent;
+			this.dataGridView7.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
 			this.dataGridView7.ShowEditingIcon = false;
 			this.dataGridView7.Size = new System.Drawing.Size(485, 60);
 			this.dataGridView7.TabIndex = 1;
