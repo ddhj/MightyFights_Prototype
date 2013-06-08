@@ -85,6 +85,9 @@ namespace MightyFights_Prototype
 			// the battle heuristics are also going to be set here or in some other area based on template config data
 			cTemplate.cAiData = new AiBattleData();
 
+			//// ddhj: stat dialog ... this is going a little far
+			cTemplate.sTemplateName = cTemplateData.sTemplateName;
+
 			return cTemplate;
 		}
 
@@ -324,9 +327,7 @@ namespace MightyFights_Prototype
 
 		bool		_bProcessClick = true;
 
-
 		public BattlegroundData cParentData		{ get; set; }
-
 
 		public void AddObject(object oData)
 		{

@@ -77,6 +77,8 @@ namespace MightyFights_Prototype
 											_cEagleRad,
 											_cLionRad,
 											_cDragRad;
+		StatsDialog							_cDlg = new StatsDialog();
+		EBattlegroundState					_eOldState;
 
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
 	
@@ -129,6 +131,8 @@ namespace MightyFights_Prototype
 								_cBgm = ObjectCreationManager.cInstance.CreateMusic( "Minibossies_FinalFantasy6_VictoryFanfare" );
 								MediaPlayer.Play( _cBgm );
 
+								_cDlg.InitGridData();
+
 								// debug for exp 
 								WriteExpData();
 								break;
@@ -141,6 +145,8 @@ namespace MightyFights_Prototype
 							ResetBattle();
 						else if(Mouse.GetState().RightButton == ButtonState.Pressed)
 							BackToMenu();
+						else if(Mouse.GetState().MiddleButton == ButtonState.Pressed)
+							_cDlg.ShowDialog();
 
 						//_tVictoryElapsed += tTime.ElapsedGameTime;
 						//if(_tVictoryElapsed > TimeSpan.FromMilliseconds(2000)) { 
@@ -557,6 +563,10 @@ namespace MightyFights_Prototype
 			_cBattleData.dlBuffClick = ProcessBuffClick;
 			_cBattleData.dlDropClick = ProcessHammerClick;
 
+			// set some events for dialog processing
+			_cDlg.FormClosed += new System.Windows.Forms.FormClosedEventHandler(_cDlg_FormClosed);
+			_cDlg.Shown += new EventHandler(_cDlg_Shown);
+
 			_tEllapsedTime = TimeSpan.Zero;
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
@@ -580,6 +590,8 @@ namespace MightyFights_Prototype
 					// add the newly created trooper to the active list and set some initial battle data
 					cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cTemplate);
 					cTeam.cActiveList.Add(cTmpTrooper.iId, cTmpTrooper);
+					// add to the member list just for debug maybe
+					cTeam.cMembers.Add(cTmpTrooper);
 					cTmpTrooper.tPos = new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2);
 
 					// add the new object to the object manager
@@ -600,6 +612,8 @@ namespace MightyFights_Prototype
 					// set the opponents to the acitve list 
 					cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cTemplate);
 					cTeam.cActiveList.Add(cTmpTrooper.iId, cTmpTrooper);
+					// add to the member list just for debug maybe
+					cTeam.cMembers.Add(cTmpTrooper);
 					cTmpTrooper.tPos = new Vector2(950, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2);
 
 					// add to the object manger
@@ -683,6 +697,17 @@ namespace MightyFights_Prototype
 			}
 
 			return true;
+		}
+
+		void _cDlg_Shown(object sender, EventArgs e)
+		{
+			_eOldState = _cBattleData.eState;
+			_cBattleData.eState = EBattlegroundState.Dialog;
+		}
+
+		void _cDlg_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
+		{
+			_cBattleData.eState = _eOldState;
 		}
 
 		void BackToMenu()

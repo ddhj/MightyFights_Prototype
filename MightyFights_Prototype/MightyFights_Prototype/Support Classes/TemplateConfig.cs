@@ -19,6 +19,7 @@ namespace MightyFights_Prototype
 		public int iTopLevel			{ get; set; }
 		public int iBottomLevel			{ get; set; }
 		public int iCount				{ get; set; }
+		public string sTemplateName		{ get; set; }
 
 		public TemplateConfig(string sTrooperType, string sColor)
 		{

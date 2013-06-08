@@ -15,5 +15,6 @@ namespace MightyFights_Prototype
 		public Stats					cStats				{ get; set; }
 		public AiBattleData				cAiData				{ get; set; }
 		public string					sTexName			{ get; set; }
+		public string					sTemplateName		{ get; set; }
 	}
 }

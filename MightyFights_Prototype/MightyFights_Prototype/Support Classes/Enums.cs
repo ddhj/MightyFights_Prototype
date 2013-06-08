@@ -76,7 +76,8 @@ namespace MightyFights_Prototype
 	{
 		Init,
 		Battle, 
-		Victory
+		Victory,
+		Dialog
 	}
 
 	public enum EConstants

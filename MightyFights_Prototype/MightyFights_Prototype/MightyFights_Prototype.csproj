@@ -109,6 +109,7 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
@@ -146,7 +147,19 @@
     <Compile Include="Program.cs" />
     <Compile Include="GameShell.cs" />
     <Compile Include="Scenes\InGame\BattleGround_Basic_Events.cs" />
+    <Compile Include="Scenes\InGame\Dialogs\DebugData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenes\InGame\Dialogs\DebugData.Designer.cs">
+      <DependentUpon>DebugData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Scenes\InGame\FleeSpot.cs" />
+    <Compile Include="Scenes\InGame\Dialogs\StatsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenes\InGame\Dialogs\StatsDialog.Designer.cs">
+      <DependentUpon>StatsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Scenes\InGame\Team.cs" />
     <Compile Include="Scenes\OutGame\MainMenu.cs" />
     <Compile Include="Game Objects\Trooper\TrooperActMgr.cs" />
@@ -217,6 +230,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MightyFights_Prototype_TemporaryKey.pfx" />
+    <None Include="Properties\DataSources\ExperienceData.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scenes\InGame\Dialogs\DebugData.resx">
+      <DependentUpon>DebugData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scenes\InGame\Dialogs\StatsDialog.resx">
+      <DependentUpon>StatsDialog.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

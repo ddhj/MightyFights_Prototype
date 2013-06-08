@@ -70,6 +70,10 @@ namespace MightyFights_Prototype
 		public float fZorder			{ get { return _fZorder; }}
 		public ExperienceData cExpData	{ get { return _cExpData; }}
 
+		//// ddhj: this is just for the stats dialog, longer term we are probably going to need the template id
+		// so the trooper can dump their exp into it
+		public string sTemplateName		{ get; set; }
+
 		//public Dictionary<EBuffEffects, BuffActionData> cBuffList		{ get { return _cBuffList; }}
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
 
@@ -87,6 +91,9 @@ namespace MightyFights_Prototype
 			cAiData = cTemplate.cAiData;
 			sTexName = cTemplate.sTexName;
 			
+			//// ddhj stats dialog 
+			this.sTemplateName = cTemplate.sTemplateName;
+
 			_cActionMgr.AddPermAction(new Action(this.TrooperUpkeep, null, null));
 
 			////ddhj: this is the initial area for the template config, this will probably change over time

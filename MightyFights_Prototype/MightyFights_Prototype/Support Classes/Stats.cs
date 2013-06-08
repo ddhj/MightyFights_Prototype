@@ -104,5 +104,50 @@ namespace MightyFights_Prototype
 		public int iWolfEar 		{ get; set; }
 		public int iCrabClaw		{ get; set; }
 		public int iSquirrelAcorn	{ get; set; }
+
+		static public ExperienceData operator +(ExperienceData cLVal, ExperienceData cRVal)
+		{
+			ExperienceData cExp = new ExperienceData();
+			cExp.iAttacks = cLVal.iAttacks + cRVal.iAttacks;
+			cExp.iAttackSuccess = cLVal.iAttackSuccess + cRVal.iAttackSuccess;
+			cExp.iAttackDefended = cLVal.iAttackDefended + cRVal.iAttackDefended;
+			cExp.iBasicAttacks = cLVal.iBasicAttacks + cRVal.iBasicAttacks;
+			cExp.iCrits = cLVal.iCrits + cRVal.iCrits;
+			cExp.iCritSuccess = cLVal.iCritSuccess + cRVal.iCritSuccess;
+			cExp.iCritsDefended = cLVal.iCritsDefended + cRVal.iCritsDefended;
+			cExp.iDefenceAttempts = cLVal.iDefenceAttempts + cRVal.iDefenceAttempts;
+			cExp.iKills	= cLVal.iKills + cRVal.iKills;
+			cExp.iFleeKills = cLVal.iFleeKills + cRVal.iFleeKills;
+			cExp.iHealingKills = cLVal.iHealingKills + cRVal.iHealingKills;
+			cExp.iBuffedKills = cLVal.iBuffedKills + cRVal.iBuffedKills;
+			cExp.iAfflictedKills = cLVal.iAfflictedKills + cRVal.iAfflictedKills;
+			cExp.iNearDeath = cLVal.iNearDeath + cRVal.iNearDeath;
+
+			cExp.iAttacked = cLVal.iAttacked + cRVal.iAttacked;
+			cExp.iCritted = cLVal.iCritted + cRVal.iCritted;
+			cExp.iDefendedAttacks = cLVal.iDefendedAttacks + cRVal.iDefendedAttacks;
+			cExp.iDefendedCrits = cLVal.iDefendedCrits + cRVal.iDefendedCrits;
+
+			cExp.iFlee = cLVal.iFlee + cRVal.iFlee;
+			cExp.iHealed = cLVal.iHealed + cRVal.iHealed;
+			cExp.iDarkEncounters = cLVal.iDarkEncounters + cRVal.iDarkEncounters;
+			cExp.iDarkKills = cLVal.iDarkKills + cRVal.iDarkKills;
+			cExp.iLightKills = cLVal.iLightKills + cRVal.iLightKills;
+
+			cExp.iBattles = cLVal.iBattles + cRVal.iBattles;
+			cExp.iRetreats = cLVal.iRetreats + cRVal.iRetreats;
+
+			cExp.iBuffsApplied = cLVal.iBuffsApplied + cRVal.iBuffsApplied;
+			cExp.iDragonWing = cLVal.iDragonWing + cRVal.iDragonWing;
+			cExp.iLionPaw = cLVal.iLionPaw + cRVal.iLionPaw;
+			cExp.iEagleFeather = cLVal.iEagleFeather + cRVal.iEagleFeather;
+			cExp.iSnakeFang = cLVal.iSnakeFang + cRVal.iSnakeFang;
+			cExp.iToadEye = cLVal.iToadEye + cRVal.iToadEye;
+			cExp.iWolfEar = cLVal.iWolfEar + cRVal.iWolfEar;
+			cExp.iCrabClaw = cLVal.iCrabClaw + cRVal.iCrabClaw;
+			cExp.iSquirrelAcorn = cLVal.iSquirrelAcorn + cRVal.iSquirrelAcorn;
+
+			return cExp;
+		}
 	}
 }
