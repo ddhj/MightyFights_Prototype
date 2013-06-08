@@ -71,7 +71,7 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cLSteward.cTemplates[1].iBottomLevel = DataStore.cInstance.cLSteward.cTemplates[1].iTopLevel = 0;
 			DataStore.cInstance.cLSteward.cTemplates[1].sTemplateName = "LT1";
 			DataStore.cInstance.cLSteward.cTemplates.Add(new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fbrown")));
-			DataStore.cInstance.cLSteward.cTemplates[2].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 240, iFleePoint = 5, iArmorClass = 3 };
+			DataStore.cInstance.cLSteward.cTemplates[2].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 40, iFleePoint = 5, iArmorClass = 3 };
 			DataStore.cInstance.cLSteward.cTemplates[2].iBottomLevel = DataStore.cInstance.cLSteward.cTemplates[2].iTopLevel = 0;
 			DataStore.cInstance.cLSteward.cTemplates[2].sTemplateName = "LT2";
 
@@ -84,17 +84,22 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cRSteward.cTemplates[0].sTemplateName = "RCap";
 			// add the basic guys (these start at level 1)
 			DataStore.cInstance.cRSteward.cTemplates.Add(new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fsteel")));
-			DataStore.cInstance.cRSteward.cTemplates[1].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 240, iFleePoint = 30, iArmorClass = 3 };
-			DataStore.cInstance.cRSteward.cTemplates[1].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f };
+			DataStore.cInstance.cRSteward.cTemplates[1].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 40, iFleePoint = 5, iArmorClass = 3 };
 			DataStore.cInstance.cRSteward.cTemplates[1].iBottomLevel = DataStore.cInstance.cRSteward.cTemplates[1].iTopLevel = 0;
 			DataStore.cInstance.cRSteward.cTemplates[1].sTemplateName = "RT1";
 			DataStore.cInstance.cRSteward.cTemplates.Add(new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fstorm")));
-			DataStore.cInstance.cRSteward.cTemplates[2].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 240, iFleePoint = 30, iArmorClass = 3 };
+			DataStore.cInstance.cRSteward.cTemplates[2].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 40, iFleePoint = 5, iArmorClass = 3 };
 			DataStore.cInstance.cRSteward.cTemplates[2].iBottomLevel = DataStore.cInstance.cRSteward.cTemplates[2].iTopLevel = 0;
 			DataStore.cInstance.cRSteward.cTemplates[2].sTemplateName = "RT2";
 
-			// global music 
+			// global toggles 
 			DataStore.cInstance.bPlayMusic = false;
+			DataStore.cInstance.bDamageNumbers = true;
+			DataStore.cInstance.bHealSpots = false;
+			DataStore.cInstance.bLifeBars = false;
+			DataStore.cInstance.bShowBg = true;
+			DataStore.cInstance.bSlowMo = false;
+			DataStore.cInstance.bZoneDisplay = false;
 
 			// init the object manager
 			ObjectCreationManager.cInstance.Init();

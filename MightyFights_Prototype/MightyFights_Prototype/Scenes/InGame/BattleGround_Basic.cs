@@ -52,32 +52,9 @@ namespace MightyFights_Prototype
 		SpriteFont		_cFont;
 		Texture2D		_cBorder;
 		bool			_bUpdate = true;
-
-		System.Windows.Forms.CheckBox		_cToggleLifeBar,
-											_cToggleDamageNumbers,
-											_cToggleSlowMo,
-											_cToggleZones,
-											_cToggleHealSpots,
-											_cAcornRadCb,
-											_cClawRadCb,
-											_cWolfRadCb, 
-											_cToadRadCb,
-											_cSnakeRadCb,
-											_cEagleRadCb,
-											_cLionRadCb,
-											_cDragRadCb,
-											_cAllRadCb,
-											_cShowBackgroundCb;
-
-		System.Windows.Forms.NumericUpDown	_cAcornRad, 
-											_cClawRad,
-											_cWolfRad, 
-											_cToadRad,
-											_cSnakeRad,
-											_cEagleRad,
-											_cLionRad,
-											_cDragRad;
 		StatsDialog							_cDlg = new StatsDialog();
+		DebugData							_cDebugDialog = new DebugData();
+		System.Windows.Forms.Button			_cDebugButton = new System.Windows.Forms.Button();
 		EBattlegroundState					_eOldState;
 
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
@@ -129,7 +106,7 @@ namespace MightyFights_Prototype
 
 								MediaPlayer.Stop( );
 								_cBgm = ObjectCreationManager.cInstance.CreateMusic( "Minibossies_FinalFantasy6_VictoryFanfare" );
-								MediaPlayer.Play( _cBgm );
+								if(DataStore.cInstance.bPlayMusic) MediaPlayer.Play( _cBgm );
 
 								_cDlg.InitGridData();
 
@@ -156,7 +133,8 @@ namespace MightyFights_Prototype
 				}
 
 				// process the battle actions
-				_cBattleData.cObjMgr.Process(cTime);
+				if(_cBattleData.eState != EBattlegroundState.Dialog) 
+					_cBattleData.cObjMgr.Process(cTime);
 			}
 
 			// this is for the debug 
@@ -177,7 +155,7 @@ namespace MightyFights_Prototype
 				_tEllapsedTime += cTime.ElapsedGameTime;
 
 			_cSpriteBatch.Begin(SpriteSortMode.BackToFront, null); { 
-				if(_cShowBackgroundCb.Checked)
+				if(DataStore.cInstance.bShowBg)
 					_cSpriteBatch.Draw(_cBackground, new Vector2(112, 70), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, 1); 
 			
 				// draw all objects in the manager
@@ -220,7 +198,7 @@ namespace MightyFights_Prototype
 				}
 
 				// if we are going to draw the active zones
-				if(_cToggleZones.Checked) { 
+				if(DataStore.cInstance.bZoneDisplay) { 
 					Vector2	tZone;
 					foreach(Dictionary<int, Zone> cZoneList in _cBattleData.caActiveZones) { 
 						foreach(Zone cZone in cZoneList.Values) { 
@@ -308,7 +286,8 @@ namespace MightyFights_Prototype
 
 			string[] saMusic = new string[] { "Final_Fantasy_4_The_Flying_Machine_OC_ReMix", "Final_Fantasy_4_Treason_OC_ReMix", "Final_Fantasy_6_Desertion_OC_ReMix", "Final_Fantasy_6_Smooth_Alexander_OC_ReMix",
 																				"Final_Fantasy_7_Fight_On_OC_ReMix",  "Final_Fantasy_Duque_Battle_OC_ReMix", "Final_Fantasy_Hostility_OC_ReMix", "Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix" };
-			_cBgm = ObjectCreationManager.cInstance.CreateMusic( saMusic[DataStore.cInstance.cRand.Next( saMusic.Length )] );
+			DataStore.cInstance.cBgm = 
+				_cBgm = ObjectCreationManager.cInstance.CreateMusic( saMusic[DataStore.cInstance.cRand.Next( saMusic.Length )] );
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = .6f;
 			if(DataStore.cInstance.bPlayMusic)	MediaPlayer.Play( _cBgm );
@@ -325,24 +304,6 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-			// radius check
-			_cAcornRadCb = new System.Windows.Forms.CheckBox();
-			_cAcornRadCb.Location = new System.Drawing.Point((int)cTmpContainer.tPos.X - 10, (int)cTmpContainer.tPos.Y - 20);
-			_cAcornRadCb.Text = _cAcornRadCb.Name = "Rad";
-			_cAcornRadCb.AutoSize = true;
-			_cAcornRadCb.Tag = cTmpContainer;
-			_cAcornRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cAcornRadCb);
-			// radius value
-			_cAcornRad = new System.Windows.Forms.NumericUpDown();
-			_cAcornRad.Size = new System.Drawing.Size(35, 20);
-			_cAcornRad.Location = new System.Drawing.Point(_cAcornRadCb.Location.X + _cAcornRadCb.Size.Width + 3, (int)cTmpContainer.tPos.Y - 20);
-			_cAcornRad.Minimum = 1;
-			_cAcornRad.Maximum = 100;
-			_cAcornRad.Tag = cTmpContainer;
-			_cAcornRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cAcornRad.Value = 50;//cRand.Next(100);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cAcornRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Crab_Claw, cTmpContainer = new BuffContainer(new Vector2(232, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -350,24 +311,6 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-			// radius check
-			_cClawRadCb = new System.Windows.Forms.CheckBox();
-			_cClawRadCb.Location = new System.Drawing.Point((int)cTmpContainer.tPos.X - 10, (int)cTmpContainer.tPos.Y - 20);
-			_cClawRadCb.Text = _cClawRadCb.Name = "Rad";
-			_cClawRadCb.AutoSize = true;
-			_cClawRadCb.Tag = cTmpContainer;
-			_cClawRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cClawRadCb);
-			// radius value
-			_cClawRad = new System.Windows.Forms.NumericUpDown();
-			_cClawRad.Size = new System.Drawing.Size(35, 20);
-			_cClawRad.Location = new System.Drawing.Point(_cClawRadCb.Location.X + _cClawRadCb.Size.Width + 3, (int)cTmpContainer.tPos.Y - 20);
-			_cClawRad.Minimum = 1;
-			_cClawRad.Maximum = 100;
-			_cClawRad.Tag = cTmpContainer;
-			_cClawRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cClawRad.Value = 50;//cRand.Next(100);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cClawRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Wolf_Ear, cTmpContainer = new BuffContainer(new Vector2(332, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -375,24 +318,6 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-			// radius check
-			_cWolfRadCb = new System.Windows.Forms.CheckBox();
-			_cWolfRadCb.Location = new System.Drawing.Point((int)cTmpContainer.tPos.X - 10, (int)cTmpContainer.tPos.Y - 20);
-			_cWolfRadCb.Text = _cWolfRadCb.Name = "Rad";
-			_cWolfRadCb.AutoSize = true;
-			_cWolfRadCb.Tag = cTmpContainer;
-			_cWolfRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cWolfRadCb);
-			// radius value
-			_cWolfRad = new System.Windows.Forms.NumericUpDown();
-			_cWolfRad.Size = new System.Drawing.Size(35, 20);
-			_cWolfRad.Location = new System.Drawing.Point(_cWolfRadCb.Location.X + _cWolfRadCb.Size.Width + 3, (int)cTmpContainer.tPos.Y - 20);
-			_cWolfRad.Minimum = 1;
-			_cWolfRad.Maximum = 100;
-			_cWolfRad.Tag = cTmpContainer;
-			_cWolfRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cWolfRad.Value = 50;//cRand.Next(100);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cWolfRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Toad_Eye, cTmpContainer = new BuffContainer(new Vector2(432, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -400,24 +325,6 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-			// radius check
-			_cToadRadCb = new System.Windows.Forms.CheckBox();
-			_cToadRadCb.Location = new System.Drawing.Point((int)cTmpContainer.tPos.X - 10, (int)cTmpContainer.tPos.Y - 20);
-			_cToadRadCb.Text = _cToadRadCb.Name = "Rad";
-			_cToadRadCb.AutoSize = true;
-			_cToadRadCb.Tag = cTmpContainer;
-			_cToadRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToadRadCb);
-			// radius value
-			_cToadRad = new System.Windows.Forms.NumericUpDown();
-			_cToadRad.Size = new System.Drawing.Size(35, 20);
-			_cToadRad.Location = new System.Drawing.Point(_cToadRadCb.Location.X + _cToadRadCb.Size.Width + 3, (int)cTmpContainer.tPos.Y - 20);
-			_cToadRad.Minimum = 1;
-			_cToadRad.Maximum = 100;
-			_cToadRad.Tag = cTmpContainer;
-			_cToadRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cToadRad.Value = 50;//cRand.Next(100);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToadRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Snake_Fang, cTmpContainer = new BuffContainer(new Vector2(532, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -425,24 +332,6 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-			// radius check
-			_cSnakeRadCb = new System.Windows.Forms.CheckBox();
-			_cSnakeRadCb.Location = new System.Drawing.Point((int)cTmpContainer.tPos.X - 10, (int)cTmpContainer.tPos.Y - 20);
-			_cSnakeRadCb.Text = _cSnakeRadCb.Name = "Rad";
-			_cSnakeRadCb.AutoSize = true;
-			_cSnakeRadCb.Tag = cTmpContainer;
-			_cSnakeRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cSnakeRadCb);
-			// radius value
-			_cSnakeRad = new System.Windows.Forms.NumericUpDown();
-			_cSnakeRad.Size = new System.Drawing.Size(35, 20);
-			_cSnakeRad.Location = new System.Drawing.Point(_cSnakeRadCb.Location.X + _cSnakeRadCb.Size.Width + 3, (int)cTmpContainer.tPos.Y - 20);
-			_cSnakeRad.Minimum = 1;
-			_cSnakeRad.Maximum = 100;
-			_cSnakeRad.Tag = cTmpContainer;
-			_cSnakeRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cSnakeRad.Value = 50;//cRand.Next(100);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cSnakeRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Eagle_Feather, cTmpContainer = new BuffContainer(new Vector2(632, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -450,24 +339,6 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-			// radius check
-			_cEagleRadCb = new System.Windows.Forms.CheckBox();
-			_cEagleRadCb.Location = new System.Drawing.Point((int)cTmpContainer.tPos.X - 10, (int)cTmpContainer.tPos.Y - 20);
-			_cEagleRadCb.Text = _cEagleRadCb.Name = "Rad";
-			_cEagleRadCb.AutoSize = true;
-			_cEagleRadCb.Tag = cTmpContainer;
-			_cEagleRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cEagleRadCb);
-			// radius value
-			_cEagleRad = new System.Windows.Forms.NumericUpDown();
-			_cEagleRad.Size = new System.Drawing.Size(35, 20);
-			_cEagleRad.Location = new System.Drawing.Point(_cEagleRadCb.Location.X + _cEagleRadCb.Size.Width + 3, (int)cTmpContainer.tPos.Y - 20);
-			_cEagleRad.Minimum = 1;
-			_cEagleRad.Maximum = 100;
-			_cEagleRad.Tag = cTmpContainer;
-			_cEagleRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cEagleRad.Value = 50;//cRand.Next(100);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cEagleRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Lion_Paw, cTmpContainer = new BuffContainer(new Vector2(732, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -475,24 +346,6 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-			// radius check
-			_cLionRadCb = new System.Windows.Forms.CheckBox();
-			_cLionRadCb.Location = new System.Drawing.Point((int)cTmpContainer.tPos.X - 10, (int)cTmpContainer.tPos.Y - 20);
-			_cLionRadCb.Text = _cLionRadCb.Name = "Rad";
-			_cLionRadCb.AutoSize = true;
-			_cLionRadCb.Tag = cTmpContainer;
-			_cLionRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cLionRadCb);
-			// radius value
-			_cLionRad = new System.Windows.Forms.NumericUpDown();
-			_cLionRad.Size = new System.Drawing.Size(35, 20);
-			_cLionRad.Location = new System.Drawing.Point(_cLionRadCb.Location.X + _cLionRadCb.Size.Width + 3, (int)cTmpContainer.tPos.Y - 20);
-			_cLionRad.Minimum = 1;
-			_cLionRad.Maximum = 100;
-			_cLionRad.Tag = cTmpContainer;
-			_cLionRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cLionRad.Value = 50;//cRand.Next(100);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cLionRad);
 
 			_cBuffContainerList.Add(EBuffEffects.Dragon_Wing, cTmpContainer = new BuffContainer(new Vector2(832, 519)));
 			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
@@ -500,32 +353,6 @@ namespace MightyFights_Prototype
 			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
 				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-			// radius check
-			_cDragRadCb = new System.Windows.Forms.CheckBox();
-			_cDragRadCb.Location = new System.Drawing.Point((int)cTmpContainer.tPos.X - 10, (int)cTmpContainer.tPos.Y - 20);
-			_cDragRadCb.Text = _cDragRadCb.Name = "Rad";
-			_cDragRadCb.AutoSize = true;
-			_cDragRadCb.Tag = cTmpContainer;
-			_cDragRadCb.CheckedChanged += new EventHandler(ProcessCheck);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cDragRadCb);
-			// radius value
-			_cDragRad = new System.Windows.Forms.NumericUpDown();
-			_cDragRad.Size = new System.Drawing.Size(35, 20);
-			_cDragRad.Location = new System.Drawing.Point(_cDragRadCb.Location.X + _cDragRadCb.Size.Width + 3, (int)cTmpContainer.tPos.Y - 20);
-			_cDragRad.Minimum = 1;
-			_cDragRad.Maximum = 100;
-			_cDragRad.Tag = cTmpContainer;
-			_cDragRad.ValueChanged += new EventHandler(ProcessValChange);
-			_cDragRad.Value = 50;//cRand.Next(100);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cDragRad);
-
-			_cAllRadCb = new System.Windows.Forms.CheckBox();
-			_cAllRadCb.Location = new System.Drawing.Point(0, (int)cTmpContainer.tPos.Y - 20);
-			_cAllRadCb.Text = _cAllRadCb.Name = "Rad";
-			_cAllRadCb.AutoSize = true;
-			_cAllRadCb.Tag = cTmpContainer;
-			_cAllRadCb.CheckedChanged += new EventHandler(ProcessAllCheck);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cAllRadCb);
 		}
 		
 		void InitTemplateList(List<TemplateCfgMaster> cList)
@@ -566,6 +393,12 @@ namespace MightyFights_Prototype
 			// set some events for dialog processing
 			_cDlg.FormClosed += new System.Windows.Forms.FormClosedEventHandler(_cDlg_FormClosed);
 			_cDlg.Shown += new EventHandler(_cDlg_Shown);
+			_cDebugDialog.FormClosed += new System.Windows.Forms.FormClosedEventHandler(_cDlg_FormClosed);
+			_cDebugDialog.Shown += new EventHandler(_cDlg_Shown);
+			_cDebugButton.Click += new EventHandler(_cDebugButton_Click);
+			_cDebugButton.Location = new System.Drawing.Point(0, 100);
+			_cDebugButton.Text = "Debug";
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cDebugButton);
 
 			_tEllapsedTime = TimeSpan.Zero;
 			try { 
@@ -647,49 +480,6 @@ namespace MightyFights_Prototype
 				DataStore.cInstance.cBorder = _cBorder = new Texture2D(cGraphics, 1, 1);
 				_cBorder.SetData<Color>(new[] { Color.White });
 
-				//// ddhj: configrable items for the battle draw
-				_cToggleLifeBar = new System.Windows.Forms.CheckBox();
-				_cToggleLifeBar.Location = new System.Drawing.Point(0, 60);
-				_cToggleLifeBar.Text = _cToggleLifeBar.Name = "Toggle Life Bar";
-				_cToggleLifeBar.AutoSize = true;
-				_cToggleLifeBar.CheckedChanged += new EventHandler(ToggleLifeBarChange);
-				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleLifeBar);
-
-				_cToggleDamageNumbers = new System.Windows.Forms.CheckBox();
-				_cToggleDamageNumbers.Location = new System.Drawing.Point(0, _cToggleLifeBar.Location.Y + 20);
-				_cToggleDamageNumbers.Text = _cToggleDamageNumbers.Name = "Toggle Dmg #";
-				_cToggleDamageNumbers.AutoSize = true;
-				_cToggleDamageNumbers.CheckedChanged += new EventHandler(ToggleDamageNumbersChange);
-				_cToggleDamageNumbers.Checked = true;
-				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleDamageNumbers);
-
-				_cToggleSlowMo = new System.Windows.Forms.CheckBox();
-				_cToggleSlowMo.Location = new System.Drawing.Point(0, _cToggleDamageNumbers.Location.Y + 20);
-				_cToggleSlowMo.Text = _cToggleSlowMo.Name = "Toggle Slow Mo";
-				_cToggleSlowMo.AutoSize = true;
-				_cToggleSlowMo.CheckedChanged += new EventHandler(ToggleSlowMoChange);
-				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleSlowMo);
-
-				_cToggleZones = new System.Windows.Forms.CheckBox();
-				_cToggleZones.Location = new System.Drawing.Point(0, _cToggleSlowMo.Location.Y + 20);
-				_cToggleZones.Text = _cToggleZones.Name = "Toggle Zones";
-				_cToggleZones.AutoSize = true;
-				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleZones);
-
-				_cToggleHealSpots = new System.Windows.Forms.CheckBox();
-				_cToggleHealSpots.Location = new System.Drawing.Point(0, _cToggleZones.Location.Y + 20);
-				_cToggleHealSpots.Text = _cToggleHealSpots.Name = "Toggle Heal Loc";
-				_cToggleHealSpots.AutoSize = true;
-				_cToggleHealSpots.CheckedChanged += new EventHandler(ToggleHealSpots);
-				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cToggleHealSpots);
-
-				_cShowBackgroundCb = new System.Windows.Forms.CheckBox();
-				_cShowBackgroundCb.Location = new System.Drawing.Point(0, _cToggleHealSpots.Location.Y + 20);
-				_cShowBackgroundCb.Text = _cShowBackgroundCb.Name = "Show Bg";
-				_cShowBackgroundCb.AutoSize = true;
-				_cShowBackgroundCb.Checked = true;
-				System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cShowBackgroundCb);
-
 				// set the start of battle
 				SetBattleStart();
 			} catch(Exception xEx) { 
@@ -697,17 +487,6 @@ namespace MightyFights_Prototype
 			}
 
 			return true;
-		}
-
-		void _cDlg_Shown(object sender, EventArgs e)
-		{
-			_eOldState = _cBattleData.eState;
-			_cBattleData.eState = EBattlegroundState.Dialog;
-		}
-
-		void _cDlg_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
-		{
-			_cBattleData.eState = _eOldState;
 		}
 
 		void BackToMenu()
@@ -723,27 +502,8 @@ namespace MightyFights_Prototype
 			_cBattleData.Clear();
 			_cObjMgr.Clear();
 			_cBuffContainerList.Clear();
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleLifeBar);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleDamageNumbers);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleSlowMo);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToggleZones);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cAcornRadCb);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cClawRadCb);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cWolfRadCb);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToadRadCb);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cSnakeRadCb);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cEagleRadCb);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cLionRadCb);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cDragRadCb);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cAllRadCb);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cAcornRad);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cClawRad);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cWolfRad);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cToadRad);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cSnakeRad);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cEagleRad);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cLionRad);
-			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cDragRad);
+
+			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cDebugButton);
 		}
 
 		void ResetBattle()

@@ -431,8 +431,12 @@ namespace MightyFights_Prototype
 		public float Heal( float fHp )
 		{
 			// check to see if we are at max for the healing number 
-			if( _cStats.fHp + fHp > _cStats.iMaxHp )
+			if( _cStats.fHp + fHp > _cStats.iMaxHp ) { 
+				// there is something happening where its healing zero more than once and sometimes alot
+				float f = _cStats.iMaxHp - _cStats.fHp;
+				if(f <= 0) f.ToString();
 				fHp = _cStats.iMaxHp - _cStats.fHp;
+			}
 
 			// increase our stats
 			_cStats.fHp += fHp;

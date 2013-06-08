@@ -8,6 +8,8 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Xml.Linq;
 
+using Microsoft.Xna.Framework.Media;
+
 namespace MightyFights_Prototype
 {
 	public sealed class DataStore
@@ -43,6 +45,9 @@ namespace MightyFights_Prototype
 		public bool				bSlowMo			{ get; set; }
 		public bool				bHealSpots		{ get; set; }
 		public bool				bPlayMusic		{ get; set; }
+		public bool				bZoneDisplay	{ get; set; }
+		public bool				bShowBg			{ get; set; }
+		public Song				cBgm			{ get; set; }
 
 		// the steward for the battle 
 		public Steward			cLSteward		{ get; set; }
