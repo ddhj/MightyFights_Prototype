@@ -51,7 +51,6 @@ namespace MightyFights_Prototype
 
 			// we are going to crit
 			if(iAttackPercent > iCritChance) { 
-				++_cExpData.iCrits;
 				switch(cRand.Next(2)) { 
 					case 0: _cAnimProc.SetAnimationCriteria("Attack", "Critical", "bigchop", 1); break;
 					case 1: _cAnimProc.SetAnimationCriteria("Attack", "Critical", "lunge", 1); break;
@@ -68,7 +67,6 @@ namespace MightyFights_Prototype
 					_cAnimProc.SetAnimationCriteria("Defend", "Parry", "parry", 1);
 				}
 				else	{
-					++_cExpData.iBasicAttacks;
 					switch(cRand.Next(5)) { 
 						case 0: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "low", 1); break;
 						case 1: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "stab", 1); break;
@@ -78,7 +76,6 @@ namespace MightyFights_Prototype
 					}
 				}
 			} else { 
-				++_cExpData.iBasicAttacks;
 				switch(cRand.Next(5)) { 
 					case 0: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "low", 1); break;
 					case 1: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "stab", 1); break;

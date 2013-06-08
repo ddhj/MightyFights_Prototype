@@ -31,9 +31,13 @@ namespace MightyFights_Prototype
 						if( this.cData.InWeaponRange( true )) { 
 							++this.cData.cExpData.iAttacks;
 
-							if( _cAnimProc.sSubType == "Critical" )
+							if( _cAnimProc.sSubType == "Critical" ) { 
+								++this.cData.cExpData.iCrits;
 								nOpponent.DealDamage( cData, cData.cStats.iPower * 3, true );
-							else	nOpponent.DealDamage( cData, cData.cStats.iPower, false );
+							} else { 
+								++this.cData.cExpData.iBasicAttacks;
+								nOpponent.DealDamage( cData, cData.cStats.iPower, false );
+							}
 						}
 					}
 				} break;
