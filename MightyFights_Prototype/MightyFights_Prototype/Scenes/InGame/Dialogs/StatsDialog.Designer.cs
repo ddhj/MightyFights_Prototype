@@ -402,7 +402,7 @@
 			// 
 			this.dataGridView6.AllowUserToAddRows = false;
 			this.dataGridView6.AllowUserToDeleteRows = false;
-			dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
+			dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(205)))));
 			this.dataGridView6.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			this.dataGridView6.AutoGenerateColumns = false;
 			this.dataGridView6.BackgroundColor = System.Drawing.Color.WhiteSmoke;
@@ -449,7 +449,6 @@
 			this.dataGridView6.Name = "dataGridView6";
 			this.dataGridView6.ReadOnly = true;
 			this.dataGridView6.RowHeadersVisible = false;
-			this.dataGridView6.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.dataGridView6.ShowEditingIcon = false;
 			this.dataGridView6.Size = new System.Drawing.Size(487, 111);
 			this.dataGridView6.TabIndex = 1;
@@ -469,7 +468,7 @@
 			// 
 			this.dataGridView5.AllowUserToAddRows = false;
 			this.dataGridView5.AllowUserToDeleteRows = false;
-			dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
+			dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(205)))));
 			this.dataGridView5.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
 			this.dataGridView5.AutoGenerateColumns = false;
 			this.dataGridView5.BackgroundColor = System.Drawing.Color.WhiteSmoke;
@@ -516,7 +515,6 @@
 			this.dataGridView5.Name = "dataGridView5";
 			this.dataGridView5.ReadOnly = true;
 			this.dataGridView5.RowHeadersVisible = false;
-			this.dataGridView5.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.dataGridView5.ShowEditingIcon = false;
 			this.dataGridView5.Size = new System.Drawing.Size(485, 111);
 			this.dataGridView5.TabIndex = 1;
@@ -536,7 +534,7 @@
 			// 
 			this.dataGridView4.AllowUserToAddRows = false;
 			this.dataGridView4.AllowUserToDeleteRows = false;
-			dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightGray;
+			dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(205)))));
 			this.dataGridView4.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
 			this.dataGridView4.AutoGenerateColumns = false;
 			this.dataGridView4.BackgroundColor = System.Drawing.Color.WhiteSmoke;
@@ -583,7 +581,6 @@
 			this.dataGridView4.Name = "dataGridView4";
 			this.dataGridView4.ReadOnly = true;
 			this.dataGridView4.RowHeadersVisible = false;
-			this.dataGridView4.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.dataGridView4.ShowEditingIcon = false;
 			this.dataGridView4.Size = new System.Drawing.Size(487, 119);
 			this.dataGridView4.TabIndex = 1;
@@ -603,7 +600,7 @@
 			// 
 			this.dataGridView3.AllowUserToAddRows = false;
 			this.dataGridView3.AllowUserToDeleteRows = false;
-			dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightGray;
+			dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(205)))));
 			this.dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
 			this.dataGridView3.AutoGenerateColumns = false;
 			this.dataGridView3.BackgroundColor = System.Drawing.Color.WhiteSmoke;
@@ -650,7 +647,6 @@
 			this.dataGridView3.Name = "dataGridView3";
 			this.dataGridView3.ReadOnly = true;
 			this.dataGridView3.RowHeadersVisible = false;
-			this.dataGridView3.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.dataGridView3.ShowEditingIcon = false;
 			this.dataGridView3.Size = new System.Drawing.Size(485, 119);
 			this.dataGridView3.TabIndex = 1;
@@ -670,7 +666,7 @@
 			// 
 			this.dataGridView2.AllowUserToAddRows = false;
 			this.dataGridView2.AllowUserToDeleteRows = false;
-			dataGridViewCellStyle5.BackColor = System.Drawing.Color.LightGray;
+			dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(205)))));
 			this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
 			this.dataGridView2.AutoGenerateColumns = false;
 			this.dataGridView2.BackgroundColor = System.Drawing.Color.WhiteSmoke;
@@ -717,7 +713,6 @@
 			this.dataGridView2.Name = "dataGridView2";
 			this.dataGridView2.ReadOnly = true;
 			this.dataGridView2.RowHeadersVisible = false;
-			this.dataGridView2.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.dataGridView2.ShowEditingIcon = false;
 			this.dataGridView2.Size = new System.Drawing.Size(487, 105);
 			this.dataGridView2.TabIndex = 1;
@@ -737,7 +732,7 @@
 			// 
 			this._cLCap.AllowUserToAddRows = false;
 			this._cLCap.AllowUserToDeleteRows = false;
-			dataGridViewCellStyle6.BackColor = System.Drawing.Color.LightGray;
+			dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(205)))));
 			this._cLCap.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
 			this._cLCap.AutoGenerateColumns = false;
 			this._cLCap.BackgroundColor = System.Drawing.Color.WhiteSmoke;
@@ -784,7 +779,6 @@
 			this._cLCap.Name = "_cLCap";
 			this._cLCap.ReadOnly = true;
 			this._cLCap.RowHeadersVisible = false;
-			this._cLCap.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.WhiteSmoke;
 			this._cLCap.ShowEditingIcon = false;
 			this._cLCap.Size = new System.Drawing.Size(485, 105);
 			this._cLCap.TabIndex = 0;
@@ -804,7 +798,7 @@
 			// 
 			this.dataGridView1.AllowUserToAddRows = false;
 			this.dataGridView1.AllowUserToDeleteRows = false;
-			dataGridViewCellStyle7.BackColor = System.Drawing.Color.LightGray;
+			dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(205)))));
 			this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
 			this.dataGridView1.AutoGenerateColumns = false;
 			this.dataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke;
@@ -871,7 +865,7 @@
 			// 
 			this.dataGridView7.AllowUserToAddRows = false;
 			this.dataGridView7.AllowUserToDeleteRows = false;
-			dataGridViewCellStyle8.BackColor = System.Drawing.Color.LightGray;
+			dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(230)))), ((int)(((byte)(205)))));
 			this.dataGridView7.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
 			this.dataGridView7.AutoGenerateColumns = false;
 			this.dataGridView7.BackgroundColor = System.Drawing.Color.WhiteSmoke;
