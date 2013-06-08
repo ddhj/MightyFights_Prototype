@@ -52,9 +52,9 @@ namespace MightyFights_Prototype
 		SpriteFont		_cFont;
 		Texture2D		_cBorder;
 		bool			_bUpdate = true;
-		StatsDialog							_cDlg = new StatsDialog();
-		DebugData							_cDebugDialog = new DebugData();
-		System.Windows.Forms.Button			_cDebugButton = new System.Windows.Forms.Button();
+		StatsDialog							_cDlg;
+		DebugData							_cDebugDialog;
+		System.Windows.Forms.Button			_cDebugButton;
 		EBattlegroundState					_eOldState;
 
 		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
@@ -391,10 +391,13 @@ namespace MightyFights_Prototype
 			_cBattleData.dlDropClick = ProcessHammerClick;
 
 			// set some events for dialog processing
+			_cDlg = new StatsDialog();
+			_cDebugDialog = new DebugData();
 			_cDlg.FormClosed += new System.Windows.Forms.FormClosedEventHandler(_cDlg_FormClosed);
 			_cDlg.Shown += new EventHandler(_cDlg_Shown);
 			_cDebugDialog.FormClosed += new System.Windows.Forms.FormClosedEventHandler(_cDlg_FormClosed);
 			_cDebugDialog.Shown += new EventHandler(_cDlg_Shown);
+			_cDebugButton = new System.Windows.Forms.Button();
 			_cDebugButton.Click += new EventHandler(_cDebugButton_Click);
 			_cDebugButton.Location = new System.Drawing.Point(10, 550);
 			_cDebugButton.Text = "Debug";
@@ -502,6 +505,8 @@ namespace MightyFights_Prototype
 			_cBattleData.Clear();
 			_cObjMgr.Clear();
 			_cBuffContainerList.Clear();
+			_cDlg = null;
+			_cDebugDialog = null;
 
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cDebugButton);
 		}

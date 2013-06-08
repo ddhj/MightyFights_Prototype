@@ -93,7 +93,7 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cRSteward.cTemplates[2].sTemplateName = "RT2";
 
 			// global toggles 
-			DataStore.cInstance.bPlayMusic = false;
+			DataStore.cInstance.bPlayMusic = true;
 			DataStore.cInstance.bDamageNumbers = true;
 			DataStore.cInstance.bHealSpots = false;
 			DataStore.cInstance.bLifeBars = false;
