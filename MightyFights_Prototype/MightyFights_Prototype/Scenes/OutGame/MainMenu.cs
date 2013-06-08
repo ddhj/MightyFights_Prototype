@@ -304,7 +304,7 @@ namespace MightyFights_Prototype
 				_cP1T1Count = new NumericUpDown();
 				_cP1T1Count.Size = new System.Drawing.Size(58, 20);
 				_cP1T1Count.Location = new System.Drawing.Point((int)_cP1Template1.tPos.X - 65, (int)_cP1Template1.tPos.Y + 20);
-				_cP1T1Count.Minimum = 1;
+				_cP1T1Count.Minimum = 0;
 				_cP1T1Count.Maximum = 100;
 				_cP1T1Count.Value = 45;//cRand.Next(100);
 				_cP1T1Count.ValueChanged += new EventHandler(Count_ValueChanged);
@@ -312,7 +312,7 @@ namespace MightyFights_Prototype
 				_cP1T2Count = new NumericUpDown();
 				_cP1T2Count.Size = new System.Drawing.Size(58, 20);
 				_cP1T2Count.Location = new System.Drawing.Point((int)_cP1Template2.tPos.X - 65, (int)_cP1Template2.tPos.Y + 20);
-				_cP1T2Count.Minimum = 1;
+				_cP1T2Count.Minimum = 0;
 				_cP1T2Count.Maximum = 100;
 				_cP1T2Count.Value = 45;//cRand.Next(100);
 				_cP1T2Count.ValueChanged += new EventHandler(Count_ValueChanged);
@@ -329,7 +329,7 @@ namespace MightyFights_Prototype
 				_cP2T1Count = new NumericUpDown();
 				_cP2T1Count.Size = new System.Drawing.Size(58, 20);
 				_cP2T1Count.Location = new System.Drawing.Point((int)_cP2Template1.tPos.X + 50, (int)_cP2Template1.tPos.Y + 20);
-				_cP2T1Count.Minimum = 1;
+				_cP2T1Count.Minimum = 0;
 				_cP2T1Count.Maximum = 100;
 				_cP2T1Count.Value = 45;//cRand.Next(100);
 				_cP2T1Count.ValueChanged += new EventHandler(Count_ValueChanged);
@@ -337,7 +337,7 @@ namespace MightyFights_Prototype
 				_cP2T2Count = new NumericUpDown();
 				_cP2T2Count.Size = new System.Drawing.Size(58, 20);
 				_cP2T2Count.Location = new System.Drawing.Point((int)_cP2Template2.tPos.X + 50, (int)_cP2Template2.tPos.Y + 20);
-				_cP2T2Count.Minimum = 1;
+				_cP2T2Count.Minimum = 0;
 				_cP2T2Count.Maximum = 100;
 				_cP2T2Count.Value = 45;//cRand.Next(100);
 				_cP2T2Count.ValueChanged += new EventHandler(Count_ValueChanged);
@@ -345,7 +345,7 @@ namespace MightyFights_Prototype
 
 				_cBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 
-				MediaPlayer.Play( _cMusic );
+				if(DataStore.cInstance.bPlayMusic)	MediaPlayer.Play( _cMusic );
 				return true;
 			} catch(Exception xEx) {
 				System.Windows.Forms.MessageBox.Show(xEx.ToString());

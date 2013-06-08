@@ -330,10 +330,12 @@ namespace MightyFights_Prototype
 			Random	cRand = DataStore.cInstance.cRand;
 			++_cExpData.iAttacked;
 			
-			//// ddhj: yep armor class and all that shit 
 			if(cAiData.eState != EBattleAiStates.Defending) {
 				// this is a rough percentage of the armor class not taking into account flank
-				int iFinalDamage = (int)(iDamage - _cStats.iArmorClass * ((float)cRand.Next(60, 100) / 100));
+				int iFinalDamage = (int)(iDamage - _cStats.iArmorClass * (cRand.Next(60, 100) / 100f));
+
+				// if they are attacking a monster 
+				if(iFinalDamage < 0) iFinalDamage = (int)Math.Ceiling(iDamage * .10);
 
 				_cStats.fHp -= iFinalDamage;
 

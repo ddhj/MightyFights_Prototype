@@ -50,8 +50,10 @@ namespace MightyFights_Prototype
 		static int[]	_iaMoveSpeedStats = new int[] { 0, 4, 10, 14, 18, 19, 20, 21, 22, 25, 30, 40, 50, 70 };
 
 		// these are just raw stats
-		static int[]	_iaHitPointStats = new int[] { 100, 110, 120, 150, 200, 400, 600, 800, 1200, 1600, 2000, 2200, 2400, 3000 };
-		static int[]	_iaAtkPowerStats = new int[] { 5, 10, 15, 20, 30, 35, 40, 50, 70, 90, 200, 300, 500, 800 };
+		static int[]	_iaHitPointStats =	new int[] { 100, 110, 120, 150, 200, 400, 600, 800, 1200, 1600, 2000, 2200, 2400, 3000 };
+		static int[]	_iaAtkPowerStats =	new int[] { 5, 10, 15, 20, 30, 35, 40, 50, 70, 90, 200, 300, 500, 800 };
+		static int[]	_iaAC = 			new int[] { 3, 4, 5, 10, 15, 20, 25, 40, 45, 50, 100, 150, 200, 400 };
+		static float[]	_fCrit = new float[] { .05f, .06f, .07f, .1f, .11f, .12f, .13f, .18f, .2f, .25f, .30f, .50f	};
 
 		#region IGameScene Members
 
@@ -68,9 +70,13 @@ namespace MightyFights_Prototype
 			_cConfig.sColor = _cFrontGuys.sCurColor;
 			_cConfig.cStats = new Stats();
 			_cConfig.cStats.iAtkSpeed = _iaAtkSpeedStats[_cAtkSpeed.iCurFrame];
-			_cConfig.cStats.fHp = _iaHitPointStats[_cHitPoints.iCurFrame];
+			_cConfig.cStats.fCrit = _fCrit[_cAtkSpeed.iCurFrame];
+			_cConfig.cStats.fHp = _cConfig.cStats.iMaxHp = _iaHitPointStats[_cHitPoints.iCurFrame];
+			_cConfig.cStats.iHealPoint = (int)(.4 * _cConfig.cStats.fHp);
+			_cConfig.cStats.iFleePoint = (int)(.05 * _cConfig.cStats.fHp);
 			_cConfig.cStats.iPower = _iaAtkPowerStats[_cAtkPower.iCurFrame];
 			_cConfig.cStats.iMovement = _iaMoveSpeedStats[_cMoveSpeed.iCurFrame];
+			_cConfig.cStats.iArmorClass = _iaAC[_cHitPoints.iCurFrame];
 			_cConfig.iBottomLevel = _cBottomLevels.SelectedIndex;
 			_cConfig.iTopLevel = _cTopLevels.SelectedIndex;
 		}

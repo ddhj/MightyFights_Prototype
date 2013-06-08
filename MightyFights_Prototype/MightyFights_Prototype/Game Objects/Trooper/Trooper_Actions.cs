@@ -78,6 +78,8 @@ namespace MightyFights_Prototype
 						case EBattleAiStates.Ready:
 							// use the heuristic to check for an opponent
 							cAiData.cHeurisitics[EBattleHeuristics.ChooseOpponent](_cBattleDataRef);
+							if(_cAnimProc.sType != "Idle")
+								_cAnimProc.SetAnimationCriteria("Idle", "Battle", "stance", -1);
 						break;
 
 						case EBattleAiStates.Defending:

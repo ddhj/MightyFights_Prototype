@@ -311,7 +311,7 @@ namespace MightyFights_Prototype
 			_cBgm = ObjectCreationManager.cInstance.CreateMusic( saMusic[DataStore.cInstance.cRand.Next( saMusic.Length )] );
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = .6f;
-			MediaPlayer.Play( _cBgm );
+			if(DataStore.cInstance.bPlayMusic)	MediaPlayer.Play( _cBgm );
 		}
 
 		void CreateBuffContainers()

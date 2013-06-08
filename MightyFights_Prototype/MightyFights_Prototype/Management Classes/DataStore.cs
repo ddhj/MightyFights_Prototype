@@ -42,6 +42,7 @@ namespace MightyFights_Prototype
 		public bool				bDamageNumbers	{ get; set; }
 		public bool				bSlowMo			{ get; set; }
 		public bool				bHealSpots		{ get; set; }
+		public bool				bPlayMusic		{ get; set; }
 
 		// the steward for the battle 
 		public Steward			cLSteward		{ get; set; }

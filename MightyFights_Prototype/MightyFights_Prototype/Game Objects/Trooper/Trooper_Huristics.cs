@@ -17,7 +17,8 @@ namespace MightyFights_Prototype
 		public object Attack_Basic(BattlegroundData cData)
 		{
 			Random		cRand = DataStore.cInstance.cRand;
-			int			iAttackPercent;
+			int			iAttackPercent,
+						iCritChance;
 			ICombatant	nOpponent = (ICombatant)this.nTarget;
 
 			// check to see if our opponent is living 
@@ -42,13 +43,14 @@ namespace MightyFights_Prototype
 			}
 
 			// get our percent for this attack
-			////ddhj: good time for the other stuff for percent attack crit weighting and all that jaz
+			// roll two tens 
 			iAttackPercent = cRand.Next(100);
+			iCritChance = 100 - (int)(100 * _cStats.fCrit);
 
 			cAiData.eState = EBattleAiStates.Attacking;
 
 			// we are going to crit
-			if(iAttackPercent > 96) { 
+			if(iAttackPercent > iCritChance) { 
 				++_cExpData.iCrits;
 				switch(cRand.Next(2)) { 
 					case 0: _cAnimProc.SetAnimationCriteria("Attack", "Critical", "bigchop", 1); break;
