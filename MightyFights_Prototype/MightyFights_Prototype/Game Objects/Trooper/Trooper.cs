@@ -469,8 +469,6 @@ namespace MightyFights_Prototype
 		{
 			Vector2		tDir = _tCenter - nCombatant.tCenter;
 
-			if( _iCurLeftAttackers + _iCurRightAttakers != _cAttackers.Count )
-				_byAttakPos.ToString( );
 			GetAttackPoint(nCombatant, out iPos);
 			_cAttackers.Add((ETrooperAttackPos)iPos, nCombatant);
 			_byAttakPos |= (byte)iPos;
@@ -509,8 +507,6 @@ namespace MightyFights_Prototype
 					--_iCurRightAttakers;
 				break;
 			}
-			if( _iCurLeftAttackers + _iCurRightAttakers != _cAttackers.Count )
-				_byAttakPos.ToString( );
 		}
 
 		Vector2 GetVectByPos(ETrooperAttackPos ePos)

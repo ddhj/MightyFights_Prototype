@@ -57,9 +57,9 @@ namespace MightyFights_Prototype
 			}
 			// check how many attackers are on us
 				// tank if there are too many
-			else if( _iAvailablePositions < 4 )
+			else if( _cAttackers.Count > 2 )
 			{
-				if( iAttackPercent > ( 50 - ( 3 - _iAvailablePositions ) * 15 ))
+				if( iAttackPercent > ( 60 - ( _cAttackers.Count - 3 ) * 15 ))
 				{ 
 					++_cExpData.iDefenceAttempts;
 					cAiData.eState = EBattleAiStates.Defending;
