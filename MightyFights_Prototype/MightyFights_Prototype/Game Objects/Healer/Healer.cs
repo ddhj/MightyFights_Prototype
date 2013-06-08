@@ -181,7 +181,7 @@ namespace MightyFights_Prototype	{
 			}
 
 			// draw is pretty straight forward sans two issues 1: the rotation in the sprite sheet
-			cBatch.Draw(_cTexRef, _tPos, cCurFrame.tRect, tColor, cCurFrame.bRot ? -(float)Math.PI/2 : 0, tTopLeft, 1, eEffect, _fZOrder);
+			cBatch.Draw(_cTexRef, _tPos, cCurFrame.tRect, tColor, cCurFrame.bRot ? -(float)Math.PI/2 : 0, tTopLeft, 1.3f, eEffect, 0);
 
 			// there may be other things to draw here like if we are in a dying state do we want to run a blink or not 
 
@@ -193,12 +193,12 @@ namespace MightyFights_Prototype	{
 				Texture2D	cBorder = DataStore.cInstance.cBorder;
 				Rectangle	tRect;
 				if(!_cTeam.bDirection)
-					tRect = new Rectangle((int)_tPos.X + 60, (int)_tPos.Y, (int)( _fHp / _iMaxHp * 100 * .3 ), 5);
+					tRect = new Rectangle((int)_tPos.X + 90, (int)_tPos.Y, (int)( _fHp / _iMaxHp * 100 * .3 ), 5);
 				else tRect = new Rectangle((int)_tPos.X + 10, (int)_tPos.Y, (int)( _fHp / _iMaxHp * 100 * .3 ), 5);
 
 				Color		cHpColor = Color.Green;
 				cHpColor.A = 85;
-				cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, _fZOrder);
+				cBatch.Draw(cBorder, new Vector2(tRect.X, tRect.Y), tRect, cHpColor, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0);
 			}
 
 			// draw the flee point 

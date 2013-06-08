@@ -396,7 +396,7 @@ namespace MightyFights_Prototype
 			_cDebugDialog.FormClosed += new System.Windows.Forms.FormClosedEventHandler(_cDlg_FormClosed);
 			_cDebugDialog.Shown += new EventHandler(_cDlg_Shown);
 			_cDebugButton.Click += new EventHandler(_cDebugButton_Click);
-			_cDebugButton.Location = new System.Drawing.Point(0, 100);
+			_cDebugButton.Location = new System.Drawing.Point(10, 550);
 			_cDebugButton.Text = "Debug";
 			System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cDebugButton);
 
@@ -433,7 +433,7 @@ namespace MightyFights_Prototype
 
 				for( int iCount = 0; iCount < 2; ++iCount )
 				{
-					cHealer = cObjMgr.CreatePriest(new Vector2( 50, 180 + 120 * iCount ), cTeam,   (int)( 40f * 7 * 6 ), 7, 40f, 1.3333f, _cBattleData);
+					cHealer = cObjMgr.CreatePriest(new Vector2( 65, 180 + 120 * iCount ), cTeam,   (int)( 40f * 7 * 6 ), 7, 40f, 1.3333f, _cBattleData);
 					cTeam.cHealerList.Add( cHealer.iId, cHealer );
 					_cObjMgr.AddObject(cHealer);
 				}
@@ -454,7 +454,7 @@ namespace MightyFights_Prototype
 				}
 				for( int iCount = 0; iCount < 2; ++iCount )
 				{
-					cHealer = cObjMgr.CreatePriest(new Vector2( 880, 180 + 120 * iCount ), cTeam,  (int)( 40f * 7 * 6 ), 7, 40f, 1.3333f, _cBattleData);
+					cHealer = cObjMgr.CreatePriest(new Vector2( 830, 180 + 120 * iCount ), cTeam,  (int)( 40f * 7 * 6 ), 7, 40f, 1.3333f, _cBattleData);
 					cTeam.cHealerList.Add( cHealer.iId, cHealer );
 					_cObjMgr.AddObject(cHealer);
 				}
