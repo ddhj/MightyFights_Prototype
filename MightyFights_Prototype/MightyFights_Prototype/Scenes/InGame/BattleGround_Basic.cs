@@ -22,7 +22,8 @@ namespace MightyFights_Prototype
 	public partial class BattleGround_Basic : IGameScene
 	{
 		ESceneStates	_eState;
-		Texture2D		_cBackground;
+		Texture2D		_cBackground,
+						_cHudBorder;
 		SpriteBatch		_cSpriteBatch;
 		ObjectManager	_cObjMgr = new ObjectManager();
 		Cursor			_cCursor;
@@ -155,8 +156,10 @@ namespace MightyFights_Prototype
 				_tEllapsedTime += cTime.ElapsedGameTime;
 
 			_cSpriteBatch.Begin(SpriteSortMode.BackToFront, null); { 
-				if(DataStore.cInstance.bShowBg)
+				if(DataStore.cInstance.bShowBg) { 
 					_cSpriteBatch.Draw(_cBackground, new Vector2(112, 70), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, 1); 
+					_cSpriteBatch.Draw(_cHudBorder, new Vector2(0, 0), null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 1);
+				}
 			
 				// draw all objects in the manager
 				_cBattleData.cObjMgr.Draw(_cSpriteBatch);	
@@ -407,6 +410,7 @@ namespace MightyFights_Prototype
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 				_cBackground = cContent.Load<Texture2D>(@"Backgrounds\dirt_grass 800x436");
+				_cHudBorder = cContent.Load<Texture2D>(@"In Game\Hud\border_jackson");
 
 
 				_cObjMgr.CreateParticleManager( );

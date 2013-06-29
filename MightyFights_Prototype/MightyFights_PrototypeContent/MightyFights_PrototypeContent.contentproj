@@ -81,9 +81,7 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="In Game\Hud\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="Shared\arrow_cursor.png">
       <Name>arrow_cursor</Name>
@@ -747,6 +745,13 @@
       <Name>frontarray</Name>
       <Importer>ContentImporter1</Importer>
       <Processor>ContentProcessor1</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="In Game\Hud\border_jackson.png">
+      <Name>border_jackson</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
