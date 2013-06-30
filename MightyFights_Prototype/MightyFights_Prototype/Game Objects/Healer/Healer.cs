@@ -97,7 +97,7 @@ namespace MightyFights_Prototype	{
 //			_cHealingSfx = ObjectCreationManager.cInstance.CreateSfx( "Computer_Magic-Microsift-1901299923" );
 //			_cHealingSfx = ObjectCreationManager.cInstance.CreateSfx( "Electrical_Sweep-Sweeper-1760111493" );
 
-			_cHealingSfx.Volume = .6f;
+			_cHealingSfx.Volume = .4f;
 
 			// add the upkeep to the perm action
 		}

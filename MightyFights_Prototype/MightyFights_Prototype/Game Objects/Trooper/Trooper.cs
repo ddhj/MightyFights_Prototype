@@ -125,7 +125,7 @@ namespace MightyFights_Prototype
 
 			_cSfxCrit = ObjectCreationManager.cInstance.CreateSfx( "Decapitation-SoundBible.com-800292304" );
 			_cSfxParry = ObjectCreationManager.cInstance.CreateSfx( "Swords_Collide-Sound_Explorer-2015600826" );
-			_cSfxCrit.Volume = _cSfxParry.Volume = .4f;
+			_cSfxCrit.Volume = _cSfxParry.Volume = .2f;
 		}
 		
 		void CalcMovementSpeed()

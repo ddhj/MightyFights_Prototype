@@ -158,7 +158,7 @@ namespace MightyFights_Prototype
 			_cSpriteBatch.Begin(SpriteSortMode.BackToFront, null); { 
 				if(DataStore.cInstance.bShowBg) { 
 					_cSpriteBatch.Draw(_cBackground, new Vector2(112, 70), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, 1); 
-					_cSpriteBatch.Draw(_cHudBorder, new Vector2(0, 0), null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 1);
+					_cSpriteBatch.Draw(_cHudBorder, new Vector2(0, 0), null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, .99f);
 				}
 			
 				// draw all objects in the manager
@@ -289,8 +289,10 @@ namespace MightyFights_Prototype
 
 			string[] saMusic = new string[] { "Final_Fantasy_4_The_Flying_Machine_OC_ReMix", "Final_Fantasy_4_Treason_OC_ReMix", "Final_Fantasy_6_Desertion_OC_ReMix", "Final_Fantasy_6_Smooth_Alexander_OC_ReMix",
 																				"Final_Fantasy_7_Fight_On_OC_ReMix",  "Final_Fantasy_Duque_Battle_OC_ReMix", "Final_Fantasy_Hostility_OC_ReMix", "Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix" };
+			//DataStore.cInstance.cBgm = 
+			//    _cBgm = ObjectCreationManager.cInstance.CreateMusic( saMusic[DataStore.cInstance.cRand.Next( saMusic.Length )] );
 			DataStore.cInstance.cBgm = 
-				_cBgm = ObjectCreationManager.cInstance.CreateMusic( saMusic[DataStore.cInstance.cRand.Next( saMusic.Length )] );
+			    _cBgm = ObjectCreationManager.cInstance.CreateMusic( "battle1" );
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = .6f;
 			if(DataStore.cInstance.bPlayMusic)	MediaPlayer.Play( _cBgm );
@@ -417,7 +419,7 @@ namespace MightyFights_Prototype
 
 				_cBuffSfx = ObjectCreationManager.cInstance.CreateSfx( "Magic Wand Noise-SoundBible.com-375928671" );
 				_cHammerSfx = ObjectCreationManager.cInstance.CreateSfx( "Electronic_Chime-KevanGC-495939803" );
-				_cBuffSfx.Volume = _cHammerSfx.Volume = .8f;
+				_cBuffSfx.Volume = _cHammerSfx.Volume = .4f;
 
 
 				// set the battle data to the datastore for reference 
