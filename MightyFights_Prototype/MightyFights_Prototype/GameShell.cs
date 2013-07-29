@@ -107,8 +107,11 @@ namespace MightyFights_Prototype
 			// set the scene manager
 			SceneManager	cManager = new SceneManager(this);
 
+			// set the music in the game to be repeted if it runs long
+			MediaPlayer.IsRepeating = true;
+
 			// add the main menu as the initial drawing object
-			IGameScene		nScene = new MainMenu();
+			IGameScene		nScene = new TitleScreen();
 			if(nScene.Init()) { 
 				cManager.AddScene(nScene);
 				Components.Add(cManager);
