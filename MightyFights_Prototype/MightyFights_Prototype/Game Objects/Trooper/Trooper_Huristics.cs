@@ -50,15 +50,17 @@ namespace MightyFights_Prototype
 			cAiData.eState = EBattleAiStates.Attacking;
 
 			// we are going to crit
+			/*
 			if(iAttackPercent > iCritChance) { 
 				switch(cRand.Next(2)) { 
 					case 0: _cAnimProc.SetAnimationCriteria("Attack", "Critical", "bigchop", 1); break;
 					case 1: _cAnimProc.SetAnimationCriteria("Attack", "Critical", "lunge", 1); break;
 				}
 			}
+			 
 			// check how many attackers are on us
 				// tank if there are too many
-			else if( _cAttackers.Count > 2 )
+			else*/ if( _cAttackers.Count > 2 )
 			{
 				if( iAttackPercent > ( 60 - ( _cAttackers.Count - 3 ) * 15 ))
 				{ 
