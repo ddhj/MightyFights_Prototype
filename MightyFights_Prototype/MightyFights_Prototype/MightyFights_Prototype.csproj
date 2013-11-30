@@ -151,8 +151,8 @@
     <Compile Include="Scenes\InGame\Battlegrounds\Basic\BattleGround_Basic_Events.cs" />
     <Compile Include="Scenes\InGame\Camp\Camp.cs" />
     <Compile Include="Scenes\InGame\Camp\Camp_Events.cs" />
-    <Compile Include="Scenes\InGame\Camp\Managers\BMenuManager.cs" />
-    <Compile Include="Scenes\InGame\Camp\Managers\BObjectManager.cs" />
+    <Compile Include="Scenes\InGame\Camp\Managers\CMenuManager.cs" />
+    <Compile Include="Scenes\InGame\Camp\Managers\CObjectManager.cs" />
     <Compile Include="Scenes\InGame\Dialogs\DebugData.cs">
       <SubType>Form</SubType>
     </Compile>
