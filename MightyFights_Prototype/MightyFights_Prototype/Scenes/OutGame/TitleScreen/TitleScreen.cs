@@ -115,7 +115,7 @@ namespace MightyFights_Prototype
 				ClickableSprite	cTmpSprite;
 
 				_cGraphics = DataStore.cInstance.cGraphics;
-				_cMusic = ObjectCreationManager.cInstance.CreateMusic( "10 WV" );
+				_cMusic = DataManager.cInstance.CreateMusic( "10 WV" );
 				_cBatch = new SpriteBatch(_cGraphics);
 
 				_cScreen = cContent.Load<Texture2D>(@"Out Game\TitleScreen\wodyn_title");

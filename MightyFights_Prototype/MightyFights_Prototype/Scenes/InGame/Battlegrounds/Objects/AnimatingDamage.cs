@@ -65,7 +65,7 @@ namespace MightyFights_Prototype
 			this.eObjState = EObjectStates.Active | EObjectStates.Draw;
 
 			// get the main object id
-			this.iId = ObjectCreationManager.cInstance.iCurObjId;
+			this.iId = DataManager.cInstance.iCurObjId;
 		}
 
 		public void Process(GameTime cTime)

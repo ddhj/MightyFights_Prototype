@@ -102,7 +102,7 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.bZoneDisplay = false;
 
 			// init the object manager
-			ObjectCreationManager.cInstance.Init();
+			DataManager.cInstance.Init();
 
 			// set the scene manager
 			SceneManager	cManager = new SceneManager(this);

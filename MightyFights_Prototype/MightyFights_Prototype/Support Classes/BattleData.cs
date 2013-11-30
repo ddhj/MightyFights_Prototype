@@ -105,7 +105,7 @@ namespace MightyFights_Prototype
 		public Dictionary<EBuffEffects, BuffContainer> cBuffContainers	{ get; set; }
 		public Zone[][] caBattleZones			{ get { return _caBattleZones; }}
 		public EBattlegroundState eState		{ get; set; }
-		public ObjectManager cObjMgr	{ get; set; }
+		public BattleObjectManager cObjMgr	{ get; set; }
 		public DProcessClick dlBuffClick		{ get; set; }
 		public DProcessClick dlDropClick		{ get; set; }
 		public BuffAnimal cAnimalEffect			{ get; set; }
@@ -251,7 +251,7 @@ namespace MightyFights_Prototype
 			nCom.AddBuff(cBuff);
 
 			// set the animal effect
-			this.cAnimalEffect = ObjectCreationManager.cInstance.CreateAnimalEffect(cBuff.eType);
+			this.cAnimalEffect = DataManager.cInstance.CreateAnimalEffect(cBuff.eType);
 		}
 
 		public void ApplyBuffTeam(BasicBuff cBuff)
@@ -307,8 +307,8 @@ namespace MightyFights_Prototype
 		public void CreateDrop(ICombatant nCombatant)
 		{
 			if(DataStore.cInstance.cRand.Next(10) > 6)
-				this.cObjMgr.AddClickObject(ObjectCreationManager.cInstance.CreateDrop("hammer", this), dlDropClick);
-			else this.cObjMgr.AddClickObject(ObjectCreationManager.cInstance.CreateBuff(nCombatant, this), dlBuffClick);
+				this.cObjMgr.AddClickObject(DataManager.cInstance.CreateDrop("hammer", this), dlDropClick);
+			else this.cObjMgr.AddClickObject(DataManager.cInstance.CreateBuff(nCombatant, this), dlBuffClick);
 		}
 
 		public Vector2 GetFleeSpot( ICombatant nCombatant )

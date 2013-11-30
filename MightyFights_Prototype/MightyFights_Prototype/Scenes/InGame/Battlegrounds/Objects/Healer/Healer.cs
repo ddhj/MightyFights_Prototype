@@ -65,7 +65,7 @@ namespace MightyFights_Prototype	{
 	// Constructor
 		public Priest(int iMaxHp, int iMaxSlots, float fHealRate, float fRegenRate, Vector2 tPos, Team cTeam, AnimationData cAnimData, BattlegroundData cBtlGndData)
 		{
-			_iId = ObjectCreationManager.cInstance.iCurObjId;
+			_iId = DataManager.cInstance.iCurObjId;
 			_fHp = _iMaxHp = iMaxHp;
 			_fRegenRate = fRegenRate;
 			_fHealRate = fHealRate;
@@ -88,12 +88,12 @@ namespace MightyFights_Prototype	{
 			// had to change this because i scaled the healers
 			_cSupportZone = new FleeSpot( iMaxSlots, 60, new Vector2( _tCenter.X - (cTeam.bDirection ? 50 : -80) + ( cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y + 10 ));
 
-			_cHealingFx = ObjectCreationManager.cInstance.CreateParticleSystem( "HealingCircle" );
+			_cHealingFx = DataManager.cInstance.CreateParticleSystem( "HealingCircle" );
 			_cBtlGndData.cObjMgr.AddParticleEffect( _cHealingFx );
-			_cRechargeFx = ObjectCreationManager.cInstance.CreateParticleSystem( "HealerRecharge" );
+			_cRechargeFx = DataManager.cInstance.CreateParticleSystem( "HealerRecharge" );
 			_cBtlGndData.cObjMgr.AddParticleEffect( _cRechargeFx );
 
-			_cHealingSfx = ObjectCreationManager.cInstance.CreateSfx( "Appear-KP-1137861048" );
+			_cHealingSfx = DataManager.cInstance.CreateSfx( "Appear-KP-1137861048" );
 //			_cHealingSfx = ObjectCreationManager.cInstance.CreateSfx( "Computer_Magic-Microsift-1901299923" );
 //			_cHealingSfx = ObjectCreationManager.cInstance.CreateSfx( "Electrical_Sweep-Sweeper-1760111493" );
 

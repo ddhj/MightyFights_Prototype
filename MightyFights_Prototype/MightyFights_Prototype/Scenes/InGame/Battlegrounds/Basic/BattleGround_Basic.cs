@@ -25,7 +25,7 @@ namespace MightyFights_Prototype
 		Texture2D		_cBackground,
 						_cHudBorder;
 		SpriteBatch		_cSpriteBatch;
-		ObjectManager	_cObjMgr = new ObjectManager();
+		BattleObjectManager	_cObjMgr = new BattleObjectManager();
 		Cursor			_cCursor;
 		BattlegroundData	_cBattleData = new BattlegroundData();
 
@@ -106,7 +106,7 @@ namespace MightyFights_Prototype
 								_cBattleData.eState = EBattlegroundState.Victory;
 
 								MediaPlayer.Stop( );
-								_cBgm = ObjectCreationManager.cInstance.CreateMusic( "Minibossies_FinalFantasy6_VictoryFanfare" );
+								_cBgm = DataManager.cInstance.CreateMusic( "Minibossies_FinalFantasy6_VictoryFanfare" );
 								if(DataStore.cInstance.bPlayMusic) MediaPlayer.Play( _cBgm );
 
 								_cDlg.InitGridData();
@@ -292,7 +292,7 @@ namespace MightyFights_Prototype
 			//DataStore.cInstance.cBgm = 
 			//    _cBgm = ObjectCreationManager.cInstance.CreateMusic( saMusic[DataStore.cInstance.cRand.Next( saMusic.Length )] );
 			DataStore.cInstance.cBgm = 
-			    _cBgm = ObjectCreationManager.cInstance.CreateMusic( "battle1" );
+			    _cBgm = DataManager.cInstance.CreateMusic( "battle1" );
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = .6f;
 			if(DataStore.cInstance.bPlayMusic)	MediaPlayer.Play( _cBgm );
@@ -365,7 +365,7 @@ namespace MightyFights_Prototype
 			_cTmpList.Clear();
 			foreach(TemplateCfgMaster cTmplateCfg in cList)
 				for(int i = 0; i < cTmplateCfg.iCount; ++i)
-					_cTmpList.Add(ObjectCreationManager.cInstance.CreateTemplate(cTmplateCfg));
+					_cTmpList.Add(DataManager.cInstance.CreateTemplate(cTmplateCfg));
 		}
 
 		bool GetTrooperTemplate(out TrooperTemplate cTemplate)
@@ -386,7 +386,7 @@ namespace MightyFights_Prototype
 			ContentManager	cContent = cData.cContent;
 			GraphicsDevice	cGraphics = cData.cGraphics;
 			Trooper			cTmpTrooper = null;
-			ObjectCreationManager	cObjMgr = ObjectCreationManager.cInstance;
+			DataManager	cObjMgr = DataManager.cInstance;
 			Team			cTeam;
 			Priest			cHealer;
 			TrooperTemplate cTemplate;
@@ -417,8 +417,8 @@ namespace MightyFights_Prototype
 
 				_cObjMgr.CreateParticleManager( );
 
-				_cBuffSfx = ObjectCreationManager.cInstance.CreateSfx( "Magic Wand Noise-SoundBible.com-375928671" );
-				_cHammerSfx = ObjectCreationManager.cInstance.CreateSfx( "Electronic_Chime-KevanGC-495939803" );
+				_cBuffSfx = DataManager.cInstance.CreateSfx( "Magic Wand Noise-SoundBible.com-375928671" );
+				_cHammerSfx = DataManager.cInstance.CreateSfx( "Electronic_Chime-KevanGC-495939803" );
 				_cBuffSfx.Volume = _cHammerSfx.Volume = .4f;
 
 
@@ -473,7 +473,7 @@ namespace MightyFights_Prototype
 				CreateBuffContainers();
 
 				// add the hammer
-				_cObjMgr.AddObject(ObjectCreationManager.cInstance.CreateHammerIcon());
+				_cObjMgr.AddObject(DataManager.cInstance.CreateHammerIcon());
 
 				_cCursor = new Cursor();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");

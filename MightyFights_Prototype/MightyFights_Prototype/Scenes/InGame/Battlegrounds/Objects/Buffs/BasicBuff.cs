@@ -38,7 +38,7 @@ namespace MightyFights_Prototype
 		public BasicBuff(BattlegroundData cBgData)
 		{
 			_cBgData = cBgData;
-			_cSparkle = ObjectCreationManager.cInstance.CreateParticleSystem( "Buff Sparkle" );
+			_cSparkle = DataManager.cInstance.CreateParticleSystem( "Buff Sparkle" );
 			_cBgData.cObjMgr.AddParticleEffect( _cSparkle );
 		}
 		public BasicBuff(AnimationData cAnimData, EBuffEffects eType, int iItterations, BattlegroundData cBgData) : base()
@@ -54,7 +54,7 @@ namespace MightyFights_Prototype
 			this.eType = eType;
 
 			tPos = GetDestPos();
-			_cSparkle = ObjectCreationManager.cInstance.CreateParticleSystem( "Buff Sparkle" );
+			_cSparkle = DataManager.cInstance.CreateParticleSystem( "Buff Sparkle" );
 			_cBgData.cObjMgr.AddParticleEffect( _cSparkle );
 		}
 
@@ -208,9 +208,9 @@ namespace MightyFights_Prototype
 			_cBuff = cBuff;
 
 			// get the draw data for this object
-			ObjectCreationManager.cInstance.CreateBuffRadiusObj(this);
+			DataManager.cInstance.CreateBuffRadiusObj(this);
 
-			this.iId = ObjectCreationManager.cInstance.iCurObjId;
+			this.iId = DataManager.cInstance.iCurObjId;
 			this.eObjState = EObjectStates.Draw | EObjectStates.Active;
 
 			// set up our color so we have some transparency during draw
@@ -325,7 +325,7 @@ namespace MightyFights_Prototype
 			_eType = eType; 
 			this.dlBuffEffect = dlBuffEffect;
 
-			_cBuffGem = ObjectCreationManager.cInstance.CreateBuffGem(eType);
+			_cBuffGem = DataManager.cInstance.CreateBuffGem(eType);
 		}
 
 		public bool BuffAction(Action cAction, GameTime cTime)

@@ -213,7 +213,7 @@ namespace MightyFights_Prototype
 				_cTakenColors.Add(_cRT1.sColor, true);
 				_cTakenColors.Add(_cRT2.sColor, true);
 
-				_cMusic = ObjectCreationManager.cInstance.CreateMusic( "Final_Fantasy_4_Submission_OC_ReMix" );
+				_cMusic = DataManager.cInstance.CreateMusic( "Final_Fantasy_4_Submission_OC_ReMix" );
 
 				_cCursor = new ClickableSprite();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");

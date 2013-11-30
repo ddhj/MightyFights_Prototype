@@ -91,7 +91,7 @@ namespace MightyFights_Prototype
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 				_cCampGround = cContent.Load<Texture2D>(@"In Game\Camp\ground");
 				_cFont = cContent.Load<SpriteFont>(@"Shared\DebugFont");
-				_cBgm = ObjectCreationManager.cInstance.CreateMusic(@"\Camp\" + saMusic[_cRand.Next(saMusic.Length)]);
+				_cBgm = DataManager.cInstance.CreateMusic(@"\Camp\" + saMusic[_cRand.Next(saMusic.Length)]);
 
 				// these will all have to be sprites into the object manager when we get the sprite data for them
 				_cBarracks = cContent.Load<Texture2D>(@"In Game\Camp\barracks");

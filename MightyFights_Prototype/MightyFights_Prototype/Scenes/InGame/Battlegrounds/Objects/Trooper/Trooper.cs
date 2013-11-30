@@ -121,10 +121,10 @@ namespace MightyFights_Prototype
 			_eObjState = EObjectStates.Active | EObjectStates.Draw;
 
 			// get the id from the object manager proper
-			this.iId = ObjectCreationManager.cInstance.iCurObjId;
+			this.iId = DataManager.cInstance.iCurObjId;
 
-			_cSfxCrit = ObjectCreationManager.cInstance.CreateSfx( "Decapitation-SoundBible.com-800292304" );
-			_cSfxParry = ObjectCreationManager.cInstance.CreateSfx( "Swords_Collide-Sound_Explorer-2015600826" );
+			_cSfxCrit = DataManager.cInstance.CreateSfx( "Decapitation-SoundBible.com-800292304" );
+			_cSfxParry = DataManager.cInstance.CreateSfx( "Swords_Collide-Sound_Explorer-2015600826" );
 			_cSfxCrit.Volume = _cSfxParry.Volume = .2f;
 		}
 		
@@ -353,7 +353,7 @@ namespace MightyFights_Prototype
 						_cSfxCrit.Stop( );
 					_cSfxCrit.Play( );
 
-					_cBloodSpray = ObjectCreationManager.cInstance.CreateTerminatingParticleSystem( "BloodSpray" );
+					_cBloodSpray = DataManager.cInstance.CreateTerminatingParticleSystem( "BloodSpray" );
 					_cBattleDataRef.cObjMgr.AddParticleEffect( _cBloodSpray );
 				}
 

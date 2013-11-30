@@ -33,7 +33,7 @@ namespace MightyFights_Prototype
 		public ClickableSprite()
 		{
 			this.eObjState = EObjectStates.Draw;
-			this.iId = ObjectCreationManager.cInstance.iCurObjId;
+			this.iId = DataManager.cInstance.iCurObjId;
 		}
 
 		public virtual bool ContainsPoint(Point tPoint) 
@@ -69,7 +69,7 @@ namespace MightyFights_Prototype
 		public BasicSprite()
 		{
 			this.eObjState = EObjectStates.Draw;
-			this.iId = ObjectCreationManager.cInstance.iCurObjId;
+			this.iId = DataManager.cInstance.iCurObjId;
 		}
 
 		public virtual void Draw(SpriteBatch cBatch) 

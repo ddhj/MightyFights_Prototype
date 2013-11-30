@@ -30,7 +30,7 @@ namespace MightyFights_Prototype
 		SpriteFont		_cFont;
 		Cursor			_cCursor;
 
-		ObjectManager	_cObjMgr = new ObjectManager();
+		BattleObjectManager	_cObjMgr = new BattleObjectManager();
 
 		ClickableSprite	_cDungeon, 
 						_cCitadel, 
@@ -87,7 +87,7 @@ namespace MightyFights_Prototype
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 				_cMapBackground = cContent.Load<Texture2D>(@"In Game\Map\littlemap");
 				_cFont = cContent.Load<SpriteFont>(@"Shared\DebugFont");
-				_cBgm = ObjectCreationManager.cInstance.CreateMusic(@"\Camp\" + saMusic[_cRand.Next(saMusic.Length)]);
+				_cBgm = DataManager.cInstance.CreateMusic(@"\Camp\" + saMusic[_cRand.Next(saMusic.Length)]);
 
 				// these will all have to be sprites into the object manager when we get the sprite data for them
 				

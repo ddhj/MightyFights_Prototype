@@ -127,21 +127,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game Objects\AnimatingDamage.cs" />
-    <Compile Include="Game Objects\BasicSprite.cs" />
-    <Compile Include="Game Objects\Buffs\BasicBuff.cs" />
-    <Compile Include="Game Objects\Buffs\BuffContainer.cs" />
-    <Compile Include="Game Objects\Cursor.cs" />
-    <Compile Include="Game Objects\Healer\Healer.cs" />
-    <Compile Include="Game Objects\Healer\HealerActMgr.cs" />
-    <Compile Include="Game Objects\Healer\Healer_Actions.cs" />
-    <Compile Include="Game Objects\Trooper\Trooper.cs" />
-    <Compile Include="Game Objects\Trooper\Trooper_Actions.cs" />
-    <Compile Include="Game Objects\Trooper\Trooper_Huristics.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Managers\BMenuManager.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Objects\AnimatingDamage.cs" />
+    <Compile Include="Base Objects\BasicSprite.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Objects\Buffs\BasicBuff.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Objects\Buffs\BuffContainer.cs" />
+    <Compile Include="Base Objects\Cursor.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Objects\Healer\Healer.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Objects\Healer\HealerActMgr.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Objects\Healer\Healer_Actions.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Objects\Trooper\Trooper.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Objects\Trooper\Trooper_Actions.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Objects\Trooper\Trooper_Huristics.cs" />
     <Compile Include="Interfaces\IBuffableObject.cs" />
     <Compile Include="Interfaces\IObject.cs" />
+    <Compile Include="Management Classes\DataManager.cs" />
     <Compile Include="Management Classes\DataStore.cs" />
-    <Compile Include="Management Classes\ObjectManager.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Managers\BObjectManager.cs" />
     <Compile Include="Management Classes\Steward.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
@@ -149,6 +151,8 @@
     <Compile Include="Scenes\InGame\Battlegrounds\Basic\BattleGround_Basic_Events.cs" />
     <Compile Include="Scenes\InGame\Camp\Camp.cs" />
     <Compile Include="Scenes\InGame\Camp\Camp_Events.cs" />
+    <Compile Include="Scenes\InGame\Camp\Managers\BMenuManager.cs" />
+    <Compile Include="Scenes\InGame\Camp\Managers\BObjectManager.cs" />
     <Compile Include="Scenes\InGame\Dialogs\DebugData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,7 +170,7 @@
     <Compile Include="Scenes\InGame\Map\Map_Events.cs" />
     <Compile Include="Scenes\InGame\Team.cs" />
     <Compile Include="Scenes\OutGame\MainMenu.cs" />
-    <Compile Include="Game Objects\Trooper\TrooperActMgr.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Objects\Trooper\TrooperActMgr.cs" />
     <Compile Include="Scenes\InGame\Template\Objects\FrontGuys.cs" />
     <Compile Include="Scenes\InGame\Template\Objects\Slider.cs" />
     <Compile Include="Scenes\InGame\Template\Objects\StatDisplay.cs" />
