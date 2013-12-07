@@ -16,14 +16,14 @@ namespace MightyFights_Prototype	{
 				_iRadius;
 		Vector2	_tCenter;
 		List<Vector2>	_taOpenSpots = new List<Vector2>( );
-		Dictionary<int,KeyValuePair<Vector2,ICombatant>>	_cUsedSpots = new Dictionary<int,KeyValuePair<Vector2,ICombatant>>( );
+		Dictionary<int,KeyValuePair<Vector2,Combatant>>	_cUsedSpots = new Dictionary<int,KeyValuePair<Vector2,Combatant>>( );
 
 	// Properties
 		public bool bOpen	{ get { return _cUsedSpots.Count < _iMaxSlots; }}
 		public int iRadius	{ get { return _iRadius; }}
 		public Vector2 tNextOpenSpot	{ get { return _taOpenSpots[0]; }}
 		public Vector2 tCenter			{ get { return _tCenter; }}
-		public Dictionary<int,KeyValuePair<Vector2,ICombatant>> cUsedSpots	{ get { return _cUsedSpots; }}
+		public Dictionary<int,KeyValuePair<Vector2,Combatant>> cUsedSpots	{ get { return _cUsedSpots; }}
 
 		public List<Vector2> taOpenSpots	{ get { return _taOpenSpots; }}
 
@@ -77,13 +77,13 @@ namespace MightyFights_Prototype	{
 		}
 
 	// Functions
-		public void TakeSpot( ICombatant nSoldier )
+		public void TakeSpot( Combatant nSoldier )
 		{
-			_cUsedSpots.Add( nSoldier.iId, new KeyValuePair<Vector2,ICombatant>( _taOpenSpots[0], nSoldier ));
+			_cUsedSpots.Add( nSoldier.iId, new KeyValuePair<Vector2,Combatant>( _taOpenSpots[0], nSoldier ));
 			_taOpenSpots.RemoveAt( 0 );
 		}
 
-		public void FreeSpot( ICombatant nSoldier )
+		public void FreeSpot( Combatant nSoldier )
 		{
 			if( _cUsedSpots.ContainsKey( nSoldier.iId ))
 			{
@@ -95,7 +95,7 @@ namespace MightyFights_Prototype	{
 
 		public void ResetSpots( )
 		{
-			foreach( KeyValuePair<Vector2,ICombatant> tPair in _cUsedSpots.Values )
+			foreach( KeyValuePair<Vector2,Combatant> tPair in _cUsedSpots.Values )
 				_taOpenSpots.Add( tPair.Key );
 			_cUsedSpots.Clear( );
 		}

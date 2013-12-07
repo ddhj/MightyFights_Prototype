@@ -114,7 +114,7 @@ namespace MightyFights_Prototype
 			return cPriest;
 		}
 
-		public BasicBuff CreateBuff(ICombatant nCombatant, BattlegroundData cBgData)
+		public BasicBuff CreateBuff(Combatant nCombatant, BattlegroundData cBgData)
 		{
 			AnimationData		cAnimData;
 			Random				cRand = DataStore.cInstance.cRand;

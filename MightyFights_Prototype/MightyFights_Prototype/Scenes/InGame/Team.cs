@@ -18,16 +18,16 @@ namespace MightyFights_Prototype	{
 	// Data
 		int		_iId;
 		bool	_bLeftSide;
-		Dictionary<int,ICombatant>		_cActiveList = new Dictionary<int,ICombatant>( );
+		Dictionary<int,Combatant>		_cActiveList = new Dictionary<int,Combatant>( );
 		Dictionary<int,Priest>			_cHealerList = new Dictionary<int,Priest>( );
-		List<ICombatant>				_cMembers = new List<ICombatant>();
+		List<Combatant>				_cMembers = new List<Combatant>();
 
 	// Properties
 		public int iId			{ get { return _iId; }}
 		public bool bDirection	{ get { return _bLeftSide; }}
-		public Dictionary<int,ICombatant>	cActiveList	{ get { return _cActiveList; }}
+		public Dictionary<int,Combatant>	cActiveList	{ get { return _cActiveList; }}
 		public Dictionary<int,Priest>		cHealerList	{ get { return _cHealerList; }}
-		public List<ICombatant> cMembers { get { return _cMembers; }}
+		public List<Combatant> cMembers { get { return _cMembers; }}
 
 	// Constructor
 		public Team( int iId, bool bLeftTeam )

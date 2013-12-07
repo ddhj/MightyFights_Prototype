@@ -32,7 +32,7 @@ namespace MightyFights_Prototype
 
 			foreach( Team cTeam in _cBattleData.caTeams )
 				if( cTeam.cActiveList.Count != 0 ) 
-					foreach(ICombatant nCom in cTeam.cActiveList.Values)
+					foreach(Combatant nCom in cTeam.cActiveList.Values)
 						cExpDataSer.WriteObject(cData, nCom.cExpData);
 			
 			using(var vFile = System.IO.File.Create(string.Format("ExpData_{0}.txt", DateTime.Now.ToString("u").Replace(":", "")))) { 

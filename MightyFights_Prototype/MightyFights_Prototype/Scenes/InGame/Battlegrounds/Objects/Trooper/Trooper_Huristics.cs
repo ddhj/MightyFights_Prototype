@@ -19,7 +19,7 @@ namespace MightyFights_Prototype
 			Random		cRand = DataStore.cInstance.cRand;
 			int			iAttackPercent,
 						iCritChance;
-			ICombatant	nOpponent = (ICombatant)this.nTarget;
+			Combatant	nOpponent = (Combatant)this.nTarget;
 
 			// check to see if our opponent is living 
 			if(nOpponent.IsDead()) { 
@@ -99,7 +99,7 @@ namespace MightyFights_Prototype
 
 				// check to see if we are engaged in an attack 
 				if(_bAttacking) { 
-					((ICombatant)this.nTarget ).RemoveAttacker(_iAttackingPos);
+					((Combatant)this.nTarget ).RemoveAttacker(_iAttackingPos);
 					_bAttacking = false;
 				}
 				this.nTarget = null;
@@ -117,7 +117,7 @@ namespace MightyFights_Prototype
 
 		void Flee( )
 		{
-			SortedList<int,IHealer>	cHealersByDist = new SortedList<int,IHealer>( );
+			SortedList<int,Healer>	cHealersByDist = new SortedList<int,Healer>( );
 			Random		cRand = DataStore.cInstance.cRand;
 			Vector2		tPos;
 			int			iDst;
@@ -126,7 +126,7 @@ namespace MightyFights_Prototype
 			this.nTarget = null;
 
 			// build up available healer list by distance
-			foreach( IHealer nHealer in _cTeam.cHealerList.Values )
+			foreach( Healer nHealer in _cTeam.cHealerList.Values )
 				if( nHealer.bActive && nHealer.bAvailableSpots )
 				{
 					tPos = nHealer.GetOpenLocation( );
@@ -172,7 +172,7 @@ namespace MightyFights_Prototype
 			{
 				if(_cStats.fHp > _cStats.iHealPoint)
 				{
-					((IHealer)this.nTarget ).FreeSpot( this );
+					((Healer)this.nTarget ).FreeSpot( this );
 
 					RemoveHeal( );
 				}
@@ -196,16 +196,16 @@ namespace MightyFights_Prototype
 			return null;
 		}
 
-		ICombatant ChooseZoneCombatantDst(List<ICombatant> naCombatants)
+		Combatant ChooseZoneCombatantDst(List<Combatant> naCombatants)
 		{
 			// lets grab the closest guy 
 			////ddhj: this could technically be a heuristic if we wanted 
 			Vector2		tTarget;
 			int			iTmp = int.MaxValue,
 						iTmp2;
-			ICombatant	nNewOpponent = null;
+			Combatant	nNewOpponent = null;
 
-			foreach(ICombatant nCombatant in naCombatants) { 
+			foreach(Combatant nCombatant in naCombatants) { 
 				// get the vector to the combatant and test if its the shortest
 				tTarget = nCombatant.tPos - _tPos;
 				if((iTmp2 = (int)tTarget.LengthSquared()) < iTmp) { 
@@ -217,14 +217,14 @@ namespace MightyFights_Prototype
 			return nNewOpponent;
 		}
 
-		ICombatant ChooseZoneCombatantRand(List<ICombatant> naCombatants)
+		Combatant ChooseZoneCombatantRand(List<Combatant> naCombatants)
 		{
 			int			iIndex;
 			Random		cRand = DataStore.cInstance.cRand;
-			ICombatant	nCombatant;
+			Combatant	nCombatant;
 								// copy list for removal
-			List<ICombatant>	naTmpList = new List<ICombatant>( naCombatants ),
-								naFleeing = new List<ICombatant>( );
+			List<Combatant>	naTmpList = new List<Combatant>( naCombatants ),
+								naFleeing = new List<Combatant>( );
 
 			// skip fleeing guys at first
 			for( int iCount = 0; iCount < naTmpList.Count; ++iCount )
@@ -256,13 +256,13 @@ namespace MightyFights_Prototype
 			return null;
 		}
 
-		ICombatant ChooseZoneCombatantRand_NoFlee( List<ICombatant> naCombatants)
+		Combatant ChooseZoneCombatantRand_NoFlee( List<Combatant> naCombatants)
 		{
 			int			iIndex;
 			Random		cRand = DataStore.cInstance.cRand;
-			ICombatant	nCombatant;
+			Combatant	nCombatant;
 								// copy list for removal
-			List<ICombatant>	naTmpList = new List<ICombatant>( naCombatants );
+			List<Combatant>	naTmpList = new List<Combatant>( naCombatants );
 
 			// skip fleeing guys at first
 			for( int iCount = 0; iCount < naTmpList.Count; ++iCount )
@@ -284,9 +284,9 @@ namespace MightyFights_Prototype
 			return null;
 		}
 
-		List<ICombatant> BuildNearbyZoneOpponenents( Zone cZone, int iOppIdx )
+		List<Combatant> BuildNearbyZoneOpponenents( Zone cZone, int iOppIdx )
 		{
-			List<ICombatant>	naNearbyList = new List<ICombatant>( ),
+			List<Combatant>	naNearbyList = new List<Combatant>( ),
 								naZoneList;
 
 			for( int iY = -1; iY <= 1; ++iY )
@@ -306,13 +306,13 @@ namespace MightyFights_Prototype
 
 			return naNearbyList;
 		}
-		ICombatant ChooseZoneCombatantRand_NearbyZones( Zone cZone, int iOppIdx )
+		Combatant ChooseZoneCombatantRand_NearbyZones( Zone cZone, int iOppIdx )
 		{
 			int			iIndex;
 			Random		cRand = DataStore.cInstance.cRand;
-			ICombatant	nCombatant;
-			List<ICombatant>	naNearbyList = new List<ICombatant>( ),
-								naFleeing = new List<ICombatant>( );
+			Combatant	nCombatant;
+			List<Combatant>	naNearbyList = new List<Combatant>( ),
+								naFleeing = new List<Combatant>( );
 
 			naNearbyList = BuildNearbyZoneOpponenents( cZone, iOppIdx );
 			if( naNearbyList.Count > 0 )
@@ -359,7 +359,7 @@ namespace MightyFights_Prototype
 			// check to see if I have any attackers currently attacking me 
 			if(_cAttackers.Count > 0) { 
 				// check the weakest of my opponents and attack them
-				foreach(ICombatant nCombatant in _cAttackers.Values) { 
+				foreach(Combatant nCombatant in _cAttackers.Values) { 
 					if(nCombatant.cStats.fHp < iTmp) { 
 						nTarget = nCombatant;
 						iTmp = (int)nCombatant.cStats.fHp;

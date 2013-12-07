@@ -30,7 +30,7 @@ namespace MightyFights_Prototype
 		BattlegroundData	_cBattleData = new BattlegroundData();
 
 		Dictionary<string, List<IDrawable>>		_cDrawList = new Dictionary<string,List<IDrawable>>();
-		Dictionary<string, List<ICombatant>>	_cTrooperRef = new Dictionary<string,List<ICombatant>>();
+		Dictionary<string, List<Combatant>>	_cTrooperRef = new Dictionary<string,List<Combatant>>();
 		Dictionary<EBuffEffects, BuffContainer>		_cBuffContainerList = new Dictionary<EBuffEffects,BuffContainer>();
 		List<TrooperTemplate>	_cTmpList = new List<TrooperTemplate>();
 
@@ -240,7 +240,7 @@ namespace MightyFights_Prototype
 					iX = 9, iY = 0;
 			Trooper	cTrooper;
 
-			foreach( ICombatant nCombatant in _cBattleData.caTeams[0].cActiveList.Values )
+			foreach( Combatant nCombatant in _cBattleData.caTeams[0].cActiveList.Values )
 			{
 				cTrooper = (Trooper)nCombatant;
 
@@ -266,7 +266,7 @@ namespace MightyFights_Prototype
 			iX = iY = 0;
 			iCount = 0;
 
-			foreach( ICombatant nCombatant in _cBattleData.caTeams[1].cActiveList.Values )
+			foreach( Combatant nCombatant in _cBattleData.caTeams[1].cActiveList.Values )
 			{
 				cTrooper = (Trooper)nCombatant;
 

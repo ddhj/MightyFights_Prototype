@@ -20,13 +20,13 @@ namespace MightyFights_Prototype
 
 				// remove ourselves from our opponents attaking point
 				if(this.nTarget != null)
-					if(this.nTarget is ICombatant)
+					if(this.nTarget is Combatant)
 					{
 						if(_bAttacking)
-							((ICombatant)nTarget ).RemoveAttacker(_iAttackingPos);
+							((Combatant)nTarget ).RemoveAttacker(_iAttackingPos);
 					}
-					else if( this.nTarget is IHealer )
-						((IHealer)this.nTarget ).FreeSpot( this );
+					else if( this.nTarget is Healer )
+						((Healer)this.nTarget ).FreeSpot( this );
 
 				// remove the dying trooper from the zone they are in 
 				DataStore.cInstance.cBattleData.RemoveDeadCombatant(this);
@@ -165,7 +165,7 @@ namespace MightyFights_Prototype
 
 		public bool FleeToHealer(Action cAction, GameTime cTime)
 		{
-			IHealer		nHealer = (IHealer)this.nTarget;
+			Healer		nHealer = (Healer)this.nTarget;
 			Vector2		tDest,
 						tDirVect;
 			
@@ -254,7 +254,7 @@ namespace MightyFights_Prototype
 		{
 			Vector2		tDest,
 						tDirVect;
-			ICombatant	nOpponent = (ICombatant)this.nTarget,
+			Combatant	nOpponent = (Combatant)this.nTarget,
 						nPasserby;
 			
 			// check to see if we need to make the direction vector or not
@@ -322,7 +322,7 @@ namespace MightyFights_Prototype
 		{
 			Vector2		tDest,
 						tDirVect;
-			ICombatant	nOpponent = (ICombatant)this.nTarget,
+			Combatant	nOpponent = (Combatant)this.nTarget,
 						nPasserby;
 			
 			// check to see if we need to make the direction vector or not

@@ -17,7 +17,7 @@ using ProjectMercury;
 using MightyFights_Support;
 
 namespace MightyFights_Prototype	{
-	public partial class Priest : IHealer, IDrawable, IDrawableTexture, IAnimate, IActive<Priest>	
+	public partial class Priest : Healer, IDrawable, IDrawableTexture, IAnimate, IActive<Priest>	
 	{
 	// Data
 		int			_iId,
@@ -108,13 +108,13 @@ namespace MightyFights_Prototype	{
 			return _cSupportZone.tNextOpenSpot;
 		}
 
-		public void TakeSpot( ICombatant nSoldier )
+		public void TakeSpot( Combatant nSoldier )
 		{
 			_cSupportZone.TakeSpot( nSoldier );
 			++nSoldier.cExpData.iHealed;
 		}
 
-		public void FreeSpot( ICombatant nSoldier )
+		public void FreeSpot( Combatant nSoldier )
 		{
 			_cSupportZone.FreeSpot( nSoldier );
 		}
@@ -132,7 +132,7 @@ namespace MightyFights_Prototype	{
 				_cHealingSfx.Play( );
 
 			// heal all the troopers in the zone
-			foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
+			foreach( KeyValuePair<Vector2,Combatant> tPair in _cSupportZone.cUsedSpots.Values )
 			{
 				if( _fHp > 0 ) { 
 					// set the exp for times healed by a healer
@@ -147,7 +147,7 @@ namespace MightyFights_Prototype	{
 			// out of hp to give, toss everyone out
 			if( _fHp <= float.Epsilon )
 			{
-				foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
+				foreach( KeyValuePair<Vector2,Combatant> tPair in _cSupportZone.cUsedSpots.Values )
 					tPair.Value.RemoveHeal( );
 				_cSupportZone.ResetSpots( );
 				_eState = EHealerStates.Recharging;

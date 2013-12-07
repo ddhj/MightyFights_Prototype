@@ -84,7 +84,7 @@ namespace MightyFights_Prototype
 		public int iX	{ get { return _cPoint.iX; } set { _cPoint.iX = value; }}
 		public int iY	{ get { return _cPoint.iY; } set { _cPoint.iY = value; }}
 		public IntPoint	cPoint		{ get { return _cPoint; } set { _cPoint = value; }}
-		public List<List<ICombatant>>	naCombatantLists { get; set; }
+		public List<List<Combatant>>	naCombatantLists { get; set; }
 
 		public Zone(int iId, int iX, int iY)
 		{
@@ -122,12 +122,12 @@ namespace MightyFights_Prototype
 				_caBattleZones[iZoneCol] = new Zone[(int)EZoneData.ZoneRows];
 				for(int iZoneRow = 0; iZoneRow < (int)EZoneData.ZoneRows; ++iZoneRow) { 
 					cTmpZone = new Zone(iZoneRow * (int)EZoneData.ZoneRows + iZoneCol, iZoneCol, iZoneRow);
-					cTmpZone.naCombatantLists = new List<List<ICombatant>>();
+					cTmpZone.naCombatantLists = new List<List<Combatant>>();
 					
 					// allocate the army list 
-					cTmpZone.naCombatantLists.Add(new List<ICombatant>());
+					cTmpZone.naCombatantLists.Add(new List<Combatant>());
 					// allocate the opponent list
-					cTmpZone.naCombatantLists.Add(new List<ICombatant>());
+					cTmpZone.naCombatantLists.Add(new List<Combatant>());
 
 					// set the zone 
 					_caBattleZones[iZoneCol][iZoneRow] = cTmpZone;
@@ -147,62 +147,62 @@ namespace MightyFights_Prototype
 
 		}
 
-		public void SetZone(ICombatant nCombatant)
+		public void SetZone(Combatant cCombatant)
 		{
 			// get the position of the trooper in the zones 
-			int		iXPos = ((int)nCombatant.tCenter.X - 112) / (int)EZoneData.ZoneColWidth, 
-					iYPos = ((int)nCombatant.tCenter.Y - 70) / (int)EZoneData.ZoneRowHeight;
+			int		iXPos = ((int)cCombatant.tCenter.X - 112) / (int)EZoneData.ZoneColWidth, 
+					iYPos = ((int)cCombatant.tCenter.Y - 70) / (int)EZoneData.ZoneRowHeight;
 
-			Zone	cZone = nCombatant.cZone;
+			Zone	cZone = cCombatant.cZone;
 
 			// check to see if we have a zone at all 
-			if(nCombatant.cZone == null) { 
+			if(cCombatant.cZone == null) { 
 				// this check is for the start 
 				if(iXPos < 0 || iYPos < 0 || iXPos >= (int)EZoneData.ZoneColumns || iYPos >= (int)EZoneData.ZoneRows)
 					return;
 
-				cZone = nCombatant.cZone = caBattleZones[iXPos][iYPos];
+				cZone = cCombatant.cZone = caBattleZones[iXPos][iYPos];
 
 				// add combatant to the zone list 
-				caBattleZones[iXPos][iYPos].naCombatantLists[nCombatant.cTeam.iId].Add(nCombatant);
+				caBattleZones[iXPos][iYPos].naCombatantLists[cCombatant.cTeam.iId].Add(cCombatant);
 			} else {
 				// check to see if we are in the same zone 
-				if(nCombatant.cZone.iX != iXPos || nCombatant.cZone.iY != iYPos) { 
+				if(cCombatant.cZone.iX != iXPos || cCombatant.cZone.iY != iYPos) { 
 					// remove the combatant from the zone
-					nCombatant.cZone.naCombatantLists[nCombatant.cTeam.iId].Remove(nCombatant);
+					cCombatant.cZone.naCombatantLists[cCombatant.cTeam.iId].Remove(cCombatant);
 
 					// check to see if the zone is empty 
-					if(nCombatant.cZone.naCombatantLists[nCombatant.cTeam.iId].Count == 0) 
+					if(cCombatant.cZone.naCombatantLists[cCombatant.cTeam.iId].Count == 0) 
 						// remove this zone as an active zone for the army 
-						_caActiveZones[nCombatant.cTeam.iId].Remove(nCombatant.cZone.iId);
+						_caActiveZones[cCombatant.cTeam.iId].Remove(cCombatant.cZone.iId);
 
 					// set the new zone 
-					cZone = nCombatant.cZone = caBattleZones[iXPos][iYPos];
+					cZone = cCombatant.cZone = caBattleZones[iXPos][iYPos];
 
 					// add combatant to the zone list 
-					caBattleZones[iXPos][iYPos].naCombatantLists[nCombatant.cTeam.iId].Add(nCombatant);
+					caBattleZones[iXPos][iYPos].naCombatantLists[cCombatant.cTeam.iId].Add(cCombatant);
 				}
 			}
 							
 			// check to see if this zone is already in the list 
-			if(!_caActiveZones[nCombatant.cTeam.iId].ContainsKey(cZone.iId))
-				_caActiveZones[nCombatant.cTeam.iId].Add(cZone.iId, cZone);
+			if(!_caActiveZones[cCombatant.cTeam.iId].ContainsKey(cZone.iId))
+				_caActiveZones[cCombatant.cTeam.iId].Add(cZone.iId, cZone);
 		}
 
-		public void RemoveDeadCombatant(ICombatant nCombatant)
+		public void RemoveDeadCombatant(Combatant cCombatant)
 		{
 			Zone	cZone;
 
 			// decrement the active count on the army 
-			nCombatant.cTeam.cActiveList.Remove(nCombatant.iId);
+			cCombatant.cTeam.cActiveList.Remove(cCombatant.iId);
 			
 			// use the combatants zone reference to remove them from the list
-			cZone = caBattleZones[nCombatant.cZone.iX][nCombatant.cZone.iY];
-			cZone.naCombatantLists[nCombatant.cTeam.iId].Remove(nCombatant);
+			cZone = caBattleZones[cCombatant.cZone.iX][cCombatant.cZone.iY];
+			cZone.naCombatantLists[cCombatant.cTeam.iId].Remove(cCombatant);
 
 			// check to see if the zone is empty for this army 
-			if(cZone.naCombatantLists[nCombatant.cTeam.iId].Count == 0)
-				_caActiveZones[nCombatant.cTeam.iId].Remove(cZone.iId);
+			if(cZone.naCombatantLists[cCombatant.cTeam.iId].Count == 0)
+				_caActiveZones[cCombatant.cTeam.iId].Remove(cZone.iId);
 		}
 
 		public Zone GetZoneByCoords(int iX, int iY)
@@ -235,7 +235,7 @@ namespace MightyFights_Prototype
 		{
 			foreach(Zone[] caZoneCols in _caBattleZones)
 				foreach(Zone cZone in caZoneCols)
-					foreach(List<ICombatant> naCombatants in cZone.naCombatantLists)
+					foreach(List<Combatant> naCombatants in cZone.naCombatantLists)
 						naCombatants.Clear();
 
 			foreach(Dictionary<int, Zone> caActiveZones in _caActiveZones)
@@ -257,7 +257,7 @@ namespace MightyFights_Prototype
 		public void ApplyBuffTeam(BasicBuff cBuff)
 		{
 			// walk the team and 
-			foreach(KeyValuePair<int, ICombatant> tCombatant in _caTeams[0].cActiveList) 
+			foreach(KeyValuePair<int, Combatant> tCombatant in _caTeams[0].cActiveList) 
 				ApplyBuff(cBuff, tCombatant.Value);
 		}
 
@@ -275,7 +275,7 @@ namespace MightyFights_Prototype
 			
 			float	fDstSq = iRadius * iRadius;
 
-			List<ICombatant>	naTeamInRad = new List<ICombatant>();
+			List<Combatant>	naTeamInRad = new List<Combatant>();
 
 			// check to see if we are out of the zoned areas
 			if(cZone == null) return;
@@ -297,21 +297,21 @@ namespace MightyFights_Prototype
 			} else	naTeamInRad.AddRange( cZone.naCombatantLists[0] );
 
 			// walk the list of guys 
-			foreach(ICombatant nCom in naTeamInRad) 
+			foreach(Combatant nCom in naTeamInRad) 
 				// check dst squared 
 				if((tCentVect - nCom.tCenter).LengthSquared() < fDstSq)
 					// we are in our circle, so apply the buff to the guy
 					ApplyBuff(cBuff, nCom);
 		}
 
-		public void CreateDrop(ICombatant nCombatant)
+		public void CreateDrop(Combatant cCombatant)
 		{
 			if(DataStore.cInstance.cRand.Next(10) > 6)
 				this.cObjMgr.AddClickObject(DataManager.cInstance.CreateDrop("hammer", this), dlDropClick);
-			else this.cObjMgr.AddClickObject(DataManager.cInstance.CreateBuff(nCombatant, this), dlBuffClick);
+			else this.cObjMgr.AddClickObject(DataManager.cInstance.CreateBuff(cCombatant, this), dlBuffClick);
 		}
 
-		public Vector2 GetFleeSpot( ICombatant nCombatant )
+		public Vector2 GetFleeSpot( Combatant cCombatant )
 		{
 			Random		cRand = DataStore.cInstance.cRand;
 			int		iX = 0,
@@ -323,21 +323,21 @@ namespace MightyFights_Prototype
 			// side
 			case 0:
 				iX = cRand.Next( 2 );
-				iX = nCombatant.cTeam.iId == 0 ? iX : ((int)EZoneData.ZoneColumns - 2 + iX );
+				iX = cCombatant.cTeam.iId == 0 ? iX : ((int)EZoneData.ZoneColumns - 2 + iX );
 				iY = 1 + cRand.Next((int)EZoneData.ZoneRows - 2 );
 				break;
 
 			// top
 			case 1:
 				iX = cRand.Next( 2 );
-				iX = nCombatant.cTeam.iId == 0 ? iX : ((int)EZoneData.ZoneColumns - 2 + iX );
+				iX = cCombatant.cTeam.iId == 0 ? iX : ((int)EZoneData.ZoneColumns - 2 + iX );
 				iY = 0;
 				break;
 
 			// bottom
 			case 2:
 				iX = cRand.Next( 2 );
-				iX = nCombatant.cTeam.iId == 0 ? iX : ((int)EZoneData.ZoneColumns - 2 + iX );
+				iX = cCombatant.cTeam.iId == 0 ? iX : ((int)EZoneData.ZoneColumns - 2 + iX );
 				iY = (int)EZoneData.ZoneRows - 1;
 				break;
 			}

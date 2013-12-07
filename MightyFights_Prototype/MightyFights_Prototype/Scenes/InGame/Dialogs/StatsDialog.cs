@@ -25,7 +25,7 @@ namespace MightyFights_Prototype
 			string			sTemplateName;
 			Trooper			cTrooper;
 
-			foreach(ICombatant nCombatant in cTeam.cMembers) { 
+			foreach(Combatant nCombatant in cTeam.cMembers) { 
 				cTrooper = (Trooper)nCombatant;
 				sTemplateName = cTrooper.sTemplateName;
 				switch(sTemplateName) { 
@@ -39,7 +39,7 @@ namespace MightyFights_Prototype
 			_cLSumData.Add(cLSumData);
 
 			cTeam = DataStore.cInstance.cBattleData.caTeams[1];
-			foreach(ICombatant nCombatant in cTeam.cMembers) { 
+			foreach(Combatant nCombatant in cTeam.cMembers) { 
 				cTrooper = (Trooper)nCombatant;
 				sTemplateName = cTrooper.sTemplateName;
 				switch(sTemplateName) { 

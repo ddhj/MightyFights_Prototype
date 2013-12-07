@@ -13,7 +13,7 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public partial class Priest : IHealer, IDrawable, IDrawableTexture, IAnimate, IActiveBasic
+	public partial class Priest : Healer, IDrawable, IDrawableTexture, IAnimate, IActiveBasic
 	{
 		bool Upkeep(Action cAction, GameTime cTime) 
 		{
@@ -43,7 +43,7 @@ namespace MightyFights_Prototype
 								_cActMgr.AddAction(new Action(HealInit, null, null));
 							} else { 
 								// tell everyone to go away
-								foreach( KeyValuePair<Vector2,ICombatant> tPair in _cSupportZone.cUsedSpots.Values )
+								foreach( KeyValuePair<Vector2,Combatant> tPair in _cSupportZone.cUsedSpots.Values )
 									tPair.Value.RemoveHeal( );
 								_cSupportZone.ResetSpots( );
 							}

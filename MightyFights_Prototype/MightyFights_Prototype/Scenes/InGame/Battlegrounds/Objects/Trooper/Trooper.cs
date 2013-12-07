@@ -16,18 +16,14 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public partial class Trooper : IDrawable, IDrawableTexture, IAnimate, ICombatant, IActive<Trooper>, IObject, IBuffableObject
+	public partial class Trooper : Combatant, IDrawable, IDrawableTexture, IAnimate, IActive<Trooper>, IObject, IBuffableObject
 	{	
-		Vector2		_tPos,
-					_tCenter;
 		Texture2D	_cTexRef;
-		Stats		_cStats,
-					_cInitialStats;
+		Stats		_cInitialStats;
 		Team		_cTeam;
 		int			_iAvailablePositions = 6,
 					_iCurLeftAttackers = 0,
 					_iCurRightAttakers = 0,
-					_iId,
 					_iAttackingPos;
 		float		_fZorder,
 					_fScale = 1.25f;
@@ -35,17 +31,15 @@ namespace MightyFights_Prototype
 		bool		_bAttacking;
 
 		ParticleEffect				_cBloodSpray;
-		EObjectStates				_eObjState;
 		ActionManager<Trooper>		_cActionMgr;
 		AnimationProcessor			_cAnimProc;
 		BattlegroundData			_cBattleDataRef = null;
 
-		ExperienceData				_cExpData = new ExperienceData();
 		SoundEffectInstance			_cSfxCrit,
 									_cSfxParry;
 
 		Dictionary<EBuffEffects, BuffActionData>	_cBuffList = new Dictionary<EBuffEffects,BuffActionData>();
-		Dictionary<ETrooperAttackPos, ICombatant>	_cAttackers = new Dictionary<ETrooperAttackPos,ICombatant>();
+		Dictionary<ETrooperAttackPos, Combatant>	_cAttackers = new Dictionary<ETrooperAttackPos,Combatant>();
 
 		////ddhj template stuff... not sure if it should go on trooper proper
 		float	_fRunMovementSpeed,
@@ -56,20 +50,10 @@ namespace MightyFights_Prototype
 		public int iId					{ get; set; }
 		public bool bActive				{ get; set; }
 		public bool bDir				{ get; set; }
-		public bool bPoisonBlade		{ get; set; }
-		public IBattleObj nTarget		{ get; set; }
-		public AiBattleData cAiData		{ get; set; }
-		public int iWeaponRange			{ get; set; }
 		public int iWeaponRngSq			{ get; set; }
-		public Zone cZone				{ get; set; }
-		public Team cTeam				{ get { return _cTeam; }}
-		public EObjectStates eObjState	{ get { return _eObjState; } set { _eObjState = value; }}
-		public Stats cStats				{ get { return _cStats; } set { _cStats = value; }}
-		public bool bAvailablePos		{ get { return _iCurLeftAttackers + _iCurRightAttakers < _iAvailablePositions; }} 
+		public new bool bAvailablePos	{ get { return _iCurLeftAttackers + _iCurRightAttakers < _iAvailablePositions; }} 
 		public Vector2 tAttackPos		{ get; set; }
-		public Vector2 tCenter			{ get { return _tCenter; } set { _tCenter = value; }}
 		public float fZorder			{ get { return _fZorder; }}
-		public ExperienceData cExpData	{ get { return _cExpData; }}
 
 		//// ddhj: this is just for the stats dialog, longer term we are probably going to need the template id
 		// so the trooper can dump their exp into it
@@ -325,7 +309,7 @@ namespace MightyFights_Prototype
 
 		#region ICombatant Methods
 
-		public void DealDamage(ICombatant nOpponent, int iDamage, bool bCrit)
+		public void DealDamage(Combatant nOpponent, int iDamage, bool bCrit)
 		{
 			Random	cRand = DataStore.cInstance.cRand;
 			++_cExpData.iAttacked;
@@ -400,7 +384,7 @@ namespace MightyFights_Prototype
 			if( this.nTarget == nOpponent )
 				return;
 			// or if I am attacking someone who is attacking me
-			else if( this.nTarget is ICombatant && ((ICombatant)this.nTarget ).nTarget == this )
+			else if( this.nTarget is Combatant && ((Combatant)this.nTarget ).nTarget == this )
 				return;
 			// if I am not in a state to attack
 			else
@@ -412,18 +396,18 @@ namespace MightyFights_Prototype
 					return;
 
 				case EBattleAiStates.Panting:
-					if( this.nTarget is IHealer )
+					if( this.nTarget is Healer )
 						return;
 					break;
 				}
 
 			// if I'm attacking someone that isn't attacking me (and I'm being attacked), go fight one of my attackers
 			if( this.nTarget != null )
-				if( this.nTarget is ICombatant && _bAttacking )
-					((ICombatant)this.nTarget ).RemoveAttacker( _iAttackingPos );
+				if( this.nTarget is Combatant && _bAttacking )
+					((Combatant)this.nTarget ).RemoveAttacker( _iAttackingPos );
 				// or if I'm healing, but I'm not weak enough to not fight back (no longer under the flee point)
-				else if( this.nTarget is IHealer )
-					((IHealer)this.nTarget ).FreeSpot( this );
+				else if( this.nTarget is Healer )
+					((Healer)this.nTarget ).FreeSpot( this );
 
 			RemoveHeal( );
 		}
@@ -458,7 +442,7 @@ namespace MightyFights_Prototype
 
 		public bool InWeaponRange( bool bCollision )
 		{
-			ICombatant	nOpponent = (ICombatant)nTarget;
+			Combatant	nOpponent = (Combatant)nTarget;
 			Vector2		tDest = nOpponent.RequestPersuitPoint(_iAttackingPos);
 
 			if( bCollision )
@@ -471,7 +455,7 @@ namespace MightyFights_Prototype
 			return cAiData.eState == EBattleAiStates.Dying || cAiData.eState == EBattleAiStates.Dead;
 		}
 
-		public void SetAttacker(ICombatant nCombatant, out int iPos)
+		public void SetAttacker(Combatant nCombatant, out int iPos)
 		{
 			Vector2		tDir = _tCenter - nCombatant.tCenter;
 
@@ -614,7 +598,7 @@ namespace MightyFights_Prototype
 			iPos = (int)ePos;
 		}
 
-		void GetAttackPoint( ICombatant nCombatant, out int iPos)
+		void GetAttackPoint( Combatant nCombatant, out int iPos)
 		{
 			// determine up down left an right from combatant
 			Vector2		tDir = nCombatant.tCenter - _tCenter;
@@ -633,7 +617,7 @@ namespace MightyFights_Prototype
 			}
 		}
 
-		public Vector2 RequestAttackPoint(ICombatant nCombatant, out int iPos)
+		public Vector2 RequestAttackPoint(Combatant nCombatant, out int iPos)
 		{
 			GetAttackPoint( nCombatant, out iPos );
 			return GetVectByPos((ETrooperAttackPos)iPos );
