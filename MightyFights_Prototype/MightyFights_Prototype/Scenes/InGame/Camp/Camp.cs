@@ -42,8 +42,13 @@ namespace MightyFights_Prototype
 		SpriteFont		_cFont;
 		Cursor			_cCursor;
 
+		CampObjectManager	_cObjMgr = new CampObjectManager();
+		CampMenuManager		_cMenuMgr = new CampMenuManager();
+
 		SoundEffectInstance		_cBuffSfx,
 								_cHammerSfx;
+
+		public CampMenuManager cMenuMgr		{ get { return _cMenuMgr; }}
 
 		#region IGameScene Members
 
@@ -78,6 +83,8 @@ namespace MightyFights_Prototype
 			DataStore		cData = DataStore.cInstance;
 			ContentManager	cContent = cData.cContent;
 			GraphicsDevice	cGraphics = cData.cGraphics;
+			ClickableSprite	cTmpSpr;
+
 			string[]		saMusic = new string[] {"05 We Are the Fugitives",
 				"08 Any City", "12 Nin-Nin Hall", "Chrono_Trigger_Another_Fair_OC_ReMix",
 				"Chrono_Trigger_IslandOfZeal_OC_ReMix", "Chrono_Trigger_Millenial_Fair_2001_OC_ReMix",
@@ -101,6 +108,29 @@ namespace MightyFights_Prototype
 				_cSurgeonTent = cContent.Load<Texture2D>(@"In Game\Camp\surgeon_tent");
 				_cWagon = cContent.Load<Texture2D>(@"In Game\Camp\wagon");
 
+				// clickable sprites that will bring up and set data into the menu manger
+				cTmpSpr = new ClickableKnight();
+				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\KnightMenu\knight_guy");
+				cTmpSpr.tPos = new Vector2(152, 310);
+				cTmpSpr.sTexName = @"In Game\Camp\KnightMenu\knight_guy";
+				cTmpSpr.cFrame = new Frame(cTmpSpr.cTexRef.Bounds, 
+					new Vector2(cTmpSpr.cTexRef.Bounds.Width / 2, cTmpSpr.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmpSpr.cTexRef.Bounds.Width, cTmpSpr.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_cObjMgr.AddClickObject(cTmpSpr, ((ClickableKnight)cTmpSpr).ProcessClick);
+
+				cTmpSpr	= new ClickableSmith();
+				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\SmithMenu\smith_guy");
+				cTmpSpr.tPos = new Vector2(152, 310);
+				cTmpSpr.sTexName = @"In Game\Camp\SmithMenu\smith_guy";
+				cTmpSpr.cFrame = new Frame(cTmpSpr.cTexRef.Bounds, 
+					new Vector2(cTmpSpr.cTexRef.Bounds.Width / 2, cTmpSpr.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmpSpr.cTexRef.Bounds.Width, cTmpSpr.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_cObjMgr.AddClickObject(cTmpSpr, ((ClickableSmith)cTmpSpr).ProcessClick);
+
 				_cCursor = new Cursor();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\gauntlet_cursor");
 				_cCursor.sTexName = @"Shared\gauntlet_cursor00";
@@ -116,6 +146,11 @@ namespace MightyFights_Prototype
 			}
 
 			return true;
+		}
+
+		void CampProcessClickable(object oSender, object oArgs)
+		{
+			CampMenuManager		cMenuMgr = ((Camp)oSender).cMenuMgr;
 		}
 
 		public void Unload()

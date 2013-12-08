@@ -127,6 +127,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IMenuObj.cs" />
     <Compile Include="Scenes\InGame\Battlegrounds\Managers\BMenuManager.cs" />
     <Compile Include="Scenes\InGame\Battlegrounds\Objects\AnimatingDamage.cs" />
     <Compile Include="Base Objects\BasicSprite.cs" />
@@ -153,6 +154,8 @@
     <Compile Include="Scenes\InGame\Camp\Camp_Events.cs" />
     <Compile Include="Scenes\InGame\Camp\Managers\CMenuManager.cs" />
     <Compile Include="Scenes\InGame\Camp\Managers\CObjectManager.cs" />
+    <Compile Include="Scenes\InGame\Camp\Objects\CampClickables.cs" />
+    <Compile Include="Scenes\InGame\Camp\Objects\Menus\KnightMenu.cs" />
     <Compile Include="Scenes\InGame\Dialogs\DebugData.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -89,7 +89,7 @@ namespace MightyFights_Prototype
 			_cParticleSystemMgr.Add( cEffect );
 		}
 
-		public void Process(GameTime cTime)
+		public void Process(GameTime cTime, bool bProcessClickObj)
 		{
 			List<int>				iaRemList = new List<int>();
 			List<IActiveBasic>		naActive = new List<IActiveBasic>();
@@ -123,21 +123,23 @@ namespace MightyFights_Prototype
 				if(nObj.eObjState == 0)
 					iaRemList.Add(nObj.iId);
 			}
+		
+			if(bProcessClickObj) { 
+				// check the mouse button click 
+				foreach(KeyValuePair<int, IClickable> tClickObj in _cClickable)
+					naClickObjList.Add(tClickObj.Value);
 
-			// check the mouse button click 
-			foreach(KeyValuePair<int, IClickable> tClickObj in _cClickable)
-				naClickObjList.Add(tClickObj.Value);
-
-			if(cMouseState.LeftButton == ButtonState.Pressed) { 
-				if(_bProcessClick == true) { 
-					foreach(IClickable nClickObj in naClickObjList)
-						if(nClickObj.ContainsPoint(tPoint))
-							if(nClickObj.dlProcessClick != null)
-								nClickObj.dlProcessClick(this.cParentData, nClickObj);
+				if(cMouseState.LeftButton == ButtonState.Pressed) { 
+					if(_bProcessClick == true) { 
+						foreach(IClickable nClickObj in naClickObjList)
+							if(nClickObj.ContainsPoint(tPoint))
+								if(nClickObj.dlProcessClick != null)
+									nClickObj.dlProcessClick(this.cParentData, nClickObj);
 						
-					_bProcessClick = false;
-				}
-			} else _bProcessClick = true;
+						_bProcessClick = false;
+					}
+				} else _bProcessClick = true;
+			}
 
 			// remove all objects from the main processing list
 			foreach(int iObj in iaRemList)

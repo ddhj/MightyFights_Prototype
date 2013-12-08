@@ -861,7 +861,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="In Game\Camp\knight_guy.png">
+    <Compile Include="In Game\Camp\KnightMenu\knight_guy.png">
       <Name>knight_guy</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1025,7 +1025,71 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="In Game\Camp\NewFolder1\" />
+    <Compile Include="In Game\Camp\Company Dialog\company_arrowdown.png">
+      <Name>company_arrowdown</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Company Dialog\company_arrowright.png">
+      <Name>company_arrowright</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Company Dialog\company_arrowup.png">
+      <Name>company_arrowup</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Company Dialog\company_available%25.png">
+      <Name>company_available%25</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Company Dialog\company_box.png">
+      <Name>company_box</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Company Dialog\company_drag.png">
+      <Name>company_drag</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Company Dialog\company_edit.png">
+      <Name>company_edit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Company Dialog\company_name.png">
+      <Name>company_name</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Company Dialog\company_percentagearrows.png">
+      <Name>company_percentagearrows</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Company Dialog\company_reset.png">
+      <Name>company_reset</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Company Dialog\company_slot.png">
+      <Name>company_slot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Company Dialog\company_slot_select.png">
+      <Name>company_slot_select</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Company Dialog\company_training.png">
+      <Name>company_training</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="In Game\Map\Buildings\bridgeNE.png">
@@ -1189,6 +1253,66 @@
   <ItemGroup>
     <Compile Include="In Game\Map\littlemap.png">
       <Name>littlemap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Shared\company_arrowdownx.png">
+      <Name>company_arrowdownx</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Shared\company_arrowrightx.png">
+      <Name>company_arrowrightx</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Shared\company_arrowupx.png">
+      <Name>company_arrowupx</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Shared\percentagedwn.png">
+      <Name>percentagedwn</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Shared\percentagedwnx.png">
+      <Name>percentagedwnx</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Shared\percentageup.png">
+      <Name>percentageup</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Shared\percentageupx.png">
+      <Name>percentageupx</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="In Game\Camp\SmithMenu\armour_upgrade.png">
+      <Name>armour_upgrade</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\SmithMenu\smith_box.png">
+      <Name>smith_box</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\SmithMenu\smith_guy.png">
+      <Name>smith_guy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\SmithMenu\weapon_upgrade.png">
+      <Name>weapon_upgrade</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

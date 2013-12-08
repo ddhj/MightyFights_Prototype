@@ -23,6 +23,18 @@ namespace MightyFights_Prototype
 {
 	public class CampMenuManager
 	{
+		List<ClickableSprite>		_cMenuObjects = new List<ClickableSprite>();
 
+		public List<ClickableSprite>	cMenuObjects	{ get { return _cMenuObjects; }}
+
+		void Process()
+		{
+
+		}
+
+		void Draw(SpriteBatch cBatch)
+		{
+
+		}
 	}
 }

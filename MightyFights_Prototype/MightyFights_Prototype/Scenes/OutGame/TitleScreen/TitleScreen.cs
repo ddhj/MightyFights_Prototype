@@ -63,9 +63,10 @@ namespace MightyFights_Prototype
 			if(cState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed) { 
 				if(_bProcessState) { 
 					if(_cPlay[0].ContainsPoint(tPoint)) { 
-						IGameScene nCamp = new Camp();
-						if(nCamp.Init()) 
-							DataStore.cInstance.cSceneMgr.AddScene(nCamp);
+						IGameScene nScene = new Camp();
+						//IGameScene nScene = new MainMenu();
+						if(nScene.Init()) 
+							DataStore.cInstance.cSceneMgr.AddScene(nScene);
 					} else if(_cExit.ContainsPoint(tPoint)) { 
 						DataStore.cInstance.cGame.Exit();
 					}
