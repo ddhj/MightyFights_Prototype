@@ -19,12 +19,12 @@ namespace MightyFights_Prototype
 			Random		cRand = DataStore.cInstance.cRand;
 			int			iAttackPercent,
 						iCritChance;
-			Combatant	nOpponent = (Combatant)this.nTarget;
+			Combatant	nOpponent = (Combatant)this.cTarget;
 
 			// check to see if our opponent is living 
 			if(nOpponent.IsDead()) { 
 				// null out my opponent because they are dying 
-				nTarget = null;
+				cTarget = null;
 				_bAttacking = false;
 
 				// move our state to ready which will choose another opponent
@@ -36,7 +36,7 @@ namespace MightyFights_Prototype
 			if(nOpponent.cAiData.eState == EBattleAiStates.Flee || !InWeaponRange( true )) { 
 				// one in three chance to persue rather than attack somone else 
 				nOpponent.RemoveAttacker( _iAttackingPos );
-				nTarget = null;
+				cTarget = null;
 				_bAttacking = false;
 				cAiData.eState = EBattleAiStates.Ready;
 				return null;
@@ -99,10 +99,10 @@ namespace MightyFights_Prototype
 
 				// check to see if we are engaged in an attack 
 				if(_bAttacking) { 
-					((Combatant)this.nTarget ).RemoveAttacker(_iAttackingPos);
+					((Combatant)this.cTarget ).RemoveAttacker(_iAttackingPos);
 					_bAttacking = false;
 				}
-				this.nTarget = null;
+				this.cTarget = null;
 
 				// remove all actions
 				_cActionMgr.cActionQueue.Clear();
@@ -117,34 +117,34 @@ namespace MightyFights_Prototype
 
 		void Flee( )
 		{
-			SortedList<int,Healer>	cHealersByDist = new SortedList<int,Healer>( );
+			SortedList<int,Priest>	cHealersByDist = new SortedList<int,Priest>( );
 			Random		cRand = DataStore.cInstance.cRand;
 			Vector2		tPos;
 			int			iDst;
 
 			++_cExpData.iFlee;
-			this.nTarget = null;
+			this.cTarget = null;
 
 			// build up available healer list by distance
-			foreach( Healer nHealer in _cTeam.cHealerList.Values )
-				if( nHealer.bActive && nHealer.bAvailableSpots )
+			foreach( Priest cHealer in _cTeam.cHealerList.Values )
+				if( cHealer.bActive && cHealer.bAvailableSpots )
 				{
-					tPos = nHealer.GetOpenLocation( );
+					tPos = cHealer.GetOpenLocation( );
 					tPos = _tPos - tPos;
 					iDst = (int)tPos.LengthSquared( );
 					
 					// in the unlikely event that the healer is actually the same int distance away from 
 					// another healer 
 					if(!cHealersByDist.ContainsKey(iDst))
-						cHealersByDist.Add(iDst, nHealer );
-					else cHealersByDist.Add(iDst + 1, nHealer);
+						cHealersByDist.Add(iDst, cHealer );
+					else cHealersByDist.Add(iDst + 1, cHealer);
 				}
 
 			// add the flee to healer/point action 
 			if( cHealersByDist.Count > 0 )
 			{
 //				this.nTarget = cHealersByDist.Values[0];
-				this.nTarget = cHealersByDist.Values[cRand.Next( cHealersByDist.Count )];
+				this.cTarget = cHealersByDist.Values[cRand.Next( cHealersByDist.Count )];
 				_cActionMgr.cActionQueue.Add( new Action( FleeToHealer, null, null ));
 			}
 			else	{
@@ -168,11 +168,11 @@ namespace MightyFights_Prototype
 		public object Pant(BattlegroundData cData)
 		{
 			// check to see if we should still be healing 
-			if( this.nTarget != null )
+			if( this.cTarget != null )
 			{
 				if(_cStats.fHp > _cStats.iHealPoint)
 				{
-					((Healer)this.nTarget ).FreeSpot( this );
+					((Priest)this.cTarget ).FreeSpot( this );
 
 					RemoveHeal( );
 				}
@@ -184,7 +184,7 @@ namespace MightyFights_Prototype
 			// if the zone is threatened, switch to ready to choose opponent or re-flee
 				// technically, you can be attacked from a nearby zone if near the edges, so there is that
 				// being healed by a healer disengages the threatened response
-			if( this.nTarget == null && cAiData.eState != EBattleAiStates.Ready && BuildNearbyZoneOpponenents( cZone, _cTeam.iId ^ 1 ).Count > 0 )
+			if( this.cTarget == null && cAiData.eState != EBattleAiStates.Ready && BuildNearbyZoneOpponenents( cZone, _cTeam.iId ^ 1 ).Count > 0 )
 			{
 				RemoveHeal( );
 				if( _cStats.fHp < _cStats.iFleePoint )
@@ -353,7 +353,7 @@ namespace MightyFights_Prototype
 					iOpponentIdx = _cTeam.iId ^ 1;
 
 			// not sure if this is required or not but just in case 
-			if(nTarget != null)
+			if(cTarget != null)
 				return null;
 
 			// check to see if I have any attackers currently attacking me 
@@ -361,20 +361,20 @@ namespace MightyFights_Prototype
 				// check the weakest of my opponents and attack them
 				foreach(Combatant nCombatant in _cAttackers.Values) { 
 					if(nCombatant.cStats.fHp < iTmp) { 
-						nTarget = nCombatant;
+						cTarget = nCombatant;
 						iTmp = (int)nCombatant.cStats.fHp;
 					}
 				}
 			// we dont have any attakers so lets check our current zone for an opponent			
 			} else if(this.cZone.naCombatantLists[iOpponentIdx].Count > 0) {
 				// find someone not fleeing in my own zone
-				nTarget = ChooseZoneCombatantRand_NoFlee(this.cZone.naCombatantLists[iOpponentIdx]);
+				cTarget = ChooseZoneCombatantRand_NoFlee(this.cZone.naCombatantLists[iOpponentIdx]);
 
-				if( nTarget == null )
-					nTarget = ChooseZoneCombatantRand_NearbyZones( this.cZone, iOpponentIdx );
+				if( cTarget == null )
+					cTarget = ChooseZoneCombatantRand_NearbyZones( this.cZone, iOpponentIdx );
 			}
 			// there was either no dudes in my zone or they do not have available attack points
-			if(nTarget == null) { 
+			if(cTarget == null) { 
 				// check our army for which zones they are in and if there are any opponents there
 				// lets get the closest zone to our own
 				Vector2 tZone = new Vector2(cZone.iX, cZone.iY),
@@ -405,7 +405,7 @@ namespace MightyFights_Prototype
 				// walk the sorted zones 
 				foreach(List<Zone> caZones in cClosestZones.Values) { 
 					foreach(Zone cNewZone in caZones) 
-						if((nTarget = ChooseZoneCombatantRand(cNewZone.naCombatantLists[iOpponentIdx])) != null) {
+						if((cTarget = ChooseZoneCombatantRand(cNewZone.naCombatantLists[iOpponentIdx])) != null) {
 							// if we have an opponent at this point we need to charge them
 							cActionManager.AddAction(new Action(ChargeOpponent, null, null));
 							cAiData.eState = EBattleAiStates.Pursuit;
@@ -414,7 +414,7 @@ namespace MightyFights_Prototype
 				}
 			}
 
-			if(nTarget != null) { 
+			if(cTarget != null) { 
 				// if we have an opponent at this point we need to charge them
 				cActionManager.AddAction(new Action(ChargeOpponent, null, null));
 				cAiData.eState = EBattleAiStates.Pursuit;

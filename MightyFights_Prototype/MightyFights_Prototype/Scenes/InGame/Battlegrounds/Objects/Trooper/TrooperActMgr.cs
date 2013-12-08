@@ -24,7 +24,7 @@ namespace MightyFights_Prototype
 		{
 			switch(_cKeyFrame.Type) { 
 				case "Collision": { 
-					Combatant	nOpponent = (Combatant)this.cData.nTarget;
+					Combatant	nOpponent = (Combatant)this.cData.cTarget;
 
 					if( !nOpponent.IsDead( ))
 					{
@@ -43,7 +43,7 @@ namespace MightyFights_Prototype
 				} break;
 
 				case "SelfHeal": {
-					if( this.cData.nTarget == null || !( this.cData.nTarget is Healer )) {
+					if( this.cData.cTarget == null || !( this.cData.cTarget is Priest )) {
 						this.cData.Heal(Convert.ToSingle(_cKeyFrame.oData));
 					}
 				} break; 

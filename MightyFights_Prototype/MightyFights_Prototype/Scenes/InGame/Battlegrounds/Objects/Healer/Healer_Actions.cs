@@ -11,10 +11,8 @@ using ProjectMercury;
 // project includes
 using MightyFights_Support;
 
-namespace MightyFights_Prototype
-{
-	public partial class Priest : Healer, IDrawable, IDrawableTexture, IAnimate, IActiveBasic
-	{
+namespace MightyFights_Prototype	{
+	public partial class Priest	{
 		bool Upkeep(Action cAction, GameTime cTime) 
 		{
 			Random		cRand = DataStore.cInstance.cRand;

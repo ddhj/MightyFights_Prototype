@@ -19,14 +19,14 @@ namespace MightyFights_Prototype
 				else _cAnimProc.SetAnimationCriteria("Death", "Normal", "deathb", 1);
 
 				// remove ourselves from our opponents attaking point
-				if(this.nTarget != null)
-					if(this.nTarget is Combatant)
+				if(this.cTarget != null)
+					if(this.cTarget is Combatant)
 					{
 						if(_bAttacking)
-							((Combatant)nTarget ).RemoveAttacker(_iAttackingPos);
+							((Combatant)cTarget ).RemoveAttacker(_iAttackingPos);
 					}
-					else if( this.nTarget is Healer )
-						((Healer)this.nTarget ).FreeSpot( this );
+					else if( this.cTarget is Priest )
+						((Priest)this.cTarget ).FreeSpot( this );
 
 				// remove the dying trooper from the zone they are in 
 				DataStore.cInstance.cBattleData.RemoveDeadCombatant(this);
@@ -165,7 +165,7 @@ namespace MightyFights_Prototype
 
 		public bool FleeToHealer(Action cAction, GameTime cTime)
 		{
-			Healer		nHealer = (Healer)this.nTarget;
+			Priest		cHealer = (Priest)this.cTarget;
 			Vector2		tDest,
 						tDirVect;
 			
@@ -179,13 +179,13 @@ namespace MightyFights_Prototype
 			} 
 
 			// its possible that the opponent will die before we get there so check to see if the 
-			if(!nHealer.bActive || !nHealer.bAvailableSpots ) {
+			if(!cHealer.bActive || !cHealer.bAvailableSpots ) {
 				Flee( );
 				cAction.bConditionNotMet = false;
 				return false;
 			}
 
-			tDest = nHealer.GetOpenLocation( );
+			tDest = cHealer.GetOpenLocation( );
 			tDirVect = tDest - _tCenter;
 			bDir = tDirVect.X > 0 + float.Epsilon;
 			tDirVect.Normalize();
@@ -199,7 +199,7 @@ namespace MightyFights_Prototype
 			
 			// we are within weapon range so switch our system to attack 
 			if(((tDest - _tCenter).LengthSquared()) < 4) {  
-				nHealer.TakeSpot( this );
+				cHealer.TakeSpot( this );
 				_cAnimProc.SetAnimationCriteria("Idle", "Pant", "pant", -1);
 				cAction.bConditionNotMet = false;
 
@@ -254,7 +254,7 @@ namespace MightyFights_Prototype
 		{
 			Vector2		tDest,
 						tDirVect;
-			Combatant	nOpponent = (Combatant)this.nTarget,
+			Combatant	nOpponent = (Combatant)this.cTarget,
 						nPasserby;
 			
 			// check to see if we need to make the direction vector or not
@@ -271,7 +271,7 @@ namespace MightyFights_Prototype
 			// its possible that the opponent will die before we get there so check to see if the 
 			if(nOpponent.IsDead() || !nOpponent.bAvailablePos) { 
 				cAiData.eState = EBattleAiStates.Ready;
-				nTarget = null;
+				cTarget = null;
 				cAction.bConditionNotMet = false;
 				return false;
 			}
@@ -310,7 +310,7 @@ namespace MightyFights_Prototype
 			{
 				// if we have an opponent at this point we need to charge them
 				cActionManager.AddAction(new Action(ChargeOpponent, null, null));
-				nTarget = nPasserby;
+				cTarget = nPasserby;
 				cAction.bConditionNotMet = false;
 				return false;
 			}
@@ -322,7 +322,7 @@ namespace MightyFights_Prototype
 		{
 			Vector2		tDest,
 						tDirVect;
-			Combatant	nOpponent = (Combatant)this.nTarget,
+			Combatant	nOpponent = (Combatant)this.cTarget,
 						nPasserby;
 			
 			// check to see if we need to make the direction vector or not
@@ -339,7 +339,7 @@ namespace MightyFights_Prototype
 			// its possible that the opponent will die before we get there so check to see if the 
 			if(nOpponent.IsDead()) { 
 				cAiData.eState = EBattleAiStates.Ready;
-				nTarget = null;
+				cTarget = null;
 				cAction.bConditionNotMet = false;
 				return false;
 			}
@@ -347,7 +347,7 @@ namespace MightyFights_Prototype
 			// check to see if while running at the opponent he has filled up his attack quota
 			if(!nOpponent.bAvailablePos) { 
 				cAiData.eState = EBattleAiStates.Ready;
-				nTarget = null;
+				cTarget = null;
 				cAction.bConditionNotMet = false;
 				return false;
 			}
@@ -388,7 +388,7 @@ namespace MightyFights_Prototype
 				{
 					// if we have an opponent at this point we need to charge them
 					cActionManager.AddAction(new Action(ChargeOpponent, null, null));
-					nTarget = nPasserby;
+					cTarget = nPasserby;
 					cAction.bConditionNotMet = false;
 					return false;
 				}

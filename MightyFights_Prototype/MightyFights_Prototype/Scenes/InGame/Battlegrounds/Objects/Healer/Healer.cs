@@ -17,11 +17,9 @@ using ProjectMercury;
 using MightyFights_Support;
 
 namespace MightyFights_Prototype	{
-	public partial class Priest : Healer, IDrawable, IDrawableTexture, IAnimate, IActive<Priest>	
-	{
+	public partial class Priest : BattleObj, IDrawable, IDrawableTexture, IAnimate, IActive<Priest>	{
 	// Data
-		int			_iId,
-					_iMaxHp;
+		int			_iMaxHp;
 		float		_fHp,
 					_fRegenRate,
 					_fHealRate,
@@ -30,12 +28,9 @@ namespace MightyFights_Prototype	{
 
 		TimeSpan	_tCooldown, 
 					_tUniqueIdle;
-		Vector2		_tPos,
-					_tCenter;
 		Team		_cTeam;
 		FleeSpot	_cSupportZone;
 		Texture2D	_cTexRef;
-		EObjectStates		_eObjState;
 		EHealerStates		_eState;
 		AnimationProcessor	_cAnimProc;
 		BattlegroundData	_cBtlGndData;
@@ -46,19 +41,16 @@ namespace MightyFights_Prototype	{
 		ActionManager<Priest>	_cActMgr;
 
 	// Properties
-		public int iId			{ get { return _iId; }}
 		public float fHealth	{ get { return _fHp / _iMaxHp; }}
 		public float fHp		{ get { return _fHp; } set { _fHp = value; }}
-		public Vector2 tPos		{ get { return _tPos; } set { _tPos = value; UpdateRefPoints(); }}
-		public Vector2 tCenter	{ get { return _tCenter; } set { _tCenter = value; }}
 		public bool bActive		{ get { return _eState != EHealerStates.Recharging; }}
-		public EObjectStates eObjState	{ get { return _eObjState; } set { _eObjState = value; }}
+		public Frame cFrame		{ get { return _cAnimProc.cCurFrame; } set{}}
+		public string sTexName	{ get; set; }
+		public Texture2D cTexRef		{ get { return _cTexRef; } set { _cTexRef = value; }}
 		public bool bAvailableSpots		{ get { return _cSupportZone.bOpen; }}
-		public AnimationProcessor cAnimationProcessor { get { return _cAnimProc; } set { _cAnimProc = value; }}
+		public override Vector2 tPos	{ get { return _tPos; } set { _tPos = value; UpdateRefPoints(); }}
 
-		public Texture2D cTexRef	{ get { return _cTexRef; } set { _cTexRef = value; }}
-		public Frame cFrame			{ get { return _cAnimProc.cCurFrame; } set{}}
-		public string sTexName		{ get; set; }
+		public AnimationProcessor cAnimationProcessor { get { return _cAnimProc; } set { _cAnimProc = value; }}
 
 		public ActionManager<Priest> cActionManager { get { return _cActMgr; } set { _cActMgr = value; }}
 
@@ -84,7 +76,7 @@ namespace MightyFights_Prototype	{
 			// set its states
 			_eObjState = EObjectStates.Active | EObjectStates.Draw;
 
-			this.tPos = tPos;
+			_tPos = tPos;
 			// had to change this because i scaled the healers
 			_cSupportZone = new FleeSpot( iMaxSlots, 60, new Vector2( _tCenter.X - (cTeam.bDirection ? 50 : -80) + ( cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y + 10 ));
 

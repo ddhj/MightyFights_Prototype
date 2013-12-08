@@ -14,13 +14,11 @@ using ProjectMercury;
 // project includes
 using MightyFights_Support;
 
-namespace MightyFights_Prototype
-{
-	public partial class Trooper : Combatant, IDrawable, IDrawableTexture, IAnimate, IActive<Trooper>, IObject, IBuffableObject
-	{	
+namespace MightyFights_Prototype	{
+	public partial class Trooper : Combatant, IDrawable, IDrawableTexture, IAnimate, IActive<Trooper>, IObject, IBuffableObject	{
+	// Data
 		Texture2D	_cTexRef;
 		Stats		_cInitialStats;
-		Team		_cTeam;
 		int			_iAvailablePositions = 6,
 					_iCurLeftAttackers = 0,
 					_iCurRightAttakers = 0,
@@ -47,7 +45,7 @@ namespace MightyFights_Prototype
 		long	_lFleeRunStop = 2000,
 				_lFleeCurTime;
 
-		public int iId					{ get; set; }
+	// Properties
 		public bool bActive				{ get; set; }
 		public bool bDir				{ get; set; }
 		public int iWeaponRngSq			{ get; set; }
@@ -62,6 +60,7 @@ namespace MightyFights_Prototype
 		//public Dictionary<EBuffEffects, BuffActionData> cBuffList		{ get { return _cBuffList; }}
 		public ActionManager<Trooper>	cActionManager	{ get { return _cActionMgr; } set { _cActionMgr = value; }}
 
+	// Constructor
 		public Trooper(int iId, Team cTeam, TrooperTemplate cTemplate)
 		{
 			_iId = iId;
@@ -134,9 +133,9 @@ namespace MightyFights_Prototype
 		#region IDrawable Members
 
 		public Texture2D cTexRef	{ get { return _cTexRef; } set { _cTexRef = value; }}
-		public Vector2 tPos			{ get { return _tPos; } set { _tPos = value; UpdateRefPoints(); }}
 		public Frame cFrame			{ get { return _cAnimProc.cCurFrame; } set{}}
 		public string sTexName		{ get; set; }
+		public override Vector2 tPos			{ get { return _tPos; } set { _tPos = value; UpdateRefPoints(); }}
 
 		public void Draw(SpriteBatch cBatch)
 		{
@@ -309,7 +308,7 @@ namespace MightyFights_Prototype
 
 		#region ICombatant Methods
 
-		public void DealDamage(Combatant nOpponent, int iDamage, bool bCrit)
+		public override void DealDamage(Combatant nOpponent, int iDamage, bool bCrit)
 		{
 			Random	cRand = DataStore.cInstance.cRand;
 			++_cExpData.iAttacked;
@@ -381,10 +380,10 @@ namespace MightyFights_Prototype
 			}
 
 			// if I am attacking my attacker
-			if( this.nTarget == nOpponent )
+			if( this.cTarget == nOpponent )
 				return;
 			// or if I am attacking someone who is attacking me
-			else if( this.nTarget is Combatant && ((Combatant)this.nTarget ).nTarget == this )
+			else if( this.cTarget is Combatant && ((Combatant)this.cTarget ).cTarget == this )
 				return;
 			// if I am not in a state to attack
 			else
@@ -396,23 +395,23 @@ namespace MightyFights_Prototype
 					return;
 
 				case EBattleAiStates.Panting:
-					if( this.nTarget is Healer )
+					if( this.cTarget is Priest )
 						return;
 					break;
 				}
 
 			// if I'm attacking someone that isn't attacking me (and I'm being attacked), go fight one of my attackers
-			if( this.nTarget != null )
-				if( this.nTarget is Combatant && _bAttacking )
-					((Combatant)this.nTarget ).RemoveAttacker( _iAttackingPos );
+			if( this.cTarget != null )
+				if( this.cTarget is Combatant && _bAttacking )
+					((Combatant)this.cTarget ).RemoveAttacker( _iAttackingPos );
 				// or if I'm healing, but I'm not weak enough to not fight back (no longer under the flee point)
-				else if( this.nTarget is Healer )
-					((Healer)this.nTarget ).FreeSpot( this );
+				else if( this.cTarget is Priest )
+					((Priest)this.cTarget ).FreeSpot( this );
 
 			RemoveHeal( );
 		}
 
-		public float Heal( float fHp )
+		public override float Heal( float fHp )
 		{
 			// check to see if we are at max for the healing number 
 			if( _cStats.fHp + fHp > _cStats.iMaxHp ) { 
@@ -431,18 +430,18 @@ namespace MightyFights_Prototype
 			return fHp;
 		}
 
-		public void RemoveHeal( )
+		public override void RemoveHeal( )
 		{
 			this.cAiData.eState = EBattleAiStates.Ready;
 			foreach( Action cAction in _cActionMgr.cActionQueue )
 				cAction.bConditionNotMet = false;
 			_bAttacking = false;
-			this.nTarget = null;
+			this.cTarget = null;
 		}
 
-		public bool InWeaponRange( bool bCollision )
+		public override bool InWeaponRange( bool bCollision )
 		{
-			Combatant	nOpponent = (Combatant)nTarget;
+			Combatant	nOpponent = (Combatant)cTarget;
 			Vector2		tDest = nOpponent.RequestPersuitPoint(_iAttackingPos);
 
 			if( bCollision )
@@ -450,12 +449,12 @@ namespace MightyFights_Prototype
 			return(((tDest - _tCenter).LengthSquared()) < this.iWeaponRngSq );
 		}
 
-		public bool IsDead()
+		public override bool IsDead()
 		{
 			return cAiData.eState == EBattleAiStates.Dying || cAiData.eState == EBattleAiStates.Dead;
 		}
 
-		public void SetAttacker(Combatant nCombatant, out int iPos)
+		public override void SetAttacker(Combatant nCombatant, out int iPos)
 		{
 			Vector2		tDir = _tCenter - nCombatant.tCenter;
 
@@ -479,7 +478,7 @@ namespace MightyFights_Prototype
 			}
 		}
 
-		public void RemoveAttacker(int iPos)
+		public override void RemoveAttacker(int iPos)
 		{
 			_byAttakPos &= (byte)~iPos;
 			_cAttackers.Remove((ETrooperAttackPos)iPos);
@@ -617,13 +616,13 @@ namespace MightyFights_Prototype
 			}
 		}
 
-		public Vector2 RequestAttackPoint(Combatant nCombatant, out int iPos)
+		public override Vector2 RequestAttackPoint(Combatant nCombatant, out int iPos)
 		{
 			GetAttackPoint( nCombatant, out iPos );
 			return GetVectByPos((ETrooperAttackPos)iPos );
 		}
 
-		public Vector2 RequestPersuitPoint(int iPos)
+		public override Vector2 RequestPersuitPoint(int iPos)
 		{
 			return GetVectByPos((ETrooperAttackPos)iPos);
 		}
@@ -665,7 +664,7 @@ namespace MightyFights_Prototype
 			CalcAtackSpeeds();
 		}
 
-		public void AddBuff(BasicBuff cBuff)
+		public override void AddBuff(BasicBuff cBuff)
 		{
 			// check to see if the trooper has the buff in question 
 			if(_cBuffList.ContainsKey(cBuff.eType)) 
@@ -694,7 +693,7 @@ namespace MightyFights_Prototype
 			}
 		}
 
-		public void RemoveBuff(EBuffEffects eType)
+		public override void RemoveBuff(EBuffEffects eType)
 		{
 			_cBuffList.Remove(eType);
 
