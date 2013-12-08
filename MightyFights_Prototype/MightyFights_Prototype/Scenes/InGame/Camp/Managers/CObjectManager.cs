@@ -31,7 +31,7 @@ namespace MightyFights_Prototype
 
 		bool		_bProcessClick = true;
 
-		public BattlegroundData cParentData		{ get; set; }
+		public Camp cParentData		{ get; set; }
 
 		public void AddObject(object oData)
 		{
@@ -43,6 +43,9 @@ namespace MightyFights_Prototype
 
 			// check if the object being added has a draw component
 			if(oData is IDrawable) { 
+				// set the object manager range for the sprite 
+				((IDrawable)oData).fZRange = .7f;
+
 				// check to see if the drawable component is a texture
 				if(oData is IDrawableTexture) { 
 					if(!_cDrawRefList.TryGetValue(((IDrawableTexture)oData).sTexName, out caDrawList))
@@ -134,7 +137,7 @@ namespace MightyFights_Prototype
 						foreach(IClickable nClickObj in naClickObjList)
 							if(nClickObj.ContainsPoint(tPoint))
 								if(nClickObj.dlProcessClick != null)
-									nClickObj.dlProcessClick(this.cParentData, nClickObj);
+									nClickObj.dlProcessClick(cParentData, nClickObj);
 						
 						_bProcessClick = false;
 					}
@@ -149,7 +152,8 @@ namespace MightyFights_Prototype
 			foreach(IActiveBasic nActiveObj in naActive)
 				nActiveObj.Process(cTime);
 
-			_cParticleSystemMgr.Update( cTime );
+			// not set up yet
+			//_cParticleSystemMgr.Update( cTime );
 		}
 
 		public void Draw(SpriteBatch cBatch)

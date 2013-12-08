@@ -7,9 +7,8 @@ using Microsoft.Xna.Framework;
 
 namespace MightyFights_Prototype
 {
-	public interface IMenuObj 
+	public interface IMenuObj : IActiveBasic, IDrawable
 	{
-		IMenuObj	nParent			{get; set;}
 		object		oMenuObject		{get;}
 		object		oResultData		{get;}
 	}

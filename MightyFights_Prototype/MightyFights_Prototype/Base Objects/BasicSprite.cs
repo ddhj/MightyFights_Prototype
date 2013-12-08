@@ -17,6 +17,7 @@ namespace MightyFights_Prototype
 		Texture2D	_cTexRef;
 
 		public int iId				{ get; set; }
+		public float fZRange		{ get; set; }
 		public EObjectStates eObjState	{ get; set; }
 		public Texture2D cTexRef	{ get { return _cTexRef; } set { _cTexRef = value; }}
 		public virtual Frame cFrame	{ get; set; }
@@ -48,7 +49,9 @@ namespace MightyFights_Prototype
 
 		public virtual void Draw(SpriteBatch cBatch) 
 		{
-			cBatch.Draw(cTexRef, tPos, cFrame.tRect, Color.White);
+			cBatch.Draw(this.cTexRef, this.tPos, this.cFrame.tRect, Color.White, this.cFrame.bRot ? -(float)Math.PI/2 : 0, 
+				// and 2: the direction vector
+				this.cFrame.tTopLeft, 1, SpriteEffects.None, fZRange);
 		}
 
 		public void Dispose()
@@ -59,6 +62,7 @@ namespace MightyFights_Prototype
 
 	public class BasicSprite : IDrawable, IDrawableTexture, IObject
 	{
+		public float fZRange				{ get; set; }
 		public Texture2D cTexRef			{ get; set; }
 		public int iId						{ get; set; }
 		public EObjectStates eObjState		{ get; set; }

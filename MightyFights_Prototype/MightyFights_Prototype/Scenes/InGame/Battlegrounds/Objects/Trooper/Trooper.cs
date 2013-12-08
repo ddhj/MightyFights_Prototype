@@ -46,6 +46,7 @@ namespace MightyFights_Prototype	{
 				_lFleeCurTime;
 
 	// Properties
+		public float fZRange			{ get; set; }
 		public bool bActive				{ get; set; }
 		public bool bDir				{ get; set; }
 		public int iWeaponRngSq			{ get; set; }

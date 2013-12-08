@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace MightyFights_Prototype
 {
-	interface IActiveBasic
+	public interface IActiveBasic
 	{
 		void Process(GameTime cTime);
 	}

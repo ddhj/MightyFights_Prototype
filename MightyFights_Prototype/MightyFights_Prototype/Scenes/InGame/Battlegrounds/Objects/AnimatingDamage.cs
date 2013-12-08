@@ -23,6 +23,7 @@ namespace MightyFights_Prototype
 					_tOrigin = new Vector2(0, 0);
 		SpriteFont	_cFont;
 
+		public float fZRange	{ get; set; }
 		public int iDrawIdx		{ get; set; }
 		public int iActiveIdx	{ get; set; }
 		public bool bActive		{ get; set; }

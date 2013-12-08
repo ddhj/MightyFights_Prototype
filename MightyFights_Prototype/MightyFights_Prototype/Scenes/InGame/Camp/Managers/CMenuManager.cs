@@ -23,18 +23,34 @@ namespace MightyFights_Prototype
 {
 	public class CampMenuManager
 	{
-		List<ClickableSprite>		_cMenuObjects = new List<ClickableSprite>();
+		List<IMenuObj>		_cMenuObjects = new List<IMenuObj>();
 
-		public List<ClickableSprite>	cMenuObjects	{ get { return _cMenuObjects; }}
+		public bool bNoMenus			{ get { return _cMenuObjects.Count == 0; }}
 
-		void Process()
+		public void Process(GameTime cTime)
 		{
-
+			if(_cMenuObjects.Count > 0)
+				_cMenuObjects[_cMenuObjects.Count - 1].Process(cTime);
 		}
 
-		void Draw(SpriteBatch cBatch)
+		public void Draw(SpriteBatch cBatch)
 		{
+			if(_cMenuObjects.Count > 0)
+				_cMenuObjects[_cMenuObjects.Count - 1].Draw(cBatch);
+		}
 
+		public void AddMenuObject(IMenuObj cMenuObj)
+		{
+			// set the menu object draw layer
+			cMenuObj.fZRange = .6f;
+
+			_cMenuObjects.Add(cMenuObj);
+		}
+
+		public void RemoveMenuObject(IMenuObj cMenuObj)
+		{
+			// this might just be that simple
+			_cMenuObjects.RemoveAt(_cMenuObjects.Count - 1);
 		}
 	}
 }

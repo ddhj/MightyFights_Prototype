@@ -41,6 +41,7 @@ namespace MightyFights_Prototype	{
 		ActionManager<Priest>	_cActMgr;
 
 	// Properties
+		public float fZRange	{ get; set; }
 		public float fHealth	{ get { return _fHp / _iMaxHp; }}
 		public float fHp		{ get { return _fHp; } set { _fHp = value; }}
 		public bool bActive		{ get { return _eState != EHealerStates.Recharging; }}

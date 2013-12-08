@@ -5,10 +5,11 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace MightyFights_Prototype
 {
-	public class KnightMenu : ClickableSprite, IActiveBasic, IMenuObj
+	public class KnightMenu : ClickableSprite, IMenuObj
 	{
 		ClickableSprite		_cCaptains,
 							_cCompanyDialog,
@@ -16,20 +17,28 @@ namespace MightyFights_Prototype
 							_cDialogue;
 
 		public object		oMenuObject	{ get { return this; }}
-		public IMenuObj		nParent		{ get; set; }
 		public object		oResultData	{ get { return null; }}
 
-		public KnightMenu(IMenuObj nMenuParent) : base()
-		{
-			nParent = nMenuParent;
+		CampMenuManager		_cMgr;
 
+		public KnightMenu(CampMenuManager cMgr) : base()
+		{
+			_cMgr = cMgr;
 		}
 		
 		#region IActiveBasic Members
 
 		public void Process(GameTime cTime)
 		{
-			throw new NotImplementedException();
+			MouseState			cMouseState = Mouse.GetState();
+			Point				tPoint = new Point(cMouseState.X, cMouseState.Y);
+			
+			// check to see if the click was out of the bounds of the main menu object for the knight
+			// if so then we are done
+			if(this.ContainsPoint(tPoint)) { 
+				// check the mouse position 
+			} else _cMgr.RemoveMenuObject(this);
+			
 		}
 
 		#endregion
@@ -37,7 +46,6 @@ namespace MightyFights_Prototype
 		public override void Draw(SpriteBatch cBatch)
 		{
 			base.Draw(cBatch);
-
 		}
 
 		public void ProcessClick(object oSender, object oArgs)
@@ -45,6 +53,7 @@ namespace MightyFights_Prototype
 			CampMenuManager		cMenuMgr = ((Camp)oSender).cMenuMgr;
 
 			// loop through the buttons 
+
 		}
 
 	}

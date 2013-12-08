@@ -30,11 +30,6 @@ namespace MightyFights_Prototype
 						_cSurgeonTent,
 						_cWagon;
 
-		ClickableSprite	_cSmithSprite,
-						_cCaptain,
-						_cTheif,
-						_cKnight;
-
 		SpriteBatch		_cSpriteBatch;
 		Random			_cRand = DataStore.cInstance.cRand;
 		Song			_cBgm;
@@ -45,9 +40,6 @@ namespace MightyFights_Prototype
 		CampObjectManager	_cObjMgr = new CampObjectManager();
 		CampMenuManager		_cMenuMgr = new CampMenuManager();
 
-		SoundEffectInstance		_cBuffSfx,
-								_cHammerSfx;
-
 		public CampMenuManager cMenuMgr		{ get { return _cMenuMgr; }}
 
 		#region IGameScene Members
@@ -57,6 +49,8 @@ namespace MightyFights_Prototype
 		public void Update(GameTime cTime)
 		{
 			_cCursor.Update(cTime);
+			_cObjMgr.Process(cTime, _cMenuMgr.bNoMenus);
+			_cMenuMgr.Process(cTime);
 		}
 
 		public void Draw(GameTime cTime)
@@ -72,8 +66,9 @@ namespace MightyFights_Prototype
 				_cSpriteBatch.Draw(_cCaptianHouse, new Vector2(580, 15), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, .899f); 
 				_cSpriteBatch.Draw(_cSupplyHut, new Vector2(580, 290), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, .899f); 
 				
-				
-				
+				_cObjMgr.Draw(_cSpriteBatch);
+				_cMenuMgr.Draw(_cSpriteBatch);
+
 				_cCursor.Draw(_cSpriteBatch);
 			} _cSpriteBatch.End();
 		}
@@ -100,6 +95,9 @@ namespace MightyFights_Prototype
 				_cFont = cContent.Load<SpriteFont>(@"Shared\DebugFont");
 				_cBgm = DataManager.cInstance.CreateMusic(@"\Camp\" + saMusic[_cRand.Next(saMusic.Length)]);
 
+				// set the object manager parent
+				_cObjMgr.cParentData = this;
+
 				// these will all have to be sprites into the object manager when we get the sprite data for them
 				_cBarracks = cContent.Load<Texture2D>(@"In Game\Camp\barracks");
 				_cCaptianHouse = cContent.Load<Texture2D>(@"In Game\Camp\Captain's_house");
@@ -111,7 +109,7 @@ namespace MightyFights_Prototype
 				// clickable sprites that will bring up and set data into the menu manger
 				cTmpSpr = new ClickableKnight();
 				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\KnightMenu\knight_guy");
-				cTmpSpr.tPos = new Vector2(152, 310);
+				cTmpSpr.tPos = new Vector2(148, 310);
 				cTmpSpr.sTexName = @"In Game\Camp\KnightMenu\knight_guy";
 				cTmpSpr.cFrame = new Frame(cTmpSpr.cTexRef.Bounds, 
 					new Vector2(cTmpSpr.cTexRef.Bounds.Width / 2, cTmpSpr.cTexRef.Bounds.Height / 2), 
@@ -122,7 +120,7 @@ namespace MightyFights_Prototype
 
 				cTmpSpr	= new ClickableSmith();
 				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\SmithMenu\smith_guy");
-				cTmpSpr.tPos = new Vector2(152, 310);
+				cTmpSpr.tPos = new Vector2(369, 90);
 				cTmpSpr.sTexName = @"In Game\Camp\SmithMenu\smith_guy";
 				cTmpSpr.cFrame = new Frame(cTmpSpr.cTexRef.Bounds, 
 					new Vector2(cTmpSpr.cTexRef.Bounds.Width / 2, cTmpSpr.cTexRef.Bounds.Height / 2), 
@@ -146,11 +144,6 @@ namespace MightyFights_Prototype
 			}
 
 			return true;
-		}
-
-		void CampProcessClickable(object oSender, object oArgs)
-		{
-			CampMenuManager		cMenuMgr = ((Camp)oSender).cMenuMgr;
 		}
 
 		public void Unload()

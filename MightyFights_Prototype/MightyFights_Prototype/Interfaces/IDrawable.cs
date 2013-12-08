@@ -10,8 +10,9 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	interface IDrawable
+	public interface IDrawable
 	{
+		float		fZRange		{get; set;}
 		// not sure if I want to do this here
 		void Draw(SpriteBatch cBatch);
 	}
