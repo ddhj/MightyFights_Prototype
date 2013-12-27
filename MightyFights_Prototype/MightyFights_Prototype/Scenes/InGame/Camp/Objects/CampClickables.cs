@@ -16,7 +16,7 @@ namespace MightyFights_Prototype
 		public void ProcessClick(object oSender, object oArgs)
 		{
 			CampMenuManager cMgr = ((Camp)oSender).cMenuMgr;
-			KnightMenu		cKnight = new KnightMenu();
+			KnightMenu		cKnight = new KnightMenu(cMgr);
 
 			cKnight.cTexRef = DataStore.cInstance.cContent.Load<Texture2D>(@"In Game\Camp\KnightMenu\knight_box");
 			cKnight.tPos = new Vector2(83, 223);

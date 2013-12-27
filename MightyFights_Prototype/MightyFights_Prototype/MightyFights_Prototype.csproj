@@ -156,6 +156,7 @@
     <Compile Include="Scenes\InGame\Camp\Managers\CObjectManager.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\CampClickables.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\KnightMenu.cs" />
+    <Compile Include="Scenes\InGame\Camp\Objects\Menus\KnightMenuHighlight.cs" />
     <Compile Include="Scenes\InGame\Dialogs\DebugData.cs">
       <SubType>Form</SubType>
     </Compile>

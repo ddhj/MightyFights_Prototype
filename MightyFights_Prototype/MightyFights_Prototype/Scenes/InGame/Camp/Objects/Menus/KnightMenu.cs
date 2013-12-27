@@ -16,6 +16,8 @@ namespace MightyFights_Prototype
 							_cTemplates,
 							_cDialogue;
 
+		bool				_bProcessClick;
+
 		public object		oMenuObject	{ get { return this; }}
 		public object		oResultData	{ get { return null; }}
 
@@ -32,13 +34,24 @@ namespace MightyFights_Prototype
 		{
 			MouseState			cMouseState = Mouse.GetState();
 			Point				tPoint = new Point(cMouseState.X, cMouseState.Y);
-			
+			ClickableSprite		cActiveSprite = null;
+
 			// check to see if the click was out of the bounds of the main menu object for the knight
 			// if so then we are done
 			if(this.ContainsPoint(tPoint)) { 
+				// test the four buttons for which one is active
+				if(_cCaptains.ContainsPoint(tPoint))
+					
+
+				if(cMouseState.LeftButton == ButtonState.Pressed) { 
+					if(_bProcessClick == true) { 
+						ProcessClick();
+									
+						_bProcessClick = false;
+					}
+				} else _bProcessClick = true;
 				// check the mouse position 
-			} else _cMgr.RemoveMenuObject(this);
-			
+			} 
 		}
 
 		#endregion
@@ -48,13 +61,15 @@ namespace MightyFights_Prototype
 			base.Draw(cBatch);
 		}
 
-		public void ProcessClick(object oSender, object oArgs)
+		void ProcessClick()
 		{
-			CampMenuManager		cMenuMgr = ((Camp)oSender).cMenuMgr;
-
 			// loop through the buttons 
 
 		}
 
+		void TemplateClick(object oSender, object oArgs)
+		{
+
+		}
 	}
 }

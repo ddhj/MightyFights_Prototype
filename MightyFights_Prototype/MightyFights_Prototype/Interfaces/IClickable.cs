@@ -9,10 +9,16 @@ namespace MightyFights_Prototype
 {
 	public delegate void DProcessClick(object oSender, object oArgs);
 
-	interface IClickable
+	public interface IClickable
 	{
 		bool ContainsPoint(Point tPoint);
 		bool ContainsPoint(Vector2 tLocation);
 		DProcessClick dlProcessClick	{ get; set; }
+	}
+
+	public interface IMouseInteractive : IClickable
+	{
+		void MouseIn();
+		void MouseOut();
 	}
 }
