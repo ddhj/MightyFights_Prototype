@@ -129,6 +129,17 @@ namespace MightyFights_Prototype
 					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 				_cObjMgr.AddClickObject(cTmpSpr, ((ClickableSmith)cTmpSpr).ProcessClick);
 
+				cTmpSpr	= new ClickablePikard();
+				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\picard_guy");
+				cTmpSpr.tPos = new Vector2(642, 196);
+				cTmpSpr.sTexName = @"In Game\Camp\picard_guy";
+				cTmpSpr.cFrame = new Frame(cTmpSpr.cTexRef.Bounds, 
+					new Vector2(cTmpSpr.cTexRef.Bounds.Width / 2, cTmpSpr.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmpSpr.cTexRef.Bounds.Width, cTmpSpr.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_cObjMgr.AddClickObject(cTmpSpr, ((ClickablePikard)cTmpSpr).ProcessClick);
+
 				_cCursor = new Cursor();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\gauntlet_cursor");
 				_cCursor.sTexName = @"Shared\gauntlet_cursor00";
