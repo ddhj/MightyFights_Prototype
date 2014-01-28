@@ -139,6 +139,7 @@
     <Compile Include="Scenes\InGame\Battlegrounds\Objects\Healer\Healer_Actions.cs" />
     <Compile Include="Scenes\InGame\Battlegrounds\Objects\Trooper\Trooper.cs" />
     <Compile Include="Scenes\InGame\Battlegrounds\Objects\Trooper\Trooper_Actions.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Objects\Trooper\Trooper_Combatant.cs" />
     <Compile Include="Scenes\InGame\Battlegrounds\Objects\Trooper\Trooper_Huristics.cs" />
     <Compile Include="Interfaces\IBuffableObject.cs" />
     <Compile Include="Interfaces\IObject.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="GameShell.cs" />
     <Compile Include="Scenes\InGame\Battlegrounds\Basic\BattleGround_Basic_Events.cs" />
+    <Compile Include="Scenes\InGame\Battlegrounds\Objects\Trooper\Trooper_Interfaces.cs" />
     <Compile Include="Scenes\InGame\Camp\Camp.cs" />
     <Compile Include="Scenes\InGame\Camp\Camp_Events.cs" />
     <Compile Include="Scenes\InGame\Camp\Managers\CMenuManager.cs" />
@@ -193,7 +195,7 @@
     <Compile Include="Scenes\InGame\Battlegrounds\Basic\BattleGround_Basic.cs" />
     <Compile Include="Management Classes\SceneManager.cs" />
     <Compile Include="Support Classes\Enums.cs" />
-    <Compile Include="Interfaces\ICombatant.cs" />
+    <Compile Include="Base Objects\Combatant.cs" />
     <Compile Include="Interfaces\IUpdate.cs" />
     <Compile Include="Support Classes\Particle System Objects.cs" />
     <Compile Include="Support Classes\Stats.cs" />

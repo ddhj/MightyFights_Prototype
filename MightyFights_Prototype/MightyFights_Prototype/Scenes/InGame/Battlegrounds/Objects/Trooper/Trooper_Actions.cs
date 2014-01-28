@@ -5,54 +5,8 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 
-namespace MightyFights_Prototype
-{
-	public partial class Trooper 
-	{
-		public bool TrooperUpkeep(Action cAction, GameTime cTime)
-		{
-			if(_cStats.fHp <= 0) { 
-				cAiData.eState = EBattleAiStates.Dying;
-				_cActionMgr.cActionQueue.Clear();
-				if(DataStore.cInstance.cRand.Next(2) == 1) 
-					_cAnimProc.SetAnimationCriteria("Death", "Normal", "death", 1);
-				else _cAnimProc.SetAnimationCriteria("Death", "Normal", "deathb", 1);
-
-				// remove ourselves from our opponents attaking point
-				if(this.cTarget != null)
-					if(this.cTarget is Combatant)
-					{
-						if(_bAttacking)
-							((Combatant)cTarget ).RemoveAttacker(_iAttackingPos);
-					}
-					else if( this.cTarget is Priest )
-						((Priest)this.cTarget ).FreeSpot( this );
-
-				// remove the dying trooper from the zone they are in 
-				DataStore.cInstance.cBattleData.RemoveDeadCombatant(this);
-
-				// remove this perm action from the list so it no longer processes
-				cAction.bConditionNotMet = false;
-				return false;
-			}
-
-			// call our flee heuristic
-			cAiData.cHeurisitics[EBattleHeuristics.Flee](_cBattleDataRef);
-
-			// sort the z order by y pos
-			_fZorder = 1 - _tCenter.Y / 684;
-
-			// update position in the battle zone
-			if(_cBattleDataRef != null)
-				_cBattleDataRef.SetZone(this);
-
-			return true;
-		}
-
-		void ProcessBuffList()
-		{
-		}
-
+namespace MightyFights_Prototype	{
+	public partial class Trooper	{
 		public bool BasicBattleManager(Action cAction, GameTime cTime)
 		{
 			if(cAction.bInit) { 
@@ -124,6 +78,50 @@ namespace MightyFights_Prototype
 			}
 
 			return true;
+		}
+
+		public bool TrooperUpkeep(Action cAction, GameTime cTime)
+		{
+			if(_cStats.fHp <= 0) { 
+				cAiData.eState = EBattleAiStates.Dying;
+				_cActionMgr.cActionQueue.Clear();
+				if(DataStore.cInstance.cRand.Next(2) == 1) 
+					_cAnimProc.SetAnimationCriteria("Death", "Normal", "death", 1);
+				else _cAnimProc.SetAnimationCriteria("Death", "Normal", "deathb", 1);
+
+				// remove ourselves from our opponents attaking point
+				if(this.cTarget != null)
+					if(this.cTarget is Combatant)
+					{
+						if(_bAttacking)
+							((Combatant)cTarget ).RemoveAttacker(_iAttackingPos);
+					}
+					else if( this.cTarget is Priest )
+						((Priest)this.cTarget ).FreeSpot( this );
+
+				// remove the dying trooper from the zone they are in 
+				DataStore.cInstance.cBattleData.RemoveDeadCombatant(this);
+
+				// remove this perm action from the list so it no longer processes
+				cAction.bConditionNotMet = false;
+				return false;
+			}
+
+			// call our flee heuristic
+			cAiData.cHeurisitics[EBattleHeuristics.Flee](_cBattleDataRef);
+
+			// sort the z order by y pos
+			_fZorder = 1 - _tCenter.Y / 684;
+
+			// update position in the battle zone
+			if(_cBattleDataRef != null)
+				_cBattleDataRef.SetZone(this);
+
+			return true;
+		}
+
+		void ProcessBuffList()
+		{
 		}
 
 		public bool MoveToPoint(Action cAction, GameTime cTime)

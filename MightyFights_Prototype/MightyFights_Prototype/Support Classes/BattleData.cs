@@ -313,7 +313,7 @@ namespace MightyFights_Prototype
 
 		public Vector2 GetFleeSpot( Combatant cCombatant )
 		{
-			Random		cRand = DataStore.cInstance.cRand;
+			Random	cRand = DataStore.cInstance.cRand;
 			int		iX = 0,
 					iY = 0,
 					iXOff = 0,
