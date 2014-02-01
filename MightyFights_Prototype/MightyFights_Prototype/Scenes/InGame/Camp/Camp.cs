@@ -80,20 +80,11 @@ namespace MightyFights_Prototype
 			GraphicsDevice	cGraphics = cData.cGraphics;
 			ClickableSprite	cTmpSpr;
 
-			string[]		saMusic = new string[] {"05 We Are the Fugitives",
-				"08 Any City", "12 Nin-Nin Hall", "Chrono_Trigger_Another_Fair_OC_ReMix",
-				"Chrono_Trigger_IslandOfZeal_OC_ReMix", "Chrono_Trigger_Millenial_Fair_2001_OC_ReMix",
-				"Chrono_Trigger_New_Zeal_OC_ReMix", "Chrono_Trigger_Tears_for_a_Girl_OC_ReMix",
-				"Chrono_Trigger_Time_Management_OC_ReMix", "Chrono_Trigger_Zeal_Love_OC_ReMix",
-				"Phantasy_Star_3_Legacy_OC_ReMix", "Phantasy_Star_3_Nial_and_Nowhere_OC_ReMix",
-				"[Actraiser] Yuzo Koshiro - Birth of the People (arranged)",
-				"[Actraiser] Yuzo Koshiro - Filmoa (arranged)"};
-
 			try { 
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 				_cCampGround = cContent.Load<Texture2D>(@"In Game\Camp\ground");
 				_cFont = cContent.Load<SpriteFont>(@"Shared\DebugFont");
-				_cBgm = DataManager.cInstance.CreateMusic(@"\Camp\" + saMusic[_cRand.Next(saMusic.Length)]);
+				_cBgm = DataManager.cInstance.CreateMusic(@"\Camp\wodyn#4");
 
 				// set the object manager parent
 				_cObjMgr.cParentData = this;

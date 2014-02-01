@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace MightyFights_Prototype
 {
@@ -16,9 +17,12 @@ namespace MightyFights_Prototype
 		DProcessClick dlProcessClick	{ get; set; }
 	}
 
+	public delegate void DProcessMouseEvent(object oSender);
+	
 	public interface IMouseInteractive : IClickable
 	{
-		void MouseIn();
-		void MouseOut();
+		DProcessMouseEvent	dlMouseIn		{ get; set; }
+		DProcessMouseEvent	dlMouseOut		{ get; set; }
+		bool MouseMove(MouseState tMouseState);
 	}
 }

@@ -122,7 +122,6 @@ Content\Music\Final_Fantasy_4_Submission_OC_ReMix.xnb
 Content\Sprite Data\Troopers\Halberd\Front Facing\frontarray.xnb
 Content\Sprite Data\Troopers\Halberd\Front Facing\front.xnb
 Content\In Game\Hud\border_jackson.xnb
-Content\Music\battle1.xnb
 Content\Out Game\TitleScreen\options00.xnb
 Content\Out Game\TitleScreen\options01.xnb
 Content\Out Game\TitleScreen\play_game00.xnb
@@ -156,66 +155,10 @@ Content\In Game\Camp\KnightMenu\company_button.xnb
 Content\In Game\Camp\KnightMenu\dialogue_button.xnb
 Content\In Game\Camp\KnightMenu\knight_box.xnb
 Content\In Game\Camp\KnightMenu\template_button.xnb
-Content\In Game\Map\Buildings\bridgeNE.xnb
-Content\In Game\Map\Buildings\bridgeNE_blue.xnb
-Content\In Game\Map\Buildings\bridgeNE_red.xnb
-Content\In Game\Map\Buildings\bridgeS.xnb
-Content\In Game\Map\Buildings\bridgeSE.xnb
-Content\In Game\Map\Buildings\bridgeSE_blue.xnb
-Content\In Game\Map\Buildings\bridgeSE_red.xnb
-Content\In Game\Map\Buildings\bridgeS_blue.xnb
-Content\In Game\Map\Buildings\bridgeS_red.xnb
-Content\In Game\Map\Buildings\chapel.xnb
-Content\In Game\Map\Buildings\chapel_blue.xnb
-Content\In Game\Map\Buildings\chapel_red.xnb
-Content\In Game\Map\Buildings\citadel.xnb
-Content\In Game\Map\Buildings\citadel_blue.xnb
-Content\In Game\Map\Buildings\citadel_red.xnb
-Content\In Game\Map\Buildings\darvi.xnb
-Content\In Game\Map\Buildings\darvi_blue.xnb
-Content\In Game\Map\Buildings\darvi_red.xnb
-Content\In Game\Map\Buildings\dungeon.xnb
-Content\In Game\Map\Buildings\dungeon_blue.xnb
-Content\In Game\Map\Buildings\dungeon_red.xnb
-Content\In Game\Map\Buildings\hamlet.xnb
-Content\In Game\Map\Buildings\hamlet_blue.xnb
-Content\In Game\Map\Buildings\hamlet_red.xnb
-Content\In Game\Map\Buildings\hut.xnb
-Content\In Game\Map\Buildings\hut_blue.xnb
-Content\In Game\Map\Buildings\hut_red.xnb
-Content\In Game\Map\Buildings\tower.xnb
-Content\In Game\Map\Buildings\tower_blue.xnb
-Content\In Game\Map\Buildings\tower_red.xnb
 Content\Shared\gauntlet_cursor.xnb
 Content\In Game\Map\littlemap.xnb
-Content\Music\Camp\[Actraiser] Yuzo Koshiro - Birth of the People (arranged).xnb
-Content\Music\Camp\[Actraiser] Yuzo Koshiro - Filmoa (arranged).xnb
-Content\Music\Camp\08 Any City.xnb
-Content\Music\Camp\12 Nin-Nin Hall.xnb
-Content\Music\Camp\05 We Are the Fugitives.xnb
-Content\Music\Camp\Chrono_Trigger_Another_Fair_OC_ReMix.xnb
-Content\Music\Camp\Chrono_Trigger_IslandOfZeal_OC_ReMix.xnb
-Content\Music\Camp\Chrono_Trigger_Millenial_Fair_2001_OC_ReMix.xnb
-Content\Music\Camp\Chrono_Trigger_New_Zeal_OC_ReMix.xnb
-Content\Music\Camp\Chrono_Trigger_Tears_for_a_Girl_OC_ReMix.xnb
-Content\Music\Camp\Chrono_Trigger_Time_Management_OC_ReMix.xnb
-Content\Music\Camp\Chrono_Trigger_Zeal_Love_OC_ReMix.xnb
-Content\Music\Camp\Phantasy_Star_3_Legacy_OC_ReMix.xnb
-Content\Music\Camp\Phantasy_Star_3_Nial_and_Nowhere_OC_ReMix.xnb
 Content\In Game\Camp\KnightMenu\knight_guy.xnb
-Content\In Game\Camp\Company Dialog\company_arrowdown.xnb
-Content\In Game\Camp\Company Dialog\company_arrowright.xnb
-Content\In Game\Camp\Company Dialog\company_arrowup.xnb
-Content\In Game\Camp\Company Dialog\company_available%.xnb
-Content\In Game\Camp\Company Dialog\company_box.xnb
-Content\In Game\Camp\Company Dialog\company_drag.xnb
-Content\In Game\Camp\Company Dialog\company_edit.xnb
 Content\In Game\Camp\Company Dialog\company_name.xnb
-Content\In Game\Camp\Company Dialog\company_percentagearrows.xnb
-Content\In Game\Camp\Company Dialog\company_reset.xnb
-Content\In Game\Camp\Company Dialog\company_slot.xnb
-Content\In Game\Camp\Company Dialog\company_slot_select.xnb
-Content\In Game\Camp\Company Dialog\company_training.xnb
 Content\Shared\company_arrowdownx.xnb
 Content\Shared\company_arrowrightx.xnb
 Content\Shared\company_arrowupx.xnb
@@ -227,6 +170,96 @@ Content\In Game\Camp\SmithMenu\armour_upgrade.xnb
 Content\In Game\Camp\SmithMenu\smith_box.xnb
 Content\In Game\Camp\SmithMenu\smith_guy.xnb
 Content\In Game\Camp\SmithMenu\weapon_upgrade.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\darvi_bill.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\Footman_bill_steel.xnb
+Content\In Game\Map\BuildingIcons\bridgeNE.xnb
+Content\In Game\Map\BuildingIcons\bridgeNE_blue.xnb
+Content\In Game\Map\BuildingIcons\bridgeNE_red.xnb
+Content\In Game\Map\BuildingIcons\bridgeS.xnb
+Content\In Game\Map\BuildingIcons\bridgeSE.xnb
+Content\In Game\Map\BuildingIcons\bridgeSE_blue.xnb
+Content\In Game\Map\BuildingIcons\bridgeSE_red.xnb
+Content\In Game\Map\BuildingIcons\bridgeS_blue.xnb
+Content\In Game\Map\BuildingIcons\bridgeS_red.xnb
+Content\In Game\Map\BuildingIcons\chapel.xnb
+Content\In Game\Map\BuildingIcons\chapel_blue.xnb
+Content\In Game\Map\BuildingIcons\chapel_red.xnb
+Content\In Game\Map\BuildingIcons\citadel.xnb
+Content\In Game\Map\BuildingIcons\citadel_blue.xnb
+Content\In Game\Map\BuildingIcons\citadel_red.xnb
+Content\In Game\Map\BuildingIcons\darvi.xnb
+Content\In Game\Map\BuildingIcons\darvi_blue.xnb
+Content\In Game\Map\BuildingIcons\darvi_red.xnb
+Content\In Game\Map\BuildingIcons\dungeon.xnb
+Content\In Game\Map\BuildingIcons\dungeon_blue.xnb
+Content\In Game\Map\BuildingIcons\dungeon_red.xnb
+Content\In Game\Map\BuildingIcons\hamlet.xnb
+Content\In Game\Map\BuildingIcons\hamlet_blue.xnb
+Content\In Game\Map\BuildingIcons\hamlet_red.xnb
+Content\In Game\Map\BuildingIcons\hut.xnb
+Content\In Game\Map\BuildingIcons\hut_blue.xnb
+Content\In Game\Map\BuildingIcons\hut_red.xnb
+Content\In Game\Map\BuildingIcons\tower.xnb
+Content\In Game\Map\BuildingIcons\tower_blue.xnb
+Content\In Game\Map\BuildingIcons\tower_red.xnb
+Content\In Game\Map\EnemyIcons\bandit1_icon.xnb
+Content\In Game\Map\EnemyIcons\bandit2_icon.xnb
+Content\In Game\Map\camp_icon.xnb
+Content\In Game\Map\EnemyIcons\little_darvi.xnb
+Content\In Game\Map\EnemyIcons\little_darvi_outline.xnb
+Content\In Game\Map\EnemyIcons\little_enemy.xnb
+Content\In Game\Map\EnemyIcons\little_enemy_outline.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\bandit_party_window.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\bridge_window.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\chaos_dungeon_window.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\chapel_window.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\citadel_window.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\dark_city_window.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\hamlet_window.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\rival_army_window.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\smokey_hut_window.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\tower_window.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon_H.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\attack.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\attack_H.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize_H.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\burn.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\burn_H.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer_H.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy_H.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate_H.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige_H.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce_H.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage_H.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout.xnb
+Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout_H.xnb
+Content\Music\Battle\battle1.xnb
+Content\Music\Camp\wodyn#4.xnb
+Content\Music\TitleScreen\wodyn#3.xnb
+Content\Music\Battle\battle2.xnb
+Content\In Game\Camp\Company Dialog\click_to_drag.xnb
+Content\In Game\Camp\Company Dialog\company_window.xnb
+Content\In Game\Camp\Company Dialog\grid_arrow_left.xnb
+Content\In Game\Camp\Company Dialog\grid_arrow_left_blue.xnb
+Content\In Game\Camp\Company Dialog\grid_arrow_right.xnb
+Content\In Game\Camp\Company Dialog\grid_arrow_right_blue.xnb
+Content\In Game\Camp\Company Dialog\reset_gray.xnb
+Content\In Game\Camp\Company Dialog\reset_red.xnb
+Content\In Game\Camp\Company Dialog\size_box.xnb
+Content\In Game\Camp\Company Dialog\template_arrow_left.xnb
+Content\In Game\Camp\Company Dialog\template_arrow_right.xnb
+Content\In Game\Camp\Company Dialog\unit_allocation_arrows.xnb
+Content\In Game\Camp\Company Dialog\unit_allocation_down.xnb
+Content\In Game\Camp\Company Dialog\unit_allocation_up.xnb
+Content\Shared\TestFon.xnb
 Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.wma
 Content\Music\Final_Fantasy_4_Treason_OC_ReMix.wma
 Content\Music\Final_Fantasy_6_Desertion_OC_ReMix.wma
@@ -237,19 +270,8 @@ Content\Music\Final_Fantasy_Hostility_OC_ReMix.wma
 Content\Music\Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.wma
 Content\Music\Minibossies_FinalFantasy6_VictoryFanfare.wma
 Content\Music\Final_Fantasy_4_Submission_OC_ReMix.wma
-Content\Music\battle1.wma
 Content\Music\10 WV.wma
-Content\Music\Camp\[Actraiser] Yuzo Koshiro - Birth of the People (arranged).wma
-Content\Music\Camp\[Actraiser] Yuzo Koshiro - Filmoa (arranged).wma
-Content\Music\Camp\08 Any City.wma
-Content\Music\Camp\12 Nin-Nin Hall.wma
-Content\Music\Camp\05 We Are the Fugitives.wma
-Content\Music\Camp\Chrono_Trigger_Another_Fair_OC_ReMix.wma
-Content\Music\Camp\Chrono_Trigger_IslandOfZeal_OC_ReMix.wma
-Content\Music\Camp\Chrono_Trigger_Millenial_Fair_2001_OC_ReMix.wma
-Content\Music\Camp\Chrono_Trigger_New_Zeal_OC_ReMix.wma
-Content\Music\Camp\Chrono_Trigger_Tears_for_a_Girl_OC_ReMix.wma
-Content\Music\Camp\Chrono_Trigger_Time_Management_OC_ReMix.wma
-Content\Music\Camp\Chrono_Trigger_Zeal_Love_OC_ReMix.wma
-Content\Music\Camp\Phantasy_Star_3_Legacy_OC_ReMix.wma
-Content\Music\Camp\Phantasy_Star_3_Nial_and_Nowhere_OC_ReMix.wma
+Content\Music\Battle\battle1.wma
+Content\Music\Camp\wodyn#4.wma
+Content\Music\TitleScreen\wodyn#3.wma
+Content\Music\Battle\battle2.wma

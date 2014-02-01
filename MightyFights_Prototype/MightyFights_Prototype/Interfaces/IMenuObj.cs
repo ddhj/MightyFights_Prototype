@@ -11,5 +11,7 @@ namespace MightyFights_Prototype
 	{
 		object		oMenuObject		{get;}
 		object		oResultData		{get;}
+
+		bool InitMenu();
 	}
 }

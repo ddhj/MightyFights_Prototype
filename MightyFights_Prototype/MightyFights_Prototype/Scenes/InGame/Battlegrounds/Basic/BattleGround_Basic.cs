@@ -287,12 +287,11 @@ namespace MightyFights_Prototype
 				}
 			}
 
-			string[] saMusic = new string[] { "Final_Fantasy_4_The_Flying_Machine_OC_ReMix", "Final_Fantasy_4_Treason_OC_ReMix", "Final_Fantasy_6_Desertion_OC_ReMix", "Final_Fantasy_6_Smooth_Alexander_OC_ReMix",
-																				"Final_Fantasy_7_Fight_On_OC_ReMix",  "Final_Fantasy_Duque_Battle_OC_ReMix", "Final_Fantasy_Hostility_OC_ReMix", "Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix" };
+			string[] saMusic = new string[] { "battle1", "battle2" };
 			//DataStore.cInstance.cBgm = 
 			//    _cBgm = ObjectCreationManager.cInstance.CreateMusic( saMusic[DataStore.cInstance.cRand.Next( saMusic.Length )] );
 			DataStore.cInstance.cBgm = 
-			    _cBgm = DataManager.cInstance.CreateMusic( "battle1" );
+			    _cBgm = DataManager.cInstance.CreateMusic( saMusic[_cRand.Next(2)] );
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = .6f;
 			if(DataStore.cInstance.bPlayMusic)	MediaPlayer.Play( _cBgm );
@@ -485,7 +484,7 @@ namespace MightyFights_Prototype
 				_cBattleData.cCursor = _cCursor;
 
 				//// ddhj: load in some debug data
-				_cFont = cContent.Load<SpriteFont>(@"Shared\DebugFont");
+				_cFont = cContent.Load<SpriteFont>(@"Shared\TestFon");
 				DataStore.cInstance.cBorder = _cBorder = new Texture2D(cGraphics, 1, 1);
 				_cBorder.SetData<Color>(new[] { Color.White });
 
