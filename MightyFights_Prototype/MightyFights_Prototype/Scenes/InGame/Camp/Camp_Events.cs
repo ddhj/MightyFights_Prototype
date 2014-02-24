@@ -21,5 +21,20 @@ namespace MightyFights_Prototype
 {
 	public partial class Camp : IGameScene
 	{
+		public void RegisterHandlers()
+		{
+			_cObjMgr.RegisterEvents();
+			InputSystem.MouseMove += new MouseEventHandler(InputSystem_MouseMove);
+		}
+
+		void InputSystem_MouseMove(object sender, MouseEventArgs e)
+		{
+			_cCursor.Update(e.Location);
+		}
+
+		public void UnRegisterHandlers()
+		{
+
+		}
 	}
 }

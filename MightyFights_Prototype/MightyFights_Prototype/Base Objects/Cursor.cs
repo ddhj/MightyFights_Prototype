@@ -9,17 +9,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MightyFights_Prototype
 {
-	public class Cursor : BasicSprite, IUpdate
+	public class Cursor : BasicSprite
 	{
 		#region IUpdate Members
 
-		public void Update(GameTime cTime)
+		public void Update(Point tPoint)
 		{
-			MouseState	cState = Mouse.GetState();
-			Point		tPoint = new Point(cState.X, cState.Y);
-
 			// set the position of the cursor
-			this.tPos = new Vector2(cState.X, cState.Y);
+			this.tPos = new Vector2(tPoint.X, tPoint.Y);
 		}
 
 		public override void Draw(SpriteBatch cBatch)

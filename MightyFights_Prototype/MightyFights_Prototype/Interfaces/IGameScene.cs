@@ -18,7 +18,11 @@ namespace MightyFights_Prototype
 		bool Init();
 		void Unload();
 
-		//// dhdj: some windows controls are not making me happy
+		//// ddhj: some windows controls are not making me happy
 		void ToggleControls();
+
+		//// ddhj: manager for the event driven input
+		void RegisterHandlers();
+		void UnRegisterHandlers();
 	}
 }

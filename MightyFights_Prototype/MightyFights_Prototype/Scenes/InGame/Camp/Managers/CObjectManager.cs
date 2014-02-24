@@ -28,6 +28,7 @@ namespace MightyFights_Prototype
 		Dictionary<int, IActiveBasic>		_cActiveList = new Dictionary<int,IActiveBasic>();
 		Dictionary<int, object>				_cMainObjectList = new Dictionary<int,object>();
 		Dictionary<int, IClickable>			_cClickable = new Dictionary<int,IClickable>();
+		List<IClickable>					_naClickObjList = new List<IClickable>();
 
 		bool		_bProcessClick = true;
 
@@ -99,7 +100,6 @@ namespace MightyFights_Prototype
 			IObject					nObj;
 			MouseState				cMouseState = Mouse.GetState();
 			Point					tPoint = new Point(cMouseState.X, cMouseState.Y);
-			List<IClickable>		naClickObjList = new List<IClickable>();
 
 			// preprocess lists
 			foreach(object oObj in _cMainObjectList.Values) { 
@@ -127,23 +127,6 @@ namespace MightyFights_Prototype
 					iaRemList.Add(nObj.iId);
 			}
 		
-			if(bProcessClickObj) { 
-				// check the mouse button click 
-				foreach(KeyValuePair<int, IClickable> tClickObj in _cClickable)
-					naClickObjList.Add(tClickObj.Value);
-
-				if(cMouseState.LeftButton == ButtonState.Pressed) { 
-					if(_bProcessClick == true) { 
-						foreach(IClickable nClickObj in naClickObjList)
-							if(nClickObj.ContainsPoint(tPoint))
-								if(nClickObj.dlProcessClick != null)
-									nClickObj.dlProcessClick(cParentData, nClickObj);
-						
-						_bProcessClick = false;
-					}
-				} else _bProcessClick = true;
-			}
-
 			// remove all objects from the main processing list
 			foreach(int iObj in iaRemList)
 				_cMainObjectList.Remove(iObj);
@@ -184,6 +167,24 @@ namespace MightyFights_Prototype
 			foreach( ParticleEffect cEffect in _cParticleSystemMgr )
 				cEffect.Terminate( );
 			_cParticleSystemMgr.Clear( );
+		}
+
+		public void RegisterEvents()
+		{
+			InputSystem.MouseDown += new MouseEventHandler(InputSystem_MouseDown);
+		}
+
+		void InputSystem_MouseDown(object sender, MouseEventArgs vE)
+		{
+			foreach(IClickable nClickObj in _naClickObjList)
+				if(nClickObj.ContainsPoint(vE.Location))
+					if(nClickObj.dlProcessClick != null)
+						nClickObj.dlProcessClick(cParentData, nClickObj);
+		}
+
+		public void UnRegisterEvents()
+		{
+
 		}
 	}
 }

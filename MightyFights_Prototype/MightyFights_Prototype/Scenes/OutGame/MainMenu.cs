@@ -411,6 +411,16 @@ namespace MightyFights_Prototype
 			}
 		}
 
+		public void RegisterHandlers()
+		{
+		
+		}
+
+		public void UnRegisterHandlers()
+		{
+
+		}
+
 		#endregion
 	}
 }

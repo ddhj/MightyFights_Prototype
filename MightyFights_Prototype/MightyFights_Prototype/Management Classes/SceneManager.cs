@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Xml.Linq;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace MightyFights_Prototype
 {
@@ -25,7 +27,7 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cSceneMgr = this;
 
 			// 
-
+	
 			// likely do some other data store stuff if we need to pass... not sure if that is needed here or not 
 		}
 
@@ -55,10 +57,14 @@ namespace MightyFights_Prototype
 		{
 			nGameScene.eState = ESceneStates.Active;
 			_naSceneList.Add(nGameScene);
+
 			if(_naSceneList.Count > 1) { 
 				_naSceneList[_naSceneList.Count - 2].eState = ESceneStates.Inactive;
 				_naSceneList[_naSceneList.Count - 2].ToggleControls();
+				_naSceneList[_naSceneList.Count - 2].UnRegisterHandlers();
 			}
+
+			nGameScene.RegisterHandlers();
 		}
 
 		public void RemoveScene(IGameScene nGameScene)
@@ -70,6 +76,7 @@ namespace MightyFights_Prototype
 			// make sure the last one in the list is active
 			_naSceneList[_naSceneList.Count - 1].eState = ESceneStates.Active;
 			_naSceneList[_naSceneList.Count - 1].ToggleControls();
+			_naSceneList[_naSceneList.Count - 1].RegisterHandlers();
 		}
 	}
 }

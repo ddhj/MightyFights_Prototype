@@ -85,7 +85,6 @@ namespace MightyFights_Prototype
 		{
 			MouseState	cState = Mouse.GetState();
 			Point		tPoint = new Point(cState.X, cState.Y);
-			_cCursor.Update(cTime);
 			if(cState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed) { 
 				if(_bProcessPress) { 
 					if(_cTopSlider.ContainsPoint(tPoint)) { 
@@ -256,6 +255,21 @@ namespace MightyFights_Prototype
 		public void ToggleControls()
 		{
 
+		}
+
+		public void RegisterHandlers()
+		{
+			InputSystem.MouseMove += new Microsoft.Xna.Framework.Input.MouseEventHandler(InputSystem_MouseMove);
+		}
+
+		void InputSystem_MouseMove(object sender, Microsoft.Xna.Framework.Input.MouseEventArgs e)
+		{
+			_cCursor.Update(e.Location);
+		}
+
+		public void UnRegisterHandlers()
+		{
+			InputSystem.MouseMove -= InputSystem_MouseMove;
 		}
 
 		#endregion

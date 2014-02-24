@@ -110,6 +110,9 @@ namespace MightyFights_Prototype
 			// set the music in the game to be repeted if it runs long
 			MediaPlayer.IsRepeating = true;
 
+			// set the input system to the window
+			InputSystem.Initialize(Window);
+
 			// add the main menu as the initial drawing object
 			IGameScene		nScene = new TitleScreen();
 			if(nScene.Init()) { 

@@ -21,5 +21,15 @@ namespace MightyFights_Prototype
 {
 	public partial class Map : IGameScene
 	{
+
+		public void RegisterHandlers()
+		{
+		
+		}
+
+		public void UnRegisterHandlers()
+		{
+
+		}
 	}
 }

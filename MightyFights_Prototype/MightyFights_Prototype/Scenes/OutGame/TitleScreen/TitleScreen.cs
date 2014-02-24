@@ -41,39 +41,6 @@ namespace MightyFights_Prototype
 
 		public void Update(GameTime cTime)
 		{
-			MouseState	cState = Mouse.GetState();
-			Microsoft.Xna.Framework.Point		tPoint = new Microsoft.Xna.Framework.Point(cState.X, cState.Y);
-
-			// set the position of the cursor
-			_cCursor.Update(cTime);	
-
-			// check the position of the mouse over each of the items so see which one is selected 
-			if(_cPlay[0].ContainsPoint(tPoint)) { 
-				_iOptions = _iView = 0;
-				_iPlay = 1;
-			} else if(_cOptions[0].ContainsPoint(tPoint)) { 
-				_iPlay = _iView = 0;
-				_iOptions = 1;
-			} else if(_cView[0].ContainsPoint(tPoint)) { 
-				_iOptions = _iPlay = 0;
-				_iView = 1;
-			}
-
-			// check if they are clicking 
-			if(cState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed) { 
-				if(_bProcessState) { 
-					if(_cPlay[0].ContainsPoint(tPoint)) { 
-						IGameScene nScene = new Camp();
-						//IGameScene nScene = new MainMenu();
-						if(nScene.Init()) 
-							DataStore.cInstance.cSceneMgr.AddScene(nScene);
-					} else if(_cExit.ContainsPoint(tPoint)) { 
-						DataStore.cInstance.cGame.Exit();
-					}
-
-					_bProcessState = false;
-				}
-			} else _bProcessState = true;			
 		}
 
 		public void Draw(GameTime cTime)
@@ -202,6 +169,51 @@ namespace MightyFights_Prototype
 		public void ToggleControls()
 		{
 			
+		}
+
+
+		void InputSystem_MouseMove(object sender, Microsoft.Xna.Framework.Input.MouseEventArgs e)
+		{
+			Microsoft.Xna.Framework.Point tPoint = e.Location;
+
+			// set the position of the cursor
+			_cCursor.Update(tPoint);	
+
+			if(_cPlay[0].ContainsPoint(tPoint)) { 
+				_iOptions = _iView = 0;
+				_iPlay = 1;
+			} else if(_cOptions[0].ContainsPoint(tPoint)) { 
+				_iPlay = _iView = 0;
+				_iOptions = 1;
+			} else if(_cView[0].ContainsPoint(tPoint)) { 
+				_iOptions = _iPlay = 0;
+				_iView = 1;
+			}			
+		}
+
+
+		public void RegisterHandlers()
+		{
+			InputSystem.MouseMove += new Microsoft.Xna.Framework.Input.MouseEventHandler(InputSystem_MouseMove);
+			InputSystem.MouseDown += new Microsoft.Xna.Framework.Input.MouseEventHandler(InputSystem_MouseDown);
+		}
+
+		void InputSystem_MouseDown(object sender, Microsoft.Xna.Framework.Input.MouseEventArgs vE)
+		{
+			if(_cPlay[0].ContainsPoint(vE.Location)) { 
+				IGameScene nScene = new Camp();
+				//IGameScene nScene = new MainMenu();
+				if(nScene.Init()) 
+					DataStore.cInstance.cSceneMgr.AddScene(nScene);
+			} else if(_cExit.ContainsPoint(vE.Location)) { 
+				DataStore.cInstance.cGame.Exit();
+			}
+		}
+
+		public void UnRegisterHandlers()
+		{
+			InputSystem.MouseMove -= InputSystem_MouseMove;
+			InputSystem.MouseDown -= InputSystem_MouseDown;
 		}
 
 		#endregion

@@ -48,7 +48,6 @@ namespace MightyFights_Prototype
 
 		public void Update(GameTime cTime)
 		{
-			_cCursor.Update(cTime);
 			_cObjMgr.Process(cTime, _cMenuMgr.bNoMenus);
 			_cMenuMgr.Process(cTime);
 		}

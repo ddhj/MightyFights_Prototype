@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Xna.Framework.Input;
+
 using System.Runtime.Serialization.Json;
 
 namespace MightyFights_Prototype
@@ -58,5 +60,19 @@ namespace MightyFights_Prototype
 			_cBattleData.eState = _eOldState;
 		}
 
+		public void RegisterHandlers()
+		{
+			InputSystem.MouseMove += new MouseEventHandler(InputSystem_MouseMove);
+		}
+
+		void InputSystem_MouseMove(object sender, MouseEventArgs e)
+		{
+			_cCursor.Update(e.Location);
+		}
+
+		public void UnRegisterHandlers()
+		{
+			InputSystem.MouseMove -= InputSystem_MouseMove;
+		}
 	}
 }

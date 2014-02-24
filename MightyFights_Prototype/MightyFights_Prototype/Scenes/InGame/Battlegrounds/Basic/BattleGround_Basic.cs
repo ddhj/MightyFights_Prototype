@@ -67,9 +67,6 @@ namespace MightyFights_Prototype
 			// set the datastore elapsed time for the action and heuristic processing 
 			DataStore.cInstance.tTime = cTime;
 
-			// process the cursor
-			_cCursor.Update(cTime);
-
 			//// CBD, just a way to pause the screen for the moment
 //			{
 //				MouseState	cState = Mouse.GetState();
