@@ -14,15 +14,14 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public class CompanyMenu : ClickableSprite, IMenuObj
+	public class CompanyMenu : ClickableSprite, IMenuObj, IMouseInteractive
 	{
-		bool				_bProcessClick;
 		public object		oMenuObject	{ get { return this; }}
 		public object		oResultData	{ get { return null; }}
 
 		CampMenuManager		_cMgr;
 
-		List<IMouseInteractive>		_naButtons = new List<IMouseInteractive>();
+		List<MenuControlBase>		_caControls = new List<MenuControlBase>();
 
 		public CompanyMenu(CampMenuManager cMgr) : base()
 		{
@@ -35,7 +34,7 @@ namespace MightyFights_Prototype
 				DataStore		cData = DataStore.cInstance;
 				ContentManager	cContent = cData.cContent;
 				
-				TemplateButton cTmpSpr = new TemplateButton();
+				MenuControlKeyboard cTmpSpr = new MenuControlKeyboard(_cMgr);
 				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\company_name");
 				cTmpSpr.tPos = new Vector2(tPos.X - cTmpSpr.cTexRef.Width / 2, tPos.Y + 20);
 				cTmpSpr.sTexName = @"In Game\Camp\Company Dialog\company_name";
@@ -45,8 +44,7 @@ namespace MightyFights_Prototype
 					new Vector2(0, 0), new Vector2(0, 0), 
 					new Vector2(cTmpSpr.cTexRef.Bounds.Width, cTmpSpr.cTexRef.Bounds.Height), 
 					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				
-				_naButtons.Add(cTmpSpr);
+				_caControls.Add(cTmpSpr);
 
 			} catch { 
 				return false;
@@ -59,24 +57,6 @@ namespace MightyFights_Prototype
 
 		public void Process(GameTime cTime)
 		{
-			MouseState			cMouseState = Mouse.GetState();
-			Point				tPoint = new Point(cMouseState.X, cMouseState.Y);
-			ClickableSprite		cActiveSprite = null;
-
-			// check to see if the click was out of the bounds of the main menu object for the knight
-			// if so then we are done
-			if(cMouseState.LeftButton == ButtonState.Pressed) { 
-				if(this.ContainsPoint(tPoint)) { 
-					// test the four buttons for which one is active
-					if(cActiveSprite != null)	cActiveSprite.dlProcessClick(this, null);
-
-					if(_bProcessClick == true) { 
-						ProcessClick();
-									
-						_bProcessClick = false;
-					} else _bProcessClick = true;
-				} else _cMgr.RemoveMenuObject(this);
-			} 
 		}
 
 		#endregion
@@ -85,8 +65,8 @@ namespace MightyFights_Prototype
 		{
 			base.Draw(cBatch);
 
-			foreach(IMouseInteractive nButton in _naButtons) { 
-				((TemplateButton)nButton).Draw(cBatch);
+			foreach(ClickableSprite cButton in _caControls) { 
+				cButton.Draw(cBatch);
 			}
 		}
 
@@ -95,5 +75,55 @@ namespace MightyFights_Prototype
 			// loop through the buttons 
 
 		}
+
+		#region IMouseInteractive Members
+
+		public void MouseMove(object oSender, MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void MouseDown(object oSender, MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void MouseUp(object oSender, MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void MouseHover(object oSender, MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void MouseWheel(object oSender, MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void MouseDoubleClick(object oSender, MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
+
+		#region IMenuObj Members
+
+
+		public void RegeisterEvents()
+		{
+			// walk the controls
+	
+		}
+
+		public void UnRegisterEvents()
+		{
+		
+		}
+
+		#endregion
 	}
 }

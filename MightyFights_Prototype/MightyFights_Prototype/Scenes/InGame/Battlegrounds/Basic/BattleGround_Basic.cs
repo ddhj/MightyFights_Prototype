@@ -284,7 +284,7 @@ namespace MightyFights_Prototype
 				}
 			}
 
-			string[] saMusic = new string[] { "battle1", "battle2" };
+			string[] saMusic = new string[] { @"Battle\battle1", @"Battle\battle2" };
 			//DataStore.cInstance.cBgm = 
 			//    _cBgm = ObjectCreationManager.cInstance.CreateMusic( saMusic[DataStore.cInstance.cRand.Next( saMusic.Length )] );
 			DataStore.cInstance.cBgm = 

@@ -25,7 +25,7 @@ namespace MightyFights_Prototype
 						// all the buildings will have to be sprites eventually
 						_cCaptianHouse,
 						_cBarracks,
-						_cSmith,
+						_cSmithHut,
 						_cSupplyHut, 
 						_cSurgeonTent,
 						_cWagon;
@@ -37,8 +37,13 @@ namespace MightyFights_Prototype
 		SpriteFont		_cFont;
 		Cursor			_cCursor;
 
+		// button guys
+		IMouseInteractive	_nKnight,
+							_nPikard,
+							_nSmith;
+
 		CampObjectManager	_cObjMgr = new CampObjectManager();
-		CampMenuManager		_cMenuMgr = new CampMenuManager();
+		CampMenuManager		_cMenuMgr;
 
 		public CampMenuManager cMenuMgr		{ get { return _cMenuMgr; }}
 
@@ -61,7 +66,7 @@ namespace MightyFights_Prototype
 				_cSpriteBatch.Draw(_cWagon, new Vector2(28, 420), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, .899f); 
 				_cSpriteBatch.Draw(_cBarracks, new Vector2(40, 190), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, .899f); 
 				_cSpriteBatch.Draw(_cSurgeonTent, new Vector2(30, 10), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, .899f); 
-				_cSpriteBatch.Draw(_cSmith, new Vector2(270, 17), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, .899f); 
+				_cSpriteBatch.Draw(_cSmithHut, new Vector2(270, 17), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, .899f); 
 				_cSpriteBatch.Draw(_cCaptianHouse, new Vector2(580, 15), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, .899f); 
 				_cSpriteBatch.Draw(_cSupplyHut, new Vector2(580, 290), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, .899f); 
 				
@@ -80,6 +85,7 @@ namespace MightyFights_Prototype
 			ClickableSprite	cTmpSpr;
 
 			try { 
+				_cMenuMgr = new CampMenuManager(this);
 				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
 				_cCampGround = cContent.Load<Texture2D>(@"In Game\Camp\ground");
 				_cFont = cContent.Load<SpriteFont>(@"Shared\DebugFont");
@@ -91,13 +97,13 @@ namespace MightyFights_Prototype
 				// these will all have to be sprites into the object manager when we get the sprite data for them
 				_cBarracks = cContent.Load<Texture2D>(@"In Game\Camp\barracks");
 				_cCaptianHouse = cContent.Load<Texture2D>(@"In Game\Camp\Captain's_house");
-				_cSmith = cContent.Load<Texture2D>(@"In Game\Camp\smith");
+				_cSmithHut = cContent.Load<Texture2D>(@"In Game\Camp\smith");
 				_cSupplyHut = cContent.Load<Texture2D>(@"In Game\Camp\supply hut");
 				_cSurgeonTent = cContent.Load<Texture2D>(@"In Game\Camp\surgeon_tent");
 				_cWagon = cContent.Load<Texture2D>(@"In Game\Camp\wagon");
 
 				// clickable sprites that will bring up and set data into the menu manger
-				cTmpSpr = new ClickableKnight();
+				cTmpSpr = new ClickableKnight(_cMenuMgr);
 				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\KnightMenu\knight_guy");
 				cTmpSpr.tPos = new Vector2(148, 310);
 				cTmpSpr.sTexName = @"In Game\Camp\KnightMenu\knight_guy";
@@ -106,9 +112,11 @@ namespace MightyFights_Prototype
 					new Vector2(0, 0), new Vector2(0, 0), 
 					new Vector2(cTmpSpr.cTexRef.Bounds.Width, cTmpSpr.cTexRef.Bounds.Height), 
 					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				_cObjMgr.AddClickObject(cTmpSpr, ((ClickableKnight)cTmpSpr).ProcessClick);
+				_cObjMgr.AddObject(cTmpSpr);
+				// set the button object
+				_nKnight = (IMouseInteractive)cTmpSpr;
 
-				cTmpSpr	= new ClickableSmith();
+				cTmpSpr = new ClickableSmith(_cMenuMgr);
 				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\SmithMenu\smith_guy");
 				cTmpSpr.tPos = new Vector2(369, 90);
 				cTmpSpr.sTexName = @"In Game\Camp\SmithMenu\smith_guy";
@@ -117,9 +125,10 @@ namespace MightyFights_Prototype
 					new Vector2(0, 0), new Vector2(0, 0), 
 					new Vector2(cTmpSpr.cTexRef.Bounds.Width, cTmpSpr.cTexRef.Bounds.Height), 
 					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				_cObjMgr.AddClickObject(cTmpSpr, ((ClickableSmith)cTmpSpr).ProcessClick);
+				_cObjMgr.AddObject(cTmpSpr);
+				_nSmith = (IMouseInteractive)cTmpSpr;
 
-				cTmpSpr	= new ClickablePikard();
+				cTmpSpr = new ClickablePikard(_cMenuMgr);
 				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\picard_guy");
 				cTmpSpr.tPos = new Vector2(642, 196);
 				cTmpSpr.sTexName = @"In Game\Camp\picard_guy";
@@ -128,7 +137,8 @@ namespace MightyFights_Prototype
 					new Vector2(0, 0), new Vector2(0, 0), 
 					new Vector2(cTmpSpr.cTexRef.Bounds.Width, cTmpSpr.cTexRef.Bounds.Height), 
 					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				_cObjMgr.AddClickObject(cTmpSpr, ((ClickablePikard)cTmpSpr).ProcessClick);
+				_cObjMgr.AddObject(cTmpSpr);
+				_nPikard = (IMouseInteractive)cTmpSpr;
 
 				_cCursor = new Cursor();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\gauntlet_cursor");

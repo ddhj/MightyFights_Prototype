@@ -27,10 +27,6 @@ namespace MightyFights_Prototype
 		TerminatingParticleEffectManager	_cParticleSystemMgr;
 		Dictionary<int, IActiveBasic>		_cActiveList = new Dictionary<int,IActiveBasic>();
 		Dictionary<int, object>				_cMainObjectList = new Dictionary<int,object>();
-		Dictionary<int, IClickable>			_cClickable = new Dictionary<int,IClickable>();
-		List<IClickable>					_naClickObjList = new List<IClickable>();
-
-		bool		_bProcessClick = true;
 
 		public Camp cParentData		{ get; set; }
 
@@ -67,18 +63,6 @@ namespace MightyFights_Prototype
 				_cActiveList.Add(nObj.iId, (IActiveBasic)oData);
 		}
 
-		public void AddClickObject(object oData, DProcessClick dlProcess)
-		{
-			// add the object to the process and draw lists if possible
-			AddObject(oData);
-
-			// this object should be a clickable object, otherwize why the hell is AddClickObject getting called
-			if(oData is IClickable) { 
-				((IClickable)oData).dlProcessClick = dlProcess;
-				_cClickable.Add(((IObject)oData).iId, (IClickable)oData);
-			}
-		}
-
 		public void CreateParticleManager( )
 		{
 			Renderer	cRenderer = new SpriteBatchRenderer( );
@@ -110,9 +94,6 @@ namespace MightyFights_Prototype
 						if(oObj is IDrawableFont)
 							_cDrawRefList[((IDrawableFont)oObj).sFontName].Remove(nObj.iId);
 						else _cDrawRefList[((IDrawableTexture)oObj).sTexName].Remove(nObj.iId);
-
-						// remove the clickable since you can't see it 
-						_cClickable.Remove(nObj.iId);
 					}
 
 				// remove any objects no longer active
@@ -167,24 +148,6 @@ namespace MightyFights_Prototype
 			foreach( ParticleEffect cEffect in _cParticleSystemMgr )
 				cEffect.Terminate( );
 			_cParticleSystemMgr.Clear( );
-		}
-
-		public void RegisterEvents()
-		{
-			InputSystem.MouseDown += new MouseEventHandler(InputSystem_MouseDown);
-		}
-
-		void InputSystem_MouseDown(object sender, MouseEventArgs vE)
-		{
-			foreach(IClickable nClickObj in _naClickObjList)
-				if(nClickObj.ContainsPoint(vE.Location))
-					if(nClickObj.dlProcessClick != null)
-						nClickObj.dlProcessClick(cParentData, nClickObj);
-		}
-
-		public void UnRegisterEvents()
-		{
-
 		}
 	}
 }

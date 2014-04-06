@@ -21,8 +21,11 @@ namespace MightyFights_Prototype
 	
 	public interface IMouseInteractive : IClickable
 	{
-		DProcessMouseEvent	dlMouseIn		{ get; set; }
-		DProcessMouseEvent	dlMouseOut		{ get; set; }
-		bool MouseMove(MouseState tMouseState);
+		void MouseMove(object oSender, MouseEventArgs eMouseEvt);
+		void MouseDown(object oSender, MouseEventArgs eMouseEvt);
+		void MouseUp(object oSender, MouseEventArgs eMouseEvt);
+		void MouseHover(object oSender, MouseEventArgs eMouseEvt);
+		void MouseWheel(object oSender, MouseEventArgs eMouseEvt);
+		void MouseDoubleClick(object oSender, MouseEventArgs eMouseEvt);
 	}
 }

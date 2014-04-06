@@ -13,5 +13,7 @@ namespace MightyFights_Prototype
 		object		oResultData		{get;}
 
 		bool InitMenu();
+		void RegeisterEvents();
+		void UnRegisterEvents();
 	}
 }
