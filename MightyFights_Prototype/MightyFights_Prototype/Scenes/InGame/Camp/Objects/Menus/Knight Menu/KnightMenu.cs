@@ -34,7 +34,7 @@ namespace MightyFights_Prototype
 				DataStore		cData = DataStore.cInstance;
 				ContentManager	cContent = cData.cContent;
 
-				TemplateButton cTmpSpr = new TemplateButton();
+				HighlightButton cTmpSpr = new HighlightButton();
 				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\KnightMenu\captain_button");
 				cTmpSpr.tPos = new Vector2(92, 223);
 				cTmpSpr.sTexName = @"In Game\Camp\KnightMenu\captain_button";
@@ -47,7 +47,7 @@ namespace MightyFights_Prototype
 				cTmpSpr.dlProcessClick = CaptainsClick;
 				_naButtons.Add(cTmpSpr);
 
-				cTmpSpr = new TemplateButton();
+				cTmpSpr = new HighlightButton();
 				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\KnightMenu\company_button");
 				cTmpSpr.tPos = new Vector2(81, 252);
 				cTmpSpr.sTexName = @"In Game\Camp\KnightMenu\company_button";
@@ -60,7 +60,7 @@ namespace MightyFights_Prototype
 				cTmpSpr.dlProcessClick = CompanyClick;
 				_naButtons.Add(cTmpSpr);
 
-				cTmpSpr = new TemplateButton();
+				cTmpSpr = new HighlightButton();
 				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\KnightMenu\dialogue_button");
 				cTmpSpr.tPos = new Vector2(143, 241);
 				cTmpSpr.sTexName = @"In Game\Camp\KnightMenu\dialogue_button";
@@ -73,7 +73,7 @@ namespace MightyFights_Prototype
 				cTmpSpr.dlProcessClick = CaptainsClick;
 				_naButtons.Add(cTmpSpr);
 
-				cTmpSpr = new TemplateButton();
+				cTmpSpr = new HighlightButton();
 				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\KnightMenu\template_button");
 				cTmpSpr.tPos = new Vector2(166, 259);
 				cTmpSpr.sTexName = @"In Game\Camp\KnightMenu\template_button";
@@ -105,7 +105,7 @@ namespace MightyFights_Prototype
 		{
 			base.Draw(cBatch);
 			// draw the buttons
-			foreach(TemplateButton cButton in _naButtons)
+			foreach(HighlightButton cButton in _naButtons)
 				cButton.Draw(cBatch);
 		}
 
