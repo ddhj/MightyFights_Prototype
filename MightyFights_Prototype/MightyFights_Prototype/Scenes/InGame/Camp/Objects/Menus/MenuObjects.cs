@@ -157,6 +157,7 @@ namespace MightyFights_Prototype
 
 		public void KeyDown(object sender, KeyEventArgs vKeyEvt)
 		{
+			bool	bShift;
 			_eKey = vKeyEvt.KeyCode;
 			
 			// what the fuck is this ?
@@ -167,13 +168,25 @@ namespace MightyFights_Prototype
 				KeyboardState cState = Keyboard.GetState();
 				cState.GetPressedKeys();
 
+				bShift = cState.IsKeyDown(Keys.LeftShift) || cState.IsKeyDown(Keys.RightShift);
+
 				switch(_eKey) { 
 					case Keys.Back:	if(_sName.Length > 0) _sName = _sName.Remove(_sName.Length - 1); break; 
+					case Keys.Space: _sName += " "; break;
+					case Keys.OemMinus: { 
+						if(bShift)	_sName += "_"; 
+						else _sName += "-";
+					} break;
 					default: { 
-						// are we in a caps or lower case mode
-						if(cState.IsKeyDown(Keys.LeftShift) || cState.IsKeyDown(Keys.RightShift))
-							_sName += Enum.GetName(typeof(Keys), _eKey); 
-						else _sName += Convert.ToChar((int)_eKey + 32);
+						// check to see if we are in letterland
+						if((int)_eKey > 64 && (int)_eKey < 90) { 
+							// are we in a caps or lower case mode
+							if(bShift)
+								_sName += Enum.GetName(typeof(Keys), _eKey); 
+							else _sName += Convert.ToChar((int)_eKey + 32);
+						// check to see if we are in number land
+						} else if((int)_eKey > 47 && (int)_eKey < 58)
+							_sName += Convert.ToChar((int)_eKey);
 					} break;
 				}
 				
