@@ -130,6 +130,7 @@ namespace MightyFights_Prototype
 			CompanyMenu		cCompany = new CompanyMenu(_cMgr);
 			Viewport		cView = DataStore.cInstance.cGraphics.Viewport;
 
+			// this is a comment to see that the git hub ext on the new machine works
 			cCompany.cTexRef = DataStore.cInstance.cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\company_window");
 			cCompany.tPos = new Vector2(cView.Width / 2 - cCompany.cTexRef.Width / 2, cView.Height / 2 - cCompany.cTexRef.Height / 2);
 			cCompany.sTexName = @"In Game\Camp\Company Dialog\company_window";

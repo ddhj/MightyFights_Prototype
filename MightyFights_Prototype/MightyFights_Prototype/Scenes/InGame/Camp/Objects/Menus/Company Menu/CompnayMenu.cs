@@ -356,8 +356,10 @@ namespace MightyFights_Prototype
 			}*/
 
 			// the menu gets a click for close
-			InputSystem.MouseUp -= new MouseEventHandler(MouseUp);
-			InputSystem.MouseMove -= new MouseEventHandler(MouseMove);
+			InputSystem.MouseUp -= MouseUp;
+			InputSystem.MouseMove -= MouseMove;
+			InputSystem.KeyDown -= _cName.KeyDown;
+			InputSystem.KeyUp -= _cName.KeyUp;
 		}
 
 		#endregion
