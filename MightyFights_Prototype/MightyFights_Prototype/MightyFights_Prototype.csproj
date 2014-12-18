@@ -162,6 +162,7 @@
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Company Menu\CompnayMenu.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Knight Menu\KnightMenu.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\MenuObjects.cs" />
+    <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\TemplateMenu.cs" />
     <Compile Include="Scenes\InGame\Dialogs\DebugData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,6 +198,7 @@
     <Compile Include="Interfaces\IGameScene.cs" />
     <Compile Include="Scenes\InGame\Battlegrounds\Basic\BattleGround_Basic.cs" />
     <Compile Include="Management Classes\SceneManager.cs" />
+    <Compile Include="Support Classes\Company.cs" />
     <Compile Include="Support Classes\Enums.cs" />
     <Compile Include="Base Objects\Combatant.cs" />
     <Compile Include="Interfaces\IUpdate.cs" />

@@ -77,7 +77,7 @@ namespace MightyFights_Prototype	{
 			// set its states
 			_eObjState = EObjectStates.Active | EObjectStates.Draw;
 
-			_tPos = tPos;
+			this.tPos = _tPos = tPos;
 			// had to change this because i scaled the healers
 			_cSupportZone = new FleeSpot( iMaxSlots, 60, new Vector2( _tCenter.X - (cTeam.bDirection ? 50 : -80) + ( cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y + 10 ));
 

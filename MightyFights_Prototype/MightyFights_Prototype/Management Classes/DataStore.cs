@@ -32,6 +32,10 @@ namespace MightyFights_Prototype
 		public BattlegroundData	cBattleData	{ get; set; }
 		public GraphicsDeviceManager cGfxMgr		{ get; set; }
 
+		public Dictionary<string, TemplateConfig>	cTemplates		{ get; set; }
+		public Dictionary<string, TemplateConfig>	cCaptains		{ get; set; }
+		//public Dictionary<string 
+
 		// the template config from the main menu, this will be replaced with realness at some point
 		public TemplateConfig	cLeftConfig		{ get; set; }
 		public TemplateConfig	cRightConfig	{ get; set; }
