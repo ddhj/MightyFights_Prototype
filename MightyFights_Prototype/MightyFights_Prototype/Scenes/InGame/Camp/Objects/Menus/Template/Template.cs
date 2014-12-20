@@ -79,6 +79,7 @@ namespace MightyFights_Prototype
 			_cConfig.cStats.iArmorClass = _iaAC[_cHitPoints.iCurFrame];
 			_cConfig.iBottomLevel = _cBottomSlider.iLevel;//_cBottomLevels.SelectedIndex;
 			_cConfig.iTopLevel = _cTopSlider.iLevel; //_cTopLevels.SelectedIndex;
+			_cConfig.sTemplateName = _cName.sName;
 		}
 
 		public void Process(GameTime cTime)
