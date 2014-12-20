@@ -1,45 +1,14 @@
 Content\Sprite Data\Troopers\Halberd\HalberdArray.xnb
-Content\Out Game\Template\BottomSlidersArray.xnb
-Content\Out Game\Template\TopSlidersArray.xnb
-Content\Out Game\Template\AtkPowerArray.xnb
-Content\Out Game\Template\MoveSpeedArray.xnb
-Content\Out Game\Template\AtkSpeedArray.xnb
-Content\Out Game\Template\HitPointsArray.xnb
 Content\In Game\Buffs\BufItemsArray.xnb
 Content\In Game\Buffs\DropsArray.xnb
 Content\In Game\Buffs\GemsArray.xnb
 Content\Sprite Data\Chaplain\ChaplainArray.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fazure.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fbrown.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fgrey.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fgules.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fmidnight.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fpurple.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\frust.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fsable.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fsteel.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fstorm.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fvert.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fvert2.xnb
-Content\Sprite Data\Troopers\Halberd\Textures\fzombie.xnb
+Content\Sprite Data\Troopers\Halberd\Front Facing\frontarray.xnb
 Content\Backgrounds\dirt_grass_large.xnb
 Content\Out Game\Main Menu\green_card.xnb
 Content\Out Game\Main Menu\red_card.xnb
 Content\Out Game\Main Menu\to_battle!-1.xnb
 Content\Shared\arrow_cursor.xnb
-Content\Out Game\Template\BottomSliders.xnb
-Content\Out Game\Template\TopSliders.xnb
-Content\Out Game\Template\done.xnb
-Content\Out Game\Template\frame.xnb
-Content\Out Game\Template\Left Arrow Large.xnb
-Content\Out Game\Template\Left Arrow.xnb
-Content\Out Game\Template\Right Arrow Large.xnb
-Content\Out Game\Template\Right Arrow.xnb
-Content\Out Game\Template\AtkPower.xnb
-Content\Out Game\Template\MoveSpeed.xnb
-Content\Out Game\Template\AtkSpeed.xnb
-Content\Out Game\Template\HitPoints.xnb
 Content\In Game\Buffs\BufItems.xnb
 Content\Backgrounds\dirt_grass 800x436.xnb
 Content\Backgrounds\dirt_grass 800x500.xnb
@@ -86,40 +55,20 @@ Content\Particles\Water001.xnb
 Content\Particles\Water002.xnb
 Content\Particles\Weeds.xnb
 Content\Sprite Data\Chaplain\Chaplain.xnb
-Content\Shared\DebugFont.xnb
-Content\Particles\BasicExplosion.xnb
-Content\Particles\BasicFireball.xnb
-Content\Particles\BasicSmokePlume.xnb
-Content\Particles\BeamMeUp.xnb
-Content\Particles\BloodSpray.xnb
-Content\Particles\CampFire.xnb
-Content\Particles\FlowerBloom.xnb
-Content\Particles\HealingCircle.xnb
-Content\Particles\MagicTrail.xnb
-Content\Particles\Paparazzi.xnb
-Content\Particles\SimpleRain.xnb
-Content\Particles\StarTrail.xnb
-Content\Particles\WaterJet.xnb
-Content\Particles\Buff Sparkle.xnb
-Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.xnb
-Content\Music\Final_Fantasy_4_Treason_OC_ReMix.xnb
-Content\Music\Final_Fantasy_6_Desertion_OC_ReMix.xnb
-Content\Music\Final_Fantasy_6_Smooth_Alexander_OC_ReMix.xnb
-Content\Music\Final_Fantasy_7_Fight_On_OC_ReMix.xnb
-Content\Music\Final_Fantasy_Duque_Battle_OC_ReMix.xnb
-Content\Music\Final_Fantasy_Hostility_OC_ReMix.xnb
-Content\Music\Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.xnb
-Content\Music\Minibossies_FinalFantasy6_VictoryFanfare.xnb
-Content\SFX\Swords_Collide-Sound_Explorer-2015600826.xnb
-Content\SFX\Decapitation-SoundBible.com-800292304.xnb
-Content\SFX\Appear-KP-1137861048.xnb
-Content\SFX\Computer_Magic-Microsift-1901299923.xnb
-Content\SFX\Electrical_Sweep-Sweeper-1760111493.xnb
-Content\SFX\Electronic_Chime-KevanGC-495939803.xnb
-Content\SFX\Magic Wand Noise-SoundBible.com-375928671.xnb
-Content\Particles\HealerRecharge.xnb
-Content\Music\Final_Fantasy_4_Submission_OC_ReMix.xnb
-Content\Sprite Data\Troopers\Halberd\Front Facing\frontarray.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fazure.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fbrown.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fgrey.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fgules.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fmidnight.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fpurple.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\frust.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fsable.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fsteel.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fstorm.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fvert.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fvert2.xnb
+Content\Sprite Data\Troopers\Halberd\Textures\fzombie.xnb
 Content\Sprite Data\Troopers\Halberd\Front Facing\front.xnb
 Content\In Game\Hud\border_jackson.xnb
 Content\Out Game\TitleScreen\options00.xnb
@@ -131,7 +80,6 @@ Content\Out Game\TitleScreen\sword.xnb
 Content\Out Game\TitleScreen\view_legends00.xnb
 Content\Out Game\TitleScreen\view_legends01.xnb
 Content\Out Game\TitleScreen\wodyn_title.xnb
-Content\Music\10 WV.xnb
 Content\Out Game\TitleScreen\big_map4.xnb
 Content\Out Game\TitleScreen\map4.xnb
 Content\Out Game\TitleScreen\map4big.xnb
@@ -140,6 +88,7 @@ Content\In Game\Camp\camp.xnb
 Content\In Game\Camp\Captain's_house.xnb
 Content\In Game\Camp\ground.xnb
 Content\In Game\Camp\knight_box.xnb
+Content\In Game\Camp\KnightMenu\knight_guy.xnb
 Content\In Game\Camp\picard_box.xnb
 Content\In Game\Camp\picard_guy.xnb
 Content\In Game\Camp\smith.xnb
@@ -157,8 +106,6 @@ Content\In Game\Camp\KnightMenu\knight_box.xnb
 Content\In Game\Camp\KnightMenu\template_button.xnb
 Content\Shared\gauntlet_cursor.xnb
 Content\In Game\Map\littlemap.xnb
-Content\In Game\Camp\KnightMenu\knight_guy.xnb
-Content\In Game\Camp\Company Dialog\company_name.xnb
 Content\Shared\company_arrowdownx.xnb
 Content\Shared\company_arrowrightx.xnb
 Content\Shared\company_arrowupx.xnb
@@ -209,6 +156,21 @@ Content\In Game\Map\EnemyIcons\little_darvi.xnb
 Content\In Game\Map\EnemyIcons\little_darvi_outline.xnb
 Content\In Game\Map\EnemyIcons\little_enemy.xnb
 Content\In Game\Map\EnemyIcons\little_enemy_outline.xnb
+Content\In Game\Camp\Company Dialog\click_to_drag.xnb
+Content\In Game\Camp\Company Dialog\company_name.xnb
+Content\In Game\Camp\Company Dialog\company_window.xnb
+Content\In Game\Camp\Company Dialog\grid_arrow_left.xnb
+Content\In Game\Camp\Company Dialog\grid_arrow_left_blue.xnb
+Content\In Game\Camp\Company Dialog\grid_arrow_right.xnb
+Content\In Game\Camp\Company Dialog\grid_arrow_right_blue.xnb
+Content\In Game\Camp\Company Dialog\reset_gray.xnb
+Content\In Game\Camp\Company Dialog\reset_red.xnb
+Content\In Game\Camp\Company Dialog\size_box.xnb
+Content\In Game\Camp\Company Dialog\template_arrow_left.xnb
+Content\In Game\Camp\Company Dialog\template_arrow_right.xnb
+Content\In Game\Camp\Company Dialog\unit_allocation_arrows.xnb
+Content\In Game\Camp\Company Dialog\unit_allocation_down.xnb
+Content\In Game\Camp\Company Dialog\unit_allocation_up.xnb
 Content\In Game\Map\BuildingIcons\MapMenus\bandit_party_window.xnb
 Content\In Game\Map\BuildingIcons\MapMenus\bridge_window.xnb
 Content\In Game\Map\BuildingIcons\MapMenus\chaos_dungeon_window.xnb
@@ -242,26 +204,102 @@ Content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage_H.xnb
 Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout.xnb
 Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout_H.xnb
 Content\Music\Battle\battle1.xnb
+Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.xnb
+Content\Music\Final_Fantasy_4_Treason_OC_ReMix.xnb
+Content\Music\Final_Fantasy_6_Desertion_OC_ReMix.xnb
+Content\Music\Final_Fantasy_6_Smooth_Alexander_OC_ReMix.xnb
+Content\Music\Final_Fantasy_7_Fight_On_OC_ReMix.xnb
+Content\Music\Final_Fantasy_Duque_Battle_OC_ReMix.xnb
+Content\Music\Final_Fantasy_Hostility_OC_ReMix.xnb
+Content\Music\Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.xnb
+Content\Music\Minibossies_FinalFantasy6_VictoryFanfare.xnb
+Content\SFX\Swords_Collide-Sound_Explorer-2015600826.xnb
+Content\SFX\Decapitation-SoundBible.com-800292304.xnb
+Content\SFX\Appear-KP-1137861048.xnb
+Content\SFX\Computer_Magic-Microsift-1901299923.xnb
+Content\SFX\Electrical_Sweep-Sweeper-1760111493.xnb
+Content\SFX\Electronic_Chime-KevanGC-495939803.xnb
+Content\SFX\Magic Wand Noise-SoundBible.com-375928671.xnb
+Content\Music\Final_Fantasy_4_Submission_OC_ReMix.xnb
+Content\Music\10 WV.xnb
 Content\Music\Camp\wodyn#4.xnb
 Content\Music\TitleScreen\wodyn#3.xnb
 Content\Music\Battle\battle2.xnb
-Content\In Game\Camp\Company Dialog\click_to_drag.xnb
-Content\In Game\Camp\Company Dialog\company_window.xnb
-Content\In Game\Camp\Company Dialog\grid_arrow_left.xnb
-Content\In Game\Camp\Company Dialog\grid_arrow_left_blue.xnb
-Content\In Game\Camp\Company Dialog\grid_arrow_right.xnb
-Content\In Game\Camp\Company Dialog\grid_arrow_right_blue.xnb
-Content\In Game\Camp\Company Dialog\reset_gray.xnb
-Content\In Game\Camp\Company Dialog\reset_red.xnb
-Content\In Game\Camp\Company Dialog\size_box.xnb
-Content\In Game\Camp\Company Dialog\template_arrow_left.xnb
-Content\In Game\Camp\Company Dialog\template_arrow_right.xnb
-Content\In Game\Camp\Company Dialog\unit_allocation_arrows.xnb
-Content\In Game\Camp\Company Dialog\unit_allocation_down.xnb
-Content\In Game\Camp\Company Dialog\unit_allocation_up.xnb
+Content\Shared\DebugFont.xnb
 Content\Shared\TestFon.xnb
+Content\Particles\BasicExplosion.xnb
+Content\Particles\BasicFireball.xnb
+Content\Particles\BasicSmokePlume.xnb
+Content\Particles\BeamMeUp.xnb
+Content\Particles\BloodSpray.xnb
+Content\Particles\CampFire.xnb
+Content\Particles\FlowerBloom.xnb
+Content\Particles\HealingCircle.xnb
+Content\Particles\MagicTrail.xnb
+Content\Particles\Paparazzi.xnb
+Content\Particles\SimpleRain.xnb
+Content\Particles\StarTrail.xnb
+Content\Particles\WaterJet.xnb
+Content\Particles\Buff Sparkle.xnb
+Content\Particles\HealerRecharge.xnb
 Content\In Game\Camp\Company Dialog\CompanyBox.xnb
 Content\In Game\Camp\Company Dialog\CompanySelect.xnb
+Content\In Game\Camp\Template\BottomSlidersArray.xnb
+Content\In Game\Camp\Template\TopSlidersArray.xnb
+Content\In Game\Camp\Template\AtkPowerArray.xnb
+Content\In Game\Camp\Template\MoveSpeedArray.xnb
+Content\In Game\Camp\Template\AtkSpeedArray.xnb
+Content\In Game\Camp\Template\HitPointsArray.xnb
+Content\In Game\Camp\Template\BottomSliders.xnb
+Content\In Game\Camp\Template\TopSliders.xnb
+Content\In Game\Camp\Template\done.xnb
+Content\In Game\Camp\Template\frame.xnb
+Content\In Game\Camp\Template\Left Arrow Large.xnb
+Content\In Game\Camp\Template\Left Arrow.xnb
+Content\In Game\Camp\Template\Right Arrow Large.xnb
+Content\In Game\Camp\Template\Right Arrow.xnb
+Content\In Game\Camp\Template\AtkPower.xnb
+Content\In Game\Camp\Template\MoveSpeed.xnb
+Content\In Game\Camp\Template\AtkSpeed.xnb
+Content\In Game\Camp\Template\HitPoints.xnb
+Content\In Game\Camp\Template\absorb damage.xnb
+Content\In Game\Camp\Template\absorb damage_gray.xnb
+Content\In Game\Camp\Template\acts of prowess.xnb
+Content\In Game\Camp\Template\atkx2.xnb
+Content\In Game\Camp\Template\atkx2_gray.xnb
+Content\In Game\Camp\Template\atkx3.xnb
+Content\In Game\Camp\Template\atkx3_gray.xnb
+Content\In Game\Camp\Template\battle mastery.xnb
+Content\In Game\Camp\Template\big time.xnb
+Content\In Game\Camp\Template\big time_gray.xnb
+Content\In Game\Camp\Template\bleed.xnb
+Content\In Game\Camp\Template\bleed_gray.xnb
+Content\In Game\Camp\Template\brave heart.xnb
+Content\In Game\Camp\Template\brave heart_gray.xnb
+Content\In Game\Camp\Template\chip blade.xnb
+Content\In Game\Camp\Template\chip blade_gray.xnb
+Content\In Game\Camp\Template\combinations.xnb
+Content\In Game\Camp\Template\counter attack.xnb
+Content\In Game\Camp\Template\counter attack_gray.xnb
+Content\In Game\Camp\Template\crit chance up.xnb
+Content\In Game\Camp\Template\crit chance up_gray.xnb
+Content\In Game\Camp\Template\don't bleed.xnb
+Content\In Game\Camp\Template\don't bleed_gray.xnb
+Content\In Game\Camp\Template\eat my dust.xnb
+Content\In Game\Camp\Template\eat my dust_gray.xnb
+Content\In Game\Camp\Template\extra health.xnb
+Content\In Game\Camp\Template\extra health_gray.xnb
+Content\In Game\Camp\Template\flee!.xnb
+Content\In Game\Camp\Template\flee!_gray.xnb
+Content\In Game\Camp\Template\safe guard.xnb
+Content\In Game\Camp\Template\safe guard_gray.xnb
+Content\In Game\Camp\Template\tough enough.xnb
+Content\In Game\Camp\Template\tough enough_gray.xnb
+Content\In Game\Camp\Template\tremble and fear.xnb
+Content\In Game\Camp\Template\tremble and fear_gray.xnb
+Content\In Game\Camp\Template\template_window.xnb
+Content\In Game\Camp\Template\template_name.xnb
+Content\Music\Battle\battle1.wma
 Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.wma
 Content\Music\Final_Fantasy_4_Treason_OC_ReMix.wma
 Content\Music\Final_Fantasy_6_Desertion_OC_ReMix.wma
@@ -273,7 +311,6 @@ Content\Music\Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.wma
 Content\Music\Minibossies_FinalFantasy6_VictoryFanfare.wma
 Content\Music\Final_Fantasy_4_Submission_OC_ReMix.wma
 Content\Music\10 WV.wma
-Content\Music\Battle\battle1.wma
 Content\Music\Camp\wodyn#4.wma
 Content\Music\TitleScreen\wodyn#3.wma
 Content\Music\Battle\battle2.wma

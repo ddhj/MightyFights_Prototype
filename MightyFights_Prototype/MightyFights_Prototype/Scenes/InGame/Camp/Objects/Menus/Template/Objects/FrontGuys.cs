@@ -74,9 +74,9 @@ namespace MightyFights_Prototype
 
 		public override void Draw(SpriteBatch cBatch)
 		{
-			cBatch.Draw(cTexRef, tPos, cFrame.tRect, Color.White, cFrame.bRot ? -(float)Math.PI/2 : 0, cFrame.tTopLeft, 1, 
+			cBatch.Draw(cTexRef, tPos, cFrame.tRect, Color.White, cFrame.bRot ? -(float)Math.PI/2 : 0, cFrame.tTopLeft, 2.0f, 
 				// and 2: the direction vector
-				SpriteEffects.None, 1);
+				SpriteEffects.None, fZRange);
 		}
 	}
 }

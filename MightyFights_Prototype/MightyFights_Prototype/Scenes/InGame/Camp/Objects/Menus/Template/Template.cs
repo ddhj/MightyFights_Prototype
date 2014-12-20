@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 using System.Windows.Forms;
 
@@ -14,35 +16,34 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public class Template : IGameScene
+	public class Template : ClickableSprite, IMenuObj, IMouseInteractive
 	{
-		ESceneStates	_eState;
-		Cursor			_cCursor;
 		Slider			_cTopSlider,
 						_cBottomSlider;
-		ClickableSprite		_cDone,
+		ClickableSprite	_cDone,
 						_cLargeLeftArrow,
 						_cLargeRightArrow,
-						_cSmallLeftArrow,
-						_cSmallRightArrow;
+						_cActsOfProwess,
+						_cBattleMastery;
 		StatDisplay		_cAtkPower, 
 						_cAtkSpeed,
 						_cHitPoints,
 						_cMoveSpeed;
 
 		FrontGuys		_cFrontGuys;
+		SpriteFont		_cFont;
 
 		Texture2D		_cFrame;
 
 		GraphicsDevice	_cGraphics;
-		SpriteBatch		_cBatch;
-		ComboBox		_cTopLevels,
-						_cBottomLevels;
 
+		CampMenuManager	_cMgr;
 		TemplateConfig	_cConfig;
-		Dictionary<string, bool>	_cTakenColors;
 
+		NameTextBox				_cName;
 		bool			_bProcessPress= true;
+
+		List<MenuControlBase>	_caControls = new List<MenuControlBase>();
 
 		// these are % increase to the base value in the animation data file 
 		static int[]	_iaAtkSpeedStats = new int[] { 0, 4, 10, 14, 18, 19, 20, 21, 22, 25, 30, 40, 50, 70 };
@@ -55,14 +56,13 @@ namespace MightyFights_Prototype
 		static int[]	_iaAC = 			new int[] { 3, 4, 5, 10, 15, 20, 25, 40, 45, 50, 100, 150, 200, 400 };
 		static float[]	_fCrit = new float[] { .05f, .06f, .07f, .1f, .11f, .12f, .13f, .18f, .2f, .25f, .30f, .50f	};
 
-		#region IGameScene Members
+		public object			oMenuObject	{ get { return this; }}
+		public object			oResultData	{ get { return null; }}
 
-		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
-
-		public Template(TemplateConfig cConfig, Dictionary<string, bool> cTakenColors)
+		public Template(CampMenuManager cMgr, TemplateConfig cConfig)
 		{
 			_cConfig = cConfig;
-			_cTakenColors = cTakenColors;
+			_cMgr = cMgr;
 		}
 
 		void PopulateConfig()
@@ -77,12 +77,14 @@ namespace MightyFights_Prototype
 			_cConfig.cStats.iPower = _iaAtkPowerStats[_cAtkPower.iCurFrame];
 			_cConfig.cStats.iMovement = _iaMoveSpeedStats[_cMoveSpeed.iCurFrame];
 			_cConfig.cStats.iArmorClass = _iaAC[_cHitPoints.iCurFrame];
-			_cConfig.iBottomLevel = _cBottomLevels.SelectedIndex;
-			_cConfig.iTopLevel = _cTopLevels.SelectedIndex;
+			_cConfig.iBottomLevel = _cBottomSlider.iLevel;//_cBottomLevels.SelectedIndex;
+			_cConfig.iTopLevel = _cTopSlider.iLevel; //_cTopLevels.SelectedIndex;
 		}
 
-		public void Update(GameTime cTime)
+		public void Process(GameTime cTime)
 		{
+			// this is a little wonky because its older code when the template was in the alpha state and I am just straight porting 
+			// rather than rewriting it from scratch
 			MouseState	cState = Mouse.GetState();
 			Point		tPoint = new Point(cState.X, cState.Y);
 			if(cState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed) { 
@@ -91,10 +93,6 @@ namespace MightyFights_Prototype
 						_cTopSlider.bSelected = true;
 					} else if(_cBottomSlider.ContainsPoint(tPoint)) { 
 						_cBottomSlider.bSelected = true;
-					} else if(((IClickable)_cDone).ContainsPoint(_cCursor.tPos)) { 
-						PopulateConfig();
-						_eState = ESceneStates.Inactive;
-						DataStore.cInstance.cSceneMgr.RemoveScene(this);
 					} else if(_cLargeLeftArrow.ContainsPoint(tPoint)) { 
 						_cFrontGuys.DecrementColor();
 						if(_cFrontGuys.iFrameIdx > 12)
@@ -121,68 +119,79 @@ namespace MightyFights_Prototype
 			_cMoveSpeed.SetDisplay(_cBottomSlider.iRightPos);
 		}
 
-		public void Draw(GameTime cTime)
+		public override void Draw(SpriteBatch cBatch)
 		{
-			_cGraphics.Clear(Color.Black);
-			_cBatch.Begin(SpriteSortMode.Immediate, null); { 
-				_cBatch.Draw(_cFrame, new Vector2(_cGraphics.Viewport.Width/2 - _cFrame.Bounds.Width/2, _cGraphics.Viewport.Height/2 - _cFrame.Bounds.Height/2), _cFrame.Bounds, Color.White);
-				_cDone.Draw(_cBatch);
-				_cAtkPower.Draw(_cBatch);
-				_cAtkSpeed.Draw(_cBatch);
-				_cMoveSpeed.Draw(_cBatch);
-				_cHitPoints.Draw(_cBatch);
-				_cTopSlider.Draw(_cBatch);
-				_cBottomSlider.Draw(_cBatch);
-				_cFrontGuys.Draw(_cBatch);
-				_cLargeLeftArrow.Draw(_cBatch);
-				_cLargeRightArrow.Draw(_cBatch);
-				_cCursor.Draw(_cBatch);
-			} _cBatch.End();	
+			base.Draw(cBatch);
+	
+			cBatch.Draw(_cFrame, new Vector2(_cGraphics.Viewport.Width/2 - _cFrame.Bounds.Width/2, _cGraphics.Viewport.Height/2 - _cFrame.Bounds.Height/2), 
+			    _cFrame.Bounds, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, 0.5f); 
+
+			_cAtkPower.Draw(cBatch);
+			_cAtkSpeed.Draw(cBatch);
+			_cMoveSpeed.Draw(cBatch);
+			_cHitPoints.Draw(cBatch);
+			_cTopSlider.Draw(cBatch);
+			_cBottomSlider.Draw(cBatch);
+			_cFrontGuys.Draw(cBatch);
+			_cName.Draw(cBatch);
+			cBatch.DrawString(_cFont, _cName.sName, new Vector2(_cName.tPos.X + 30, _cName.tPos.Y + 10), Color.White);
 		}
 
-		public bool Init()
+		public bool InitMenu()
 		{
 			try { 
 				ContentManager cContent = DataStore.cInstance.cContent;
+				NameTextBox cTmpSpr = new NameTextBox(_cMgr);
+
 				_cGraphics = DataStore.cInstance.cGraphics;
-				_cBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
-					
-				_cFrame = cContent.Load<Texture2D>(@"Out Game\Template\frame");
+		
+				_cFrame = cContent.Load<Texture2D>(@"In Game\Camp\Template\frame");
+				_cFont = cContent.Load<SpriteFont>(@"Shared\TestFon");
 
-				_cCursor = new Cursor();
-				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");
-				_cCursor.sTexName = @"Shared\arrow_cursor";
-				_cCursor.tPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-				_cCursor.cFrame = new Frame(_cCursor.cTexRef.Bounds, new Vector2(_cCursor.cTexRef.Bounds.Width / 2, _cCursor.cTexRef.Bounds.Height / 2), 
-					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cCursor.cTexRef.Bounds.Width, _cCursor.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-
+				_cName = cTmpSpr;
+				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\template_name");
+				cTmpSpr.tPos = new Vector2(tPos.X + cTexRef.Width / 2 - cTmpSpr.cTexRef.Width / 2 - 5, tPos.Y + cTexRef.Height - cTmpSpr.cTexRef.Height);
+				cTmpSpr.sTexName = @"In Game\Camp\Company Dialog\company_name";
+				cTmpSpr.fZRange = .5f;
+				cTmpSpr.cFrame = new Frame(cTmpSpr.cTexRef.Bounds, 
+					new Vector2(cTmpSpr.cTexRef.Bounds.Width / 2, cTmpSpr.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmpSpr.cTexRef.Bounds.Width, cTmpSpr.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caControls.Add(cTmpSpr);
+	
 				_cDone = new ClickableSprite();
-				_cDone.cTexRef = cContent.Load<Texture2D>(@"Out Game\Template\done");
-				_cDone.sTexName = @"Out Game\Template\done";
+				_cDone.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\done");
+				_cDone.sTexName = @"In Game\Camp\Template\done";
 				_cDone.cFrame = new Frame(_cDone.cTexRef.Bounds, new Vector2(_cDone.cTexRef.Bounds.Width / 2, _cDone.cTexRef.Bounds.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cDone.cTexRef.Bounds.Width, _cDone.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 				_cDone.tPos = new Vector2(_cGraphics.Viewport.Width/2 - _cDone.cTexRef.Bounds.Width / 2, _cGraphics.Viewport.Height / 2 - _cDone.cTexRef.Bounds.Height / 2  + 140);
 
-				_cAtkPower = new StatDisplay(cContent.Load<AnimationData>(@"Out Game\Template\AtkPowerArray"), "blue");
-				_cAtkPower.cTexRef = cContent.Load<Texture2D>(@"Out Game\Template\AtkPower");
+				_cAtkPower = new StatDisplay(cContent.Load<AnimationData>(@"In Game\Camp\Template\AtkPowerArray"), "blue");
+				_cAtkPower.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\AtkPower");
+				_cAtkPower.fZRange = .5f;
 				_cAtkPower.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - _cAtkPower.cFrame.tRect.Width - 5, _cGraphics.Viewport.Height / 2 - 62);
 				_cAtkPower.bLeft = true;
 
-				_cAtkSpeed = new StatDisplay(cContent.Load<AnimationData>(@"Out Game\Template\AtkSpeedArray"), "orange");
-				_cAtkSpeed.cTexRef = cContent.Load<Texture2D>(@"Out Game\Template\AtkSpeed");
+				_cAtkSpeed = new StatDisplay(cContent.Load<AnimationData>(@"In Game\Camp\Template\AtkSpeedArray"), "orange");
+				_cAtkSpeed.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\AtkSpeed");
+				_cAtkSpeed.fZRange = .5f;
 				_cAtkSpeed.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + 2, _cGraphics.Viewport.Height / 2 - 62);
 
-				_cHitPoints = new StatDisplay(cContent.Load<AnimationData>(@"Out Game\Template\HitPointsArray"), "pink");
-				_cHitPoints.cTexRef = cContent.Load<Texture2D>(@"Out Game\Template\HitPoints");
+				_cHitPoints = new StatDisplay(cContent.Load<AnimationData>(@"In Game\Camp\Template\HitPointsArray"), "pink");
+				_cHitPoints.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\HitPoints");
+				_cHitPoints.fZRange = .5f;
 				_cHitPoints.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - _cHitPoints.cFrame.tRect.Width - 5, _cGraphics.Viewport.Height / 2 + 21);
 				_cHitPoints.bLeft = true;
 
-				_cMoveSpeed = new StatDisplay(cContent.Load<AnimationData>(@"Out Game\Template\MoveSpeedArray"), "green");
-				_cMoveSpeed.cTexRef = cContent.Load<Texture2D>(@"Out Game\Template\MoveSpeed");
+				_cMoveSpeed = new StatDisplay(cContent.Load<AnimationData>(@"In Game\Camp\Template\MoveSpeedArray"), "green");
+				_cMoveSpeed.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\MoveSpeed");
+				_cMoveSpeed.fZRange = .5f;
 				_cMoveSpeed.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + 2, _cGraphics.Viewport.Height / 2 + 21);
 
-				_cTopSlider = new Slider(cContent.Load<AnimationData>(@"Out Game\Template\TopSlidersArray"), "top");
-				_cTopSlider.cTexRef = cContent.Load<Texture2D>(@"Out Game\Template\TopSliders");
+				_cTopSlider = new Slider(cContent.Load<AnimationData>(@"In Game\Camp\Template\TopSlidersArray"), "top");
+				_cTopSlider.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\TopSliders");
+				_cTopSlider.fZRange = .5f;
 				_cTopSlider.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - _cTopSlider.cFrame.tRect.Width / 2 - 2, _cGraphics.Viewport.Height / 2 - _cFrame.Bounds.Height / 2 + 18);
 				_cTopSlider.iCenter = _cGraphics.Viewport.Width / 2 - 2;
 				_cTopSlider.iStartY = (int)_cTopSlider.tPos.Y;
@@ -190,8 +199,9 @@ namespace MightyFights_Prototype
 				_cTopSlider.iMaxRight = (int)_cAtkSpeed.tPos.X + _cAtkSpeed.cFrame.tRect.Width - 10;
 				_cTopSlider.SetLevel(0);
 
-				_cBottomSlider = new Slider(cContent.Load<AnimationData>(@"Out Game\Template\BottomSlidersArray"), "bottom");
-				_cBottomSlider.cTexRef = cContent.Load<Texture2D>(@"Out Game\Template\BottomSliders");
+				_cBottomSlider = new Slider(cContent.Load<AnimationData>(@"In Game\Camp\Template\BottomSlidersArray"), "bottom");
+				_cBottomSlider.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\BottomSliders");
+				_cBottomSlider.fZRange = .5f;
 				_cBottomSlider.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - _cTopSlider.cFrame.tRect.Width / 2 - 2, _cGraphics.Viewport.Height / 2 + _cFrame.Bounds.Height / 2 - 37);
 				_cBottomSlider.iCenter = _cGraphics.Viewport.Width / 2 - 2;
 				_cBottomSlider.iStartY = (int)_cBottomSlider.tPos.Y;
@@ -199,39 +209,24 @@ namespace MightyFights_Prototype
 				_cBottomSlider.iMaxRight = (int)_cAtkSpeed.tPos.X + _cAtkSpeed.cFrame.tRect.Width - 10;
 				_cBottomSlider.SetLevel(0);
 
-				_cTopLevels = new ComboBox();
-				_cTopLevels.Location = new System.Drawing.Point(_cGraphics.Viewport.Width / 2 + _cFrame.Bounds.Width / 2 + 20, _cGraphics.Viewport.Height / 2 - _cFrame.Bounds.Height / 2);
-				_cTopLevels.Items.AddRange(new object[] { "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", 
-					"Level 6", "Level 7", "Level 8", "Level 9", "Level 10", "Level 11", "Level 12", "Level 13", "Level 14" });
-
-				_cTopLevels.SelectedIndexChanged += new System.EventHandler(SelectChange);
-				_cTopLevels.SelectedIndex = _cConfig.iTopLevel;
-				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cTopLevels);
-
-				_cBottomLevels = new ComboBox();
-				_cBottomLevels.Location = new System.Drawing.Point(_cGraphics.Viewport.Width / 2 + _cFrame.Bounds.Width / 2 + 20, _cGraphics.Viewport.Height / 2 + _cFrame.Bounds.Height / 2);
-				_cBottomLevels.Items.AddRange(new object[] { "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", 
-					"Level 6", "Level 7", "Level 8", "Level 9", "Level 10", "Level 11", "Level 12", "Level 13", "Level 14" });
-
-				_cBottomLevels.SelectedIndexChanged += new System.EventHandler(SelectChange);
-				_cBottomLevels.SelectedIndex = _cConfig.iBottomLevel;
-				Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(_cBottomLevels);
-
 				_cLargeLeftArrow = new ClickableSprite();
-				_cLargeLeftArrow.cTexRef = cContent.Load<Texture2D>(@"Out Game\Template\Left Arrow Large");
+				_cLargeLeftArrow.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\Left Arrow Large");
+				_cLargeLeftArrow.fZRange = .5f;
 				_cLargeLeftArrow.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - 45, _cGraphics.Viewport.Height / 2 + 35);
 				_cLargeLeftArrow.cFrame = new Frame(_cLargeLeftArrow.cTexRef.Bounds, new Vector2(_cLargeLeftArrow.cTexRef.Bounds.Width / 2, _cLargeLeftArrow.cTexRef.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cLargeLeftArrow.cTexRef.Bounds.Width, _cLargeLeftArrow.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
 				_cLargeRightArrow = new ClickableSprite();
-				_cLargeRightArrow.cTexRef = cContent.Load<Texture2D>(@"Out Game\Template\Right Arrow Large");
+				_cLargeRightArrow.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\Right Arrow Large");
 				_cLargeRightArrow.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + 20, _cGraphics.Viewport.Height / 2 + 35);
+				_cLargeRightArrow.fZRange = .5f;
 				_cLargeRightArrow.cFrame = new Frame(_cLargeRightArrow.cTexRef.Bounds, new Vector2(_cLargeRightArrow.cTexRef.Bounds.Width / 2, _cLargeRightArrow.cTexRef.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cLargeRightArrow.cTexRef.Bounds.Width, _cLargeRightArrow.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
-				_cFrontGuys = new FrontGuys(cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"), _cConfig.sColor, _cTakenColors);
+				_cFrontGuys = new FrontGuys(cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"), _cConfig.sColor, new Dictionary<string, bool>());
 				_cFrontGuys.cTexRef = cContent.Load<Texture2D>(@"Sprite Data\Troopers\Halberd\Front Facing\front");
-				_cFrontGuys.tPos = new Vector2(_cLargeLeftArrow.tPos.X - 8, _cGraphics.Viewport.Height / 2 - 5);
+				_cFrontGuys.fZRange = .5f;
+				_cFrontGuys.tPos = new Vector2(_cLargeLeftArrow.tPos.X - 56, _cGraphics.Viewport.Height / 2 - 66);
 
 				return true;
 			} catch { 
@@ -239,37 +234,72 @@ namespace MightyFights_Prototype
 			}
 		}
 
-		public void SelectChange(object oSender, EventArgs eEvtArgs) 
-		{
-			if(oSender == _cTopLevels)
-				_cTopSlider.SetLevel(_cTopLevels.SelectedIndex);
-			else _cBottomSlider.SetLevel(_cBottomLevels.SelectedIndex);
-		}
-
 		public void Unload()
 		{
-			Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cBottomLevels);
-			Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Remove(_cTopLevels);
 		}
 
-		public void ToggleControls()
-		{
+		#region IMenuObj Members
 
+		public void RegeisterEvents()
+		{
+			// the menu gets a click for close
+			InputSystem.MouseUp += new Microsoft.Xna.Framework.Input.MouseEventHandler(MouseUp);
+			InputSystem.MouseMove += new Microsoft.Xna.Framework.Input.MouseEventHandler(MouseMove);
+			InputSystem.KeyDown += new Microsoft.Xna.Framework.Input.KeyEventHandler(_cName.KeyDown);
+			InputSystem.KeyUp += new Microsoft.Xna.Framework.Input.KeyEventHandler(_cName.KeyUp);
 		}
 
-		public void RegisterHandlers()
+		public void UnRegisterEvents()
 		{
-			InputSystem.MouseMove += new Microsoft.Xna.Framework.Input.MouseEventHandler(InputSystem_MouseMove);
+			// the menu gets a click for close
+			InputSystem.MouseUp -= MouseUp;
+			InputSystem.MouseMove -= MouseMove;
+			InputSystem.KeyDown -= _cName.KeyDown;
+			InputSystem.KeyUp -= _cName.KeyUp;
+
+			// save the config for the template
+			PopulateConfig();
 		}
 
-		void InputSystem_MouseMove(object sender, Microsoft.Xna.Framework.Input.MouseEventArgs e)
+		#endregion
+
+		#region IMouseInteractive Members
+
+		public void MouseMove(object oSender, Microsoft.Xna.Framework.Input.MouseEventArgs eMouseEvt)
 		{
-			_cCursor.Update(e.Location);
+			// check to see if we are 
 		}
 
-		public void UnRegisterHandlers()
+		public void MouseDown(object oSender, Microsoft.Xna.Framework.Input.MouseEventArgs eMouseEvt)
 		{
-			InputSystem.MouseMove -= InputSystem_MouseMove;
+		}
+
+		public void MouseUp(object oSender, Microsoft.Xna.Framework.Input.MouseEventArgs eMouseEvt)
+		{
+			if(!ContainsPoint(eMouseEvt.Location)) { 
+				_cMgr.RemoveMenuObject(this);
+				return;
+			}
+
+			if(eMouseEvt.Button == MouseButton.Right) { 
+				if(_cTopSlider.ContainsPoint(eMouseEvt.Location)) _cTopSlider.dlProcessClick(null, null);
+				if(_cBottomSlider.ContainsPoint(eMouseEvt.Location)) _cBottomSlider.dlProcessClick(null, null);
+			}
+		}
+
+		public void MouseHover(object oSender, Microsoft.Xna.Framework.Input.MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void MouseWheel(object oSender, Microsoft.Xna.Framework.Input.MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void MouseDoubleClick(object oSender, Microsoft.Xna.Framework.Input.MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
 		}
 
 		#endregion

@@ -104,116 +104,116 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\BottomSlidersArray.json">
+    <Compile Include="In Game\Camp\Template\BottomSlidersArray.json">
       <Name>BottomSlidersArray</Name>
       <Importer>ContentImporter1</Importer>
       <Processor>ContentProcessor1</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\BottomSliders.png">
+    <Compile Include="In Game\Camp\Template\BottomSliders.png">
       <Name>BottomSliders</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\TopSlidersArray.json">
+    <Compile Include="In Game\Camp\Template\TopSlidersArray.json">
       <Name>TopSlidersArray</Name>
       <Importer>ContentImporter1</Importer>
       <Processor>ContentProcessor1</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\TopSliders.png">
+    <Compile Include="In Game\Camp\Template\TopSliders.png">
       <Name>TopSliders</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\done.png">
+    <Compile Include="In Game\Camp\Template\done.png">
       <Name>done</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Out Game\Template\frame.png">
+    <Compile Include="In Game\Camp\Template\frame.png">
       <Name>frame</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Out Game\Template\Left Arrow Large.png">
+    <Compile Include="In Game\Camp\Template\Left Arrow Large.png">
       <Name>Left Arrow Large</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Out Game\Template\Left Arrow.png">
+    <Compile Include="In Game\Camp\Template\Left Arrow.png">
       <Name>Left Arrow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Out Game\Template\Right Arrow Large.png">
+    <Compile Include="In Game\Camp\Template\Right Arrow Large.png">
       <Name>Right Arrow Large</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Out Game\Template\Right Arrow.png">
+    <Compile Include="In Game\Camp\Template\Right Arrow.png">
       <Name>Right Arrow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\AtkPowerArray.json">
+    <Compile Include="In Game\Camp\Template\AtkPowerArray.json">
       <Name>AtkPowerArray</Name>
       <Importer>ContentImporter1</Importer>
       <Processor>ContentProcessor1</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\AtkPower.png">
+    <Compile Include="In Game\Camp\Template\AtkPower.png">
       <Name>AtkPower</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\MoveSpeedArray.json">
+    <Compile Include="In Game\Camp\Template\MoveSpeedArray.json">
       <Name>MoveSpeedArray</Name>
       <Importer>ContentImporter1</Importer>
       <Processor>ContentProcessor1</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\MoveSpeed.png">
+    <Compile Include="In Game\Camp\Template\MoveSpeed.png">
       <Name>MoveSpeed</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\AtkSpeedArray.json">
+    <Compile Include="In Game\Camp\Template\AtkSpeedArray.json">
       <Name>AtkSpeedArray</Name>
       <Importer>ContentImporter1</Importer>
       <Processor>ContentProcessor1</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\AtkSpeed.png">
+    <Compile Include="In Game\Camp\Template\AtkSpeed.png">
       <Name>AtkSpeed</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\HitPointsArray.json">
+    <Compile Include="In Game\Camp\Template\HitPointsArray.json">
       <Name>HitPointsArray</Name>
       <Importer>ContentImporter1</Importer>
       <Processor>ContentProcessor1</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Out Game\Template\HitPoints.png">
+    <Compile Include="In Game\Camp\Template\HitPoints.png">
       <Name>HitPoints</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -1496,6 +1496,197 @@
     </Compile>
     <Compile Include="In Game\Camp\Company Dialog\CompanySelect.png">
       <Name>CompanySelect</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="In Game\Camp\Template\absorb damage.png">
+      <Name>absorb damage</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\absorb damage_gray.png">
+      <Name>absorb damage_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\acts of prowess.png">
+      <Name>acts of prowess</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\atkx2.png">
+      <Name>atkx2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\atkx2_gray.png">
+      <Name>atkx2_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\atkx3.png">
+      <Name>atkx3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\atkx3_gray.png">
+      <Name>atkx3_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\battle mastery.png">
+      <Name>battle mastery</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\big time.png">
+      <Name>big time</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\big time_gray.png">
+      <Name>big time_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\bleed.png">
+      <Name>bleed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\bleed_gray.png">
+      <Name>bleed_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\brave heart.png">
+      <Name>brave heart</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\brave heart_gray.png">
+      <Name>brave heart_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\chip blade.png">
+      <Name>chip blade</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\chip blade_gray.png">
+      <Name>chip blade_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\combinations.png">
+      <Name>combinations</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\counter attack.png">
+      <Name>counter attack</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\counter attack_gray.png">
+      <Name>counter attack_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\crit chance up.png">
+      <Name>crit chance up</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\crit chance up_gray.png">
+      <Name>crit chance up_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\don%27t bleed.png">
+      <Name>don%27t bleed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\don%27t bleed_gray.png">
+      <Name>don%27t bleed_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\eat my dust.png">
+      <Name>eat my dust</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\eat my dust_gray.png">
+      <Name>eat my dust_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\extra health.png">
+      <Name>extra health</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\extra health_gray.png">
+      <Name>extra health_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\flee!.png">
+      <Name>flee!</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\flee!_gray.png">
+      <Name>flee!_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\safe guard.png">
+      <Name>safe guard</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\safe guard_gray.png">
+      <Name>safe guard_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\tough enough.png">
+      <Name>tough enough</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\tough enough_gray.png">
+      <Name>tough enough_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\tremble and fear.png">
+      <Name>tremble and fear</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="In Game\Camp\Template\tremble and fear_gray.png">
+      <Name>tremble and fear_gray</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="In Game\Camp\Template\template_window.png">
+      <Name>template_window</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="In Game\Camp\Template\template_name.png">
+      <Name>template_name</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

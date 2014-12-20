@@ -162,7 +162,6 @@
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Company Menu\CompnayMenu.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Knight Menu\KnightMenu.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\MenuObjects.cs" />
-    <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\TemplateMenu.cs" />
     <Compile Include="Scenes\InGame\Dialogs\DebugData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,12 +178,11 @@
     <Compile Include="Scenes\InGame\Map\Map.cs" />
     <Compile Include="Scenes\InGame\Map\Map_Events.cs" />
     <Compile Include="Scenes\InGame\Team.cs" />
-    <Compile Include="Scenes\OutGame\MainMenu.cs" />
     <Compile Include="Scenes\InGame\Battlegrounds\Objects\Trooper\TrooperActMgr.cs" />
-    <Compile Include="Scenes\InGame\Template\Objects\FrontGuys.cs" />
-    <Compile Include="Scenes\InGame\Template\Objects\Slider.cs" />
-    <Compile Include="Scenes\InGame\Template\Objects\StatDisplay.cs" />
-    <Compile Include="Scenes\InGame\Template\Template.cs">
+    <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\Objects\FrontGuys.cs" />
+    <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\Objects\Slider.cs" />
+    <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\Objects\StatDisplay.cs" />
+    <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\Template.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Scenes\OutGame\TitleScreen\TitleScreen.cs" />

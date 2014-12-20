@@ -77,7 +77,9 @@ namespace MightyFights_Prototype	{
 			// set its states
 			_eObjState = EObjectStates.Active | EObjectStates.Draw;
 
-			this.tPos = _tPos = tPos;
+			// set the position using the property to call the update reference points 
+				// the reference points on the healer don't move like the ones on the trooper but they do need to be set up the first time
+			this.tPos = tPos;
 			// had to change this because i scaled the healers
 			_cSupportZone = new FleeSpot( iMaxSlots, 60, new Vector2( _tCenter.X - (cTeam.bDirection ? 50 : -80) + ( cTeam.bDirection ? 1 : -1 ) * 100, _tCenter.Y + 10 ));
 

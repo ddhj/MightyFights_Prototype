@@ -39,6 +39,7 @@ namespace MightyFights_Prototype
 		public bool bSelected	{ get { return _bSelected; } set { _bSelected = value; _iGrabPoint = int.MinValue; }}
 		public int iMaxLeft		{ get; set; }
 		public int iMaxRight	{ get; set; }
+		public int iLevel		{ get; set; }
 
 		public Slider(AnimationData cAnimData, string sTexRef)
 		{
@@ -47,6 +48,7 @@ namespace MightyFights_Prototype
 
 			_cActionData = _cAnimData.GetActionData("Main", "Sub", sTexName);
 			this.cFrame = _cAnimData.GetFrame(_cActionData, 0);
+			dlProcessClick = ProcessClick;
 		}
 
 		public void SetLevel(int iLevel)
@@ -54,6 +56,7 @@ namespace MightyFights_Prototype
 			int iDeltaX,
 				iDeltaY;
 
+			this.iLevel = iLevel;
 			this.cFrame = _cAnimData.GetFrame(_cActionData, iLevel);
 
 			iDeltaX = this.cFrame.tRect.Width / 2;
@@ -83,7 +86,7 @@ namespace MightyFights_Prototype
 		{
 			cBatch.Draw(cTexRef, tPos, cFrame.tRect, Color.White, cFrame.bRot ? -(float)Math.PI/2 : 0, cFrame.tTopLeft, 1, 
 				// and 2: the direction vector
-				SpriteEffects.None, 1);
+				SpriteEffects.None, fZRange);
 		}
 	
 		#region IUpdate Members
@@ -152,6 +155,13 @@ namespace MightyFights_Prototype
 			else tRect = new Rectangle((int)this.tPos.X, (int)this.tPos.Y, this.cFrame.tRect.Width, this.cFrame.tRect.Height);
 
 			return tRect.Contains(tPoint);
+		}
+
+		void ProcessClick(object oSender, object oArgs)
+		{
+			++iLevel;
+			if(iLevel > 13) iLevel = 0;
+			SetLevel(iLevel);
 		}
 	}
 }

@@ -83,7 +83,7 @@ namespace MightyFights_Prototype
 					new Vector2(0, 0), new Vector2(0, 0), 
 					new Vector2(cTmpSpr.cTexRef.Bounds.Width, cTmpSpr.cTexRef.Bounds.Height), 
 					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				cTmpSpr.dlProcessClick = CaptainsClick;
+				cTmpSpr.dlProcessClick = TemplateClick;
 				_naButtons.Add(cTmpSpr);
 			} catch { 
 				return false;
@@ -117,7 +117,21 @@ namespace MightyFights_Prototype
 
 		void TemplateClick(object oSender, object oArgs)
 		{
+			Template		cTemplate = new Template(_cMgr, DataStore.cInstance.cLSteward.cTemplates[0]);
+			Viewport		cView = DataStore.cInstance.cGraphics.Viewport;
 
+			cTemplate.cTexRef = DataStore.cInstance.cContent.Load<Texture2D>(@"In Game\Camp\Template\template_window");
+			cTemplate.tPos = new Vector2(cView.Width / 2 - cTemplate.cTexRef.Width / 2, cView.Height / 2 - cTemplate.cTexRef.Height / 2);
+			cTemplate.sTexName = @"In Game\Camp\Company Dialog\company_window";
+			cTemplate.cFrame = new Frame(cTemplate.cTexRef.Bounds, 
+				new Vector2(cTemplate.cTexRef.Bounds.Width / 2, cTemplate.cTexRef.Bounds.Height / 2), 
+				new Vector2(0, 0), new Vector2(0, 0), 
+				new Vector2(cTemplate.cTexRef.Bounds.Width, cTemplate.cTexRef.Bounds.Height), 
+				new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+
+			// set the background sprite first because everything in the menu will be based on the position of the top left point
+			if(cTemplate.InitMenu())
+				_cMgr.AddMenuObject(cTemplate);
 		}
 
 		void CaptainsClick(object oSender, object oArgs)

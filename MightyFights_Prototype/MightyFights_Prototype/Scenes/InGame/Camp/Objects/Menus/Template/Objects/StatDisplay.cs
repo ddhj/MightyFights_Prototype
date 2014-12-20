@@ -56,7 +56,7 @@ namespace MightyFights_Prototype
 		{
 			cBatch.Draw(cTexRef, tPos, cFrame.tRect, Color.White, cFrame.bRot ? -(float)Math.PI/2 : 0, cFrame.tTopLeft, 1, 
 				// and 2: the direction vector
-				SpriteEffects.None, 1);
+				SpriteEffects.None, fZRange);
 		}
 	}
 }
