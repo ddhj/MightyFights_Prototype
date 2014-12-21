@@ -139,6 +139,10 @@ namespace MightyFights_Prototype
 			_cName.Draw(cBatch);
 			_cActsOfProwess.Draw(cBatch);
 			_cBattleMastery.Draw(cBatch);
+
+			_cLargeLeftArrow.Draw(cBatch);
+			_cLargeRightArrow.Draw(cBatch);
+
 			cBatch.DrawString(_cFont, _cName.sName, new Vector2(_cName.tPos.X + 30, _cName.tPos.Y + 10), Color.White);
 
 			foreach(Ability cAbility in _caAbilities)
@@ -255,13 +259,13 @@ namespace MightyFights_Prototype
 				_cLargeLeftArrow = new ClickableSprite();
 				_cLargeLeftArrow.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\Left Arrow Large");
 				_cLargeLeftArrow.fZRange = .5f;
-				_cLargeLeftArrow.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - 45, _cGraphics.Viewport.Height / 2 + 35);
+				_cLargeLeftArrow.tPos = new Vector2(tPos.X + 161, tPos.Y + 153);
 				_cLargeLeftArrow.cFrame = new Frame(_cLargeLeftArrow.cTexRef.Bounds, new Vector2(_cLargeLeftArrow.cTexRef.Bounds.Width / 2, _cLargeLeftArrow.cTexRef.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cLargeLeftArrow.cTexRef.Bounds.Width, _cLargeLeftArrow.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
 				_cLargeRightArrow = new ClickableSprite();
 				_cLargeRightArrow.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\Right Arrow Large");
-				_cLargeRightArrow.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + 20, _cGraphics.Viewport.Height / 2 + 35);
+				_cLargeRightArrow.tPos = new Vector2(tPos.X + 227, tPos.Y + 153);
 				_cLargeRightArrow.fZRange = .5f;
 				_cLargeRightArrow.cFrame = new Frame(_cLargeRightArrow.cTexRef.Bounds, new Vector2(_cLargeRightArrow.cTexRef.Bounds.Width / 2, _cLargeRightArrow.cTexRef.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cLargeRightArrow.cTexRef.Bounds.Width, _cLargeRightArrow.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
