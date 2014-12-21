@@ -22,27 +22,30 @@ namespace MightyFights_Prototype
 						_cBottomSlider;
 		ClickableSprite	_cDone,
 						_cLargeLeftArrow,
-						_cLargeRightArrow,
-						_cActsOfProwess,
-						_cBattleMastery;
+						_cLargeRightArrow;
+
 		StatDisplay		_cAtkPower, 
 						_cAtkSpeed,
 						_cHitPoints,
 						_cMoveSpeed;
 
+		BasicSprite		_cFrame,
+						_cAtkCombo,
+						_cActsOfProwess,
+						_cBattleMastery;
+
 		FrontGuys		_cFrontGuys;
 		SpriteFont		_cFont;
-
-		Texture2D		_cFrame;
 
 		GraphicsDevice	_cGraphics;
 
 		CampMenuManager	_cMgr;
 		TemplateConfig	_cConfig;
 
-		NameTextBox				_cName;
+		NameTextBox		_cName;
 		bool			_bProcessPress= true;
 
+		List<Ability>			_caAbilities = new List<Ability>();
 		List<MenuControlBase>	_caControls = new List<MenuControlBase>();
 
 		// these are % increase to the base value in the animation data file 
@@ -77,8 +80,8 @@ namespace MightyFights_Prototype
 			_cConfig.cStats.iPower = _iaAtkPowerStats[_cAtkPower.iCurFrame];
 			_cConfig.cStats.iMovement = _iaMoveSpeedStats[_cMoveSpeed.iCurFrame];
 			_cConfig.cStats.iArmorClass = _iaAC[_cHitPoints.iCurFrame];
-			_cConfig.iBottomLevel = _cBottomSlider.iLevel;//_cBottomLevels.SelectedIndex;
-			_cConfig.iTopLevel = _cTopSlider.iLevel; //_cTopLevels.SelectedIndex;
+			_cConfig.iBottomLevel = _cBottomSlider.iLevel;
+			_cConfig.iTopLevel = _cTopSlider.iLevel;
 			_cConfig.sTemplateName = _cName.sName;
 		}
 
@@ -124,9 +127,8 @@ namespace MightyFights_Prototype
 		{
 			base.Draw(cBatch);
 	
-			cBatch.Draw(_cFrame, new Vector2(_cGraphics.Viewport.Width/2 - _cFrame.Bounds.Width/2, _cGraphics.Viewport.Height/2 - _cFrame.Bounds.Height/2), 
-			    _cFrame.Bounds, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, 0.5f); 
-
+			_cAtkCombo.Draw(cBatch);
+			_cFrame.Draw(cBatch);
 			_cAtkPower.Draw(cBatch);
 			_cAtkSpeed.Draw(cBatch);
 			_cMoveSpeed.Draw(cBatch);
@@ -135,7 +137,12 @@ namespace MightyFights_Prototype
 			_cBottomSlider.Draw(cBatch);
 			_cFrontGuys.Draw(cBatch);
 			_cName.Draw(cBatch);
+			_cActsOfProwess.Draw(cBatch);
+			_cBattleMastery.Draw(cBatch);
 			cBatch.DrawString(_cFont, _cName.sName, new Vector2(_cName.tPos.X + 30, _cName.tPos.Y + 10), Color.White);
+
+			foreach(Ability cAbility in _caAbilities)
+				cAbility.Draw(cBatch);
 		}
 
 		public bool InitMenu()
@@ -145,13 +152,55 @@ namespace MightyFights_Prototype
 				NameTextBox cTmpSpr = new NameTextBox(_cMgr);
 
 				_cGraphics = DataStore.cInstance.cGraphics;
-		
-				_cFrame = cContent.Load<Texture2D>(@"In Game\Camp\Template\frame");
 				_cFont = cContent.Load<SpriteFont>(@"Shared\TestFon");
+		
+				_cFrame = new BasicSprite();
+				_cFrame.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\frame");
+				_cFrame.tPos = new Vector2(tPos.X + 63, tPos.Y + 13);
+				_cFrame.sTexName = @"In Game\Camp\Company Dialog\frame";
+				_cFrame.fZRange = .5f;
+				_cFrame.cFrame = new Frame(_cFrame.cTexRef.Bounds, 
+					new Vector2(_cFrame.cTexRef.Bounds.Width / 2, _cFrame.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(_cFrame.cTexRef.Bounds.Width, _cFrame.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+					
+				_cAtkCombo = new BasicSprite();
+				_cAtkCombo.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\combinations");
+				_cAtkCombo.tPos = new Vector2(tPos.X + 14, tPos.Y + 56);
+				_cAtkCombo.sTexName = @"In Game\Camp\Company Dialog\frame";
+				_cAtkCombo.fZRange = .5f;
+				_cAtkCombo.cFrame = new Frame(_cAtkCombo.cTexRef.Bounds, 
+					new Vector2(_cAtkCombo.cTexRef.Bounds.Width / 2, _cAtkCombo.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(_cAtkCombo.cTexRef.Bounds.Width, _cAtkCombo.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+
+				_cActsOfProwess = new BasicSprite();
+				_cActsOfProwess.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\acts of prowess");
+				_cActsOfProwess.tPos = new Vector2(tPos.X + 336, tPos.Y + 40);
+				_cActsOfProwess.sTexName = @"In Game\Camp\Company Dialog\acts of prowess";
+				_cActsOfProwess.fZRange = .5f;
+				_cActsOfProwess.cFrame = new Frame(_cActsOfProwess.cTexRef.Bounds, 
+					new Vector2(_cActsOfProwess.cTexRef.Bounds.Width / 2, _cActsOfProwess.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(_cActsOfProwess.cTexRef.Bounds.Width, _cActsOfProwess.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+
+				_cBattleMastery = new BasicSprite();
+				_cBattleMastery.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\battle mastery");
+				_cBattleMastery.tPos = new Vector2(tPos.X + 340, tPos.Y + 160);
+				_cBattleMastery.sTexName = @"In Game\Camp\Company Dialog\frame";
+				_cBattleMastery.fZRange = .5f;
+				_cBattleMastery.cFrame = new Frame(_cBattleMastery.cTexRef.Bounds, 
+					new Vector2(_cBattleMastery.cTexRef.Bounds.Width / 2, _cBattleMastery.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(_cBattleMastery.cTexRef.Bounds.Width, _cBattleMastery.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
 				_cName = cTmpSpr;
 				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\template_name");
-				cTmpSpr.tPos = new Vector2(tPos.X + cTexRef.Width / 2 - cTmpSpr.cTexRef.Width / 2 - 5, tPos.Y + cTexRef.Height - cTmpSpr.cTexRef.Height);
+				cTmpSpr.tPos = new Vector2(tPos.X + 115, tPos.Y + (cTexRef.Height - cTmpSpr.cTexRef.Height));
 				cTmpSpr.sTexName = @"In Game\Camp\Company Dialog\company_name";
 				cTmpSpr.fZRange = .5f;
 				cTmpSpr.cFrame = new Frame(cTmpSpr.cTexRef.Bounds, 
@@ -160,41 +209,34 @@ namespace MightyFights_Prototype
 					new Vector2(cTmpSpr.cTexRef.Bounds.Width, cTmpSpr.cTexRef.Bounds.Height), 
 					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 				_caControls.Add(cTmpSpr);
-	
-				_cDone = new ClickableSprite();
-				_cDone.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\done");
-				_cDone.sTexName = @"In Game\Camp\Template\done";
-				_cDone.cFrame = new Frame(_cDone.cTexRef.Bounds, new Vector2(_cDone.cTexRef.Bounds.Width / 2, _cDone.cTexRef.Bounds.Height / 2), 
-					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cDone.cTexRef.Bounds.Width, _cDone.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				_cDone.tPos = new Vector2(_cGraphics.Viewport.Width/2 - _cDone.cTexRef.Bounds.Width / 2, _cGraphics.Viewport.Height / 2 - _cDone.cTexRef.Bounds.Height / 2  + 140);
 
 				_cAtkPower = new StatDisplay(cContent.Load<AnimationData>(@"In Game\Camp\Template\AtkPowerArray"), "blue");
 				_cAtkPower.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\AtkPower");
 				_cAtkPower.fZRange = .5f;
-				_cAtkPower.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - _cAtkPower.cFrame.tRect.Width - 5, _cGraphics.Viewport.Height / 2 - 62);
+				_cAtkPower.tPos = new Vector2(tPos.X + 108, tPos.Y + 56);
 				_cAtkPower.bLeft = true;
 
 				_cAtkSpeed = new StatDisplay(cContent.Load<AnimationData>(@"In Game\Camp\Template\AtkSpeedArray"), "orange");
 				_cAtkSpeed.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\AtkSpeed");
 				_cAtkSpeed.fZRange = .5f;
-				_cAtkSpeed.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + 2, _cGraphics.Viewport.Height / 2 - 62);
+				_cAtkSpeed.tPos = new Vector2(tPos.X + 208, tPos.Y + 56);
 
 				_cHitPoints = new StatDisplay(cContent.Load<AnimationData>(@"In Game\Camp\Template\HitPointsArray"), "pink");
 				_cHitPoints.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\HitPoints");
 				_cHitPoints.fZRange = .5f;
-				_cHitPoints.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - _cHitPoints.cFrame.tRect.Width - 5, _cGraphics.Viewport.Height / 2 + 21);
+				_cHitPoints.tPos = new Vector2(tPos.X + 108, tPos.Y + 138);
 				_cHitPoints.bLeft = true;
 
 				_cMoveSpeed = new StatDisplay(cContent.Load<AnimationData>(@"In Game\Camp\Template\MoveSpeedArray"), "green");
 				_cMoveSpeed.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\MoveSpeed");
 				_cMoveSpeed.fZRange = .5f;
-				_cMoveSpeed.tPos = new Vector2(_cGraphics.Viewport.Width / 2 + 2, _cGraphics.Viewport.Height / 2 + 21);
+				_cMoveSpeed.tPos = new Vector2(tPos.X + 208, tPos.Y + 138);
 
 				_cTopSlider = new Slider(cContent.Load<AnimationData>(@"In Game\Camp\Template\TopSlidersArray"), "top");
 				_cTopSlider.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\TopSliders");
 				_cTopSlider.fZRange = .5f;
-				_cTopSlider.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - _cTopSlider.cFrame.tRect.Width / 2 - 2, _cGraphics.Viewport.Height / 2 - _cFrame.Bounds.Height / 2 + 18);
-				_cTopSlider.iCenter = _cGraphics.Viewport.Width / 2 - 2;
+				_cTopSlider.tPos = new Vector2(tPos.X + 191, tPos.Y + 30);
+				_cTopSlider.iCenter = (int)tPos.X + 204;
 				_cTopSlider.iStartY = (int)_cTopSlider.tPos.Y;
 				_cTopSlider.iMaxLeft = (int)_cAtkPower.tPos.X + 10;
 				_cTopSlider.iMaxRight = (int)_cAtkSpeed.tPos.X + _cAtkSpeed.cFrame.tRect.Width - 10;
@@ -203,8 +245,8 @@ namespace MightyFights_Prototype
 				_cBottomSlider = new Slider(cContent.Load<AnimationData>(@"In Game\Camp\Template\BottomSlidersArray"), "bottom");
 				_cBottomSlider.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\BottomSliders");
 				_cBottomSlider.fZRange = .5f;
-				_cBottomSlider.tPos = new Vector2(_cGraphics.Viewport.Width / 2 - _cTopSlider.cFrame.tRect.Width / 2 - 2, _cGraphics.Viewport.Height / 2 + _cFrame.Bounds.Height / 2 - 37);
-				_cBottomSlider.iCenter = _cGraphics.Viewport.Width / 2 - 2;
+				_cBottomSlider.tPos = new Vector2(tPos.X + 191, tPos.Y + 186);
+				_cBottomSlider.iCenter = (int)tPos.X + 204;
 				_cBottomSlider.iStartY = (int)_cBottomSlider.tPos.Y;
 				_cBottomSlider.iMaxLeft = (int)_cAtkPower.tPos.X + 10;
 				_cBottomSlider.iMaxRight = (int)_cAtkSpeed.tPos.X + _cAtkSpeed.cFrame.tRect.Width - 10;
@@ -227,8 +269,218 @@ namespace MightyFights_Prototype
 				_cFrontGuys = new FrontGuys(cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"), _cConfig.sColor, new Dictionary<string, bool>());
 				_cFrontGuys.cTexRef = cContent.Load<Texture2D>(@"Sprite Data\Troopers\Halberd\Front Facing\front");
 				_cFrontGuys.fZRange = .5f;
-				_cFrontGuys.tPos = new Vector2(_cLargeLeftArrow.tPos.X - 56, _cGraphics.Viewport.Height / 2 - 66);
+				_cFrontGuys.tPos = new Vector2(tPos.X + 105, tPos.Y + 50);
 
+// the ability icons 
+				Ability cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\tremble and fear_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\tremble and fear");
+				cTmp.tPos = new Vector2(tPos.X + 320, tPos.Y + 69);
+				cTmp.sTexName = @"In Game\Camp\Template\tremble and fear";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\safe guard_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\safe guard");
+				cTmp.tPos = new Vector2(tPos.X + 349, tPos.Y + 69);
+				cTmp.sTexName = @"In Game\Camp\Template\safe guard";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\extra health_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\extra health");
+				cTmp.tPos = new Vector2(tPos.X + 378, tPos.Y + 69);
+				cTmp.sTexName = @"In Game\Camp\Template\extra health";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\brave heart_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\brave heart");
+				cTmp.tPos = new Vector2(tPos.X + 407, tPos.Y + 69);
+				cTmp.sTexName = @"In Game\Camp\Template\brave heart";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\eat my dust_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\eat my dust");
+				cTmp.tPos = new Vector2(tPos.X + 436, tPos.Y + 69);
+				cTmp.sTexName = @"In Game\Camp\Template\eat my dust";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\absorb damage_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\absorb damage");
+				cTmp.tPos = new Vector2(tPos.X + 320, tPos.Y + 110);
+				cTmp.sTexName = @"In Game\Camp\Template\absorb damage";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\tough enough_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\tough enough");
+				cTmp.tPos = new Vector2(tPos.X + 349, tPos.Y + 110);
+				cTmp.sTexName = @"In Game\Camp\Template\tough enough";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\counter attack_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\counter attack");
+				cTmp.tPos = new Vector2(tPos.X + 378, tPos.Y + 110);
+				cTmp.sTexName = @"In Game\Camp\Template\counter attack";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\chip blade_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\chip blade");
+				cTmp.tPos = new Vector2(tPos.X + 407, tPos.Y + 110);
+				cTmp.sTexName = @"In Game\Camp\Template\chip blade";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\eat my dust_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\eat my dust");
+				cTmp.tPos = new Vector2(tPos.X + 436, tPos.Y + 110);
+				cTmp.sTexName = @"In Game\Camp\Template\eat my dust";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+
+// battle mastery
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\bleed_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\bleed");
+				cTmp.tPos = new Vector2(tPos.X + 360, tPos.Y + 185);
+				cTmp.sTexName = @"In Game\Camp\Template\bleed";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\don't bleed_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\don't bleed");
+				cTmp.tPos = new Vector2(tPos.X + 381, tPos.Y + 185);
+				cTmp.sTexName = @"In Game\Camp\Template\don't bleed";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\flee!_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\flee!");
+				cTmp.tPos = new Vector2(tPos.X + 401, tPos.Y + 185);
+				cTmp.sTexName = @"In Game\Camp\Template\flee!";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\atkx2_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\atkx2");
+				cTmp.tPos = new Vector2(tPos.X + 360, tPos.Y + 216);
+				cTmp.sTexName = @"In Game\Camp\Template\atkx2";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\atkx3_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\atkx3");
+				cTmp.tPos = new Vector2(tPos.X + 381, tPos.Y + 216);
+				cTmp.sTexName = @"In Game\Camp\Template\atkx3";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
+				
+				cTmp = new Ability();
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\crit chance up_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\crit chance up");
+				cTmp.tPos = new Vector2(tPos.X + 401, tPos.Y + 216);
+				cTmp.sTexName = @"In Game\Camp\Template\crit chance up";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caAbilities.Add(cTmp);
 				return true;
 			} catch { 
 				return false;
@@ -286,6 +538,10 @@ namespace MightyFights_Prototype
 				if(_cTopSlider.ContainsPoint(eMouseEvt.Location)) _cTopSlider.dlProcessClick(null, null);
 				if(_cBottomSlider.ContainsPoint(eMouseEvt.Location)) _cBottomSlider.dlProcessClick(null, null);
 			}
+
+			foreach(Ability cAbility in _caAbilities)
+				if(cAbility.ContainsPoint(eMouseEvt.Location))
+					cAbility.dlProcessClick(null, null);
 		}
 
 		public void MouseHover(object oSender, Microsoft.Xna.Framework.Input.MouseEventArgs eMouseEvt)

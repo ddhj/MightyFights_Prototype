@@ -1,4 +1,10 @@
 Content\Sprite Data\Troopers\Halberd\HalberdArray.xnb
+Content\In Game\Camp\Template\BottomSlidersArray.xnb
+Content\In Game\Camp\Template\TopSlidersArray.xnb
+Content\In Game\Camp\Template\AtkPowerArray.xnb
+Content\In Game\Camp\Template\MoveSpeedArray.xnb
+Content\In Game\Camp\Template\AtkSpeedArray.xnb
+Content\In Game\Camp\Template\HitPointsArray.xnb
 Content\In Game\Buffs\BufItemsArray.xnb
 Content\In Game\Buffs\DropsArray.xnb
 Content\In Game\Buffs\GemsArray.xnb
@@ -9,6 +15,18 @@ Content\Out Game\Main Menu\green_card.xnb
 Content\Out Game\Main Menu\red_card.xnb
 Content\Out Game\Main Menu\to_battle!-1.xnb
 Content\Shared\arrow_cursor.xnb
+Content\In Game\Camp\Template\BottomSliders.xnb
+Content\In Game\Camp\Template\TopSliders.xnb
+Content\In Game\Camp\Template\done.xnb
+Content\In Game\Camp\Template\frame.xnb
+Content\In Game\Camp\Template\Left Arrow Large.xnb
+Content\In Game\Camp\Template\Left Arrow.xnb
+Content\In Game\Camp\Template\Right Arrow Large.xnb
+Content\In Game\Camp\Template\Right Arrow.xnb
+Content\In Game\Camp\Template\AtkPower.xnb
+Content\In Game\Camp\Template\MoveSpeed.xnb
+Content\In Game\Camp\Template\AtkSpeed.xnb
+Content\In Game\Camp\Template\HitPoints.xnb
 Content\In Game\Buffs\BufItems.xnb
 Content\Backgrounds\dirt_grass 800x436.xnb
 Content\Backgrounds\dirt_grass 800x500.xnb
@@ -203,6 +221,45 @@ Content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage.xnb
 Content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage_H.xnb
 Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout.xnb
 Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout_H.xnb
+Content\In Game\Camp\Company Dialog\CompanyBox.xnb
+Content\In Game\Camp\Company Dialog\CompanySelect.xnb
+Content\In Game\Camp\Template\absorb damage.xnb
+Content\In Game\Camp\Template\absorb damage_gray.xnb
+Content\In Game\Camp\Template\acts of prowess.xnb
+Content\In Game\Camp\Template\atkx2.xnb
+Content\In Game\Camp\Template\atkx2_gray.xnb
+Content\In Game\Camp\Template\atkx3.xnb
+Content\In Game\Camp\Template\atkx3_gray.xnb
+Content\In Game\Camp\Template\battle mastery.xnb
+Content\In Game\Camp\Template\big time.xnb
+Content\In Game\Camp\Template\big time_gray.xnb
+Content\In Game\Camp\Template\bleed.xnb
+Content\In Game\Camp\Template\bleed_gray.xnb
+Content\In Game\Camp\Template\brave heart.xnb
+Content\In Game\Camp\Template\brave heart_gray.xnb
+Content\In Game\Camp\Template\chip blade.xnb
+Content\In Game\Camp\Template\chip blade_gray.xnb
+Content\In Game\Camp\Template\combinations.xnb
+Content\In Game\Camp\Template\counter attack.xnb
+Content\In Game\Camp\Template\counter attack_gray.xnb
+Content\In Game\Camp\Template\crit chance up.xnb
+Content\In Game\Camp\Template\crit chance up_gray.xnb
+Content\In Game\Camp\Template\don't bleed.xnb
+Content\In Game\Camp\Template\don't bleed_gray.xnb
+Content\In Game\Camp\Template\eat my dust.xnb
+Content\In Game\Camp\Template\eat my dust_gray.xnb
+Content\In Game\Camp\Template\extra health.xnb
+Content\In Game\Camp\Template\extra health_gray.xnb
+Content\In Game\Camp\Template\flee!.xnb
+Content\In Game\Camp\Template\flee!_gray.xnb
+Content\In Game\Camp\Template\safe guard.xnb
+Content\In Game\Camp\Template\safe guard_gray.xnb
+Content\In Game\Camp\Template\tough enough.xnb
+Content\In Game\Camp\Template\tough enough_gray.xnb
+Content\In Game\Camp\Template\tremble and fear.xnb
+Content\In Game\Camp\Template\tremble and fear_gray.xnb
+Content\In Game\Camp\Template\template_window.xnb
+Content\In Game\Camp\Template\template_name.xnb
 Content\Music\Battle\battle1.xnb
 Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.xnb
 Content\Music\Final_Fantasy_4_Treason_OC_ReMix.xnb
@@ -242,63 +299,6 @@ Content\Particles\StarTrail.xnb
 Content\Particles\WaterJet.xnb
 Content\Particles\Buff Sparkle.xnb
 Content\Particles\HealerRecharge.xnb
-Content\In Game\Camp\Company Dialog\CompanyBox.xnb
-Content\In Game\Camp\Company Dialog\CompanySelect.xnb
-Content\In Game\Camp\Template\BottomSlidersArray.xnb
-Content\In Game\Camp\Template\TopSlidersArray.xnb
-Content\In Game\Camp\Template\AtkPowerArray.xnb
-Content\In Game\Camp\Template\MoveSpeedArray.xnb
-Content\In Game\Camp\Template\AtkSpeedArray.xnb
-Content\In Game\Camp\Template\HitPointsArray.xnb
-Content\In Game\Camp\Template\BottomSliders.xnb
-Content\In Game\Camp\Template\TopSliders.xnb
-Content\In Game\Camp\Template\done.xnb
-Content\In Game\Camp\Template\frame.xnb
-Content\In Game\Camp\Template\Left Arrow Large.xnb
-Content\In Game\Camp\Template\Left Arrow.xnb
-Content\In Game\Camp\Template\Right Arrow Large.xnb
-Content\In Game\Camp\Template\Right Arrow.xnb
-Content\In Game\Camp\Template\AtkPower.xnb
-Content\In Game\Camp\Template\MoveSpeed.xnb
-Content\In Game\Camp\Template\AtkSpeed.xnb
-Content\In Game\Camp\Template\HitPoints.xnb
-Content\In Game\Camp\Template\absorb damage.xnb
-Content\In Game\Camp\Template\absorb damage_gray.xnb
-Content\In Game\Camp\Template\acts of prowess.xnb
-Content\In Game\Camp\Template\atkx2.xnb
-Content\In Game\Camp\Template\atkx2_gray.xnb
-Content\In Game\Camp\Template\atkx3.xnb
-Content\In Game\Camp\Template\atkx3_gray.xnb
-Content\In Game\Camp\Template\battle mastery.xnb
-Content\In Game\Camp\Template\big time.xnb
-Content\In Game\Camp\Template\big time_gray.xnb
-Content\In Game\Camp\Template\bleed.xnb
-Content\In Game\Camp\Template\bleed_gray.xnb
-Content\In Game\Camp\Template\brave heart.xnb
-Content\In Game\Camp\Template\brave heart_gray.xnb
-Content\In Game\Camp\Template\chip blade.xnb
-Content\In Game\Camp\Template\chip blade_gray.xnb
-Content\In Game\Camp\Template\combinations.xnb
-Content\In Game\Camp\Template\counter attack.xnb
-Content\In Game\Camp\Template\counter attack_gray.xnb
-Content\In Game\Camp\Template\crit chance up.xnb
-Content\In Game\Camp\Template\crit chance up_gray.xnb
-Content\In Game\Camp\Template\don't bleed.xnb
-Content\In Game\Camp\Template\don't bleed_gray.xnb
-Content\In Game\Camp\Template\eat my dust.xnb
-Content\In Game\Camp\Template\eat my dust_gray.xnb
-Content\In Game\Camp\Template\extra health.xnb
-Content\In Game\Camp\Template\extra health_gray.xnb
-Content\In Game\Camp\Template\flee!.xnb
-Content\In Game\Camp\Template\flee!_gray.xnb
-Content\In Game\Camp\Template\safe guard.xnb
-Content\In Game\Camp\Template\safe guard_gray.xnb
-Content\In Game\Camp\Template\tough enough.xnb
-Content\In Game\Camp\Template\tough enough_gray.xnb
-Content\In Game\Camp\Template\tremble and fear.xnb
-Content\In Game\Camp\Template\tremble and fear_gray.xnb
-Content\In Game\Camp\Template\template_window.xnb
-Content\In Game\Camp\Template\template_name.xnb
 Content\Music\Battle\battle1.wma
 Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.wma
 Content\Music\Final_Fantasy_4_Treason_OC_ReMix.wma

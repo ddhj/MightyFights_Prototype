@@ -162,6 +162,7 @@
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Company Menu\CompnayMenu.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Knight Menu\KnightMenu.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\MenuObjects.cs" />
+    <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\Objects\Ability.cs" />
     <Compile Include="Scenes\InGame\Dialogs\DebugData.cs">
       <SubType>Form</SubType>
     </Compile>
