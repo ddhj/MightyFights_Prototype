@@ -394,10 +394,10 @@ namespace MightyFights_Prototype
 				_caAbilities.Add(cTmp);
 				
 				cTmp = new Ability();
-				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\eat my dust_gray");
-				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\eat my dust");
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\big time_gray");
+				cTmp.cTexRefAlt = cContent.Load<Texture2D>(@"In Game\Camp\Template\big time");
 				cTmp.tPos = new Vector2(tPos.X + 436, tPos.Y + 110);
-				cTmp.sTexName = @"In Game\Camp\Template\eat my dust";
+				cTmp.sTexName = @"In Game\Camp\Template\big time";
 				cTmp.fZRange = .5f;
 				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
 					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
