@@ -74,6 +74,18 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cLSteward.cTemplates[2].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 40, iFleePoint = 5, iArmorClass = 3 };
 			DataStore.cInstance.cLSteward.cTemplates[2].iBottomLevel = DataStore.cInstance.cLSteward.cTemplates[2].iTopLevel = 0;
 			DataStore.cInstance.cLSteward.cTemplates[2].sTemplateName = "LT2";
+			DataStore.cInstance.cLSteward.cTemplates.Add(new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fbrown")));
+			DataStore.cInstance.cLSteward.cTemplates[3].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 40, iFleePoint = 5, iArmorClass = 3 };
+			DataStore.cInstance.cLSteward.cTemplates[3].iBottomLevel = DataStore.cInstance.cLSteward.cTemplates[2].iTopLevel = 0;
+			DataStore.cInstance.cLSteward.cTemplates[3].sTemplateName = "LT3";
+			DataStore.cInstance.cLSteward.cTemplates.Add(new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fbrown")));
+			DataStore.cInstance.cLSteward.cTemplates[4].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 40, iFleePoint = 5, iArmorClass = 3 };
+			DataStore.cInstance.cLSteward.cTemplates[4].iBottomLevel = DataStore.cInstance.cLSteward.cTemplates[2].iTopLevel = 0;
+			DataStore.cInstance.cLSteward.cTemplates[4].sTemplateName = "LT4";
+			DataStore.cInstance.cLSteward.cTemplates.Add(new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fbrown")));
+			DataStore.cInstance.cLSteward.cTemplates[5].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 40, iFleePoint = 5, iArmorClass = 3 };
+			DataStore.cInstance.cLSteward.cTemplates[5].iBottomLevel = DataStore.cInstance.cLSteward.cTemplates[2].iTopLevel = 0;
+			DataStore.cInstance.cLSteward.cTemplates[5].sTemplateName = "LT5";
 
 ////right side
 			DataStore.cInstance.cRSteward = new Steward();

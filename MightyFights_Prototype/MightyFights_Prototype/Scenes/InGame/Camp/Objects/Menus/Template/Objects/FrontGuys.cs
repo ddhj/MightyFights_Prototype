@@ -26,12 +26,14 @@ namespace MightyFights_Prototype
 		public int iOtherColor		{ get; set; }
 		public string sCurColor		{ get { return _caNameByIdx[_iFrameIdx]; }}
 		public int iFrameIdx		{ get { return _iFrameIdx; }}
+		public float fScale			{ get; set; }
 
 		public FrontGuys(AnimationData cData, string sColor, Dictionary<string, bool> cTakenColors)
 		{
 			_cAnimData = cData;
 			SetByColor(sColor);
 			_cTakenColors = cTakenColors;
+			this.fScale = 1.0f;
 		}
 
 		public void IncrementColor()
@@ -74,7 +76,7 @@ namespace MightyFights_Prototype
 
 		public override void Draw(SpriteBatch cBatch)
 		{
-			cBatch.Draw(cTexRef, tPos, cFrame.tRect, Color.White, cFrame.bRot ? -(float)Math.PI/2 : 0, cFrame.tTopLeft, 2.0f, 
+			cBatch.Draw(cTexRef, tPos, cFrame.tRect, Color.White, cFrame.bRot ? -(float)Math.PI/2 : 0, cFrame.tTopLeft, this.fScale, 
 				// and 2: the direction vector
 				SpriteEffects.None, fZRange);
 		}

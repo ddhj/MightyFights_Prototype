@@ -163,6 +163,8 @@
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Knight Menu\KnightMenu.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\MenuObjects.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\Objects\Ability.cs" />
+    <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\Objects\TemplateThumbnail.cs" />
+    <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\TemplateSelect.cs" />
     <Compile Include="Scenes\InGame\Dialogs\DebugData.cs">
       <SubType>Form</SubType>
     </Compile>

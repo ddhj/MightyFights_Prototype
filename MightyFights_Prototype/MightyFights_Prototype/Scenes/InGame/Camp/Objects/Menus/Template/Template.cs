@@ -173,7 +173,7 @@ namespace MightyFights_Prototype
 				_cAtkCombo.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\combinations");
 				_cAtkCombo.tPos = new Vector2(tPos.X + 14, tPos.Y + 56);
 				_cAtkCombo.sTexName = @"In Game\Camp\Company Dialog\frame";
-				_cAtkCombo.fZRange = .5f;
+				_cAtkCombo.fZRange = .51f;
 				_cAtkCombo.cFrame = new Frame(_cAtkCombo.cTexRef.Bounds, 
 					new Vector2(_cAtkCombo.cTexRef.Bounds.Width / 2, _cAtkCombo.cTexRef.Bounds.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), 
@@ -273,6 +273,7 @@ namespace MightyFights_Prototype
 				_cFrontGuys = new FrontGuys(cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"), _cConfig.sColor, new Dictionary<string, bool>());
 				_cFrontGuys.cTexRef = cContent.Load<Texture2D>(@"Sprite Data\Troopers\Halberd\Front Facing\front");
 				_cFrontGuys.fZRange = .5f;
+				_cFrontGuys.fScale = 2.0f;
 				_cFrontGuys.tPos = new Vector2(tPos.X + 105, tPos.Y + 50);
 
 // the ability icons 
