@@ -19,8 +19,13 @@ namespace MightyFights_Prototype
 	{
 		Dictionary<EBuffEffects, int>		_cBuffs = new Dictionary<EBuffEffects,int>();
 		List<TemplateCfgMaster>				_cTemplates = new List<TemplateCfgMaster>();
+		Dictionary<string, Company>			_hCompaniesByIconName = new Dictionary<string,Company>();
+		Dictionary<string, Company>			_hCompaniesByName = new Dictionary<string,Company>();
 
-		public List<TemplateCfgMaster> cTemplates	{ get { return _cTemplates; }}
+		public List<TemplateCfgMaster> cTemplates		{ get { return _cTemplates; }}
 		public Dictionary<EBuffEffects, int> cBuffs		{ get { return _cBuffs; }}
+		public Dictionary<string, Company> hCompaniesByIconName		{ get { return _hCompaniesByIconName; }}
+		public Dictionary<string, Company> hCompaniesByName			{ get { return _hCompaniesByName; }}
+
 	}
 }

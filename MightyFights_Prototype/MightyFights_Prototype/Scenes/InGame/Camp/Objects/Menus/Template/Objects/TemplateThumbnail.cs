@@ -76,4 +76,60 @@ namespace MightyFights_Prototype
 			_cGuy.tPos = new Vector2(tPos.X - 30, tPos.Y - 5);
 		}
 	}
+
+	public class CompanyTemplate : ClickableSprite
+	{
+		TemplateConfig	_cConfig;
+		FrontGuys		_cGuy;
+		SpriteFont		_cFont;
+		Vector2			_tPos;
+
+		public override Vector2 tPos	{ get { return _tPos; } 
+			set {
+				_tPos = value; 
+				if(cTexRef != null) 
+					cDrawnRect = new Rectangle((int)_tPos.X, (int)_tPos.Y, cTexRef.Bounds.Width, cTexRef.Bounds.Height);
+			}
+		}
+
+		public FrontGuys cGuy			{ get { return _cGuy; }}
+
+		public CompanyTemplate(TemplateConfig cConfig) : base()
+		{
+			_cConfig = cConfig;
+		}
+
+		public void Init()
+		{
+			ContentManager cContent = DataStore.cInstance.cContent;
+
+			_cGuy = new FrontGuys(cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"), 
+				_cConfig.sColor, new Dictionary<string, bool>());
+			_cGuy.cTexRef = cContent.Load<Texture2D>(@"Sprite Data\Troopers\Halberd\Front Facing\front");
+			_cGuy.fZRange = .4f;
+			// the scale throws this off quite a bit
+			_cGuy.tPos = new Vector2(tPos.X - 30, tPos.Y - 5);
+			cDrawnRect = new Rectangle((int)_tPos.X, (int)_tPos.Y, 43, 70);
+			_cFont = cContent.Load<SpriteFont>(@"Shared\smallfont");
+		}
+
+		public override void Draw(SpriteBatch cBatch)
+		{
+			if(cFrame != null)	base.Draw(cBatch);
+
+			if(_cConfig != null) { 
+				_cGuy.Draw(cBatch);
+				cBatch.DrawString(_cFont, _cConfig.sTemplateName, new Vector2(tPos.X + 3, tPos.Y + 55), Color.White, 0f, new Vector2(0,0), 1.0f, SpriteEffects.None, .4f);
+				cBatch.DrawString(_cFont, _cConfig.iCount.ToString(), new Vector2(tPos.X + 6, tPos.Y + 64), Color.White, 0f, new Vector2(0,0), 1.0f, SpriteEffects.None, .4f);
+			}
+		}
+
+		void ProcessClick(object oSender, object oArgs){}
+
+		public void SetPos(Vector2 tNewPos)
+		{
+			tPos = tNewPos;
+			_cGuy.tPos = new Vector2(tPos.X - 30, tPos.Y - 5);
+		}
+	}
 }

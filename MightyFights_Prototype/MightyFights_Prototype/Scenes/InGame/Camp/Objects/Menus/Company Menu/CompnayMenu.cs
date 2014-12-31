@@ -23,11 +23,26 @@ namespace MightyFights_Prototype
 
 		List<MenuControlBase>	_caControls = new List<MenuControlBase>();
 		List<MenuButton>		_caButtons = new List<MenuButton>();
+		List<CompanyBox>		_caCompanyBoxes = new List<CompanyBox>();
 		List<BasicSprite>		_caBasicSprites = new List<BasicSprite>();
+		List<CompanyTemplate>	_caTemplates = new List<CompanyTemplate>();
+		List<CompanyTemplate>	_caSelTemplates = new List<CompanyTemplate>();
 		SpriteFont				_cFont;
 		NameTextBox				_cName;
-
+		CompanyBox				_cSelectedCompany;
+		CompanyTemplate			_cSelectedTemplate;
 		bool					_bNew;
+		FrontGuys				_cGuy;
+
+		int						_iRows = 0,
+								_iRow = 0;
+		enum EMouseState { 
+			DragTemplate,
+			IconGrid,
+			Normal
+		};
+
+		EMouseState				_eMouseState = EMouseState.Normal;
 
 		public CompanyMenu(CampMenuManager cMgr) : base()
 		{
@@ -68,7 +83,7 @@ namespace MightyFights_Prototype
 
 				cTmpSprite = new BasicSprite();
 				cTmpSprite.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\click_to_drag");
-				cTmpSprite.tPos = new Vector2(tPos.X + 113, tPos.Y + 131);
+				cTmpSprite.tPos = new Vector2(tPos.X + 113, tPos.Y + 118);
 				cTmpSprite.sTexName = @"In Game\Camp\Company Dialog\click_to_drag";
 				cTmpSprite.fZRange = .5f;
 				cTmpSprite.cFrame = new Frame(cTmpSprite.cTexRef.Bounds, 
@@ -151,6 +166,7 @@ namespace MightyFights_Prototype
 				_caButtons.Add(cTmpBtn);
 
 // company boxes along the left side				
+				
 				cTmpBtn = new MenuButton();
 				cTmpBtn.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\CompanySelect");
 				cTmpBtn.tPos = new Vector2(tPos.X + 10, iCompanyPos);
@@ -248,9 +264,91 @@ namespace MightyFights_Prototype
 					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 				_caButtons.Add(cTmpBtn);
 
+// draw the templates 
+				int iX = 95,
+					iY = 125;
+				CompanyTemplate	cTmp;
+				List<TemplateCfgMaster> cTemplates = DataStore.cInstance.cLSteward.cTemplates;
+				for(int iTemplate = 0; iTemplate < cTemplates.Count;) { 
+					cTmp = new CompanyTemplate((TemplateConfig)cTemplates[iTemplate++]);
+					cTmp.tPos = new Vector2(tPos.X + iX, tPos.Y + iY);
+					cTmp.fZRange = .5f;
+					cTmp.Init();
+					_caTemplates.Add(cTmp);
+
+					if(iTemplate < cTemplates.Count) { 
+						iY += 76;
+						cTmp = new CompanyTemplate((TemplateConfig)cTemplates[iTemplate++]);
+						cTmp.tPos = new Vector2(tPos.X + iX, tPos.Y + iY);
+						cTmp.fZRange = .5f;
+						cTmp.Init();
+						_caTemplates.Add(cTmp);
+					}
+
+					iY = 125;
+					iX += 46;
+				}
+
+// draw the select templates 
+				cTmp = new CompanyTemplate(null);
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\TemplateSelect");
+				cTmp.tPos = new Vector2(tPos.X + 100, tPos.Y + 45);
+				cTmp.sTexName = @"In Game\Camp\Template\TemplateSelect";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caSelTemplates.Add(cTmp);
+
+				cTmp = new CompanyTemplate(null);
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\TemplateSelect");
+				cTmp.tPos = new Vector2(tPos.X + 155, tPos.Y + 45);
+				cTmp.sTexName = @"In Game\Camp\Template\TemplateSelect";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caSelTemplates.Add(cTmp);
+
+				cTmp = new CompanyTemplate(null);
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\TemplateSelect");
+				cTmp.tPos = new Vector2(tPos.X + 210, tPos.Y + 45);
+				cTmp.sTexName = @"In Game\Camp\Template\TemplateSelect";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caSelTemplates.Add(cTmp);
+
+				cTmp = new CompanyTemplate(null);
+				cTmp.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\TemplateSelect");
+				cTmp.tPos = new Vector2(tPos.X + 265, tPos.Y + 45);
+				cTmp.sTexName = @"In Game\Camp\Template\TemplateSelect";
+				cTmp.fZRange = .5f;
+				cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
+					new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_caSelTemplates.Add(cTmp);
+
+//// front guys for the drag draw on the template
+				_cGuy = new FrontGuys(cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"), 
+					@"Sprite Data\Troopers\Halberd\Textures\fazure", new Dictionary<string, bool>());
+				_cGuy.cTexRef = cContent.Load<Texture2D>(@"Sprite Data\Troopers\Halberd\Front Facing\front");
+				_cGuy.fZRange = .3f;
+				_cGuy.tColor = new Color(_cGuy.tColor.R, _cGuy.tColor.G, _cGuy.tColor.B, 50);
+				// the scale throws this off quite a bit
+				_cGuy.tPos = new Vector2(tPos.X - 30, tPos.Y - 5);
 
 				_cFont = cContent.Load<SpriteFont>(@"Shared\TestFon");
-			} catch { 
+			} catch(Exception xEx) { 
 				return false;
 			}
 			
@@ -279,7 +377,20 @@ namespace MightyFights_Prototype
 			foreach(BasicSprite cSprite in _caBasicSprites) cSprite.Draw(cBatch);
 
 			// draw the string in the name dialog
-			cBatch.DrawString(_cFont, _cName.sName, new Vector2(tPos.X + 110, tPos.Y + 18), Color.White);
+			cBatch.DrawString(_cFont, _cName.sName, new Vector2(tPos.X + 110, tPos.Y + 18), Color.White, 0f, new Vector2(0,0), 1.0f, SpriteEffects.None, .4f);
+
+			// draw the available templates
+			foreach(CompanyTemplate cTemplate in _caTemplates)
+				if(cTemplate.tPos.X > 200 && cTemplate.tPos.X < tPos.X + 316)
+					cTemplate.Draw(cBatch);
+
+			// draw the teplates in the company
+			foreach(CompanyTemplate cTemplate in _caSelTemplates)
+				if(cTemplate.tPos.X > 200 && cTemplate.tPos.X < tPos.X + 316)
+					cTemplate.Draw(cBatch);
+
+			if(_eMouseState == EMouseState.DragTemplate) 
+				_cGuy.Draw(cBatch);
 		}
 
 		void ProcessClick()
@@ -293,22 +404,48 @@ namespace MightyFights_Prototype
 
 		public void MouseMove(object oSender, MouseEventArgs eMouseEvt)
 		{
-			// check to see if we are 
+			if(_eMouseState == EMouseState.DragTemplate) 
+				_cGuy.tPos = new Vector2(eMouseEvt.Location.X - 50, eMouseEvt.Location.Y - 30);
 		}
 
 		public void MouseDown(object oSender, MouseEventArgs eMouseEvt)
 		{
+			switch(_eMouseState) { 
+				case EMouseState.Normal: { 
+					foreach(CompanyTemplate cTemplate in _caTemplates) 
+						if(cTemplate.ContainsPoint(eMouseEvt.Location)) { 
+							_cSelectedTemplate = cTemplate;
+							_cGuy.SetByColor(cTemplate.cGuy.sCurColor);
+							_eMouseState = EMouseState.DragTemplate;
+							_cGuy.tPos = new Vector2(eMouseEvt.Location.X - 50, eMouseEvt.Location.Y - 30);
+						}
+				} break;
+			}
 		}
 
 		public void MouseUp(object oSender, MouseEventArgs eMouseEvt)
 		{
-			if(!ContainsPoint(eMouseEvt.Location)) { 
-				_cMgr.RemoveMenuObject(this);
-				return;
-			}
+			switch(_eMouseState) { 
+				case EMouseState.Normal: { 
+					if(!ContainsPoint(eMouseEvt.Location)) { 
+						_cMgr.RemoveMenuObject(this);
+						return;
+					}
 
-			// check to see if we have clicked on the name and we are in add mode
-			if(_bNew) { 
+					// check to see if we have clicked on the name and we are in add mode
+					if(_bNew) { 
+					}
+				} break;
+
+				case EMouseState.DragTemplate: { 
+					_eMouseState = EMouseState.Normal;
+
+					// check to see if we are over a selected area
+				} break;
+
+				case EMouseState.IconGrid: { 
+
+				} break;
 			}
 		}
 
@@ -342,6 +479,7 @@ namespace MightyFights_Prototype
 
 			// the menu gets a click for close
 			InputSystem.MouseUp += new MouseEventHandler(MouseUp);
+			InputSystem.MouseDown += new MouseEventHandler(MouseDown);
 			InputSystem.MouseMove += new MouseEventHandler(MouseMove);
 			InputSystem.KeyDown += new KeyEventHandler(_cName.KeyDown);
 			InputSystem.KeyUp += new KeyEventHandler(_cName.KeyUp);

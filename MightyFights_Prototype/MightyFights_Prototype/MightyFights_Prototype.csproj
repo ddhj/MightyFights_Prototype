@@ -160,6 +160,8 @@
     <Compile Include="Scenes\InGame\Camp\Managers\CObjectManager.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\CampClickables.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Company Menu\CompnayMenu.cs" />
+    <Compile Include="Scenes\InGame\Camp\Objects\Menus\Company Menu\Objects\CompanyBox.cs" />
+    <Compile Include="Scenes\InGame\Camp\Objects\Menus\Company Menu\Objects\IconGrid.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Knight Menu\KnightMenu.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\MenuObjects.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\Objects\Ability.cs" />

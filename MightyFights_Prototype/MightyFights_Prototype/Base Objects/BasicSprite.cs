@@ -24,6 +24,7 @@ namespace MightyFights_Prototype
 		public string sTexName		{ get; set; }
 		public DProcessClick dlProcessClick		{ get; set; }
 		public Rectangle cDrawnRect	{ get { return _cDrawnRect; } set { _cDrawnRect = value; }}
+		public Color tColor			{ get; set; }
 		public virtual Vector2 tPos			{ get { return _tPos; } 
 			set {
 				_tPos = value; 
@@ -35,6 +36,7 @@ namespace MightyFights_Prototype
 		{
 			this.eObjState = EObjectStates.Draw;
 			this.iId = DataManager.cInstance.iCurObjId;
+			this.tColor = Color.White;
 		}
 
 		public virtual bool ContainsPoint(Point tPoint) 
@@ -49,7 +51,7 @@ namespace MightyFights_Prototype
 
 		public virtual void Draw(SpriteBatch cBatch) 
 		{
-			cBatch.Draw(this.cTexRef, this.tPos, this.cFrame.tRect, Color.White, this.cFrame.bRot ? -(float)Math.PI/2 : 0, 
+			cBatch.Draw(this.cTexRef, this.tPos, this.cFrame.tRect, this.tColor, this.cFrame.bRot ? -(float)Math.PI/2 : 0, 
 				// and 2: the direction vector
 				this.cFrame.tTopLeft, 1, SpriteEffects.None, fZRange);
 		}
