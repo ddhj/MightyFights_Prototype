@@ -41,7 +41,7 @@ namespace MightyFights_Prototype
 			if(_iRow != 0) _cUpArrow.Draw(cBatch);
 
 			foreach(TemplateThumbnail cTemplate in _caTemplates)
-				if(ContainsPoint(cTemplate.tPos))
+				if(cTemplate.tPos.Y > tPos.Y && cTemplate.tPos.Y < _cDownArrow.tPos.Y)
 					cTemplate.Draw(cBatch);
 		}
 
