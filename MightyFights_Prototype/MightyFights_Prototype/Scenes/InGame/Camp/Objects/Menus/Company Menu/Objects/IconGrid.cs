@@ -56,9 +56,9 @@ namespace MightyFights_Prototype
 					if(!cData.cLSteward.hCompaniesByIconName.ContainsKey(sIconResource)) { 
 						cTmp = new ClickableSprite();
 						cTmp.cTexRef = cContent.Load<Texture2D>(sIconResource);
-						cTmp.tPos = new Vector2(tPos.X + iCol * 14 + 2, tPos.Y + iRow * 14 + 2);
+						cTmp.tPos = new Vector2(tPos.X + iCol * 20, tPos.Y + iRow * 19);
 						cTmp.sTexName = sIconResource;
-						cTmp.fZRange = .5f;
+						cTmp.fZRange = .3f;
 						cTmp.cFrame = new Frame(cTmp.cTexRef.Bounds, 
 							new Vector2(cTmp.cTexRef.Bounds.Width / 2, cTmp.cTexRef.Bounds.Height / 2), 
 							new Vector2(0, 0), new Vector2(0, 0), 
@@ -78,14 +78,22 @@ namespace MightyFights_Prototype
 			}
 		}
 
+		public override void Draw(SpriteBatch cBatch)
+		{
+			base.Draw(cBatch);
+			foreach(ClickableSprite cIcon in _cIcons)
+				cIcon.Draw(cBatch);
+		}
+
 		void ProcessClick(object oSender, object oArgs)
 		{
 			MouseEventArgs vEventArgs = (MouseEventArgs)oArgs;
-
+			this.cClickedIcon = null;
 			foreach(ClickableSprite cIcon in _cIcons)
 				if(cIcon.ContainsPoint(vEventArgs.Location)) { 
 					this.cClickedIcon = cIcon;
 					this.bDraw = false;
+					return;
 				}
 		}
 	}

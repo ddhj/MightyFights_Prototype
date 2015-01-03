@@ -34,7 +34,8 @@ namespace MightyFights_Prototype
 		public int iMaxSize		{ get; set; }
 		public string sName		{ get; set; }
 		public BasicSprite cIcon	{ get; set; }
-		
+		public List<SelectedTemplate> caTemplates	{ get { return _hTemplateByName.Values.ToList(); }}
+
 		// comander
 	}
 }

@@ -151,7 +151,7 @@ namespace MightyFights_Prototype
 		string	_sName = "";
 		Keys	_eKey;
 
-		public string sName { get { return _sName; }}
+		public string sName { get { return _sName; } set { _sName = value; }}
 
 		public NameTextBox(CampMenuManager cMgr) : base(cMgr){}
 
@@ -197,6 +197,47 @@ namespace MightyFights_Prototype
 		public void KeyUp(object sender, KeyEventArgs vKeyEvt)
 		{
 			_bHeld = false;
+		}
+	}
+
+	public class CompanyName : NameTextBox
+	{
+		BasicSprite		_cIcon;
+		
+		public CompanyName(CampMenuManager cMgr) : base(cMgr) {}
+
+		public void SetIcon(ClickableSprite cIcon)
+		{
+			_cIcon = new BasicSprite();
+			_cIcon.cTexRef = DataStore.cInstance.cContent.Load<Texture2D>(cIcon.sTexName);
+			_cIcon.tPos = new Vector2(tPos.X + 26, tPos.Y + 12);
+			_cIcon.sTexName = cIcon.sTexName;
+			_cIcon.fZRange = .5f;
+			_cIcon.cFrame = new Frame(_cIcon.cTexRef.Bounds, 
+				new Vector2(_cIcon.cTexRef.Bounds.Width / 2, _cIcon.cTexRef.Bounds.Height / 2), 
+				new Vector2(0, 0), new Vector2(0, 0), 
+				new Vector2(_cIcon.cTexRef.Bounds.Width, _cIcon.cTexRef.Bounds.Height), 
+				new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+		}
+
+		public void SetIcon(BasicSprite cIcon) 
+		{
+			_cIcon = new BasicSprite();
+			_cIcon.cTexRef = DataStore.cInstance.cContent.Load<Texture2D>(cIcon.sTexName);
+			_cIcon.tPos = new Vector2(tPos.X + 26, tPos.Y + 12);
+			_cIcon.sTexName = cIcon.sTexName;
+			_cIcon.fZRange = .5f;
+			_cIcon.cFrame = new Frame(_cIcon.cTexRef.Bounds, 
+				new Vector2(_cIcon.cTexRef.Bounds.Width / 2, _cIcon.cTexRef.Bounds.Height / 2), 
+				new Vector2(0, 0), new Vector2(0, 0), 
+				new Vector2(_cIcon.cTexRef.Bounds.Width, _cIcon.cTexRef.Bounds.Height), 
+				new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+		}
+
+		public override void Draw(SpriteBatch cBatch)
+		{
+			base.Draw(cBatch);
+			if(_cIcon != null)	_cIcon.Draw(cBatch);
 		}
 	}
 }

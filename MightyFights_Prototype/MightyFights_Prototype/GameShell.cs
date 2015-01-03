@@ -60,6 +60,10 @@ namespace MightyFights_Prototype
 			//// ddhj: the prototype steward gets three templates
 ////left side
 			DataStore.cInstance.cLSteward = new Steward();
+			// make the first company
+			Company cCompany = new Company();
+			cCompany.sName = "1st Company";
+			DataStore.cInstance.cLSteward.hCompaniesByIconName.Add(@"In Game\Camp\Company Dialog\axe", cCompany);
 			// create the captain data
 			DataStore.cInstance.cLSteward.cTemplates.Add(new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fcrimson")));
 			DataStore.cInstance.cLSteward.cTemplates[0].cStats = new Stats { iAtkSpeed = 20, iMovement = 20, fHp = 600, iMaxHp = 600, iPower = 40, fCrit = .13f, iHealPoint = 240, iFleePoint = 30, iArmorClass = 25 };

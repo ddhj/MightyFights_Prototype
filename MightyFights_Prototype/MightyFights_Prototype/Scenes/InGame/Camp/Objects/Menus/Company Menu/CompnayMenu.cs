@@ -28,7 +28,7 @@ namespace MightyFights_Prototype
 		List<CompanyTemplate>	_caTemplates = new List<CompanyTemplate>();
 		List<CompanyTemplate>	_caSelTemplates = new List<CompanyTemplate>();
 		SpriteFont				_cFont;
-		NameTextBox				_cName;
+		CompanyName				_cName;
 		CompanyBox				_cSelectedCompany;
 		CompanyTemplate			_cSelectedTemplate;
 		bool					_bNew;
@@ -36,6 +36,9 @@ namespace MightyFights_Prototype
 
 		int						_iRows = 0,
 								_iRow = 0;
+
+		IconGrid				_cIconGrid;
+
 		enum EMouseState { 
 			DragTemplate,
 			IconGrid,
@@ -56,7 +59,7 @@ namespace MightyFights_Prototype
 				ContentManager	cContent = cData.cContent;
 				int				iCompanyPos = (int)tPos.Y + 40;
 				
-				NameTextBox cTmpSpr = new NameTextBox(_cMgr);
+				CompanyName cTmpSpr = new CompanyName(_cMgr);
 				_cName = cTmpSpr;
 				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\company_name");
 				cTmpSpr.tPos = new Vector2(tPos.X + 66, tPos.Y + 7);
@@ -166,90 +169,35 @@ namespace MightyFights_Prototype
 				_caButtons.Add(cTmpBtn);
 
 // company boxes along the left side				
-				
-				cTmpBtn = new MenuButton();
-				cTmpBtn.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\CompanySelect");
-				cTmpBtn.tPos = new Vector2(tPos.X + 10, iCompanyPos);
-				cTmpBtn.sTexName = @"In Game\Camp\Company Dialog\CompanySelect";
-				cTmpBtn.fZRange = .5f;
-				cTmpBtn.cFrame = new Frame(cTmpBtn.cTexRef.Bounds, 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width / 2, cTmpBtn.cTexRef.Bounds.Height / 2), 
-					new Vector2(0, 0), new Vector2(0, 0), 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width, cTmpBtn.cTexRef.Bounds.Height), 
-					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				_caButtons.Add(cTmpBtn);
-				
-				cTmpBtn = new MenuButton();
-				cTmpBtn.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\CompanyBox");
-				cTmpBtn.tPos = new Vector2(tPos.X + 10, iCompanyPos += 30);
-				cTmpBtn.sTexName = @"In Game\Camp\Company Dialog\CompanySelect";
-				cTmpBtn.fZRange = .5f;
-				cTmpBtn.cFrame = new Frame(cTmpBtn.cTexRef.Bounds, 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width / 2, cTmpBtn.cTexRef.Bounds.Height / 2), 
-					new Vector2(0, 0), new Vector2(0, 0), 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width, cTmpBtn.cTexRef.Bounds.Height), 
-					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				_caButtons.Add(cTmpBtn);
-				
-				cTmpBtn = new MenuButton();
-				cTmpBtn.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\CompanyBox");
-				cTmpBtn.tPos = new Vector2(tPos.X + 10, iCompanyPos += 30);
-				cTmpBtn.sTexName = @"In Game\Camp\Company Dialog\CompanySelect";
-				cTmpBtn.fZRange = .5f;
-				cTmpBtn.cFrame = new Frame(cTmpBtn.cTexRef.Bounds, 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width / 2, cTmpBtn.cTexRef.Bounds.Height / 2), 
-					new Vector2(0, 0), new Vector2(0, 0), 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width, cTmpBtn.cTexRef.Bounds.Height), 
-					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				_caButtons.Add(cTmpBtn);
-				
-				cTmpBtn = new MenuButton();
-				cTmpBtn.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\CompanyBox");
-				cTmpBtn.tPos = new Vector2(tPos.X + 10, iCompanyPos += 30);
-				cTmpBtn.sTexName = @"In Game\Camp\Company Dialog\CompanySelect";
-				cTmpBtn.fZRange = .5f;
-				cTmpBtn.cFrame = new Frame(cTmpBtn.cTexRef.Bounds, 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width / 2, cTmpBtn.cTexRef.Bounds.Height / 2), 
-					new Vector2(0, 0), new Vector2(0, 0), 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width, cTmpBtn.cTexRef.Bounds.Height), 
-					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				_caButtons.Add(cTmpBtn);
-				
-				cTmpBtn = new MenuButton();
-				cTmpBtn.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\CompanyBox");
-				cTmpBtn.tPos = new Vector2(tPos.X + 10, iCompanyPos += 30);
-				cTmpBtn.sTexName = @"In Game\Camp\Company Dialog\CompanySelect";
-				cTmpBtn.fZRange = .5f;
-				cTmpBtn.cFrame = new Frame(cTmpBtn.cTexRef.Bounds, 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width / 2, cTmpBtn.cTexRef.Bounds.Height / 2), 
-					new Vector2(0, 0), new Vector2(0, 0), 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width, cTmpBtn.cTexRef.Bounds.Height), 
-					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				_caButtons.Add(cTmpBtn);
-				
-				cTmpBtn = new MenuButton();
-				cTmpBtn.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\CompanyBox");
-				cTmpBtn.tPos = new Vector2(tPos.X + 10, iCompanyPos += 30);
-				cTmpBtn.sTexName = @"In Game\Camp\Company Dialog\CompanySelect";
-				cTmpBtn.fZRange = .5f;
-				cTmpBtn.cFrame = new Frame(cTmpBtn.cTexRef.Bounds, 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width / 2, cTmpBtn.cTexRef.Bounds.Height / 2), 
-					new Vector2(0, 0), new Vector2(0, 0), 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width, cTmpBtn.cTexRef.Bounds.Height), 
-					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				_caButtons.Add(cTmpBtn);
-				
-				cTmpBtn = new MenuButton();
-				cTmpBtn.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\CompanyBox");
-				cTmpBtn.tPos = new Vector2(tPos.X + 10, iCompanyPos += 30);
-				cTmpBtn.sTexName = @"In Game\Camp\Company Dialog\CompanySelect";
-				cTmpBtn.fZRange = .5f;
-				cTmpBtn.cFrame = new Frame(cTmpBtn.cTexRef.Bounds, 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width / 2, cTmpBtn.cTexRef.Bounds.Height / 2), 
-					new Vector2(0, 0), new Vector2(0, 0), 
-					new Vector2(cTmpBtn.cTexRef.Bounds.Width, cTmpBtn.cTexRef.Bounds.Height), 
-					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				_caButtons.Add(cTmpBtn);
+				CompanyBox cTmpCompany;
+				string sCompanyBoxTex = @"In Game\Camp\Company Dialog\CompanySelect";
+				foreach(KeyValuePair<string, Company> tCompany in cData.cLSteward.hCompaniesByIconName) { 
+					cTmpCompany = new CompanyBox(tCompany.Value);
+					cTmpCompany.cTexRef = cContent.Load<Texture2D>(sCompanyBoxTex);
+					cTmpCompany.tPos = new Vector2(tPos.X + 10, iCompanyPos);
+					cTmpCompany.sTexName = sCompanyBoxTex;
+					cTmpCompany.fZRange = .5f;
+					cTmpCompany.cFrame = new Frame(cTmpCompany.cTexRef.Bounds, 
+						new Vector2(cTmpCompany.cTexRef.Bounds.Width / 2, cTmpCompany.cTexRef.Bounds.Height / 2), 
+						new Vector2(0, 0), new Vector2(0, 0), 
+						new Vector2(cTmpCompany.cTexRef.Bounds.Width, cTmpCompany.cTexRef.Bounds.Height), 
+						new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+
+					cTmpCompany.cCompany.cIcon = new BasicSprite();
+					cTmpBtn.cTexRef = cContent.Load<Texture2D>(tCompany.Key);
+					cTmpBtn.tPos = new Vector2(cTmpCompany.tPos.X + 5, cTmpCompany.tPos.Y + 5);
+					cTmpBtn.sTexName = tCompany.Key;
+					cTmpBtn.fZRange = .5f;
+					cTmpBtn.cFrame = new Frame(cTmpBtn.cTexRef.Bounds, 
+						new Vector2(cTmpBtn.cTexRef.Bounds.Width / 2, cTmpBtn.cTexRef.Bounds.Height / 2), 
+						new Vector2(0, 0), new Vector2(0, 0), 
+						new Vector2(cTmpBtn.cTexRef.Bounds.Width, cTmpBtn.cTexRef.Bounds.Height), 
+						new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+
+					_caCompanyBoxes.Add(cTmpCompany);
+					sCompanyBoxTex = @"In Game\Camp\Company Dialog\CompanyBox";
+					iCompanyPos += 30;
+				}
 				
 // bottom arrow for the company select
 				cTmpBtn = new MenuButton();
@@ -347,12 +295,39 @@ namespace MightyFights_Prototype
 				// the scale throws this off quite a bit
 				_cGuy.tPos = new Vector2(tPos.X - 30, tPos.Y - 5);
 
+//// icon grid
+				_cIconGrid = new IconGrid();
+				_cIconGrid.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\icon_window");
+				_cIconGrid.tPos = new Vector2(_cName.tPos.X, _cName.tPos.Y);
+				_cIconGrid.sTexName = @"In Game\Camp\Company Dialog\icon_window";
+				_cIconGrid.fZRange = .4f;
+				_cIconGrid.cFrame = new Frame(_cIconGrid.cTexRef.Bounds, 
+					new Vector2(_cIconGrid.cTexRef.Bounds.Width / 2, _cIconGrid.cTexRef.Bounds.Height / 2), 
+					new Vector2(0, 0), new Vector2(0, 0), 
+					new Vector2(_cIconGrid.cTexRef.Bounds.Width, _cIconGrid.cTexRef.Bounds.Height), 
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_cIconGrid.bDraw = false;
+				_cIconGrid.Init();
+
 				_cFont = cContent.Load<SpriteFont>(@"Shared\TestFon");
+
+//// auto select the first company
+				
 			} catch(Exception xEx) { 
 				return false;
 			}
 			
 			return true;
+		}
+
+		void LoadSelectedCompany()
+		{
+			_cName.sName = _cSelectedCompany.cCompany.sName;
+			_cName.SetIcon(_cSelectedCompany.cCompany.cIcon);
+
+			for(int iTemplate = 0; iTemplate < _cSelectedCompany.cCompany.caTemplates.Count; ++iTemplate) { 
+
+			}
 		}
 
 		#region IActiveBasic Members
@@ -389,8 +364,10 @@ namespace MightyFights_Prototype
 				if(cTemplate.tPos.X > 200 && cTemplate.tPos.X < tPos.X + 316)
 					cTemplate.Draw(cBatch);
 
-			if(_eMouseState == EMouseState.DragTemplate) 
-				_cGuy.Draw(cBatch);
+			switch(_eMouseState) { 
+				case EMouseState.DragTemplate: 	_cGuy.Draw(cBatch); break;
+				case EMouseState.IconGrid:	_cIconGrid.Draw(cBatch); break;
+			}
 		}
 
 		void ProcessClick()
@@ -435,6 +412,11 @@ namespace MightyFights_Prototype
 					// check to see if we have clicked on the name and we are in add mode
 					if(_bNew) { 
 					}
+
+					if(_cName.ContainsPoint(eMouseEvt.Location)) { 
+						_eMouseState = EMouseState.IconGrid;
+						_cIconGrid.bDraw = true;
+					}
 				} break;
 
 				case EMouseState.DragTemplate: { 
@@ -444,7 +426,14 @@ namespace MightyFights_Prototype
 				} break;
 
 				case EMouseState.IconGrid: { 
-
+					if(_cIconGrid.ContainsPoint(eMouseEvt.Location)) { 
+						_cIconGrid.dlProcessClick(this, eMouseEvt);
+						if(_cIconGrid.cClickedIcon != null) { 
+							_cName.SetIcon(_cIconGrid.cClickedIcon);
+							DataStore.cInstance.cLSteward.hCompaniesByIconName.Add(_cIconGrid.cClickedIcon.sTexName, _cSelectedCompany.cCompany);
+						}
+						_eMouseState = EMouseState.Normal;
+					}
 				} break;
 			}
 		}

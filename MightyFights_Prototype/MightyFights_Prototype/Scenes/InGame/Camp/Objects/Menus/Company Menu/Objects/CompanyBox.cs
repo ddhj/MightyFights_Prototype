@@ -23,9 +23,17 @@ namespace MightyFights_Prototype
 		
 		Texture2D	_cTexRefAlt;
 		
+		public Company cCompany		{ get { return _cCompany; }}
+
 		public CompanyBox(Company cCompany) : base()
 		{
 			_cCompany = cCompany;
+			_cFont = DataStore.cInstance.cContent.Load<SpriteFont>(@"Shared\TestFon");
+			_cTexRefAlt = DataStore.cInstance.cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\CompanySelect");
+		}
+
+		public CompanyBox() : base()
+		{
 			_cFont = DataStore.cInstance.cContent.Load<SpriteFont>(@"Shared\TestFon");
 			_cTexRefAlt = DataStore.cInstance.cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\CompanySelect");
 		}
