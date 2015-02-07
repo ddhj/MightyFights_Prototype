@@ -24,24 +24,25 @@ namespace MightyFights_Prototype
 		Texture2D	_cTexRefAlt;
 		
 		public Company cCompany		{ get { return _cCompany; }}
-
+		public Texture2D cTexRefAlt		{ get { return _cTexRefAlt; } set { _cTexRefAlt = value; }}
+		
 		public CompanyBox(Company cCompany) : base()
 		{
 			_cCompany = cCompany;
-			_cFont = DataStore.cInstance.cContent.Load<SpriteFont>(@"Shared\TestFon");
+			_cFont = DataStore.cInstance.cContent.Load<SpriteFont>(@"Shared\smallfont");
 			_cTexRefAlt = DataStore.cInstance.cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\CompanySelect");
 		}
 
 		public CompanyBox() : base()
 		{
-			_cFont = DataStore.cInstance.cContent.Load<SpriteFont>(@"Shared\TestFon");
+			_cFont = DataStore.cInstance.cContent.Load<SpriteFont>(@"Shared\smallfont");
 			_cTexRefAlt = DataStore.cInstance.cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\CompanySelect");
 		}
 
 		public override void Draw(SpriteBatch cBatch)
 		{
 			base.Draw(cBatch);
-
+			cBatch.DrawString(_cFont, _cCompany.sName, new Vector2(tPos.X + 3, tPos.Y + 5), Color.White);
 		}
 
 		public void Toggle()

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace MightyFights_Prototype
 {
+	[Serializable]
 	public class TemplateConfig
 	{
 		string		_sTrooperType,
@@ -13,13 +14,19 @@ namespace MightyFights_Prototype
 		// this i am not 100% certian what I want to do yet 
 		Dictionary<string, float>		_cActionModifier = new Dictionary<string,float>();
 
-		public string sTrooperType		{ get { return _sTrooperType; }}
+		public string sTrooperType		{ get { return _sTrooperType; } set { _sTrooperType = value; }}
 		public string sColor			{ get { return _sColor; } set { _sColor = value; }}
 		public Stats cStats				{ get; set; }
 		public int iTopLevel			{ get; set; }
 		public int iBottomLevel			{ get; set; }
+		public int iTLeftPos			{ get; set; }
+		public int iBLeftPos			{ get; set; }
 		public int iCount				{ get; set; }
 		public string sTemplateName		{ get; set; }
+		public Dictionary<string, float> cActionModifier	{ get { return _cActionModifier; } set { _cActionModifier = value; }}
+
+
+		public TemplateConfig() {}
 
 		public TemplateConfig(string sTrooperType, string sColor)
 		{

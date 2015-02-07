@@ -2,16 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MightyFights_Prototype
 {
+	[Serializable]
 	public class SelectedTemplate
 	{
 		int		_iTemplateId,
 				_iCurrentCount,
 				_iMaxCount;
+
+		public SelectedTemplate(int iTemplateId, int iCurrentCount, int iMaxCount)
+		{
+			_iTemplateId = iTemplateId;
+			_iMaxCount = iMaxCount;
+			_iCurrentCount = iCurrentCount;
+		}
 	}
 
 	public class CompanyStats
@@ -25,17 +34,18 @@ namespace MightyFights_Prototype
 		public int iTotalDeaths		{ get; set; }
 	}
 
+	[Serializable]
 	public class Company
 	{
 		Dictionary<string, SelectedTemplate>	_hTemplateByName = new Dictionary<string,SelectedTemplate>();
 		Dictionary<int, SelectedTemplate>		_hTemplateById = new Dictionary<int,SelectedTemplate>();
-		CompanyStats							_cStats;
+		CompanyStats							_cStats = new CompanyStats();
 
 		public int iMaxSize		{ get; set; }
 		public string sName		{ get; set; }
+		public string sIconName	{ get; set; }
 		public BasicSprite cIcon	{ get; set; }
 		public List<SelectedTemplate> caTemplates	{ get { return _hTemplateByName.Values.ToList(); }}
-
-		// comander
+		public CompanyStats cStats { get { return _cStats; } set { _cStats = value; }}
 	}
 }

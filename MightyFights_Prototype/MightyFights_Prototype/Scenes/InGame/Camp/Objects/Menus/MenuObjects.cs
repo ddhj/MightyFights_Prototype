@@ -203,8 +203,12 @@ namespace MightyFights_Prototype
 	public class CompanyName : NameTextBox
 	{
 		BasicSprite		_cIcon;
+		SpriteFont		_cFont;
 		
-		public CompanyName(CampMenuManager cMgr) : base(cMgr) {}
+		public CompanyName(CampMenuManager cMgr) : base(cMgr) 
+		{
+			_cFont = DataStore.cInstance.cContent.Load<SpriteFont>(@"Shared\TestFon");		
+		}
 
 		public void SetIcon(ClickableSprite cIcon)
 		{
@@ -238,6 +242,7 @@ namespace MightyFights_Prototype
 		{
 			base.Draw(cBatch);
 			if(_cIcon != null)	_cIcon.Draw(cBatch);
+			cBatch.DrawString(_cFont, sName, new Vector2(tPos.X + 10, tPos.Y + this.cTexRef.Height / 2), Color.White);
 		}
 	}
 }

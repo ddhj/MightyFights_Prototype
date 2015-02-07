@@ -70,14 +70,14 @@ namespace MightyFights_Prototype
 				iDeltaY = _iaYOffsets[iLevel];
 			else iDeltaY = _iaBYOffsets[iLevel];
 
-			// reset the position to center
-			this.tPos = new Vector2(iCenter - iDeltaX, _iStartY + iDeltaY);
+			// adjust the slider position for the new frame
+			this.tPos = new Vector2(this.tPos.X, _iStartY + iDeltaY);
 
 			// set the iLeft and iRight stop points
 			iDeltaX = cFrame.tRect.Width / 2;
 
-			_iStopRight = _iCenter;//(int)this.tPos.X + _iFrameWidth - (int)(iDeltaX * .2);
-			_iStopLeft = _iCenter;////(int)this.tPos.X + (int)(iDeltaX * .2); 
+			//_iStopRight = _iCenter;//(int)this.tPos.X + _iFrameWidth - (int)(iDeltaX * .2);
+			//_iStopLeft = _iCenter;////(int)this.tPos.X + (int)(iDeltaX * .2); 
 			_iLeftPos = (int)this.tPos.X;
 			_iRightPos = _iLeftPos + _iFrameWidth;
 		}

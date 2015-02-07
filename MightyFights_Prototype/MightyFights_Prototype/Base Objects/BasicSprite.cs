@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using MightyFights_Support;
 
+using System.Runtime.Serialization;
+
 namespace MightyFights_Prototype
 {
 	public class ClickableSprite : IDrawable, IDrawableTexture, IClickable, IObject
@@ -62,7 +64,8 @@ namespace MightyFights_Prototype
 		}
 	}
 
-	public class BasicSprite : IDrawable, IDrawableTexture, IObject
+	[Serializable]
+	public class BasicSprite : IDrawable, IDrawableTexture, IObject, ISafeSerializationData, ISerializable
 	{
 		public float fZRange				{ get; set; }
 		public Texture2D cTexRef			{ get; set; }
@@ -78,11 +81,32 @@ namespace MightyFights_Prototype
 			this.iId = DataManager.cInstance.iCurObjId;
 		}
 
+		public BasicSprite(SerializationInfo cInfo, StreamingContext cContext)
+		{
+		}
+
 		public virtual void Draw(SpriteBatch cBatch) 
 		{
 			cBatch.Draw(this.cTexRef, this.tPos, this.cFrame.tRect, Color.White, this.cFrame.bRot ? -(float)Math.PI/2 : 0, 
 				// and 2: the direction vector
 				this.cFrame.tTopLeft, 1, SpriteEffects.None, fZRange);
 		}
+
+		#region ISafeSerializationData Members
+
+		public void CompleteDeserialization(object deserialized)
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
+
+		#region ISerializable Members
+
+		public void GetObjectData(SerializationInfo cInfo, StreamingContext cContext)
+		{
+		}
+
+		#endregion
 	}
 }

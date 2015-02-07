@@ -9,6 +9,7 @@ using System.IO.IsolatedStorage;
 using System.Xml.Linq;
 
 using Microsoft.Xna.Framework.Media;
+using fastJSON;
 
 namespace MightyFights_Prototype
 {
@@ -56,5 +57,60 @@ namespace MightyFights_Prototype
 		// the steward for the battle 
 		public Steward			cLSteward		{ get; set; }
 		public Steward			cRSteward		{ get; set; }
+
+		public void SaveData()
+		{
+            IsolatedStorageFile cIsoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+            System.IO.FileStream cFile = cIsoFile.OpenFile("SaveData.waf", System.IO.FileMode.OpenOrCreate);
+            using(System.IO.StreamWriter cReader = new System.IO.StreamWriter(cFile)) {
+				JSONParameters cParam = new JSONParameters();
+				cParam.UsingGlobalTypes = false;
+				cParam.UseExtensions = false;
+                cReader.Write(fastJSON.JSON.Instance.ToJSON(DataStore.cInstance.cLSteward, cParam));
+            }
+		}
+
+		public void LoadData()
+		{
+			IsolatedStorageFile cIsoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+			if(cIsoFile.FileExists("SaveData.waf")) {
+				System.IO.FileStream cFile = cIsoFile.OpenFile("SaveData.waf", System.IO.FileMode.Open);
+				using(System.IO.StreamReader cReader = new System.IO.StreamReader(cFile)) {
+					cLSteward = fastJSON.JSON.Instance.ToObject<Steward>(cReader.ReadLine());
+				}
+				
+				cLSteward.HydrateCompanyRefLists();
+			}
+		}
+
+		public void InitNew()
+		{
+			DataStore.cInstance.cLSteward = new Steward();
+			// make the first company
+			// create the captain data
+			DataStore.cInstance.cLSteward.cCaptains.Add(new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fcrimson")));
+			DataStore.cInstance.cLSteward.cCaptains[0].cStats = new Stats { iAtkSpeed = 20, iMovement = 20, fHp = 600, iMaxHp = 600, iPower = 40, fCrit = .13f, iHealPoint = 240, iFleePoint = 30, iArmorClass = 25 };
+			DataStore.cInstance.cLSteward.cCaptains[0].iBottomLevel = DataStore.cInstance.cLSteward.cCaptains[0].iTopLevel = 6;
+			DataStore.cInstance.cLSteward.cCaptains[0].sTemplateName = "Phillip";
+			DataStore.cInstance.cLSteward.cCaptains[0].iCount = 1;
+			// add the basic guys (these start at level 1)
+			DataStore.cInstance.cLSteward.cTemplates.Add(new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fazure")));
+			DataStore.cInstance.cLSteward.cTemplates[0].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 40, iFleePoint = 5, iArmorClass = 3 };
+			DataStore.cInstance.cLSteward.cTemplates[0].iBottomLevel = DataStore.cInstance.cLSteward.cTemplates[0].iTopLevel = 0;
+			DataStore.cInstance.cLSteward.cTemplates[0].sTemplateName = "Initial Template";
+			DataStore.cInstance.cLSteward.cTemplates[0].iCount = 20;
+			DataStore.cInstance.cLSteward.cTemplates[0].iBLeftPos = DataStore.cInstance.cLSteward.cTemplates[0].iTLeftPos = 466;
+
+//// the initial company with refereneces back to the template
+			Company cCompany = new Company();
+			cCompany.sName = "1st Company";
+			cCompany.caTemplates.Add(new SelectedTemplate(0, 10, 10));
+			cCompany.iMaxSize = 10;
+			cCompany.sName = "Initial Company";
+			cCompany.sIconName = "In Game\\Camp\\Company Dialog\\axe";
+			DataStore.cInstance.cLSteward.caCompanies.Add(cCompany);
+			DataStore.cInstance.cLSteward.hCompaniesByName.Add(cCompany.sName, cCompany);
+			DataStore.cInstance.cLSteward.hCompaniesByIconName.Add(cCompany.sIconName, cCompany);
+		}
 	}
 }

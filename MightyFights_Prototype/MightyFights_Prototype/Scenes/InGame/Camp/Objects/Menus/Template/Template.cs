@@ -83,6 +83,10 @@ namespace MightyFights_Prototype
 			_cConfig.iBottomLevel = _cBottomSlider.iLevel;
 			_cConfig.iTopLevel = _cTopSlider.iLevel;
 			_cConfig.sTemplateName = _cName.sName;
+			_cConfig.iTLeftPos = _cTopSlider.iLeftPos;
+			_cConfig.iBLeftPos = _cBottomSlider.iLeftPos;
+
+			DataStore.cInstance.SaveData();
 		}
 
 		public void Process(GameTime cTime)
@@ -99,12 +103,8 @@ namespace MightyFights_Prototype
 						_cBottomSlider.bSelected = true;
 					} else if(_cLargeLeftArrow.ContainsPoint(tPoint)) { 
 						_cFrontGuys.DecrementColor();
-						if(_cFrontGuys.iFrameIdx > 12)
-							_cFrontGuys.ToString();
 					} else if(_cLargeRightArrow.ContainsPoint(tPoint)) { 
 						_cFrontGuys.IncrementColor();
-						if(_cFrontGuys.iFrameIdx > 12)
-							_cFrontGuys.ToString();
 					}
 				}
 
@@ -213,6 +213,7 @@ namespace MightyFights_Prototype
 					new Vector2(cTmpSpr.cTexRef.Bounds.Width, cTmpSpr.cTexRef.Bounds.Height), 
 					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 				_caControls.Add(cTmpSpr);
+				_cName.sName = _cConfig.sTemplateName;
 
 				_cAtkPower = new StatDisplay(cContent.Load<AnimationData>(@"In Game\Camp\Template\AtkPowerArray"), "blue");
 				_cAtkPower.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\AtkPower");
@@ -239,22 +240,22 @@ namespace MightyFights_Prototype
 				_cTopSlider = new Slider(cContent.Load<AnimationData>(@"In Game\Camp\Template\TopSlidersArray"), "top");
 				_cTopSlider.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\TopSliders");
 				_cTopSlider.fZRange = .5f;
-				_cTopSlider.tPos = new Vector2(tPos.X + 191, tPos.Y + 30);
-				_cTopSlider.iCenter = (int)tPos.X + 204;
+				_cTopSlider.tPos = new Vector2(_cConfig.iTLeftPos, tPos.Y + 30);
+				_cTopSlider.iStopLeft = _cTopSlider.iStopRight = _cTopSlider.iCenter = (int)tPos.X + 204;
 				_cTopSlider.iStartY = (int)_cTopSlider.tPos.Y;
 				_cTopSlider.iMaxLeft = (int)_cAtkPower.tPos.X + 10;
 				_cTopSlider.iMaxRight = (int)_cAtkSpeed.tPos.X + _cAtkSpeed.cFrame.tRect.Width - 10;
-				_cTopSlider.SetLevel(0);
+				_cTopSlider.SetLevel(_cConfig.iTopLevel);
 
 				_cBottomSlider = new Slider(cContent.Load<AnimationData>(@"In Game\Camp\Template\BottomSlidersArray"), "bottom");
 				_cBottomSlider.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\BottomSliders");
 				_cBottomSlider.fZRange = .5f;
-				_cBottomSlider.tPos = new Vector2(tPos.X + 191, tPos.Y + 186);
-				_cBottomSlider.iCenter = (int)tPos.X + 204;
+				_cBottomSlider.tPos = new Vector2(_cConfig.iBLeftPos, tPos.Y + 186);
+				_cBottomSlider.iStopLeft = _cBottomSlider.iStopRight = _cBottomSlider.iCenter = (int)tPos.X + 204;
 				_cBottomSlider.iStartY = (int)_cBottomSlider.tPos.Y;
 				_cBottomSlider.iMaxLeft = (int)_cAtkPower.tPos.X + 10;
 				_cBottomSlider.iMaxRight = (int)_cAtkSpeed.tPos.X + _cAtkSpeed.cFrame.tRect.Width - 10;
-				_cBottomSlider.SetLevel(0);
+				_cBottomSlider.SetLevel(_cConfig.iBottomLevel);
 
 				_cLargeLeftArrow = new ClickableSprite();
 				_cLargeLeftArrow.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\Left Arrow Large");

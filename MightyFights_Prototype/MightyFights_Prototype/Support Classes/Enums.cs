@@ -88,6 +88,7 @@ namespace MightyFights_Prototype
 		BuffContainerWidth = 60
 	}
 
+	[Serializable]
 	public enum EBuffEffects
 	{
 		Dragon_Wing,

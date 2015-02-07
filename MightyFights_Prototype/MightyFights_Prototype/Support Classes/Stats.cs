@@ -64,6 +64,7 @@ namespace MightyFights_Prototype
 		float fCrit		{ get; set; }
 	}
 
+	[Serializable]
 	public class ExperienceData 
 	{
 		public int iAttacks			{ get; set; }

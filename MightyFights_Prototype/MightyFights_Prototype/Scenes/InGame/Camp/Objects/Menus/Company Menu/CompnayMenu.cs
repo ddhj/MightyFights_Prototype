@@ -170,10 +170,12 @@ namespace MightyFights_Prototype
 
 // company boxes along the left side				
 				CompanyBox cTmpCompany;
-				string sCompanyBoxTex = @"In Game\Camp\Company Dialog\CompanySelect";
+				string sCompanyBoxTex = @"In Game\Camp\Company Dialog\CompanySelect",
+					   sCompanyBoxTexAlt = @"In Game\Camp\Company Dialog\CompanyBox";
 				foreach(KeyValuePair<string, Company> tCompany in cData.cLSteward.hCompaniesByIconName) { 
 					cTmpCompany = new CompanyBox(tCompany.Value);
 					cTmpCompany.cTexRef = cContent.Load<Texture2D>(sCompanyBoxTex);
+					cTmpCompany.cTexRefAlt = cContent.Load<Texture2D>(sCompanyBoxTexAlt);
 					cTmpCompany.tPos = new Vector2(tPos.X + 10, iCompanyPos);
 					cTmpCompany.sTexName = sCompanyBoxTex;
 					cTmpCompany.fZRange = .5f;
@@ -196,6 +198,7 @@ namespace MightyFights_Prototype
 
 					_caCompanyBoxes.Add(cTmpCompany);
 					sCompanyBoxTex = @"In Game\Camp\Company Dialog\CompanyBox";
+					sCompanyBoxTexAlt = @"In Game\Camp\Company Dialog\CompanySelect";
 					iCompanyPos += 30;
 				}
 				
@@ -309,10 +312,9 @@ namespace MightyFights_Prototype
 				_cIconGrid.bDraw = false;
 				_cIconGrid.Init();
 
-				_cFont = cContent.Load<SpriteFont>(@"Shared\TestFon");
-
 //// auto select the first company
-				
+				_cSelectedCompany = _caCompanyBoxes[0];
+				LoadSelectedCompany();				
 			} catch(Exception xEx) { 
 				return false;
 			}
@@ -352,7 +354,8 @@ namespace MightyFights_Prototype
 			foreach(BasicSprite cSprite in _caBasicSprites) cSprite.Draw(cBatch);
 
 			// draw the string in the name dialog
-			cBatch.DrawString(_cFont, _cName.sName, new Vector2(tPos.X + 110, tPos.Y + 18), Color.White, 0f, new Vector2(0,0), 1.0f, SpriteEffects.None, .4f);
+			//cBatch.DrawString(_cFont, _cName.sName, new Vector2(tPos.X + 110, tPos.Y + 18), Color.White, 0f, new Vector2(0,0), 1.0f, SpriteEffects.None, .4f);
+			_cName.Draw(cBatch);
 
 			// draw the available templates
 			foreach(CompanyTemplate cTemplate in _caTemplates)
@@ -363,6 +366,11 @@ namespace MightyFights_Prototype
 			foreach(CompanyTemplate cTemplate in _caSelTemplates)
 				if(cTemplate.tPos.X > 200 && cTemplate.tPos.X < tPos.X + 316)
 					cTemplate.Draw(cBatch);
+
+			// draw the company boxes 
+			foreach(CompanyBox cCompany in _caCompanyBoxes)
+				if(cCompany.tPos.Y > tPos.Y + 10 && cCompany.tPos.Y < tPos.Y + 249)
+					cCompany.Draw(cBatch);
 
 			switch(_eMouseState) { 
 				case EMouseState.DragTemplate: 	_cGuy.Draw(cBatch); break;
