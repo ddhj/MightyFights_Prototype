@@ -186,14 +186,14 @@ namespace MightyFights_Prototype
 						new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
 					cTmpCompany.cCompany.cIcon = new BasicSprite();
-					cTmpBtn.cTexRef = cContent.Load<Texture2D>(tCompany.Key);
-					cTmpBtn.tPos = new Vector2(cTmpCompany.tPos.X + 5, cTmpCompany.tPos.Y + 5);
-					cTmpBtn.sTexName = tCompany.Key;
-					cTmpBtn.fZRange = .5f;
-					cTmpBtn.cFrame = new Frame(cTmpBtn.cTexRef.Bounds, 
-						new Vector2(cTmpBtn.cTexRef.Bounds.Width / 2, cTmpBtn.cTexRef.Bounds.Height / 2), 
+					cTmpCompany.cCompany.cIcon.cTexRef = cContent.Load<Texture2D>(tCompany.Key);
+					cTmpCompany.cCompany.cIcon.tPos = new Vector2(cTmpCompany.tPos.X + 5, cTmpCompany.tPos.Y + 5);
+					cTmpCompany.cCompany.cIcon.sTexName = tCompany.Key;
+					cTmpCompany.cCompany.cIcon.fZRange = .5f;
+					cTmpCompany.cCompany.cIcon.cFrame = new Frame(cTmpCompany.cCompany.cIcon.cTexRef.Bounds, 
+						new Vector2(cTmpCompany.cCompany.cIcon.cTexRef.Bounds.Width / 2, cTmpCompany.cCompany.cIcon.cTexRef.Bounds.Height / 2), 
 						new Vector2(0, 0), new Vector2(0, 0), 
-						new Vector2(cTmpBtn.cTexRef.Bounds.Width, cTmpBtn.cTexRef.Bounds.Height), 
+						new Vector2(cTmpCompany.cCompany.cIcon.cTexRef.Bounds.Width, cTmpCompany.cCompany.cIcon.cTexRef.Bounds.Height), 
 						new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
 					_caCompanyBoxes.Add(cTmpCompany);
@@ -301,7 +301,7 @@ namespace MightyFights_Prototype
 //// icon grid
 				_cIconGrid = new IconGrid();
 				_cIconGrid.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\icon_window");
-				_cIconGrid.tPos = new Vector2(_cName.tPos.X, _cName.tPos.Y);
+				_cIconGrid.tPos = new Vector2(_cName.tPos.X + 44, _cName.tPos.Y);
 				_cIconGrid.sTexName = @"In Game\Camp\Company Dialog\icon_window";
 				_cIconGrid.fZRange = .4f;
 				_cIconGrid.cFrame = new Frame(_cIconGrid.cTexRef.Bounds, 
@@ -314,7 +314,7 @@ namespace MightyFights_Prototype
 
 //// auto select the first company
 				_cSelectedCompany = _caCompanyBoxes[0];
-				LoadSelectedCompany();				
+				//LoadSelectedCompany();				
 			} catch(Exception xEx) { 
 				return false;
 			}

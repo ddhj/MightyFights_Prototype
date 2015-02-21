@@ -21,6 +21,10 @@ namespace MightyFights_Prototype
 			_iMaxCount = iMaxCount;
 			_iCurrentCount = iCurrentCount;
 		}
+
+		public int iTemplateId	{ get { return _iTemplateId; } set { _iTemplateId = value; }}
+		public int iCurrentCount { get { return _iCurrentCount; } set { _iCurrentCount = value; }}
+		public int iMaxCount { get { return _iMaxCount; } set { _iMaxCount = value; }}
 	}
 
 	public class CompanyStats
@@ -47,5 +51,10 @@ namespace MightyFights_Prototype
 		public BasicSprite cIcon	{ get; set; }
 		public List<SelectedTemplate> caTemplates	{ get { return _hTemplateByName.Values.ToList(); }}
 		public CompanyStats cStats { get { return _cStats; } set { _cStats = value; }}
+
+		public override string ToString()
+		{
+			return sName;
+		}
 	}
 }

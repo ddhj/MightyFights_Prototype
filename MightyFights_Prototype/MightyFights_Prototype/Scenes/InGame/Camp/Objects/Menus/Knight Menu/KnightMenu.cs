@@ -157,6 +157,11 @@ namespace MightyFights_Prototype
 
 		void CompanyClick(object oSender, object oArgs) 
 		{
+			CapCompTempEditor cNewCompanyEditor = new CapCompTempEditor();
+			if(cNewCompanyEditor.ShowDialog() == System.Windows.Forms.DialogResult.OK) { 
+				// do some company editing maybe (probabbly just add it into the ok button in the dialog)
+			}
+			/*
 			CompanyMenu		cCompany = new CompanyMenu(_cMgr);
 			Viewport		cView = DataStore.cInstance.cGraphics.Viewport;
 
@@ -172,6 +177,7 @@ namespace MightyFights_Prototype
 			// set the background sprite first because everything in the menu will be based on the position of the top left point
 			if(cCompany.InitMenu())
 				_cMgr.AddMenuObject(cCompany);
+			 */
 		}
 
 		#region IMouseInteractive Members
