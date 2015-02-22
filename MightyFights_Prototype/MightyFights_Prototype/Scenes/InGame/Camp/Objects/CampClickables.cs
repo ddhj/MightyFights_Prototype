@@ -159,12 +159,12 @@ namespace MightyFights_Prototype
 		{
 			if(ContainsPoint(eMouseEvt.Location)) { 
 				IGameScene nScene = new BattleGround_Basic();
-				DataStore.cInstance.cLSteward.cTemplates[0].iCount = 10;
-				DataStore.cInstance.cLSteward.cTemplates[1].iCount = 45;
-				DataStore.cInstance.cLSteward.cTemplates[2].iCount = 45;
-				DataStore.cInstance.cRSteward.cTemplates[0].iCount = 10;
-				DataStore.cInstance.cRSteward.cTemplates[1].iCount = 45;
-				DataStore.cInstance.cRSteward.cTemplates[2].iCount = 45;
+				DataStore.cInstance.cLSteward.cTemplates[0].iCount = 100;
+				//DataStore.cInstance.cLSteward.cTemplates[1].iCount = 45;
+			//	DataStore.cInstance.cLSteward.cTemplates[2].iCount = 45;
+				DataStore.cInstance.cRSteward.cTemplates[0].iCount = 100;
+				//DataStore.cInstance.cRSteward.cTemplates[1].iCount = 45;
+				//DataStore.cInstance.cRSteward.cTemplates[2].iCount = 45;
 			
 				if(nScene.Init()) 
 					DataStore.cInstance.cSceneMgr.AddScene(nScene);

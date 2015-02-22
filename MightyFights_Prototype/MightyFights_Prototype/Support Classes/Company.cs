@@ -11,9 +11,20 @@ namespace MightyFights_Prototype
 	[Serializable]
 	public class SelectedTemplate
 	{
-		public int	iTemplateId			{ get; set; }
-		public int	iCurrentCount		{ get; set; }
-		public int	iMaxCount			{ get; set; }
+		int		_iTemplateId,
+				_iCurrentCount,
+				_iMaxCount;
+
+		public SelectedTemplate(int iTemplateId, int iCurrentCount, int iMaxCount)
+		{
+			_iTemplateId = iTemplateId;
+			_iMaxCount = iMaxCount;
+			_iCurrentCount = iCurrentCount;
+		}
+
+		public int iTemplateId	{ get { return _iTemplateId; } set { _iTemplateId = value; }}
+		public int iCurrentCount { get { return _iCurrentCount; } set { _iCurrentCount = value; }}
+		public int iMaxCount { get { return _iMaxCount; } set { _iMaxCount = value; }}
 	}
 
 	public class CompanyStats
@@ -40,5 +51,10 @@ namespace MightyFights_Prototype
 		public int iTemplageMax { get; set; }
 		public List<SelectedTemplate> caTemplates	{ get { return _hTemplateByName.Values.ToList(); }}
 		public CompanyStats cStats { get { return _cStats; } set { _cStats = value; }}
+
+		public override string ToString()
+		{
+			return sName;
+		}
 	}
 }

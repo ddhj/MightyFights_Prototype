@@ -301,7 +301,7 @@ namespace MightyFights_Prototype
 //// icon grid
 				_cIconGrid = new IconGrid();
 				_cIconGrid.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Company Dialog\icon_window");
-				_cIconGrid.tPos = new Vector2(_cName.tPos.X, _cName.tPos.Y);
+				_cIconGrid.tPos = new Vector2(_cName.tPos.X + 44, _cName.tPos.Y);
 				_cIconGrid.sTexName = @"In Game\Camp\Company Dialog\icon_window";
 				_cIconGrid.fZRange = .4f;
 				_cIconGrid.cFrame = new Frame(_cIconGrid.cTexRef.Bounds, 
@@ -314,7 +314,7 @@ namespace MightyFights_Prototype
 
 //// auto select the first company
 				_cSelectedCompany = _caCompanyBoxes[0];
-				LoadSelectedCompany();				
+				//LoadSelectedCompany();				
 			} catch(Exception xEx) { 
 				return false;
 			}

@@ -46,14 +46,14 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cGame = this;
 			DataStore.cInstance.cRand = new Random();
 
-			DataStore.cInstance.LoadData();
-			//DataStore.cInstance.InitNew();
+			//DataStore.cInstance.LoadData();
+			DataStore.cInstance.InitNew();
 
 ////right side
 			DataStore.cInstance.cRSteward = new Steward();
 			// create the captain data
 			DataStore.cInstance.cRSteward.cTemplates.Add(new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fsable")));
-			DataStore.cInstance.cRSteward.cTemplates[0].cStats = new Stats { iAtkSpeed = 20, iMovement = 20, fHp = 600, iMaxHp = 600, iPower = 40, fCrit = .12f, iHealPoint = 240, iFleePoint = 30, iArmorClass = 25 };
+			DataStore.cInstance.cRSteward.cTemplates[0].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 40, iFleePoint = 5, iArmorClass = 3 };
 			DataStore.cInstance.cRSteward.cTemplates[0].iBottomLevel = DataStore.cInstance.cRSteward.cTemplates[0].iTopLevel = 6;
 			DataStore.cInstance.cRSteward.cTemplates[0].sTemplateName = "RCap";
 			// add the basic guys (these start at level 1)

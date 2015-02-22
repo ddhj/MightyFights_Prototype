@@ -170,6 +170,12 @@
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\Objects\Ability.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\Objects\TemplateThumbnail.cs" />
     <Compile Include="Scenes\InGame\Camp\Objects\Menus\Template\TemplateSelect.cs" />
+    <Compile Include="Scenes\InGame\Dialogs\CapCompTempEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scenes\InGame\Dialogs\CapCompTempEditor.Designer.cs">
+      <DependentUpon>CapCompTempEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Scenes\InGame\Dialogs\DebugData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,9 +262,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MightyFights_Prototype_TemporaryKey.pfx" />
+    <None Include="Properties\DataSources\Company.datasource" />
     <None Include="Properties\DataSources\ExperienceData.datasource" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Scenes\InGame\Dialogs\CapCompTempEditor.resx">
+      <DependentUpon>CapCompTempEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Scenes\InGame\Dialogs\DebugData.resx">
       <DependentUpon>DebugData.cs</DependentUpon>
     </EmbeddedResource>
