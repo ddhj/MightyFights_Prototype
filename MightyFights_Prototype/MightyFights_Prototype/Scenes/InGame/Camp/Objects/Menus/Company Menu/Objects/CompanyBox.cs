@@ -22,9 +22,11 @@ namespace MightyFights_Prototype
 		SpriteFont	_cFont;
 		
 		Texture2D	_cTexRefAlt;
+		BasicSprite	_cIcon;
 		
 		public Company cCompany		{ get { return _cCompany; }}
 		public Texture2D cTexRefAlt		{ get { return _cTexRefAlt; } set { _cTexRefAlt = value; }}
+		public BasicSprite cIcon		{ get { return _cIcon; } set { _cIcon = value; }}
 		
 		public CompanyBox(Company cCompany) : base()
 		{
@@ -42,7 +44,8 @@ namespace MightyFights_Prototype
 		public override void Draw(SpriteBatch cBatch)
 		{
 			base.Draw(cBatch);
-			cBatch.DrawString(_cFont, _cCompany.sName, new Vector2(tPos.X + 3, tPos.Y + 5), Color.White);
+			if(_cIcon != null) _cIcon.Draw(cBatch);
+			cBatch.DrawString(_cFont, _cCompany.sName, new Vector2(_cIcon.tPos.X + _cIcon.cTexRef.Width + 3, tPos.Y + 5), Color.White);
 		}
 
 		public void Toggle()

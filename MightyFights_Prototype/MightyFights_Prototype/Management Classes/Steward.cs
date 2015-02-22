@@ -46,19 +46,6 @@ namespace MightyFights_Prototype
 			foreach(Company cCompany in caCompanies) { 
 				_hCompaniesByIconName.Add(cCompany.sIconName, cCompany);
 				_hCompaniesByName.Add(cCompany.sName, cCompany);
-
-				// get the sprite from the content engine 
-				cCompany.cIcon = new BasicSprite();
-				cCompany.cIcon.cTexRef = DataStore.cInstance.cContent.Load<Texture2D>(cCompany.sIconName);
-				cCompany.cIcon.tPos = new Vector2(0, 0);
-				cCompany.cIcon.sTexName = cCompany.sIconName;
-				cCompany.cIcon.fZRange = .5f;
-				cCompany.cIcon.cFrame = new Frame(cCompany.cIcon.cTexRef.Bounds, 
-					new Vector2(cCompany.cIcon.cTexRef.Bounds.Width / 2, cCompany.cIcon.cTexRef.Bounds.Height / 2), 
-					new Vector2(0, 0), new Vector2(0, 0), 
-					new Vector2(cCompany.cIcon.cTexRef.Bounds.Width, cCompany.cIcon.cTexRef.Bounds.Height), 
-					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-
 			}
 		}
 	}

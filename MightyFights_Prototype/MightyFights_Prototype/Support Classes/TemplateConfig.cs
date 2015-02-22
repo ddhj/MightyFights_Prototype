@@ -22,6 +22,7 @@ namespace MightyFights_Prototype
 		public int iTLeftPos			{ get; set; }
 		public int iBLeftPos			{ get; set; }
 		public int iCount				{ get; set; }
+		public int iId					{ get; set; }
 		public string sTemplateName		{ get; set; }
 		public Dictionary<string, float> cActionModifier	{ get { return _cActionModifier; } set { _cActionModifier = value; }}
 

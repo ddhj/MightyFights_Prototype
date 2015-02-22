@@ -83,8 +83,6 @@ namespace MightyFights_Prototype
 		FrontGuys		_cGuy;
 		SpriteFont		_cFont;
 		Vector2			_tPos;
-		ClickableSprite	_cUpArrow,
-						_cDownArrow;
 
 		public override Vector2 tPos	{ get { return _tPos; } 
 			set {
@@ -113,8 +111,6 @@ namespace MightyFights_Prototype
 			_cGuy.tPos = new Vector2(tPos.X - 30, tPos.Y - 5);
 			cDrawnRect = new Rectangle((int)_tPos.X, (int)_tPos.Y, 43, 70);
 			_cFont = cContent.Load<SpriteFont>(@"Shared\smallfont");
-
-
 		}
 
 		public override void Draw(SpriteBatch cBatch)
@@ -134,6 +130,30 @@ namespace MightyFights_Prototype
 		{
 			tPos = tNewPos;
 			_cGuy.tPos = new Vector2(tPos.X - 30, tPos.Y - 5);
+		}
+	}
+
+	public class CompanySelectedTemplate : ClickableSprite
+	{
+		SelectedTemplate	_cTemplate = new SelectedTemplate();
+		ClickableSprite		_cUpArrow,
+							_cDownArrow;
+		FrontGuys			_cGuy;
+		SpriteFont			_cFont;
+		Company				_cCompany;
+
+
+
+		void ProcessClick(object oSender, object oArgs)
+		{
+
+		}
+
+		public void SetTemplate(TemplateConfig cConfig)
+		{
+			_cTemplate.iTemplateId = cConfig.iId;
+			_cTemplate.iCurrentCount = 0;
+			_cTemplate.iMaxCount = 
 		}
 	}
 }

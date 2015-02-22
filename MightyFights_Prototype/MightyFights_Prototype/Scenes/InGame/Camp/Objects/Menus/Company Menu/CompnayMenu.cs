@@ -185,15 +185,15 @@ namespace MightyFights_Prototype
 						new Vector2(cTmpCompany.cTexRef.Bounds.Width, cTmpCompany.cTexRef.Bounds.Height), 
 						new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
-					cTmpCompany.cCompany.cIcon = new BasicSprite();
-					cTmpBtn.cTexRef = cContent.Load<Texture2D>(tCompany.Key);
-					cTmpBtn.tPos = new Vector2(cTmpCompany.tPos.X + 5, cTmpCompany.tPos.Y + 5);
-					cTmpBtn.sTexName = tCompany.Key;
-					cTmpBtn.fZRange = .5f;
-					cTmpBtn.cFrame = new Frame(cTmpBtn.cTexRef.Bounds, 
-						new Vector2(cTmpBtn.cTexRef.Bounds.Width / 2, cTmpBtn.cTexRef.Bounds.Height / 2), 
+					cTmpCompany.cIcon = new BasicSprite();
+					cTmpCompany.cIcon.cTexRef = cContent.Load<Texture2D>(tCompany.Key);
+					cTmpCompany.cIcon.tPos = new Vector2(cTmpCompany.tPos.X + 5, cTmpCompany.tPos.Y + 5);
+					cTmpCompany.cIcon.sTexName = tCompany.Key;
+					cTmpCompany.cIcon.fZRange = .5f;
+					cTmpCompany.cIcon.cFrame = new Frame(cTmpCompany.cIcon.cTexRef.Bounds, 
+						new Vector2(cTmpCompany.cIcon.cTexRef.Bounds.Width / 2, cTmpCompany.cIcon.cTexRef.Bounds.Height / 2), 
 						new Vector2(0, 0), new Vector2(0, 0), 
-						new Vector2(cTmpBtn.cTexRef.Bounds.Width, cTmpBtn.cTexRef.Bounds.Height), 
+						new Vector2(cTmpCompany.cIcon.cTexRef.Bounds.Width, cTmpCompany.cIcon.cTexRef.Bounds.Height), 
 						new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
 					_caCompanyBoxes.Add(cTmpCompany);
@@ -325,7 +325,7 @@ namespace MightyFights_Prototype
 		void LoadSelectedCompany()
 		{
 			_cName.sName = _cSelectedCompany.cCompany.sName;
-			_cName.SetIcon(_cSelectedCompany.cCompany.cIcon);
+			_cName.SetIcon(_cSelectedCompany.cIcon);
 
 			for(int iTemplate = 0; iTemplate < _cSelectedCompany.cCompany.caTemplates.Count; ++iTemplate) { 
 
@@ -430,7 +430,8 @@ namespace MightyFights_Prototype
 				case EMouseState.DragTemplate: { 
 					_eMouseState = EMouseState.Normal;
 
-					// check to see if we are over a selected area
+					// walk the list of visiable selected template boxes
+					foreach(
 				} break;
 
 				case EMouseState.IconGrid: { 

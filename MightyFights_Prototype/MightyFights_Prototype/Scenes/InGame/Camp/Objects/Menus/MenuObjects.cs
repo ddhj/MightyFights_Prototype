@@ -242,7 +242,7 @@ namespace MightyFights_Prototype
 		{
 			base.Draw(cBatch);
 			if(_cIcon != null)	_cIcon.Draw(cBatch);
-			cBatch.DrawString(_cFont, sName, new Vector2(tPos.X + 10, tPos.Y + this.cTexRef.Height / 2), Color.White);
+			cBatch.DrawString(_cFont, sName, new Vector2(_cIcon.tPos.X + _cIcon.cTexRef.Width + 10, _cIcon.tPos.Y), Color.White);
 		}
 	}
 }

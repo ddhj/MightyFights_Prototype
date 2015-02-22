@@ -93,6 +93,7 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cLSteward.cCaptains[0].iBottomLevel = DataStore.cInstance.cLSteward.cCaptains[0].iTopLevel = 6;
 			DataStore.cInstance.cLSteward.cCaptains[0].sTemplateName = "Phillip";
 			DataStore.cInstance.cLSteward.cCaptains[0].iCount = 1;
+			
 			// add the basic guys (these start at level 1)
 			DataStore.cInstance.cLSteward.cTemplates.Add(new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fazure")));
 			DataStore.cInstance.cLSteward.cTemplates[0].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 40, iFleePoint = 5, iArmorClass = 3 };
@@ -100,6 +101,7 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cLSteward.cTemplates[0].sTemplateName = "Initial Template";
 			DataStore.cInstance.cLSteward.cTemplates[0].iCount = 20;
 			DataStore.cInstance.cLSteward.cTemplates[0].iBLeftPos = DataStore.cInstance.cLSteward.cTemplates[0].iTLeftPos = 466;
+			DataStore.cInstance.cLSteward.cTemplates[0].iId = 0;
 
 //// the initial company with refereneces back to the template
 			Company cCompany = new Company();
