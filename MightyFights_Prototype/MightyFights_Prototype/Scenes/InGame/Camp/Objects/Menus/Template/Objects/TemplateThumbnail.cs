@@ -135,7 +135,7 @@ namespace MightyFights_Prototype
 
 	public class CompanySelectedTemplate : ClickableSprite
 	{
-		SelectedTemplate	_cTemplate = new SelectedTemplate();
+		SelectedTemplate	_cTemplate = new SelectedTemplate(0, 0, 0);
 		ClickableSprite		_cUpArrow,
 							_cDownArrow;
 		FrontGuys			_cGuy;
@@ -153,7 +153,6 @@ namespace MightyFights_Prototype
 		{
 			_cTemplate.iTemplateId = cConfig.iId;
 			_cTemplate.iCurrentCount = 0;
-			_cTemplate.iMaxCount = 
 		}
 	}
 }

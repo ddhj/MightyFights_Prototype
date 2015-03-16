@@ -431,7 +431,7 @@ namespace MightyFights_Prototype
 					_eMouseState = EMouseState.Normal;
 
 					// walk the list of visiable selected template boxes
-					foreach(
+					//foreach(
 				} break;
 
 				case EMouseState.IconGrid: { 

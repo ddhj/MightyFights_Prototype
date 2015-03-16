@@ -281,6 +281,7 @@ Content\In Game\Camp\Company Dialog\sai.xnb
 Content\In Game\Camp\Company Dialog\sallet.xnb
 Content\In Game\Camp\Company Dialog\skull.xnb
 Content\In Game\Camp\Company Dialog\target.xnb
+Content\In Game\Camp\Company Dialog\icon_window.xnb
 Content\Music\Battle\battle1.xnb
 Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.xnb
 Content\Music\Final_Fantasy_4_Treason_OC_ReMix.xnb
@@ -321,7 +322,6 @@ Content\Particles\StarTrail.xnb
 Content\Particles\WaterJet.xnb
 Content\Particles\Buff Sparkle.xnb
 Content\Particles\HealerRecharge.xnb
-Content\In Game\Camp\Company Dialog\icon_window.xnb
 Content\Music\Battle\battle1.wma
 Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.wma
 Content\Music\Final_Fantasy_4_Treason_OC_ReMix.wma
@@ -337,4 +337,3 @@ Content\Music\10 WV.wma
 Content\Music\Camp\wodyn#4.wma
 Content\Music\TitleScreen\wodyn#3.wma
 Content\Music\Battle\battle2.wma
-Save Data\SaveData.MFD
