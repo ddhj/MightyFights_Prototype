@@ -396,7 +396,12 @@ namespace MightyFights_Prototype
 			_cBattleData.dlDropClick = ProcessHammerClick;
 
 			// PORT (T1.5): WinForms StatsDialog/DebugData construction + HWND-embedded debug
-			// button removed here -- see PORT_NOTES.md "WinForms debug tooling".
+			// button removed here -- see PORT_NOTES.md "WinForms debug tooling". The original
+			// re-created StatsDialog (and so its tally) fresh on every Init() -- ResetBattle()
+			// calls PartialClean() then Init(), so each battle restart got a clean slate.
+			// ExperienceTally must be re-created here too, or a mid-session ResetBattle() would
+			// silently mix stats from the previous battle into the new one.
+			_cExpTally = new ExperienceTally();
 
 			_tEllapsedTime = TimeSpan.Zero;
 			try { 

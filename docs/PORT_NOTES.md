@@ -247,8 +247,29 @@ deleted from the repo, only excluded from the new build), and guarded the call s
 
 **This is a real, revisit-worthy open item, not a closed decision** — surface it back to the user.
 The stats *display* (`StatsDialog`'s grid UI) has no replacement yet; if wanted later (e.g. an
-ImGui.NET debug overlay), that's new scope not currently in any phase of the plan. The
-bookkeeping it did along the way is safe — `ExperienceTally` runs every battle end same as before.
+ImGui.NET debug overlay), that's new scope not currently in any phase of the plan.
+
+**Two follow-up corrections made after review, since this data is real balance-testing output the
+team relies on (early-alpha balance tracking), not disposable debug scaffolding:**
+
+1. **Reset-timing bug.** In the original, `ResetBattle()` calls `PartialClean()` (which nulled
+   `_cDlg`) then `Init()` (which did `_cDlg = new StatsDialog()`) — so every mid-session battle
+   restart got a *fresh* tally. The ported `_cExpTally` was only a field initializer (runs once
+   per `BattleGround_Basic` instance, not once per `Init()`), so a `ResetBattle()` would have
+   silently mixed the new battle's stats in with the previous one's. Fixed by re-constructing
+   `_cExpTally = new ExperienceTally()` inside `Init()`, at the same point the old dialog
+   construction used to sit.
+2. **No output path.** After the dialog was gone, `ExperienceTally`'s six per-template buckets and
+   two team sums were being computed every battle end and then never read by anything — no
+   display, no file, nothing. That's silently discarding the exact balance data the dialog
+   existed to show. Extended the pre-existing `WriteExpData()` (which already dumps each
+   combatant's raw `ExperienceData` to `ExpData_<timestamp>.txt` via `DataContractJsonSerializer`)
+   to also append the tally's buckets and sums, labeled, to the same file. Same output mechanism,
+   same file, just no longer dropping half the data on the floor.
+
+Net effect: the balance data StatsDialog used to show is still produced, every battle, in the
+`ExpData_*.txt` dump — just without a live grid to browse it interactively. If interactive
+browsing turns out to matter, that's the remaining piece of the open item above.
 
 ### T1.5 — Build attempt
 
