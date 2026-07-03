@@ -710,6 +710,73 @@ explanatory comments); round-trip test green.
 
 ---
 
+## Phase 6 — Runtime Parity Verification
+
+**Status: IN PROGRESS.** The game boots and is now navigable. Verified so far: V6.1 (title renders
++ click-through) and V6.2 partial (Camp loads and renders). Biggest finding: a showstopper input bug
+that made the whole game unclickable, now fixed.
+
+### The input bug (custom Win32 hook → MonoGame native polling)
+
+**Symptom:** the game booted and the title screen rendered perfectly, but nothing was clickable —
+no mouse or keyboard input did anything, in any scene.
+
+**Root cause:** `InputManager.cs`'s `InputSystem` raised its higher-level events (`MouseDown`,
+`MouseMove`, etc.) from a custom Win32 **WndProc hook** installed with
+`SetWindowLong(hWnd, GWL_WNDPROC, (int)Marshal.GetFunctionPointerForDelegate(...))`. The `(int)` cast
+**truncates the 64-bit function pointer to 32 bits.** The original XNA build was **x86** (per
+CLAUDE.md), where a 32-bit pointer was fine; the net8.0 port runs as **x64**, so the subclass
+silently failed and `HookProc` was never called → every InputSystem event was dead. `RegisterHandlers`
+was being called correctly (via `SceneManager.AddScene`), so the handlers existed — they just never
+fired. (This is *why* the pre-Phase-6 handoffs never caught it: a clean compile can't surface it, and
+it only manifests at runtime on 64-bit.)
+
+**Fix (per the repo owner's explicit call):** rather than just patch the pointer truncation with
+`SetWindowLongPtr` (which would only fix Windows-x64 and still leave a `user32`/`Imm32`-only hook that
+cannot exist on Linux (V6.7) or the KNI web head (Phase 7)), the whole hook was **replaced with
+MonoGame's cross-platform `Mouse`/`Keyboard` polling.** The owner noted the WndProc approach was a
+pre-engine DigiPen-era habit (roll-your-own input pump), not a requirement. Implementation:
+- `InputSystem`'s public event API is **unchanged** (`MouseDown`/`MouseUp`/`MouseMove`/`KeyDown`/
+  `KeyUp`/`MouseHover`/`MouseWheel`/`MouseDoubleClick`/`CharEntered`), so none of the ~13 scene input
+  call sites changed. Only the internals were swapped.
+- New `InputSystem.Update(GameTime)` polls `Mouse.GetState()`/`Keyboard.GetState()` each frame,
+  diffs against the previous frame, and raises the events (button press/release transitions, movement,
+  wheel delta, key up/down, a stationary-pointer hover timer, and left-button double-click timing).
+  Pumped once per frame from `GameShell.Update` before `base.Update` (i.e. before the scene
+  components update).
+- `CharEntered` is now sourced from MonoGame's cross-platform `GameWindow.TextInput` (the old WM_CHAR
+  path). Grep confirmed the game currently subscribes only to Mouse Down/Up/Move, Key Down/Up, and one
+  Hover; `CharEntered`/`MouseWheel`/`MouseDoubleClick` have zero subscribers but are kept on the API.
+- All `user32`/`Imm32` P/Invokes, WndProc machinery, and Win32 message constants are gone. No
+  `#if`-per-platform needed; the new path is pure MonoGame and works on Windows/Linux/web.
+- This also sidesteps the DPI/coordinate headaches of the old approach: `Mouse.GetState()` returns
+  coordinates already in the game's backbuffer space, which is exactly what `ContainsPoint` expects.
+
+**Verified:** clicking "Play Game" on the title now advances to the Camp scene (real click, via the
+new polling path). Confirmed by screenshot.
+
+### V6.1 — Title screen — PASS (render + click-through)
+
+Title renders correctly (logo, menu sprites, animated sword cursor, spritefont text) and "Play Game"
+click-through works. This also validates Phase 2 content loading (fonts + textures) in-game for real.
+Music was NOT verified here: the debug boot in `GameShell.Initialize` sets `bPlayMusic = false`, so
+`MediaPlayer.Play` is skipped in every scene (title/camp/map/battleground all gate on `bPlayMusic`).
+That is expected, not a regression — music playback verification is tracked separately below.
+
+### V6.2 — Camp scene — PARTIAL
+
+Camp loads and renders (command tent, barracks tents, hall, huts, farm, palisade, environment). Menu
+interactions (Company/Knight/Template editor), sliders, and clickables still to be exercised.
+
+### Music / audio (V6.1 "music plays", V6.4 SFX)
+
+`CreateMusic(...)` (which `Content.Load<Song>` an MP3) IS called on entering every scene regardless
+of `bPlayMusic`, and reaching Camp did not throw — so **MP3/Song loading works under MonoGame**
+(landmine §4.1 partially cleared). Playback is still unverified because `bPlayMusic` is false in the
+debug boot. Verifying actual audio output requires a human listener; flip `bPlayMusic = true` to test.
+
+---
+
 ## Gate Summary
 
 | Task | Gate | Result |

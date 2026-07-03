@@ -135,7 +135,10 @@ namespace MightyFights_Prototype
 				this.Exit();
 #endif
 
-			// TODO: Add your update logic here
+			// PORT (Phase 6): pump the higher-level input events. Replaces the old Win32 WndProc
+			// hook (which fired these during message dispatch); now polled once per frame before
+			// the scene components update. See InputManager.cs / PORT_NOTES.md Phase 6.
+			InputSystem.Update(gameTime);
 
 			base.Update(gameTime);
 		}
