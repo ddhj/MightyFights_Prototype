@@ -15,4 +15,10 @@
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Mercury Particle Engine shim (Phase 3, T3.2). Mercury binaries were never referenced
+         here to begin with, so this is a pure addition, not a swap. -->
+    <ProjectReference Include="..\MightyFights.Particles\MightyFights.Particles.csproj" />
+  </ItemGroup>
+
 </Project>

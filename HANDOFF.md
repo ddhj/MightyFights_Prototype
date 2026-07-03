@@ -5,31 +5,40 @@ Resume-here doc for the MightyFights MonoGame port. Read this first, then
 decision log — every finding/deviation below is written up in full there, this file is just the
 "where are we, what's next" summary). `CLAUDE.md` covers repo conventions.
 
-**Last updated:** 2026-07-02, end of Phase 2 work.
+**Last updated:** 2026-07-03, end of Phase 3 work.
 
 ## Current state
 
 - **Branch:** `monogame-port` (tag `pre-port` marks the commit before any port work started).
-- **Phases 0, 1, 2 are done** (commits `855c811`, `c4b38f2` + fixup `cadd4f3`, `2e24b88`).
-- **Next up: Phase 3 — Particle Shim: API Definition** (recreating the Mercury Particle Engine
-  surface as an in-repo shim, `MightyFights.Particles`). Not started yet.
-- The solution does **not build clean** yet, and isn't supposed to — `dotnet build MightyFights.sln`
-  fails with **exactly 41 `CS0246` errors resolving to exactly 5 symbols**:
-  `ProjectMercury` (namespace), `ParticleEffect`, `ParticleEffectManager`, `Renderer` (all Mercury,
-  fixed by Phase 3-4), and `fastJSON` (persistence, fixed by Phase 5). If a future build shows a
-  **different** error set, something regressed — that's the fast sanity check to run first.
+- **Phases 0, 1, 2, 3 are done** (commits `855c811`, `c4b38f2` + fixup `cadd4f3`, `2e24b88`, and
+  the Phase 3 commit — check `git log --oneline` for the exact hash if not shown here).
+- **Next up: Phase 4 — Particle Shim: Effect Loading & Simulation.** The shim project
+  (`src/MightyFights.Particles/`) exists with the correct namespace-preserving API surface
+  (`ProjectMercury.ParticleEffect`/`ParticleEffectManager`, `ProjectMercury.Emitters.Emitter`,
+  `ProjectMercury.Renderers.Renderer`/`SpriteBatchRenderer`) and compiles clean, but simulation
+  internals are still no-ops/stubs (T3.2 scope was API definition only, not simulation — that's
+  explicitly T4.1-T4.4). Phase 4 needs to: parse the 15 particle XML files (inventory already
+  done in PORT_NOTES Phase 0: CircleEmitter/ConeEmitter/LineEmitter/RectEmitter, 12 modifier
+  types — **no PointEmitter**, contrary to the plan's original guess), implement those emitter
+  types + modifiers, and wire real per-particle simulation into `Emitter`/`ParticleEffect.Update`/
+  `SpriteBatchRenderer.RenderEffect`.
+- **The solution is 1 error away from building clean.** `dotnet build MightyFights.sln` now fails
+  with **exactly 1 `CS0246` error**: `fastJSON` in `DataStore.cs` (persistence, Phase 5 scope).
+  All Mercury-related errors are gone as of Phase 3. If a future build shows Mercury errors again,
+  or more than 1 total error, something regressed — check `git log`/`git status` first.
 - Content pipeline (MGCB) builds clean independently: `dotnet build
   src/MightyFights.Desktop/MightyFights.Desktop.csproj -t:RunContentBuilder` → 328/328 entries,
-  0 errors. (Full builds can't reach this target yet because MSBuild aborts on Core's compile
-  failure before Desktop's content-build target runs — this is a known, harmless artifact of the
-  current phase, not a bug.)
+  0 errors. (A full solution build still can't reach this target — MSBuild aborts on Core's one
+  remaining compile error before Desktop's content-build target runs. Will resolve itself once
+  Phase 5 closes the `fastJSON` gap.)
 
 ## Repo layout (new, alongside the untouched legacy XNA tree)
 
 ```
 MightyFights.sln                    classic .sln format (not .slnx — see gotchas below)
-src/MightyFights.Core/              all game code, net8.0, references MonoGame.Framework.DesktopGL directly
+src/MightyFights.Core/              all game code, net8.0, references MonoGame.Framework.DesktopGL + Particles directly
 src/MightyFights.Desktop/           WinExe head, Program.cs only, also references the framework directly
+src/MightyFights.Particles/         Mercury shim (ProjectMercury/.Emitters/.Renderers namespaces) -- API done, simulation is Phase 4
 content/                            copy of the original content tree, exact relative paths preserved
 content/Content.mgcb                generated (see scratchpad script mentioned in PORT_NOTES if regenerating)
 .config/dotnet-tools.json           dotnet-mgcb 3.8.4.1 local tool manifest
@@ -57,10 +66,11 @@ MightyFights_Prototype/             original XNA project — untouched, kept as 
 
 ## Gotchas worth knowing before you touch this again
 
-- **XML comments and `--`.** I hit `error MSB4025: An XML comment cannot contain '--'` **four
+- **XML comments and `--`.** I hit `error MSB4025: An XML comment cannot contain '--'` **five
   separate times** this session, in different `.csproj` files, from writing `word -- word` as an
   em-dash substitute in a `<!-- comment -->`. Just don't use `--` inside any XML/MSBuild comment,
-  full stop — use `;` or a period instead.
+  full stop — use `;` or a period instead. Genuinely stop and grep for it before running any
+  `dotnet` command against a `.csproj` you just wrote.
 - **`dotnet new sln` defaults to `.slnx` now** (this machine has .NET 10 SDK). Use
   `dotnet new sln -n X -o . -f sln` to force the classic format if regenerating.
 - **`dotnet new tool-manifest` writes `dotnet-tools.json` at the invocation root, not
@@ -83,8 +93,8 @@ MightyFights_Prototype/             original XNA project — untouched, kept as 
 ```
 cd C:\Users\djorl\source\repos\ddhj\MightyFights_Prototype
 git status --short          # should be empty except maybe .vs/
-git log --oneline -6        # should show 2e24b88 (phase 2) at HEAD, or later
-dotnet build MightyFights.sln 2>&1 | tail -5   # should show "41 Error(s)" and nothing else new
+git log --oneline -6        # should show the phase 3 commit at HEAD, or later
+dotnet build MightyFights.sln 2>&1 | tail -5   # should show "1 Error(s)" (fastJSON only) and nothing else
 ```
 
 If any of those don't match, read `git log` and `docs/PORT_NOTES.md`'s Gate Summary table before

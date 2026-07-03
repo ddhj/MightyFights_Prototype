@@ -437,6 +437,66 @@ rediscover this from scratch.
 
 ---
 
+## Phase 3 — Particle Shim: API Definition
+
+**Status: COMPLETE, and the result is better than the plan's own gate expected.** T3.1 (verify
+exact call sites/overloads) was already done in Phase 0's T0.4 investigation — see that section
+for the full grep-verified surface and the 3 corrections to plan §3's sketch
+(`ParticleEffectManager` existing at all, `RenderEffect` never being called directly, and
+`ParticleEffect.Terminate()`). This phase is T3.2: writing the shim itself.
+
+### T3.2 — Shim implementation
+
+- `src/MightyFights.Particles/` (`MightyFights.Particles.csproj`, net8.0, references
+  `MonoGame.Framework.DesktopGL` directly — same reasoning as Core/Desktop, needs the framework's
+  types at compile time). Added to `MightyFights.sln`; `MightyFights.Core` now has a
+  `ProjectReference` to it (a pure addition — Mercury binaries were never referenced from Core to
+  begin with, so nothing to remove).
+- Namespace layout confirmed precisely by grep before writing anything (6 of the 17
+  Mercury-touching files have all three `using ProjectMercury;` / `using ProjectMercury.Emitters;`
+  / `using ProjectMercury.Renderers;`; the other 11 only need the bare `ProjectMercury` one) —
+  `Emitter` lives in `ProjectMercury.Emitters`, `Renderer`/`SpriteBatchRenderer` in
+  `ProjectMercury.Renderers`, everything else (`ParticleEffect`, `ParticleEffectManager`) in bare
+  `ProjectMercury`. Getting this wrong would have meant editing the 17 files' usings, defeating
+  the whole point of a namespace-preserving shim (plan §6: "the 17 Mercury-touching files should
+  ideally see zero edits").
+- `Renderer.GraphicsDeviceService` is typed as `GraphicsDeviceManager` (not real Mercury's
+  `IGraphicsDeviceService`) since that's the only concrete type ever assigned to it
+  (`DataStore.cGfxMgr`) — narrower shim surface than upstream Mercury, deliberately, since the
+  goal is game-code compatibility, not API-for-API parity with a dead library.
+- `List<Emitter>.Capacity` (inherited from `ParticleEffect : List<Emitter>`) needed no
+  redeclaration — `TerminatingParticleEffect`'s constructor copies it via the base `List<T>`
+  property already.
+- **Result exceeds Phase 3's own gate.** The plan's gate is "game project compiles against the
+  shim with Mercury binaries deleted from the tree" — true, but understated: a full
+  `dotnet build MightyFights.sln` now produces **exactly 1 remaining error**
+  (`fastJSON` in `DataStore.cs`, Phase 5 scope) and **zero** Mercury-related errors or warnings.
+  The entire rest of the ~15K-LOC game project compiles clean against the shim on the first
+  attempt (after fixing yet another `--` XML-comment typo in the new `.csproj` — see below).
+- **Deliberately deferred to Phase 4** (per the plan's own phase split — T3.2 is "API Definition,"
+  T4.2 is "Simulation"): `Emitter`/`ParticleEffect`/`Renderer`'s actual particle-spawning,
+  per-frame simulation, and drawing are no-ops or minimal stubs right now (e.g.
+  `SpriteBatchRenderer.RenderEffect` does nothing yet; `ParticleEffect.Trigger()` doesn't spawn
+  anything yet). `ParticleEffect.LoadContent()` *is* fully implemented already, though — it
+  resolves each `Emitter.ParticleTextureAssetName` through `ContentManager` into a `Texture2D`,
+  since that's a real, self-contained piece of the stated T3.2 scope ("resolves each
+  Emitter.ParticleTextureAssetName") independent of simulation logic.
+- One still-open question carried over from Phase 0 T0.4, not resolved here: the exact semantics
+  of `ParticleEffectManager.Update(float, bool)`'s second parameter (only ever called as `false`
+  from `TerminatingParticleEffectManager`). Named generically (`bTriggerEvents`) in the shim;
+  revisit if Phase 4's simulation work needs it to mean something specific.
+- **Recurring mistake worth flagging plainly:** hit the `error MSB4025: An XML comment cannot
+  contain '--'` typo **five separate times across this session** (Phase 1, 2, and now 3, in
+  different `.csproj` files) from writing `word -- word` as an em-dash substitute inside
+  `<!-- -->` comments. Documented in `HANDOFF.md`'s gotchas list; if a future session hits this a
+  sixth time, stop writing `--` in XML comments entirely rather than continuing to fix it
+  reactively.
+
+**Phase 3 gate: PASS** (and Phase 1's originally-deferred Mercury error class is now fully
+closed — only Phase 5's `fastJSON` remains before the whole solution compiles clean).
+
+---
+
 ## Gate Summary
 
 | Task | Gate | Result |
@@ -453,5 +513,7 @@ rediscover this from scratch.
 | T2.1 | MGCB builds with zero errors | ✅ 328/328 entries, `content/Content.mgcb` |
 | T2.2 | asset manifest loads without exception | ✅ 12/12 AnimationData JSON sources, isolated smoke test |
 | T2.3 | spritefont fonts resolve | ✅ Times New Roman on Windows; Linux/web deferred to R4's stated timing |
+| T3.1 | Mercury call sites/overloads verified | ✅ done in Phase 0 T0.4 (3 corrections logged) |
+| T3.2 | game project compiles against shim, Mercury binaries gone | ✅ exceeded — only `fastJSON` (Phase 5) remains solution-wide |
 
 **Phase 0/1/2 gates: PASS.** Ready to begin Phase 3 (Particle Shim: API Definition) on request.

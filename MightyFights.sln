@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MightyFights.Desktop", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MightyFights.Core", "src\MightyFights.Core\MightyFights.Core.csproj", "{4C821571-D5CC-4CD8-910D-F3F128AD8D9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MightyFights.Particles", "src\MightyFights.Particles\MightyFights.Particles.csproj", "{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,18 @@ Global
 		{4C821571-D5CC-4CD8-910D-F3F128AD8D9B}.Release|x64.Build.0 = Release|Any CPU
 		{4C821571-D5CC-4CD8-910D-F3F128AD8D9B}.Release|x86.ActiveCfg = Release|Any CPU
 		{4C821571-D5CC-4CD8-910D-F3F128AD8D9B}.Release|x86.Build.0 = Release|Any CPU
+		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}.Debug|x64.Build.0 = Debug|Any CPU
+		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}.Debug|x86.Build.0 = Debug|Any CPU
+		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}.Release|x64.ActiveCfg = Release|Any CPU
+		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}.Release|x64.Build.0 = Release|Any CPU
+		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}.Release|x86.ActiveCfg = Release|Any CPU
+		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,5 +64,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{21A3BCFA-F326-44FD-BCF5-6075A72CFD89} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{4C821571-D5CC-4CD8-910D-F3F128AD8D9B} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal
