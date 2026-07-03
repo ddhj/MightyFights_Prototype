@@ -775,11 +775,14 @@ interactions (Company/Knight/Template editor), sliders, and clickables still to 
 audibly on the title screen — so MP3/Song loading AND playback both work under MonoGame** (landmine
 §4.1 fully cleared). SFX (V6.4: crit sounds, heals) not yet verified.
 
-**Follow-up (deferred, not an audio bug):** the owner noted the *tracks* may be wrong — the title
-currently plays `\TitleScreen\wodyn#3`, but the intended first/title theme should be something like
-"woden". The engine is playing exactly the asset it's asked for, so this is a content-mapping /
-which-file-per-scene question (possibly an original-project asset naming quirk, not a port
-regression), tracked separately. See the task list.
+**Follow-up — RESOLVED as not-a-port-issue:** the owner noted the title track felt wrong (expected
+something like "woden", got `\TitleScreen\wodyn#3`). Checked: the port's `content/Music/` tree is
+**identical** to the original `MightyFights_PrototypeContent/Music/` (same 15 MP3s), and
+`TitleScreen/wodyn#3.mp3` is the *only* title-screen track that has ever existed in this project —
+there is no "woden"/`wodyn#1`/`#2` anywhere in either tree. So the port faithfully plays exactly what
+the original shipped; `wodyn#3` is the title theme as-authored. Most of the library (the FF OC ReMixes)
+is clearly the dev's placeholder battle music; `wodyn#3`/`wodyn#4` are the real title/camp themes.
+Changing the title song is a content-authoring decision, out of port scope — not a bug.
 
 ---
 
