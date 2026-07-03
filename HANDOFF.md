@@ -5,36 +5,39 @@ Resume-here doc for the MightyFights MonoGame port. Read this first, then
 decision log — every finding/deviation below is written up in full there, this file is just the
 "where are we, what's next" summary). `CLAUDE.md` covers repo conventions.
 
-**Last updated:** 2026-07-03, end of Phase 4 work.
+**Last updated:** 2026-07-03, end of Phase 5 work.
 
 ## Current state
 
 - **Branch:** `monogame-port` (tag `pre-port` marks the commit before any port work started).
-- **Phases 0, 1, 2, 3, 4 are done.** Check `git log --oneline` for exact commit hashes.
-- **Next up: Phase 5 — Persistence & Serialization.** Replace `IsolatedStorageFile` with a
-  `SaveStorage` abstraction (desktop = `%AppData%`, web = localStorage later) and `fastJSON` with
-  `System.Text.Json`, behind a round-trip test (`InitNew()` → save → load → deep-compare). Risk
-  **R2** (does `Steward`'s object graph survive `System.Text.Json`?) has concrete supporting
-  evidence already logged in Phase 1's section — `BasicSprite` uses obsolete
-  `ISafeSerializationData`/`ISerializable` binary-serialization interfaces. Read that before
-  starting, don't rediscover it.
-- **The solution is 1 error away from building clean and has been since Phase 3.**
-  `dotnet build MightyFights.sln` fails with **exactly 1 `CS0246` error**: `fastJSON` in
-  `DataStore.cs`. That's the *only* remaining gap before the whole ~15K-LOC game project compiles
-  — Phase 5 is genuinely the last blocker to a clean build. If a future build shows more than 1
-  error, or any Mercury-related error, something regressed — check `git log`/`git status` first.
+- **Phases 0, 1, 2, 3, 4, 5 are done.** Check `git log --oneline` for exact commit hashes.
+- **The full solution now compiles with 0 errors.** `dotnet build MightyFights.sln` → `Build
+  succeeded. 0 Error(s)`. This is the first clean build in the port; the ~15K-LOC game project is
+  fully compiling. (Heads up: the "1 error away" claim in prior handoffs was **undercounted** — a
+  broken `fastJSON` namespace `using` was masking two more latent XNA→MonoGame overload errors in
+  `TitleScreen.cs`/`CompnayMenu.cs`, which surfaced and were fixed the moment fastJSON was removed.
+  Both were ordinary API drift, not regressions. See PORT_NOTES Phase 5.)
+- **Next up: Phase 6 — Runtime Parity.** The game has never actually *booted* yet. Phase 6 is the
+  first time it runs end-to-end: title screen → camp → map → battleground, verifying save/load
+  round-trips mid-campaign (V6.5), particle effects fire visibly at the 4 trigger sites (V6.4,
+  deferred here from Phase 4), animation data loads, audio plays, input works. Expect real runtime
+  bugs that a clean compile can't catch. Note `DataStore.LoadData()` is still commented out at its
+  only callsite (`GameShell.cs:48`) — wiring load back into boot is part of Phase 6.
+- **R2 is closed and turned out LOWER risk than the register implied.** The persisted `Steward`
+  graph is plain POCOs with no XNA types; `BasicSprite`'s obsolete serialization interfaces are
+  **not** in the save graph (nothing persisted references it), so the SYSLIB0050 warning is
+  irrelevant to save/load. System.Text.Json handled the whole graph with two `[JsonIgnore]`s and no
+  Newtonsoft fallback. Full write-up in PORT_NOTES Phase 5 — read it before touching persistence.
 - **Particle simulation is real now** (`src/MightyFights.Particles/`), not stubs: 5 emitter
   shapes (base `Emitter` + Circle/Cone/Line/Rect), 16 modifier types, a real XML parser
   (`Serialization/ParticleEffectXmlLoader.cs`), verified against all 15 actual particle XML files
   via an isolated smoke test (parses, simulates, particles expire on schedule, particle counts
   stay bounded by `Budget` even under sustained repeated triggering). Not yet verified
-  *in-game* (the game can't boot until Phase 5 closes the last gap) — that's Phase 6's job
-  (V6.4 already covers it).
-- Content pipeline (MGCB) builds clean independently: `dotnet build
+  *in-game* (the game has never booted end-to-end yet) — that's Phase 6's job (V6.4 covers it).
+- Content pipeline (MGCB) builds clean: `dotnet build
   src/MightyFights.Desktop/MightyFights.Desktop.csproj -t:RunContentBuilder` → 328/328 entries,
-  0 errors. (A full solution build still can't reach this target — MSBuild aborts on Core's one
-  remaining compile error before Desktop's content-build target runs. Resolves itself once Phase 5
-  closes the `fastJSON` gap.)
+  0 errors. Now that Core compiles, a full solution build succeeds too; the explicit
+  `-t:RunContentBuilder` target is still the way to force just the content build.
 
 ## Repo layout (new, alongside the untouched legacy XNA tree)
 
@@ -91,18 +94,18 @@ MightyFights_Prototype/             original XNA project — untouched, kept as 
   is now wired correctly — just don't "simplify" it away thinking it's redundant.
 - **git-bash mangles leading-slash CLI args** (e.g. `dotnet mgcb /help` gets path-rewritten). Use
   the PowerShell tool for anything involving `/flag`-style arguments to native Windows tools.
-- Both `Base Objects/BasicSprite.cs` (SYSLIB0050, obsolete binary serialization) and the general
-  shape of `Steward`'s object graph are flagged as risk **R2** evidence for Phase 5's
-  `System.Text.Json` round-trip test — worth re-reading that PORT_NOTES section before starting
-  Phase 5, don't rediscover it from scratch.
+- `Base Objects/BasicSprite.cs` still throws a non-blocking `SYSLIB0050` warning (obsolete
+  `ISerializable`/`ISafeSerializationData`). Phase 5 established this is **irrelevant to save/load**
+  (BasicSprite isn't in the persisted `Steward` graph), so it was left alone. If you ever wire
+  `BasicSprite` into runtime binary serialization, that's when it matters — otherwise ignore it.
 
 ## How to sanity-check you're starting from a good state
 
 ```
 cd C:\Users\djorl\source\repos\ddhj\MightyFights_Prototype
 git status --short          # should be empty except maybe .vs/
-git log --oneline -6        # should show the phase 4 commit at HEAD, or later
-dotnet build MightyFights.sln 2>&1 | tail -5   # should show "1 Error(s)" (fastJSON only) and nothing else
+git log --oneline -6        # should show the phase 5 commit at HEAD, or later
+dotnet build MightyFights.sln 2>&1 | tail -5   # should show "Build succeeded. 0 Error(s)"
 ```
 
 If any of those don't match, read `git log` and `docs/PORT_NOTES.md`'s Gate Summary table before

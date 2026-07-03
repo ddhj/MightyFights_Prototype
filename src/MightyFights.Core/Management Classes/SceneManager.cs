@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.IsolatedStorage;
 using System.Xml.Linq;
 
 using Microsoft.Xna.Framework;

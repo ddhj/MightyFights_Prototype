@@ -294,7 +294,9 @@ namespace MightyFights_Prototype
 					@"Sprite Data\Troopers\Halberd\Textures\fazure", new Dictionary<string, bool>());
 				_cGuy.cTexRef = cContent.Load<Texture2D>(@"Sprite Data\Troopers\Halberd\Front Facing\front");
 				_cGuy.fZRange = .3f;
-				_cGuy.tColor = new Color(_cGuy.tColor.R, _cGuy.tColor.G, _cGuy.tColor.B, 50);
+				// PORT (Phase 5): alpha cast to byte to disambiguate MonoGame's Color(int,int,int,int)
+				// vs Color(byte,byte,byte,byte) overloads (the int literal 50 matches both).
+				_cGuy.tColor = new Color(_cGuy.tColor.R, _cGuy.tColor.G, _cGuy.tColor.B, (byte)50);
 				// the scale throws this off quite a bit
 				_cGuy.tPos = new Vector2(tPos.X - 30, tPos.Y - 5);
 

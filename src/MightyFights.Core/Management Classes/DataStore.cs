@@ -5,11 +5,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
-using System.IO.IsolatedStorage;
 using System.Xml.Linq;
 
 using Microsoft.Xna.Framework.Media;
-using fastJSON;
 
 namespace MightyFights_Prototype
 {
@@ -54,31 +52,30 @@ namespace MightyFights_Prototype
 		public bool				bShowBg			{ get; set; }
 		public Song				cBgm			{ get; set; }
 
-		// the steward for the battle 
+		// the steward for the battle
 		public Steward			cLSteward		{ get; set; }
 		public Steward			cRSteward		{ get; set; }
 
+		//// ddhj: Phase 5 -- pluggable save backing store. Lazily defaults to the desktop filesystem;
+		//// the web head can inject a localStorage implementation before any save/load occurs.
+		private ISaveStorage	_cSaveStorage;
+		public ISaveStorage		cSaveStorage
+		{
+			get { return _cSaveStorage ?? (_cSaveStorage = new FileSaveStorage()); }
+			set { _cSaveStorage = value; }
+		}
+
+		private const string	sSaveKey = "SaveData.json";
+
 		public void SaveData()
 		{
-            IsolatedStorageFile cIsoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
-            System.IO.FileStream cFile = cIsoFile.OpenFile("SaveData.waf", System.IO.FileMode.OpenOrCreate);
-            using(System.IO.StreamWriter cReader = new System.IO.StreamWriter(cFile)) {
-				JSONParameters cParam = new JSONParameters();
-				cParam.UsingGlobalTypes = false;
-				cParam.UseExtensions = false;
-                cReader.Write(fastJSON.JSON.Instance.ToJSON(DataStore.cInstance.cLSteward, cParam));
-            }
+			cSaveStorage.Write(sSaveKey, SaveSerializer.ToJson(cLSteward));
 		}
 
 		public void LoadData()
 		{
-			IsolatedStorageFile cIsoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
-			if(cIsoFile.FileExists("SaveData.waf")) {
-				System.IO.FileStream cFile = cIsoFile.OpenFile("SaveData.waf", System.IO.FileMode.Open);
-				using(System.IO.StreamReader cReader = new System.IO.StreamReader(cFile)) {
-					cLSteward = fastJSON.JSON.Instance.ToObject<Steward>(cReader.ReadLine());
-				}
-				
+			if(cSaveStorage.Exists(sSaveKey)) {
+				cLSteward = SaveSerializer.FromJson(cSaveStorage.Read(sSaveKey));
 				cLSteward.HydrateCompanyRefLists();
 			}
 		}

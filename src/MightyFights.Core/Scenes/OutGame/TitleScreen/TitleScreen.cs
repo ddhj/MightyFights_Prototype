@@ -152,8 +152,11 @@ namespace MightyFights_Prototype
 
 
 				if(DataStore.cInstance.bPlayMusic)	MediaPlayer.Play(_cMusic);
-			} catch(Exception xEx) { 
-				MessageBox.Show(xEx.ToString());
+			} catch(Exception xEx) {
+				// PORT (T1.5 straggler, found in Phase 5): was System.Windows.Forms.MessageBox.Show;
+				// unqualified here so it now bound to Microsoft.Xna.Framework.Input.MessageBox. Swapped
+				// for the same portable diagnostic sink used in BattleGround_Basic. See PORT_NOTES.md.
+				System.Diagnostics.Debug.WriteLine(xEx.ToString());
 				return false;
 			}
 			return true;

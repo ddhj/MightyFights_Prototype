@@ -623,6 +623,93 @@ confirmation deferred to Phase 6 since the game can't run yet).
 
 ---
 
+## Phase 5 — Persistence & Serialization
+
+**Status: COMPLETE.** `fastJSON` + `IsolatedStorageFile` are gone; save data is now
+`System.Text.Json` written to `%AppData%/MightyFights/SaveData.json` behind an `ISaveStorage`
+abstraction. **The full solution now compiles with 0 errors for the first time in the port** — the
+`fastJSON` `CS0246` was the last hard blocker, exactly as the plan predicted.
+
+### T5.1 — SaveStorage abstraction
+
+- New `src/MightyFights.Core/Platform/ISaveStorage.cs` (interface: `Exists`/`Write`/`Read`, string
+  keys) and `Platform/FileSaveStorage.cs` (desktop impl → `Environment.SpecialFolder.ApplicationData`
+  `/MightyFights/`, plain `File.ReadAllText`/`WriteAllText`, `Directory.CreateDirectory` on write).
+- `DataStore` gained a settable `cSaveStorage` property with a lazy `FileSaveStorage` default, so
+  the future web head (T7.3) injects a localStorage implementation with **zero** edits to
+  `DataStore.SaveData`/`LoadData`. Single interface, two implementations (G2 discipline) — the
+  second implementation lands in Phase 7.
+- Save filename changed `SaveData.waf` → `SaveData.json`. Old `.waf` migration is explicitly out of
+  scope (plan T5.2), and the two storage mechanisms (isolated storage vs `%AppData%`) don't share a
+  location anyway, so there was never a silent-overwrite risk.
+
+### T5.2 — fastJSON → System.Text.Json
+
+- New `Management Classes/SaveSerializer.cs` centralises the `JsonSerializerOptions` (shared by the
+  save path and the round-trip test) and exposes `ToJson(Steward)`/`FromJson(string)`. Only the
+  **player** `cLSteward` is persisted (matches the original `SaveData`, which only ever serialized
+  `cLSteward`; `cRSteward` and all the XNA service refs on `DataStore` are runtime-only).
+- **R2 disposition — LOWER risk than the register implied.** The persisted `Steward` graph is
+  entirely plain POCOs (`TemplateCfgMaster`/`TemplateConfig`, `Stats`, `ExperienceData`, `Company`,
+  `SelectedTemplate`, `CompanyStats`) using public get/set properties, `string`/`int`/`float`, and
+  `Dictionary<string,float>` / `Dictionary<EBuffEffects,int>`. **No XNA types anywhere in the graph**,
+  so no custom converters were needed. Crucially, **`BasicSprite` is NOT in the persisted graph** —
+  nothing `Steward` reaches references it — so its obsolete `ISerializable`/`ISafeSerializationData`
+  interfaces (the SYSLIB0050 warning flagged as R2 evidence in Phase 1) are irrelevant to save/load.
+  The warning is real but unrelated to persistence; left as-is (out of Phase 5 scope). No fallback to
+  Newtonsoft.Json was required.
+- **Two graph members had to be kept out of the JSON** (both fixed with `[JsonIgnore]` at the type,
+  the minimal-diff choice over a custom converter):
+  1. `Steward.hCompaniesByName` / `hCompaniesByIconName` — get-only lookup dictionaries that
+     `HydrateCompanyRefLists()` rebuilds after load. System.Text.Json **populates get-only
+     dictionary properties** during deserialization, so without `[JsonIgnore]` the load path would
+     fill them and then `HydrateCompanyRefLists()`'s `.Add()` would throw a duplicate-key
+     `ArgumentException`. This is the concrete shape R2 warned about; caught by design, not by crash.
+  2. `Company.caTemplates` — a get-only computed copy of a private `_hTemplateByName` backing
+     dictionary. Serializing it wrote a redundant array that couldn't round-trip.
+- **Pre-existing behaviour preserved, not "fixed":** `Company`'s actual template membership
+  (`_hTemplateByName`/`_hTemplateById`, private, no public accessor) is not serialized — but it also
+  isn't populated by the existing code (`InitNew`'s `caTemplates.Add(...)` adds to the throwaway list
+  the getter returns, a no-op). So there is genuinely no membership state to lose. Left exactly as
+  found; flagged here so a future phase doesn't mistake it for a Phase 5 regression.
+
+### Two latent compile errors surfaced (handoff's "1 error" was undercounted)
+
+Removing the `fastJSON` `using` exposed **two more `CS0246`/overload errors** in files this phase
+never touched (`TitleScreen.cs`, `CompnayMenu.cs`). Root cause: a broken namespace-level `using`
+makes Roslyn suppress overload-resolution binding elsewhere in the same compilation, so those errors
+were masked behind the single `fastJSON` error the handoff counted. `git status` confirmed no tree
+regression before touching them. Both are ordinary XNA→MonoGame API drift and were fixed to reach the
+"solution compiles" gate:
+- `TitleScreen.cs:156` — unqualified `MessageBox.Show(string)` bound to MonoGame's
+  `Microsoft.Xna.Framework.Input.MessageBox` (3-arg async signature), not WinForms. A **T1.5
+  straggler** the Phase 1 sweep missed; swapped for the same `System.Diagnostics.Debug.WriteLine`
+  diagnostic sink used in `BattleGround_Basic.cs:492`.
+- `CompnayMenu.cs:297` — `new Color(byte,byte,byte, 50)` was ambiguous between MonoGame's
+  `Color(int,int,int,int)` and `Color(byte,byte,byte,byte)` (the constant `int` literal `50` is
+  implicitly convertible to `byte`). Disambiguated with `(byte)50`, preserving alpha=50.
+
+### Verification (T5.2 gate: round-trip test passes)
+
+Isolated round-trip harness (scratch, not in the repo — same convention as Phases 2/4), referencing
+the now-compiling `MightyFights.Core` and driving the **real** `DataStore.SaveData`/`LoadData` path
+through an injected in-memory `ISaveStorage`. **All 14 checks passed:**
+- `InitNew()` → save → load → re-save produces **byte-identical JSON** (deep structural round-trip).
+- Scalars survive (captain "Phillip", `fHp==600`, template `iCount==20`, company name).
+- **Reference identity holds:** after load, `caCompanies[0]` is the *same instance* as
+  `hCompaniesByName[...]` / `hCompaniesByIconName[...]` (proves `HydrateCompanyRefLists()` rebuilt the
+  lookups correctly and the `[JsonIgnore]` fix works — no crash, no duplicate instances).
+- A second case exercises the members `InitNew` leaves empty: enum-keyed `cBuffs`
+  (`Dictionary<EBuffEffects,int>`), string→float `cActionModifier`, and a nested `ExperienceData` —
+  all round-trip with correct values.
+- The serialized JSON contains no `hCompaniesByName`/`hCompaniesByIconName`/`caTemplates`.
+
+**Phase 5 gate: PASS.** Solution compiles with 0 errors; zero code references to fastJSON,
+System.Web, IsolatedStorage, or Microsoft.Xna binary assemblies (only historical mentions remain, in
+explanatory comments); round-trip test green.
+
+---
+
 ## Gate Summary
 
 | Task | Gate | Result |
@@ -645,5 +732,8 @@ confirmation deferred to Phase 6 since the game can't run yet).
 | T4.2 | emitter/modifier set implemented per corrected inventory | ✅ 5 emitter kinds, 16 modifier types |
 | T4.3 | 4 trigger sites + 2 Load paths wired through DataManager | ✅ `ParticleEffectXmlLoader` via `ResolveContentPath` |
 | T4.4 | trigger sites fire, no unbounded growth over a soak | ✅ bounded under 10s single + sustained 20/sec triggering; visual confirmation deferred to Phase 6 (game can't boot until Phase 5) |
+| T5.1 | IsolatedStorage replaced by SaveStorage abstraction | ✅ `ISaveStorage` + `FileSaveStorage` (%AppData%), injectable via `DataStore.cSaveStorage` |
+| T5.2 | round-trip test passes; 0 refs to fastJSON/System.Web/IsolatedStorage/Xna-binary | ✅ 14/14 checks, byte-identical JSON + reference identity; solution compiles 0 errors |
 
-**Phase 0-4 gates: PASS.** Ready to begin Phase 5 (Persistence & Serialization) on request.
+**Phase 0-5 gates: PASS.** The full solution now compiles with 0 errors. Next up: Phase 6
+(runtime parity — booting the game end-to-end and verifying in-game behaviour).

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 using Microsoft.Xna.Framework.Graphics;
 
@@ -49,7 +50,8 @@ namespace MightyFights_Prototype
 		public string sName		{ get; set; }
 		public string sIconName	{ get; set; }
 		public int iTemplageMax { get; set; }
-		public List<SelectedTemplate> caTemplates	{ get { return _hTemplateByName.Values.ToList(); }}
+		// Get-only computed copy of the private _hTemplateByName backing store: not serialized.
+		[JsonIgnore] public List<SelectedTemplate> caTemplates	{ get { return _hTemplateByName.Values.ToList(); }}
 		public CompanyStats cStats { get { return _cStats; } set { _cStats = value; }}
 
 		public override string ToString()

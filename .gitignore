@@ -2,6 +2,9 @@
 [Bb]in/
 [Oo]bj/
 
+# Visual Studio working cache (locked while VS is open; not in the original XNA-era ignore).
+.vs/
+
 # mstest test results
 TestResults
 

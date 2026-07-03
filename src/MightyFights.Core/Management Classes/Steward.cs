@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -37,8 +38,9 @@ namespace MightyFights_Prototype
 		public List<TemplateCfgMaster> cTemplates		{ get { return _cTemplates; } set { _cTemplates = value; }}
 		public List<TemplateCfgMaster> cCaptains		{ get { return _cCaptains; } set { _cCaptains = value; }}
 		public Dictionary<EBuffEffects, int> cBuffs		{ get { return _cBuffs; } set { _cBuffs = value; }}
-		public Dictionary<string, Company> hCompaniesByIconName		{ get { return _hCompaniesByIconName; }}
-		public Dictionary<string, Company> hCompaniesByName			{ get { return _hCompaniesByName; }}
+		// Derived lookup dictionaries: not serialized; rebuilt by HydrateCompanyRefLists() after load.
+		[JsonIgnore] public Dictionary<string, Company> hCompaniesByIconName		{ get { return _hCompaniesByIconName; }}
+		[JsonIgnore] public Dictionary<string, Company> hCompaniesByName			{ get { return _hCompaniesByName; }}
 		public List<Company> caCompanies				{ get { return _caCompanies; } set { _caCompanies = value; }}
 
 		public void HydrateCompanyRefLists()
