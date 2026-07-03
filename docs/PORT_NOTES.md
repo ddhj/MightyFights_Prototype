@@ -486,14 +486,140 @@ for the full grep-verified surface and the 3 corrections to plan §3's sketch
   from `TerminatingParticleEffectManager`). Named generically (`bTriggerEvents`) in the shim;
   revisit if Phase 4's simulation work needs it to mean something specific.
 - **Recurring mistake worth flagging plainly:** hit the `error MSB4025: An XML comment cannot
-  contain '--'` typo **five separate times across this session** (Phase 1, 2, and now 3, in
-  different `.csproj` files) from writing `word -- word` as an em-dash substitute inside
-  `<!-- -->` comments. Documented in `HANDOFF.md`'s gotchas list; if a future session hits this a
-  sixth time, stop writing `--` in XML comments entirely rather than continuing to fix it
-  reactively.
+  contain '--'` typo **six separate times across this session** (Phases 1, 2, 3, and again early
+  in Phase 4) from writing `word -- word` as an em-dash substitute inside `<!-- -->` comments.
+  After the sixth time, switched to actually verifying: wrote a script that extracts every
+  `<!-- ... -->` body (handling multi-line) from every `.csproj`/`.sln` in the repo and greps
+  the extracted body text for `--`, run before any `dotnet` command touches a freshly-written
+  project file. That's the fix — checking, not "being more careful" — see `HANDOFF.md`.
 
 **Phase 3 gate: PASS** (and Phase 1's originally-deferred Mercury error class is now fully
 closed — only Phase 5's `fastJSON` remains before the whole solution compiles clean).
+
+---
+
+## Phase 4 — Particle Shim: Effect Loading & Simulation
+
+**Status: COMPLETE.** All 15 XML files parse and simulate correctly (verified, not assumed); the
+4 confirmed trigger sites and 2 `Load<ParticleEffect>` paths are wired through `DataManager`; a
+sustained-triggering soak test confirms particle counts stay bounded by each emitter's `Budget`.
+
+### Critical correction to Phase 0's emitter/modifier inventory
+
+**The Phase 0 T0.4 inventory was materially incomplete**, and this was caught only by re-checking
+before starting T4.2's implementation, not by trusting the earlier count. The original inventory
+(regex for `Item Type="ProjectMercury.Emitters.X"`) found **13 emitters across 4 types**. Building
+the real parser and cross-checking against the `<Term>` element count (35, one per emitter)
+exposed the gap. Root cause, found by reading one of the "missing" files directly
+(`BasicExplosion.xml`): **8 of the 15 files declare emitter/modifier types via an XML namespace
+alias**, not the fully-qualified form:
+
+```xml
+<XnaContent xmlns:Emitters="ProjectMercury.Emitters" xmlns:Modifiers="ProjectMercury.Modifiers">
+  ...
+  <Item Type="Emitters:CircleEmitter"> ... </Item>       <!-- alias form, not fully qualified -->
+  <Item> ... </Item>                                      <!-- no Type attribute at all -->
+```
+
+The original regex only matched the fully-qualified form and silently missed both the aliased
+form and the (also real, not a parsing artifact) case where `Type` is omitted entirely — which
+IntermediateSerializer treats as "use the base class," i.e. a genuine untyped `Emitter`.
+
+**Corrected inventory** (built with a real XML parser resolving both forms — Python's
+`xml.etree.ElementTree`, capturing `xmlns:` aliases via `start-ns` events since `.attrib` hides
+them; the actual C# `ParticleEffectXmlLoader` uses `System.Xml.Linq`'s `XAttribute.IsNamespaceDeclaration`,
+which doesn't have that gap):
+
+**Emitters — 35 total, 5 kinds** (not 13/4):
+| Kind | Count |
+|---|---|
+| `Emitter` (no `Type` attribute — base class, used directly) | 9 |
+| `RectEmitter` | 8 |
+| `CircleEmitter` | 7 |
+| `ConeEmitter` | 6 |
+| `LineEmitter` | 5 |
+
+Still zero `PointEmitter` (plan §3's guess) — but the *base* `Emitter` used shapeless/directly is
+the single most common form, 9 of 35, and wasn't in anyone's guess at all.
+
+**Modifiers — 94 total, 16 kinds** (not ~31/12):
+`OpacityInterpolatorModifier`(20), `LinearGravityModifier`(11), `DampingModifier`(10),
+`ScaleModifier`(9), `OpacityModifier`(8), `ColourModifier`(7), `RotationModifier`(7),
+`RotationRateModifier`(6), `TrajectoryRotationModifier`(5), `ScaleInterpolatorModifier`(4),
+`ScaleMergeModifier`(2), `ColourInterpolatorModifier`(1), `OpacityFastFadeModifier`(1),
+`HueShiftModifier`(1), `OpacityOscillator`(1), `VelocityClampModifier`(1). Four types
+(`OpacityModifier`, `RotationRateModifier`, `ColourInterpolatorModifier`, `VelocityClampModifier`)
+were entirely absent from Phase 0's list — not near-misses, genuinely new types with their own
+distinct field shapes (e.g. `OpacityModifier{Initial,Ultimate}` is a different, simpler 2-point
+lerp than `OpacityInterpolatorModifier{InitialOpacity,MiddleOpacity,FinalOpacity,MiddlePosition}`'s
+3-point piecewise curve — conflating them would have been a silent behavior bug).
+
+**Lesson logged for future phases:** an inventory built by grepping for one known-good pattern is
+only as complete as that pattern's coverage of the actual file format. This one had two blind
+spots (namespace aliasing, attribute omission) that a plain string search couldn't see. Worth
+remembering before trusting any future "search for X, count the matches" inventory in this repo.
+
+### T4.1 — XML parser
+
+`src/MightyFights.Particles/Serialization/ParticleEffectXmlLoader.cs`. Resolves all three `Type`
+attribute forms (fully-qualified, aliased, absent) via `XAttribute.IsNamespaceDeclaration` +
+matching on the trailing class-name segment only (the alias's resolved namespace URI isn't
+cross-checked against `"ProjectMercury.Emitters"` etc., since every file in this fixed set of 15
+declares those two aliases consistently and the class name alone is unambiguous here).
+**Verification:** isolated smoke test (scratch, not in the repo, same pattern as Phase 2's
+`AnimationDataLoader` verification) loaded all 15 real files, called `Initialise()` +
+`Trigger()` + 10 seconds of `Update()` on each. All 15 parsed and simulated without exception.
+
+### T4.2 — Emitter shapes, modifiers, simulation
+
+- `Emitters/CircleEmitter.cs` (`Radius`/`Ring`/`Radiate`), `ConeEmitter.cs`
+  (`Direction`/`ConeAngle`), `LineEmitter.cs` (`Length`/`Angle`/`Rectilinear`/`EmitBothWays`),
+  `RectEmitter.cs` (`Width`/`Height`/`Rotation`/`Frame`) — field sets ground-truthed against the
+  corrected inventory above, not guessed. Base `Emitter` is concrete (not abstract) since it's
+  genuinely instantiated directly 9/35 times.
+- `Modifiers/Modifier.cs` — all 16 confirmed types. **Per-frame math is a best-effort
+  reconstruction (plan's own T4.4: "roughly right look," not pixel-exact)** — field *shapes* are
+  ground-truthed against the XML, but the exact interpolation/physics formulas were never
+  available to verify against (Mercury is a dead, binary-only, upstream-gone engine — there was
+  no source to check). Anyone revisiting visual fidelity later should treat the modifier math as
+  a plausible first pass, not a verified port.
+- `Emitter.Trigger()` does a one-shot burst release of `ReleaseQuantity` particles capped by
+  `Budget - <current live count>` — real Mercury supports continuous per-frame emission gated by
+  `MinimumTriggerPeriod`, but every confirmed call site in this game (`BloodSpray`, `Buff
+  Sparkle`, `HealingCircle`, `HealerRecharge`) fires `Trigger()` once per event, not held down, so
+  burst-release matches actual usage exactly (not a simplification that costs correctness here).
+- `Particle` (public, not internal — `Modifier.Process`'s signature forced this; see the git
+  history for the `CS0051` accessibility error this caused on the first build attempt) holds
+  per-particle simulation state; `Emitter` owns a private live-particle list bounded by `Budget`.
+
+### T4.3 — DataManager wiring
+
+`DataManager.CreateParticleSystem`/`CreateTerminatingParticleSystem`: replaced
+`_cContent.Load<ParticleEffect>(...)` with `ParticleEffectXmlLoader.Load(ResolveContentPath(...,
+".xml"))` — same pattern as Phase 2's `LoadAnimationData`, reusing the same `ResolveContentPath`
+helper. `content/Particles/*.xml` added to `MightyFights.Desktop.csproj`'s raw-content copy list
+(previously only `*.json`) — confirmed by `find` that `.xml` under `content/` means exactly these
+15 particle files and nothing else, so broadening the glob is safe.
+
+### T4.4 — Soak testing (the plan's stated Phase 4 gate)
+
+Two checks, both in the same isolated smoke-test harness used for T4.1:
+1. **All 15 effects, single trigger, 10 seconds of simulation:** every effect's particles fully
+   expire (0 live at the end — `Term`/lifecycle semantics work), and peak live count never
+   exceeded the emitter's `Budget` for any effect.
+2. **Sustained repeated triggering** (`BloodSpray.xml`, 20 triggers/second for 10 seconds — well
+   above realistic combat hit-rate, deliberately harsher than the plan's own scenario): peak live
+   particle count `110` stayed under the effect's total `Budget` of `120`. Confirms the cap holds
+   under continuous load, not just a single burst — this matters because real battles trigger
+   `BloodSpray` on every hit, not once.
+
+Visually verifying the 4 trigger sites "fire visibly in-game" (the plan's other T4.4 acceptance
+criterion) isn't possible yet — the game doesn't boot end-to-end until Phase 5 closes the
+`fastJSON` gap. Logged as an open item for Phase 6's runtime parity pass (V6.4 already covers
+"particle effects trigger").
+
+**Phase 4 gate: PASS** (XML parsing and soak-testing confirmed directly; visual trigger
+confirmation deferred to Phase 6 since the game can't run yet).
 
 ---
 
@@ -515,5 +641,9 @@ closed — only Phase 5's `fastJSON` remains before the whole solution compiles 
 | T2.3 | spritefont fonts resolve | ✅ Times New Roman on Windows; Linux/web deferred to R4's stated timing |
 | T3.1 | Mercury call sites/overloads verified | ✅ done in Phase 0 T0.4 (3 corrections logged) |
 | T3.2 | game project compiles against shim, Mercury binaries gone | ✅ exceeded — only `fastJSON` (Phase 5) remains solution-wide |
+| T4.1 | all 15 effect XMLs parse | ✅ 15/15, isolated smoke test (inventory corrected: 35 emitters/5 kinds, 94 modifiers/16 kinds) |
+| T4.2 | emitter/modifier set implemented per corrected inventory | ✅ 5 emitter kinds, 16 modifier types |
+| T4.3 | 4 trigger sites + 2 Load paths wired through DataManager | ✅ `ParticleEffectXmlLoader` via `ResolveContentPath` |
+| T4.4 | trigger sites fire, no unbounded growth over a soak | ✅ bounded under 10s single + sustained 20/sec triggering; visual confirmation deferred to Phase 6 (game can't boot until Phase 5) |
 
-**Phase 0/1/2 gates: PASS.** Ready to begin Phase 3 (Particle Shim: API Definition) on request.
+**Phase 0-4 gates: PASS.** Ready to begin Phase 5 (Persistence & Serialization) on request.

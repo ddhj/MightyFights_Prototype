@@ -29,14 +29,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- PORT (Phase 2, T2.2): raw (non-MGCB) content: TexturePacker JSON source files, read
-         at runtime by MightyFights_Support.AnimationDataLoader instead of being built into
-         .xnb by the old AnimationDataEx pipeline extension (deleted). Particle XMLs (Phase 3-4)
-         will join this list once the Mercury shim reads them. Copied to the same relative path
-         under the output Content folder as the MGCB-built assets, so DataManager's
-         ResolveContentPath (Content.RootDirectory + asset key + ".json") finds them the same
-         way ContentManager finds .xnb files. See docs/PORT_NOTES.md. -->
+    <!-- PORT (Phase 2 T2.2 / Phase 4 T4.1): raw (non-MGCB) content, read directly at runtime
+         instead of being built into .xnb by the deleted Mercury/AnimationDataEx pipeline
+         extensions: TexturePacker JSON (AnimationDataLoader) and particle effect XML
+         (ParticleEffectXmlLoader). The only two extensions under content/ that aren't MGCB
+         assets, confirmed by grep, not assumed. See docs/PORT_NOTES.md. Copied to the same
+         relative path under the output Content folder as the MGCB-built assets, so
+         DataManager.ResolveContentPath (Content.RootDirectory + asset key + extension) finds
+         them the same way ContentManager finds .xnb files. -->
     <None Include="..\..\content\**\*.json" Link="Content\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\content\**\*.xml" Link="Content\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

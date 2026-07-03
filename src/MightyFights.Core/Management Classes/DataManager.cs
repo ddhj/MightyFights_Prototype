@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Media;
 using ProjectMercury;
 using ProjectMercury.Emitters;
 using ProjectMercury.Renderers;
+using ProjectMercury.Serialization;
 
 // project includes
 using MightyFights_Support;
@@ -272,7 +273,10 @@ namespace MightyFights_Prototype
 			if( _cParticles.TryGetValue( sEffect, out cEffect ))
 				cEffect = cEffect.DeepCopy( );
 			else	{
-				cEffect = _cContent.Load<ParticleEffect>( string.Format( @"Particles\{0}", sEffect ));
+				// PORT (Phase 4, T4.1/T4.3): was _cContent.Load<ParticleEffect> against a Mercury
+				// XNB -- Mercury's content pipeline extension is deleted, so this now parses the
+				// source XML directly at runtime, same pattern as LoadAnimationData in Phase 2.
+				cEffect = ParticleEffectXmlLoader.Load( ResolveContentPath( string.Format( @"Particles\{0}", sEffect ), ".xml" ));
 				// push the defined texture name into the proper directory
 				foreach( Emitter cEmitter in cEffect )
 					cEmitter.ParticleTextureAssetName = string.Format( @"Particles\{0}", cEmitter.ParticleTextureAssetName );
@@ -291,7 +295,8 @@ namespace MightyFights_Prototype
 			if( _cParticles.TryGetValue( sEffect, out cEffect ))
 				cEffect = new TerminatingParticleEffect( cEffect.DeepCopy( ));
 			else	{
-				cEffect = new TerminatingParticleEffect( _cContent.Load<ParticleEffect>( string.Format( @"Particles\{0}", sEffect )));
+				// PORT (Phase 4, T4.1/T4.3): see CreateParticleSystem above.
+				cEffect = new TerminatingParticleEffect( ParticleEffectXmlLoader.Load( ResolveContentPath( string.Format( @"Particles\{0}", sEffect ), ".xml" )));
 				// push the defined texture name into the proper directory
 				foreach( Emitter cEmitter in cEffect )
 					cEmitter.ParticleTextureAssetName = string.Format( @"Particles\{0}", cEmitter.ParticleTextureAssetName );

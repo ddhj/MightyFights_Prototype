@@ -1,46 +1,170 @@
 // system includes
 using System;
+using System.Collections.Generic;
 
 // 3rd party includes
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+// project includes
+using ProjectMercury.Modifiers;
 
 namespace ProjectMercury.Emitters
 {
-	//// PORT (Phase 3, T3.2): Mercury's Emitter base class. Confirmed by grep (port plan T0.4 /
-	//// docs/PORT_NOTES.md "T0.4 -- Mercury API surface") that game code only ever touches
-	//// Term and ParticleTextureAssetName -- everything else (Budget, ReleaseQuantity/Speed/
-	//// Colour/Opacity/Scale, Modifiers, BlendMode, TriggerOffset, etc.) is XML-authored tuning
-	//// data, never read or written from C#. Phase 4 (Effect Loading & Simulation) adds the
-	//// concrete subtypes (CircleEmitter/ConeEmitter/LineEmitter/RectEmitter -- see the emitter
-	//// inventory in PORT_NOTES.md Phase 0) and the actual simulation data/logic; this class is
-	//// deliberately minimal for now, just enough for the 17 Mercury-touching files to compile
-	//// unchanged against it (Phase 3's gate).
+	//// PORT (Phase 3 T3.2 / Phase 4 T4.1-T4.2): Mercury's Emitter. Phase 3 defined the members
+	//// game code touches directly (Name, ParticleTextureAssetName, Term); Phase 4 adds the full
+	//// XML-authored tuning data and the actual simulation (spawn/age/modify/cull), ground-truthed
+	//// against the corrected emitter/field inventory in docs/PORT_NOTES.md Phase 4. Used
+	//// directly (no Type attribute in the XML) 9 times across the 15 files -- a plain,
+	//// shapeless point emitter is a real, common case, not a fallback -- so this class is
+	//// concrete/instantiable, not abstract.
 	public class Emitter
 	{
 		public string Name { get; set; }
 		public string ParticleTextureAssetName { get; set; }
 		public float Term { get; set; }
+		public bool Enabled { get; set; } = true;
+
+		public int Budget { get; set; } = 100;
+		public int ReleaseQuantity { get; set; } = 1;
+		public float MinimumTriggerPeriod { get; set; }
+		public string BlendMode { get; set; } = "Alpha";
+		public Vector2 TriggerOffset { get; set; }
+		public Vector2 ReleaseImpulse { get; set; }
+
+		public FloatRange ReleaseSpeed { get; set; }
+		public ColourRange ReleaseColour { get; set; } = new ColourRange { Value = Vector3.One };
+		public FloatRange ReleaseOpacity { get; set; } = new FloatRange { Value = 1f };
+		public FloatRange ReleaseScale { get; set; } = new FloatRange { Value = 1f };
+		public FloatRange ReleaseRotation { get; set; }
+
+		public List<Modifier> Modifiers { get; set; } = new List<Modifier>();
 
 		// Populated by ParticleEffect.LoadContent() resolving ParticleTextureAssetName. Internal
-		// because no game code reads it directly today; the Phase 4 SpriteBatchRenderer will.
+		// because no game code reads it directly; the SpriteBatchRenderer does.
 		internal Texture2D ParticleTexture { get; set; }
 
-		// Whether this emitter is actively releasing particles (XML "Enabled" field). Not
-		// currently read from C#, but needed by Phase 4's simulation loop -- declared now so
-		// Phase 4 doesn't need to touch this class's public surface.
-		public bool Enabled { get; set; } = true;
+		List<Particle> _cLiveParticles = new List<Particle>();
+		static readonly Random s_cRand = new Random();
 
 		public Emitter()
 		{
 		}
 
-		//// PORT note for Phase 4: once Modifiers/reference-typed tuning data are added here,
-		//// revisit ParticleEffect.DeepCopy()'s per-emitter clone -- it currently relies on
-		//// MemberwiseClone, which is only correct while every field on this class is a value
-		//// type or immutable (string).
+		//// Releases ReleaseQuantity new particles at tPosition (+TriggerOffset), respecting
+		//// Budget. Real Mercury supports continuous per-frame emission gated by
+		//// MinimumTriggerPeriod; every confirmed call site in this game (BloodSpray, Buff
+		//// Sparkle, HealingCircle, HealerRecharge -- see docs/PORT_NOTES.md) fires Trigger()
+		//// once per event rather than holding it down, so a single burst-release per call is
+		//// sufficient and matches actual usage (T4.4: best-effort, not pixel-exact).
+		public void Trigger(Vector2 tPosition)
+		{
+			if (!Enabled)
+				return;
+
+			Vector2 tOrigin = tPosition + TriggerOffset;
+			int iSpawnCount = Math.Min(ReleaseQuantity, Math.Max(0, Budget - _cLiveParticles.Count));
+
+			for (int i = 0; i < iSpawnCount; ++i)
+				_cLiveParticles.Add(SpawnParticle(tOrigin));
+		}
+
+		//// Shape-specific spawn position/velocity. Base Emitter (no XML Type attribute) has no
+		//// shape at all: particles release from tOrigin itself, direction driven purely by
+		//// ReleaseImpulse/ReleaseRotation -- confirmed correct by field inventory (base-Emitter
+		//// XML entries never include Radius/Direction/Length/Width, only the common release
+		//// fields).
+		protected virtual Particle SpawnParticle(Vector2 tOrigin)
+		{
+			return NewParticle(tOrigin, ReleaseImpulse);
+		}
+
+		protected Particle NewParticle(Vector2 tPosition, Vector2 tBaseVelocity)
+		{
+			float fSpeed = ReleaseSpeed.Sample(s_cRand);
+			float fAngle = (float)(s_cRand.NextDouble() * MathHelper.TwoPi);
+			Vector2 tVelocity = tBaseVelocity + new Vector2((float)Math.Cos(fAngle), (float)Math.Sin(fAngle)) * fSpeed;
+
+			return new Particle
+			{
+				Position = tPosition,
+				Velocity = tVelocity,
+				Rotation = ReleaseRotation.Sample(s_cRand),
+				RotationRate = 0f,
+				Colour = ReleaseColour.Sample(s_cRand),
+				Opacity = ReleaseOpacity.Sample(s_cRand),
+				Scale = ReleaseScale.Sample(s_cRand),
+				Age = 0f,
+				Term = Term,
+			};
+		}
+
+		public void Update(float fElapsedSeconds)
+		{
+			for (int i = _cLiveParticles.Count - 1; i >= 0; --i)
+			{
+				Particle cParticle = _cLiveParticles[i];
+
+				cParticle.Age += fElapsedSeconds;
+				if (cParticle.IsExpired)
+				{
+					_cLiveParticles.RemoveAt(i);
+					continue;
+				}
+
+				cParticle.Position += cParticle.Velocity * fElapsedSeconds;
+
+				foreach (Modifier cModifier in Modifiers)
+					cModifier.Process(fElapsedSeconds, ref cParticle);
+
+				_cLiveParticles[i] = cParticle;
+			}
+		}
+
+		internal IReadOnlyList<Particle> LiveParticles => _cLiveParticles;
+
+		//// Public on purpose (unlike LiveParticles) -- useful for a debug HUD or the kind of
+		//// "no unbounded particle growth" soak-test monitoring the port plan's T4.2 gate calls
+		//// for, without exposing per-particle simulation internals.
+		public int LiveParticleCount => _cLiveParticles.Count;
+
+		//// PORT note for Phase 4 (was a Phase 3 stub, now real): clones tuning data plus a
+		//// fresh (empty) live-particle buffer -- DeepCopy hands out independent per-battle
+		//// instances of a cached effect template, so simulation state must not be shared.
 		internal virtual Emitter ShallowClone()
 		{
-			return (Emitter)this.MemberwiseClone();
+			Emitter cClone = (Emitter)this.MemberwiseClone();
+			cClone._cLiveParticles = new List<Particle>();
+			cClone.Modifiers = new List<Modifier>(this.Modifiers);
+			return cClone;
+		}
+	}
+
+	//// Value/Variation pair, matches the <Value>/<Variation> XML sub-elements used by
+	//// ReleaseSpeed/ReleaseOpacity/ReleaseScale/ReleaseRotation.
+	public struct FloatRange
+	{
+		public float Value;
+		public float Variation;
+
+		public float Sample(Random cRand)
+		{
+			return Value + ((float)cRand.NextDouble() * 2f - 1f) * Variation;
+		}
+	}
+
+	//// Same Value/Variation shape as FloatRange, but per-channel (RGB), for ReleaseColour.
+	public struct ColourRange
+	{
+		public Vector3 Value;
+		public Vector3 Variation;
+
+		public Vector3 Sample(Random cRand)
+		{
+			return new Vector3(
+				Value.X + ((float)cRand.NextDouble() * 2f - 1f) * Variation.X,
+				Value.Y + ((float)cRand.NextDouble() * 2f - 1f) * Variation.Y,
+				Value.Z + ((float)cRand.NextDouble() * 2f - 1f) * Variation.Z);
 		}
 	}
 }

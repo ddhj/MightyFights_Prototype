@@ -50,16 +50,17 @@ namespace ProjectMercury
 
 		public virtual void Update(float fElapsedSeconds)
 		{
-			// Phase 4: advance each emitter's live particles. No particle state is simulated
-			// yet at this phase -- see Emitters/Emitter.cs.
+			foreach (Emitter cEmitter in this)
+				cEmitter.Update(fElapsedSeconds);
 		}
 
 		//// Triggers a one-shot release of particles at the given world position. Confirmed 4
 		//// call sites (BloodSpray, Buff Sparkle, HealingCircle, HealerRecharge -- see
-		//// docs/PORT_NOTES.md). Phase 4 implements the actual spawn; Phase 3 just needs the
-		//// call site to resolve.
+		//// docs/PORT_NOTES.md).
 		public virtual void Trigger(Vector2 tPosition)
 		{
+			foreach (Emitter cEmitter in this)
+				cEmitter.Trigger(tPosition);
 		}
 
 		//// Stops any further particle release (confirmed 2 call sites in BObjectManager.cs /
