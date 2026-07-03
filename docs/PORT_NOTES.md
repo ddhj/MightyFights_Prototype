@@ -770,10 +770,16 @@ interactions (Company/Knight/Template editor), sliders, and clickables still to 
 
 ### Music / audio (V6.1 "music plays", V6.4 SFX)
 
-`CreateMusic(...)` (which `Content.Load<Song>` an MP3) IS called on entering every scene regardless
-of `bPlayMusic`, and reaching Camp did not throw — so **MP3/Song loading works under MonoGame**
-(landmine §4.1 partially cleared). Playback is still unverified because `bPlayMusic` is false in the
-debug boot. Verifying actual audio output requires a human listener; flip `bPlayMusic = true` to test.
+`CreateMusic(...)` (which `Content.Load<Song>` an MP3) is called on entering every scene, and
+`bPlayMusic` was flipped to `true` in the debug boot to test playback. **Owner confirmed music plays
+audibly on the title screen — so MP3/Song loading AND playback both work under MonoGame** (landmine
+§4.1 fully cleared). SFX (V6.4: crit sounds, heals) not yet verified.
+
+**Follow-up (deferred, not an audio bug):** the owner noted the *tracks* may be wrong — the title
+currently plays `\TitleScreen\wodyn#3`, but the intended first/title theme should be something like
+"woden". The engine is playing exactly the asset it's asked for, so this is a content-mapping /
+which-file-per-scene question (possibly an original-project asset naming quirk, not a port
+regression), tracked separately. See the task list.
 
 ---
 

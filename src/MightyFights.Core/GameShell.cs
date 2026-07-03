@@ -66,7 +66,7 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cRSteward.cTemplates[2].sTemplateName = "RT2";
 
 			// global toggles 
-			DataStore.cInstance.bPlayMusic = false;
+			DataStore.cInstance.bPlayMusic = true;		//// ddhj: was false in debug boot; enabled in Phase 6 to verify Song/MP3 playback (V6.1). Toggle back if you want silent dev runs.
 			DataStore.cInstance.bDamageNumbers = true;
 			DataStore.cInstance.bHealSpots = false;
 			DataStore.cInstance.bLifeBars = false;
