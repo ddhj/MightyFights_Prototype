@@ -1,0 +1,158 @@
+File,Line,Type,AssetExpr,IsDynamic
+"MightyFights_Prototype/GameShell.cs",112,"SpriteFont","@""Shared\DebugFont""",literal
+"MightyFights_Prototype/Management Classes/DataManager.cs",60,"AnimationData","cTemplateData.sTrooperType",dynamic
+"MightyFights_Prototype/Management Classes/DataManager.cs",65,"Texture2D","cTemplateData.sColor",dynamic
+"MightyFights_Prototype/Management Classes/DataManager.cs",103,"AnimationData","@""Sprite Data\Chaplain\ChaplainArray""",literal
+"MightyFights_Prototype/Management Classes/DataManager.cs",108,"Texture2D","@""Sprite Data\Chaplain\Chaplain""",literal
+"MightyFights_Prototype/Management Classes/DataManager.cs",127,"AnimationData","@""In Game\Buffs\DropsArray""",literal
+"MightyFights_Prototype/Management Classes/DataManager.cs",132,"Texture2D","@""In Game\Buffs\Drops""",literal
+"MightyFights_Prototype/Management Classes/DataManager.cs",151,"AnimationData","@""In Game\Buffs\GemsArray""",literal
+"MightyFights_Prototype/Management Classes/DataManager.cs",156,"Texture2D","@""In Game\Buffs\Gems""",literal
+"MightyFights_Prototype/Management Classes/DataManager.cs",173,"AnimationData","@""In Game\Buffs\GemsArray""",literal
+"MightyFights_Prototype/Management Classes/DataManager.cs",178,"Texture2D","@""In Game\Buffs\Gems""",literal
+"MightyFights_Prototype/Management Classes/DataManager.cs",195,"Texture2D","sAnimalTex",dynamic
+"MightyFights_Prototype/Management Classes/DataManager.cs",214,"AnimationData","@""In Game\Buffs\DropsArray""",literal
+"MightyFights_Prototype/Management Classes/DataManager.cs",219,"Texture2D","@""In Game\Buffs\Drops""",literal
+"MightyFights_Prototype/Management Classes/DataManager.cs",239,"AnimationData","@""In Game\Buffs\DropsArray""",literal
+"MightyFights_Prototype/Management Classes/DataManager.cs",244,"Texture2D","@""In Game\Buffs\Drops""",literal
+"MightyFights_Prototype/Management Classes/DataManager.cs",261,"ParticleEffect"," string.Format( @""Particles\{0}"", sEffect ",dynamic
+"MightyFights_Prototype/Management Classes/DataManager.cs",280,"ParticleEffect"," string.Format( @""Particles\{0}"", sEffect ",dynamic
+"MightyFights_Prototype/Management Classes/DataManager.cs",299,"Song"," string.Format( @""Music\{0}"", sSong ",dynamic
+"MightyFights_Prototype/Management Classes/DataManager.cs",312,"SoundEffect"," string.Format( @""SFX\{0}"", sSfx ",dynamic
+"MightyFights_Prototype/Scenes/InGame/Battlegrounds/Basic/BattleGround_Basic.cs",303,"Texture2D","@""In Game\Buffs\ItemBox""",literal
+"MightyFights_Prototype/Scenes/InGame/Battlegrounds/Basic/BattleGround_Basic.cs",310,"Texture2D","@""In Game\Buffs\ItemBox""",literal
+"MightyFights_Prototype/Scenes/InGame/Battlegrounds/Basic/BattleGround_Basic.cs",317,"Texture2D","@""In Game\Buffs\ItemBox""",literal
+"MightyFights_Prototype/Scenes/InGame/Battlegrounds/Basic/BattleGround_Basic.cs",324,"Texture2D","@""In Game\Buffs\ItemBox""",literal
+"MightyFights_Prototype/Scenes/InGame/Battlegrounds/Basic/BattleGround_Basic.cs",331,"Texture2D","@""In Game\Buffs\ItemBox""",literal
+"MightyFights_Prototype/Scenes/InGame/Battlegrounds/Basic/BattleGround_Basic.cs",338,"Texture2D","@""In Game\Buffs\ItemBox""",literal
+"MightyFights_Prototype/Scenes/InGame/Battlegrounds/Basic/BattleGround_Basic.cs",345,"Texture2D","@""In Game\Buffs\ItemBox""",literal
+"MightyFights_Prototype/Scenes/InGame/Battlegrounds/Basic/BattleGround_Basic.cs",352,"Texture2D","@""In Game\Buffs\ItemBox""",literal
+"MightyFights_Prototype/Scenes/InGame/Battlegrounds/Basic/BattleGround_Basic.cs",410,"Texture2D","@""Backgrounds\dirt_grass 800x436""",literal
+"MightyFights_Prototype/Scenes/InGame/Battlegrounds/Basic/BattleGround_Basic.cs",411,"Texture2D","@""In Game\Hud\border_jackson""",literal
+"MightyFights_Prototype/Scenes/InGame/Battlegrounds/Basic/BattleGround_Basic.cs",475,"Texture2D","@""Shared\arrow_cursor""",literal
+"MightyFights_Prototype/Scenes/InGame/Battlegrounds/Basic/BattleGround_Basic.cs",484,"SpriteFont","@""Shared\TestFon""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Camp.cs",90,"Texture2D","@""In Game\Camp\ground""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Camp.cs",91,"SpriteFont","@""Shared\DebugFont""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Camp.cs",98,"Texture2D","@""In Game\Camp\barracks""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Camp.cs",99,"Texture2D","@""In Game\Camp\Captain's_house""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Camp.cs",100,"Texture2D","@""In Game\Camp\smith""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Camp.cs",101,"Texture2D","@""In Game\Camp\supply hut""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Camp.cs",102,"Texture2D","@""In Game\Camp\surgeon_tent""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Camp.cs",103,"Texture2D","@""In Game\Camp\wagon""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Camp.cs",107,"Texture2D","@""In Game\Camp\KnightMenu\knight_guy""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Camp.cs",120,"Texture2D","@""In Game\Camp\SmithMenu\smith_guy""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Camp.cs",132,"Texture2D","@""In Game\Camp\picard_guy""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Camp.cs",144,"Texture2D","@""Shared\gauntlet_cursor""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/CampClickables.cs",45,"Texture2D","@""In Game\Camp\KnightMenu\knight_box""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",64,"Texture2D","@""In Game\Camp\Company Dialog\company_name""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",76,"Texture2D","@""In Game\Camp\Company Dialog\size_box""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",88,"Texture2D","@""In Game\Camp\Company Dialog\click_to_drag""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",100,"Texture2D","@""Shared\company_arrowupx""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",112,"Texture2D","@""In Game\Camp\Company Dialog\reset_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",124,"Texture2D","@""In Game\Camp\Company Dialog\template_arrow_left""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",136,"Texture2D","@""In Game\Camp\Company Dialog\template_arrow_right""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",148,"Texture2D","@""In Game\Camp\Company Dialog\grid_arrow_left""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",160,"Texture2D","@""In Game\Camp\Company Dialog\grid_arrow_right""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",177,"Texture2D","sCompanyBoxTex",dynamic
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",178,"Texture2D","sCompanyBoxTexAlt",dynamic
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",189,"Texture2D","tCompany.Key",dynamic
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",207,"Texture2D","@""Shared\company_arrowdownx""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",245,"Texture2D","@""In Game\Camp\Template\TemplateSelect""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",257,"Texture2D","@""In Game\Camp\Template\TemplateSelect""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",269,"Texture2D","@""In Game\Camp\Template\TemplateSelect""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",281,"Texture2D","@""In Game\Camp\Template\TemplateSelect""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",293,"AnimationData","@""Sprite Data\Troopers\Halberd\Front Facing\frontarray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",295,"Texture2D","@""Sprite Data\Troopers\Halberd\Front Facing\front""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/CompnayMenu.cs",303,"Texture2D","@""In Game\Camp\Company Dialog\icon_window""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/Objects/CompanyBox.cs",34,"SpriteFont","@""Shared\smallfont""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/Objects/CompanyBox.cs",35,"Texture2D","@""In Game\Camp\Company Dialog\CompanySelect""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/Objects/CompanyBox.cs",40,"SpriteFont","@""Shared\smallfont""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/Objects/CompanyBox.cs",41,"Texture2D","@""In Game\Camp\Company Dialog\CompanySelect""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Company Menu/Objects/IconGrid.cs",58,"Texture2D","sIconResource",dynamic
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Knight Menu/KnightMenu.cs",38,"Texture2D","@""In Game\Camp\KnightMenu\captain_button""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Knight Menu/KnightMenu.cs",51,"Texture2D","@""In Game\Camp\KnightMenu\company_button""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Knight Menu/KnightMenu.cs",64,"Texture2D","@""In Game\Camp\KnightMenu\dialogue_button""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Knight Menu/KnightMenu.cs",77,"Texture2D","@""In Game\Camp\KnightMenu\template_button""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Knight Menu/KnightMenu.cs",123,"Texture2D","@""In Game\Camp\Template\template_window""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Knight Menu/KnightMenu.cs",139,"Texture2D","@""In Game\Camp\Template\template_select_window""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Knight Menu/KnightMenu.cs",168,"Texture2D","@""In Game\Camp\Company Dialog\company_window""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/MenuObjects.cs",210,"SpriteFont","@""Shared\TestFon""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/MenuObjects.cs",216,"Texture2D","cIcon.sTexName",dynamic
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/MenuObjects.cs",230,"Texture2D","cIcon.sTexName",dynamic
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Objects/TemplateThumbnail.cs",37,"AnimationData","@""Sprite Data\Troopers\Halberd\Front Facing\frontarray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Objects/TemplateThumbnail.cs",39,"Texture2D","@""Sprite Data\Troopers\Halberd\Front Facing\front""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Objects/TemplateThumbnail.cs",44,"SpriteFont","@""Shared\smallfont""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Objects/TemplateThumbnail.cs",59,"Texture2D","@""In Game\Camp\Template\template_window""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Objects/TemplateThumbnail.cs",106,"AnimationData","@""Sprite Data\Troopers\Halberd\Front Facing\frontarray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Objects/TemplateThumbnail.cs",108,"Texture2D","@""Sprite Data\Troopers\Halberd\Front Facing\front""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Objects/TemplateThumbnail.cs",113,"SpriteFont","@""Shared\smallfont""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",159,"SpriteFont","@""Shared\TestFon""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",162,"Texture2D","@""In Game\Camp\Template\frame""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",173,"Texture2D","@""In Game\Camp\Template\combinations""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",184,"Texture2D","@""In Game\Camp\Template\acts of prowess""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",195,"Texture2D","@""In Game\Camp\Template\battle mastery""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",206,"Texture2D","@""In Game\Camp\Template\template_name""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",218,"AnimationData","@""In Game\Camp\Template\AtkPowerArray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",219,"Texture2D","@""In Game\Camp\Template\AtkPower""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",224,"AnimationData","@""In Game\Camp\Template\AtkSpeedArray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",225,"Texture2D","@""In Game\Camp\Template\AtkSpeed""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",229,"AnimationData","@""In Game\Camp\Template\HitPointsArray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",230,"Texture2D","@""In Game\Camp\Template\HitPoints""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",235,"AnimationData","@""In Game\Camp\Template\MoveSpeedArray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",236,"Texture2D","@""In Game\Camp\Template\MoveSpeed""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",240,"AnimationData","@""In Game\Camp\Template\TopSlidersArray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",241,"Texture2D","@""In Game\Camp\Template\TopSliders""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",250,"AnimationData","@""In Game\Camp\Template\BottomSlidersArray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",251,"Texture2D","@""In Game\Camp\Template\BottomSliders""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",261,"Texture2D","@""In Game\Camp\Template\Left Arrow Large""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",268,"Texture2D","@""In Game\Camp\Template\Right Arrow Large""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",274,"AnimationData","@""Sprite Data\Troopers\Halberd\Front Facing\frontarray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",275,"Texture2D","@""Sprite Data\Troopers\Halberd\Front Facing\front""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",282,"Texture2D","@""In Game\Camp\Template\tremble and fear_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",283,"Texture2D","@""In Game\Camp\Template\tremble and fear""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",295,"Texture2D","@""In Game\Camp\Template\safe guard_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",296,"Texture2D","@""In Game\Camp\Template\safe guard""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",308,"Texture2D","@""In Game\Camp\Template\extra health_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",309,"Texture2D","@""In Game\Camp\Template\extra health""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",321,"Texture2D","@""In Game\Camp\Template\brave heart_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",322,"Texture2D","@""In Game\Camp\Template\brave heart""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",334,"Texture2D","@""In Game\Camp\Template\eat my dust_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",335,"Texture2D","@""In Game\Camp\Template\eat my dust""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",347,"Texture2D","@""In Game\Camp\Template\absorb damage_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",348,"Texture2D","@""In Game\Camp\Template\absorb damage""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",360,"Texture2D","@""In Game\Camp\Template\tough enough_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",361,"Texture2D","@""In Game\Camp\Template\tough enough""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",373,"Texture2D","@""In Game\Camp\Template\counter attack_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",374,"Texture2D","@""In Game\Camp\Template\counter attack""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",386,"Texture2D","@""In Game\Camp\Template\chip blade_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",387,"Texture2D","@""In Game\Camp\Template\chip blade""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",399,"Texture2D","@""In Game\Camp\Template\big time_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",400,"Texture2D","@""In Game\Camp\Template\big time""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",414,"Texture2D","@""In Game\Camp\Template\bleed_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",415,"Texture2D","@""In Game\Camp\Template\bleed""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",427,"Texture2D","@""In Game\Camp\Template\don't bleed_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",428,"Texture2D","@""In Game\Camp\Template\don't bleed""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",440,"Texture2D","@""In Game\Camp\Template\flee!_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",441,"Texture2D","@""In Game\Camp\Template\flee!""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",453,"Texture2D","@""In Game\Camp\Template\atkx2_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",454,"Texture2D","@""In Game\Camp\Template\atkx2""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",466,"Texture2D","@""In Game\Camp\Template\atkx3_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",467,"Texture2D","@""In Game\Camp\Template\atkx3""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",479,"Texture2D","@""In Game\Camp\Template\crit chance up_gray""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/Template.cs",480,"Texture2D","@""In Game\Camp\Template\crit chance up""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/TemplateSelect.cs",67,"Texture2D","@""In Game\Camp\Template\TemplateSelect""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/TemplateSelect.cs",84,"Texture2D","@""Shared\company_arrowdownx""",literal
+"MightyFights_Prototype/Scenes/InGame/Camp/Objects/Menus/Template/TemplateSelect.cs",95,"Texture2D","@""Shared\company_arrowupx""",literal
+"MightyFights_Prototype/Scenes/InGame/Map/Map.cs",88,"Texture2D","@""In Game\Map\littlemap""",literal
+"MightyFights_Prototype/Scenes/InGame/Map/Map.cs",89,"SpriteFont","@""Shared\DebugFont""",literal
+"MightyFights_Prototype/Scenes/InGame/Map/Map.cs",96,"Texture2D","@""Shared\gauntlet_cursor""",literal
+"MightyFights_Prototype/Scenes/OutGame/TitleScreen/TitleScreen.cs",89,"Texture2D","@""Out Game\TitleScreen\wodyn_title""",literal
+"MightyFights_Prototype/Scenes/OutGame/TitleScreen/TitleScreen.cs",92,"Texture2D","@""Shared\arrow_cursor""",literal
+"MightyFights_Prototype/Scenes/OutGame/TitleScreen/TitleScreen.cs",101,"Texture2D","@""Out Game\TitleScreen\play_game00""",literal
+"MightyFights_Prototype/Scenes/OutGame/TitleScreen/TitleScreen.cs",107,"Texture2D","@""Out Game\TitleScreen\play_game01""",literal
+"MightyFights_Prototype/Scenes/OutGame/TitleScreen/TitleScreen.cs",115,"Texture2D","@""Out Game\TitleScreen\options00""",literal
+"MightyFights_Prototype/Scenes/OutGame/TitleScreen/TitleScreen.cs",121,"Texture2D","@""Out Game\TitleScreen\options01""",literal
+"MightyFights_Prototype/Scenes/OutGame/TitleScreen/TitleScreen.cs",129,"Texture2D","@""Out Game\TitleScreen\view_legends00""",literal
+"MightyFights_Prototype/Scenes/OutGame/TitleScreen/TitleScreen.cs",135,"Texture2D","@""Out Game\TitleScreen\view_legends01""",literal
+"MightyFights_Prototype/Scenes/OutGame/TitleScreen/TitleScreen.cs",143,"Texture2D","@""Out Game\TitleScreen\quit_exit""",literal
+"MightyFights_Prototype/Scenes/OutGame/TitleScreen/TitleScreen.cs",150,"Texture2D","@""Out Game\TitleScreen\sword""",literal
