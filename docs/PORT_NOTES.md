@@ -136,6 +136,148 @@ explicitly skip this file.
 
 ---
 
+## Phase 1 — Solution Modernization
+
+**Status: COMPLETE.** Build attempted per T1.5; failure list is confined to the two expected
+symbol classes (Mercury, persistence) plus zero unexpected classes once one large undocumented
+discovery (WinForms debug tooling, below) was dispositioned. Gate: PASS.
+
+### T1.1 — New SDK-style solution
+
+- `MightyFights.sln` created at repo root, **forced to classic `.sln` format** (`dotnet new sln
+  -f sln`) — the .NET 10 SDK installed here defaults `dotnet new sln` to the newer XML `.slnx`
+  format, which the plan's target structure (§2) doesn't anticipate. Went with classic format to
+  match the plan's literal `MightyFights.sln` naming and for the broadest tooling compatibility;
+  revisit if the team standardizes on `.slnx` later — it's a non-breaking switch either way.
+- `src/MightyFights.Core/MightyFights.Core.csproj`: `net8.0`, `LangVersion latest`, `Nullable
+  disable`, `ImplicitUsings disable` (legacy code already has full explicit usings), `RootNamespace
+  MightyFights_Prototype` to match the original flat namespace (per CLAUDE.md's "Namespaces" note).
+- `src/MightyFights.Desktop/MightyFights.Desktop.csproj`: `net8.0` `WinExe` head, single
+  `Program.cs`, `ProjectReference` to Core.
+- **Deviation from plan §2's "bait-and-switch" framework reference:** `MightyFights.Core`
+  references `MonoGame.Framework.DesktopGL` (pinned `3.8.4.1`, latest stable 3.8.x on NuGet as of
+  2026-07-02) **directly**, not via the head project. Plan §2 explicitly allows this as the
+  "simplification option" ("if the Core/head split fights the tooling, collapse... splitting early
+  is preferred"). Chose direct reference over building a real bait-and-switch facade now because
+  the facade pattern only pays for itself once a second framework package (KNI for Phase 7) exists
+  to switch to; building it speculatively before Phase 7 would be premature architecture. **Action
+  for T7.1:** Core's `PackageReference` will need to become conditional (TargetFramework- or
+  property-gated) when the KNI web head is added, per G2.
+
+### T1.2 — Source copy
+
+- Copied `MightyFights_Prototype/MightyFights_Prototype/**/*.cs` (73 files) and
+  `MightyFights_Support/*.cs` (excluding `AnimDataReader.cs` — the ContentTypeReader plumbing, per
+  the plan's explicit T1.2 instruction) into `MightyFights.Core`, preserving the original folder
+  layout. `MightyFights_Support/SupportClasses.cs` (the actual `AnimationData`/`Frame`/
+  `ActionData`/`KeyFrame` data model, as opposed to the XNB-reading plumbing) landed at
+  `src/MightyFights.Core/Support/SupportClasses.cs`.
+- Both projects' `Properties/AssemblyInfo.cs` were excluded — SDK-style projects generate assembly
+  info from `.csproj` properties (`GenerateAssemblyInfo`), so carrying the old files forward would
+  conflict.
+- The stray `.orig` file flagged in Phase 0 was naturally excluded (glob is `*.cs`, not `*.cs.orig`).
+- **Found and removed a duplicate `Program.cs`:** the original game project has a top-level
+  `Program.cs` (guarded `#if WINDOWS || XBOX`, so it was always inert dead code even in the XNA
+  build) that got swept into the bulk copy since it's a loose file outside any subfolder. Removed
+  it from `MightyFights.Core` — the entry point belongs solely in `MightyFights.Desktop`
+  (per target structure §2: "Program.cs only"), not in the shared library.
+- Net file count in `MightyFights.Core`: 73 copied − 1 (dead `Program.cs`) − 6 (WinForms dialogs,
+  below) + 1 (`ExperienceTally.cs`, extracted from `StatsDialog`, see below) = **67 source files**.
+
+### T1.4 — Framework reference cleanup
+
+- Removed `using Microsoft.Xna.Framework.GamerServices;` from the 2 files that had it
+  (`GameShell.cs`, `Support/SupportClasses.cs`) — zero call sites existed, matching plan §1.
+- Guarded the single `GamePad.GetState(...)` call site in `GameShell.cs` behind `#if !BLAZORGL`
+  per the plan's suggested option (guard, don't delete) — MonoGame DesktopGL supports GamePad
+  natively so Desktop behavior is unchanged; the guard just documents that Phase 7 (KNI BlazorGL)
+  may need to revisit it.
+- Found and removed **6 more stray, unused `using System.Windows.Forms;`** (and one unused
+  `using System.Drawing;` in `TitleScreen.cs`) across `TitleScreen.cs`, `Template.cs`,
+  `TemplateSelect.cs`, `CompanyBox.cs`, `TemplateThumbnail.cs` — zero call sites in any of these
+  five, just leftover usings. Not called out in plan §1's framework-refs table (which only
+  mentions GamerServices/Avatar/Net/Xact) — logged here since they'd otherwise still be a compile
+  error (the assembly isn't referenced) even though the code never called into them.
+
+### WinForms debug tooling — undocumented discovery, dispositioned
+
+**Not in CLAUDE.md or the port plan's §1 facts table at all.** Three full WinForms `Form`
+subclasses are compiled directly into the original game project and wired into real (if
+debug-only) gameplay flow:
+
+- **`StatsDialog`** (`Scenes/InGame/Dialogs/`, 65 + 3325-line designer) — post-battle
+  experience/stats viewer. Constructed in `BattleGround_Basic.Init()`, shown via
+  `_cDlg.ShowDialog()` on middle-click at the victory screen, `InitGridData()` called when a team
+  is wiped. **Correction:** `InitGridData()` wasn't pure display — it also aggregated each
+  trooper's `ExperienceData` into six per-template buckets and two team totals (via
+  `ExperienceData.operator+`). That's working balance bookkeeping, not UI, so it doesn't get to be
+  dropped under "debug tooling, no gameplay changes." Extracted verbatim into a new
+  framework-agnostic `Support Classes/ExperienceTally.cs` (see below).
+- **`DebugData`** (86 + 187 lines) — checkbox panel toggling `DataStore` debug flags (life bars,
+  damage numbers, heal spots, battle-zone display, slow-mo, music, show-background). Opened via a
+  **`System.Windows.Forms.Button` glued directly onto the XNA window's native HWND** —
+  `System.Windows.Forms.Control.FromHandle(DataStore.cInstance.cGame.Window.Handle).Controls.Add(...)`
+  — the classic XNA-era trick for overlaying native controls on the game window.
+- **`CapCompTempEditor`** (82 + 469 lines) — company/template editor opened from the Camp's Knight
+  Menu "Company" button. Its own OK-button handler is an empty `// TODO` stub — **the original
+  author never finished wiring it up**, so removing it has zero functional cost.
+- Also: `System.Windows.Forms.MessageBox.Show(xEx.ToString())` for exception display in
+  `BattleGround_Basic.Init()`'s catch block.
+
+The dialogs themselves are exclusively debug/dev UI, not gameplay — but `StatsDialog` had the
+experience-bookkeeping side effect noted above, which is gameplay-adjacent and had to be preserved
+separately. All three are Windows-only, HWND-dependent code that **cannot** compile into
+`MightyFights.Core`, which needs to build for Linux/macOS (gate V6.7) and eventually Blazor/WASM
+(Phase 7) where `System.Windows.Forms` doesn't exist at all.
+
+**Asked the user for a disposition** (strip now / Windows-only debug module / delete outright);
+got no response in the window available, so **proceeded with the recommended option** per the
+question's own framing: stripped the 3 dialogs from `MightyFights.Core`'s build (the 6 source
+files still exist untouched under the historical `MightyFights_Prototype/` tree — nothing was
+deleted from the repo, only excluded from the new build), and guarded the call sites:
+- `BattleGround_Basic.cs`: removed the 3 dialog/button fields + `_eOldState`, the construction/
+  wiring block, the HWND button-add/remove, and swapped `MessageBox.Show` for
+  `System.Diagnostics.Debug.WriteLine`. `_cDlg.InitGridData()` was replaced with a call into the
+  new `ExperienceTally` (see above) rather than deleted outright, since it was live bookkeeping.
+  `_cDlg.ShowDialog()` (the middle-click stats view) was removed with no replacement — that one
+  really was pure display. All changes marked `// PORT (T1.5):` with a pointer back to this section.
+- `BattleGround_Basic_Events.cs`: removed `_cDebugButton_Click`, `_cDlg_Shown`, `_cDlg_FormClosed`.
+- `KnightMenu.cs`: commented out the `CapCompTempEditor` call (folded into the original author's
+  own pre-existing commented-out alternate implementation right below it, rather than deleting).
+
+**This is a real, revisit-worthy open item, not a closed decision** — surface it back to the user.
+The stats *display* (`StatsDialog`'s grid UI) has no replacement yet; if wanted later (e.g. an
+ImGui.NET debug overlay), that's new scope not currently in any phase of the plan. The
+bookkeeping it did along the way is safe — `ExperienceTally` runs every battle end same as before.
+
+### T1.5 — Build attempt
+
+`dotnet build MightyFights.sln` produces exactly **41 errors, all `CS0246` ("type or namespace
+not found")**, resolving to exactly 5 symbols:
+
+| Symbol | Occurrences | Class |
+|---|---|---|
+| `ProjectMercury` (namespace) | 29 | Mercury (Phase 3–4) |
+| `ParticleEffect` | 9 | Mercury (Phase 3–4) |
+| `ParticleEffectManager` | 1 | Mercury (Phase 3–4) |
+| `Renderer` | 1 | Mercury (Phase 3–4) |
+| `fastJSON` | 1 | Persistence (Phase 5) |
+
+Zero `AnimationData`-related errors, and zero errors outside the Mercury/persistence classes.
+**Note on `AnimationData`:** the plan's T1.5 listed it as an expected failure class, but in
+practice the data-model types (`AnimationData`/`Frame`/`ActionData`/`KeyFrame`, copied intact from
+`SupportClasses.cs`) compile cleanly — only the XNB `ContentTypeReader` plumbing was excluded.
+`Content.Load<AnimationData>(...)` call sites type-check fine; they'll only fail at **runtime**
+once Phase 2 content loading is actually attempted (no `.xnb`/JSON assets are wired up yet). This
+is better than the plan anticipated, not a contradiction — logged for accuracy.
+
+One non-blocking warning: `SYSLIB0050` in `Base Objects/BasicSprite.cs:68` —
+`BasicSprite : IDrawable, IDrawableTexture, IObject, ISafeSerializationData, ISerializable` uses
+obsolete binary-serialization interfaces. Doesn't block Phase 1, but is concrete evidence for risk
+**R2** (`Steward` graph surviving `System.Text.Json`) — flag for T5.2's round-trip test design.
+
+---
+
 ## Gate Summary
 
 | Task | Gate | Result |
@@ -144,5 +286,10 @@ explicitly skip this file.
 | T0.2 | manifest exists, count reconciles with grep | ✅ 157/157, `docs/asset_manifest.csv` |
 | T0.3 | texture audit complete | ✅ 303/303 scanned, 0 flagged, `docs/texture_audit.csv` |
 | T0.4 | Mercury surface recorded by grep | ✅ 17/17 files, surface documented above (3 corrections logged) |
+| T1.1 | new solution restores | ✅ `MightyFights.sln`, Core + Desktop projects |
+| T1.2 | sources copied, AnimDataReader excluded | ✅ 67 files in Core (see deviations above) |
+| T1.3 | MonoGame.Framework.DesktopGL added | ✅ 3.8.4.1, referenced from Core (see T1.1 deviation) |
+| T1.4 | dead framework usings/call sites removed | ✅ GamerServices, GamePad guard, 6 stray WinForms usings |
+| T1.5 | failure list is Mercury/AnimationData/persistence only | ✅ 41 errors, 5 symbols, all Mercury or persistence |
 
 **Phase 0 gate: PASS.** Ready to begin Phase 1 (Solution Modernization) on request.
