@@ -32,7 +32,7 @@ namespace MightyFights_Prototype
 			ContentManager cContent = DataStore.cInstance.cContent;
 			dlProcessClick = ProcessClick;
 
-			_cGuy = new FrontGuys(cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"), 
+			_cGuy = new FrontGuys(DataManager.cInstance.LoadAnimationData(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"),
 				_cConfig.sColor, new Dictionary<string, bool>());
 			_cGuy.cTexRef = cContent.Load<Texture2D>(@"Sprite Data\Troopers\Halberd\Front Facing\front");
 			_cGuy.fZRange = .4f;
@@ -101,7 +101,7 @@ namespace MightyFights_Prototype
 		{
 			ContentManager cContent = DataStore.cInstance.cContent;
 
-			_cGuy = new FrontGuys(cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"), 
+			_cGuy = new FrontGuys(DataManager.cInstance.LoadAnimationData(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"),
 				_cConfig.sColor, new Dictionary<string, bool>());
 			_cGuy.cTexRef = cContent.Load<Texture2D>(@"Sprite Data\Troopers\Halberd\Front Facing\front");
 			_cGuy.fZRange = .4f;

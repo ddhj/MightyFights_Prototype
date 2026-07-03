@@ -163,6 +163,15 @@ discovery (WinForms debug tooling, below) was dispositioned. Gate: PASS.
   to switch to; building it speculatively before Phase 7 would be premature architecture. **Action
   for T7.1:** Core's `PackageReference` will need to become conditional (TargetFramework- or
   property-gated) when the KNI web head is added, per G2.
+  **Update (Phase 2, T2.1):** Desktop needed its own direct `MonoGame.Framework.DesktopGL`
+  reference too, not just Core's transitive one, because the package's `.targets` file sets the
+  `MonoGamePlatform` MSBuild property, and `.props`/`.targets` from a `PackageReference` only
+  auto-import into the project that references the package directly, not transitively through a
+  `ProjectReference`. `MonoGame.Content.Builder.Task`'s `RunContentBuilder` target hard-fails
+  without `MonoGamePlatform` set. This turns out to be the standard, conventional pattern for a
+  MonoGame Core/head split (not really a deviation after all) — both projects reference the
+  framework package directly, for different reasons: Core for compile-time types, Desktop for the
+  content-build property and apphost.
 
 ### T1.2 — Source copy
 
@@ -297,6 +306,135 @@ One non-blocking warning: `SYSLIB0050` in `Base Objects/BasicSprite.cs:68` —
 obsolete binary-serialization interfaces. Doesn't block Phase 1, but is concrete evidence for risk
 **R2** (`Steward` graph surviving `System.Text.Json`) — flag for T5.2's round-trip test design.
 
+**Phase 1 gate: PASS.**
+
+---
+
+## Phase 2 — Content Pipeline Replacement
+
+**Status: COMPLETE.** MGCB builds all 328 texture/font/audio entries with zero errors; the new
+runtime AnimationData JSON loader parses all 12 TexturePacker source files without exception.
+
+### Content tree
+
+- `content/` created at repo root (sibling to `src/`, per plan §2), populated by copying
+  `MightyFights_Prototype/MightyFights_PrototypeContent/` **wholesale**, preserving every original
+  relative path exactly (T2.1's explicit requirement). Two more stray files turned up during the
+  copy and were excluded (left untouched in the legacy tree, same disposition as Phase 0's `.orig`
+  finding):
+  - `MightyFights_PrototypeContent.contentproj.orig` — another dead backup file, same pattern as
+    the `BattleGround_Basic.cs.orig` found in Phase 0.
+  - `Music/Camp/music` — a plain-text scratch file listing *candidate* camp-music track names (it
+    even lists itself in the list), not an audio asset. Not referenced in the original
+    `.contentproj` or anywhere in game code. Author's personal notes, not content.
+- Confirmed counts post-cleanup: 303 PNG, 22 MP3, 3 `.spritefont`, 12 TexturePacker JSON, 15
+  particle XML — all still exactly matching Phase 0's inventory.
+
+### T2.1 — MGCB build
+
+- `dotnet-mgcb` (3.8.4.1) installed as a local tool via `.config/dotnet-tools.json`
+  (`dotnet new tool-manifest` defaults to a root-level `dotnet-tools.json`, not the conventional
+  `.config/` path — moved it manually). `MonoGame.Content.Builder.Task` 3.8.4.1 referenced from
+  `MightyFights.Desktop.csproj`, wired via `<MonoGameContentReference Include="../../content/
+  Content.mgcb">`.
+- **`content/Content.mgcb` is generated, not hand-written** — 328 entries (303 Texture2D + 3
+  SpriteFont + 22 Song/SoundEffect) is too many to hand-maintain reliably, and the plan's own T2.1
+  flags this ("preserving the original folder-relative asset paths exactly ... normalize `\` → `/`
+  in one shared helper, not at 157 call sites" — same principle applies to generating the content
+  list). Generator script walks `content/`, matches every file by extension, and requires an
+  explicit disposition for anything it doesn't recognize (it hard-errors on unknown extensions
+  rather than silently skipping — this is what caught the two stray files above).
+- **Ground-truth check against the original `.contentproj` before writing any processor
+  parameters**, rather than assuming MGCB defaults: `MightyFights_PrototypeContent.contentproj`
+  uses **bare** `TextureImporter`/`TextureProcessor` and bare `FontDescriptionImporter`/
+  `FontDescriptionProcessor` for every single entry — zero `<ProcessorParameter>` overrides
+  anywhere (no explicit `PremultiplyAlpha`, `TextureFormat`, `ColorKey`, mipmap settings, etc.).
+  The generator matches this exactly (no `/processorParam:` lines at all) rather than asserting
+  values that could silently change visual output (premultiplied alpha in particular is a known
+  XNA/MonoGame behavior-sensitive setting — plan §4 landmine list doesn't call this out
+  explicitly, but it's the same class of risk).
+- Audio routing: `Music/**` → `Mp3Importer`/`SongProcessor`, `SFX/**` → `Mp3Importer`/
+  `SoundEffectProcessor` — matches the original `.contentproj` exactly (verified per-file, not
+  assumed). MGCB 3.8.4.1 accepts MP3 directly for both; no WAV/OGG re-encode needed for Phase 2's
+  DesktopGL scope (plan §4 landmine 1 flags MP3 codec risk for the *web* head specifically —
+  unaffected here).
+- **`MonoGamePlatform` gotcha:** `RunContentBuilder` hard-failed with "The MonoGamePlatform
+  property was not defined" until `MightyFights.Desktop.csproj` got its own direct
+  `MonoGame.Framework.DesktopGL` `PackageReference` — Core's transitive reference doesn't flow the
+  package's `.targets` file (which sets that property) into Desktop's own build. See the T1.1
+  update above.
+- **Verification:** since `MightyFights.Core` doesn't compile yet (Phase 1's expected Mercury/
+  persistence errors), a normal `dotnet build` never reaches the content-build step — MSBuild
+  aborts the whole dependent-project build as soon as `ResolveProjectReferences` fails. Isolated
+  the content build by invoking `dotnet build src/MightyFights.Desktop/MightyFights.Desktop.csproj
+  -t:RunContentBuilder` directly (bypasses `CoreCompile` entirely). Result: **all 328 entries
+  built, 0 errors, 0 warnings.** Fonts resolved `Times New Roman` → `C:\WINDOWS\Fonts\times.ttf`
+  successfully on this Windows host.
+- `content/bin/` and `content/obj/` (MGCB output/intermediate) are already covered by the
+  existing root `.gitignore`'s bare `[Bb]in/`/`[Oo]bj/` patterns — confirmed via
+  `git check-ignore`, no `.gitignore` changes needed.
+
+### T2.2 — AnimationData runtime JSON loader
+
+- **Ground truth pulled directly from `AnimationDataEx/SupportClasses.cs`'s
+  `AnimationDataConstructor`** (per risk R3's mitigation) before writing anything — this is the
+  XNA-build-time class the old pipeline extension used to run; `AnimationDataLoader`
+  (`src/MightyFights.Core/Support/AnimationDataLoader.cs`) is a byte-for-byte port of its two
+  code paths (`ProcessActionData` for files with an authored `ActionTypes` metadata block,
+  `ProcessSimpleSheet` for files without one), just moved from XNA build time
+  (`JavaScriptSerializer` + custom `ContentTypeWriter`/`AnimDataReader`) to game load time
+  (`System.Text.Json` reading the TexturePacker JSON directly).
+- **Important, easy-to-miss detail preserved on purpose:** `ProcessActionData` and
+  `ProcessSimpleSheet`'s frame-geometry math (`tCenter`/`tCenterLeft`/`tCenterRight` in
+  particular) **genuinely differ** between the two methods in the original — not obviously a
+  bug, not obviously intentional, but since G0 is "no gameplay changes," both were ported
+  verbatim rather than unified into one shared helper. Flagged in code comments so a future
+  cleanup pass doesn't "fix" the discrepancy without realizing it changes frame positioning.
+- Which files use which path (confirmed by grep, not assumed): only `HalberdArray.json` and
+  `ChaplainArray.json` have an `ActionTypes` block (troopers/healer, need named combat actions);
+  the other 10 (buffs/gems/UI sliders) use the simpler flat-sheet path.
+- **`KeyFrame.oData` semantics confirmed by reading consuming code**, not guessed: every source
+  JSON's `KeyFrame.oData` is a plain string (`"10"`, `""`), consumed via
+  `Convert.ToSingle(_cKeyFrame.oData)` in `TrooperActMgr`/`HealerActMgr` for heal amounts. Modeled
+  as `string` in the loader's private input DTO; assigned into the existing (unchanged)
+  `KeyFrame.oData` (`object`) property, which accepts it via implicit boxing.
+- **`DataManager.LoadAnimationData(string)`** is the new single choke point (per plan T2.2's
+  explicit instruction), replacing the old `_cContent.Load<AnimationData>(path)` +
+  manual-`TryGetValue`/`Add` caching boilerplate that was duplicated at every call site. All 17
+  original call sites now go through it — 7 inside `DataManager.cs` itself, plus 6 across
+  `Template.cs`, `TemplateThumbnail.cs` (×2), and `CompnayMenu.cs` that used to call
+  `cContent.Load<AnimationData>` directly, bypassing `DataManager`'s cache entirely (now they
+  don't). A small shared `DataManager.ResolveContentPath(assetKey, extension)` helper does the
+  `\` → platform-separator normalization in one place, per T2.1/T2.2's explicit "not at 157 call
+  sites" instruction, resolving against `AppContext.BaseDirectory` + `ContentManager.RootDirectory`
+  for robustness regardless of process working directory.
+- Raw JSON files are copied into the Desktop project's output `Content/` folder (same relative
+  paths as the MGCB-built assets) via a `<None Include="...\*.json" Link="Content\%(RecursiveDir)
+  %(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />` item — landing exactly where
+  `ResolveContentPath` expects them.
+- **Verification (T2.2's stated gate: "a unit test loads every entry... without exception"):**
+  since Core doesn't compile yet, built an isolated smoke-test project (scratch, not in the repo)
+  that compiles just `SupportClasses.cs` + `AnimationDataLoader.cs` directly against
+  `MonoGame.Framework.DesktopGL`, and ran `AnimationDataLoader.Load()` against all 12 real JSON
+  files. **All 12 parsed without exception**, with sanity checks on every resulting `ActionData`
+  (in-range `iStartIndex`/`iMaxFrames` slice, working `GetFrame`/`GetActionData` round-trip).
+  `HalberdArray.json` produced exactly 21 actions, independently matching the count implied by its
+  `ActionTypes` metadata block (6 Attack:Basic + 2 Attack:Critical + 1 Defend:Parry + 3 Idle:Normal
+  + 2 Idle:Battle + 1 Idle:Pant + 1 Idle:Victory + 2 Death:Normal + 1 Move:Walk + 1 Move:Run +
+  1 Move:Flee = 21) — strong independent confirmation the parser is correct, not just
+  exception-free.
+
+### T2.3 — Spritefont check
+
+Confirmed via the successful MGCB build above: all 3 `.spritefont` files (`DebugFont`, `TestFon`,
+`smallfont`) reference `Times New Roman`, which resolved and built cleanly on this Windows host.
+Risk **R4** (fonts absent on Linux build hosts) is unresolved but was never in Phase 2's scope to
+fix — the plan places its mitigation (bundle TTFs) at whenever a non-Windows build is first
+attempted (Phase 6's V6.7 cross-platform smoke test, or later). Logged here so V6.7 doesn't
+rediscover this from scratch.
+
+**Phase 2 gate: PASS.**
+
 ---
 
 ## Gate Summary
@@ -312,5 +450,8 @@ obsolete binary-serialization interfaces. Doesn't block Phase 1, but is concrete
 | T1.3 | MonoGame.Framework.DesktopGL added | ✅ 3.8.4.1, referenced from Core (see T1.1 deviation) |
 | T1.4 | dead framework usings/call sites removed | ✅ GamerServices, GamePad guard, 6 stray WinForms usings |
 | T1.5 | failure list is Mercury/AnimationData/persistence only | ✅ 41 errors, 5 symbols, all Mercury or persistence |
+| T2.1 | MGCB builds with zero errors | ✅ 328/328 entries, `content/Content.mgcb` |
+| T2.2 | asset manifest loads without exception | ✅ 12/12 AnimationData JSON sources, isolated smoke test |
+| T2.3 | spritefont fonts resolve | ✅ Times New Roman on Windows; Linux/web deferred to R4's stated timing |
 
-**Phase 0 gate: PASS.** Ready to begin Phase 1 (Solution Modernization) on request.
+**Phase 0/1/2 gates: PASS.** Ready to begin Phase 3 (Particle Shim: API Definition) on request.

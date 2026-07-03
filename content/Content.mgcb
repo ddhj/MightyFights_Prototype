@@ -1,0 +1,1652 @@
+#----------------------------- Global Properties ----------------------------#
+
+/outputDir:bin/$(Platform)
+/intermediateDir:obj/$(Platform)
+/platform:DesktopGL
+/config:
+/profile:Reach
+/compress:False
+
+#-------------------------------- References --------------------------------#
+
+#---------------------------------- Content ---------------------------------#
+
+#begin Backgrounds/dirt_grass 800x436.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Backgrounds/dirt_grass 800x436.png
+
+#begin Backgrounds/dirt_grass 800x500.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Backgrounds/dirt_grass 800x500.png
+
+#begin Backgrounds/dirt_grass_large.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Backgrounds/dirt_grass_large.png
+
+#begin In Game/Buffs/BufItems.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Buffs/BufItems.png
+
+#begin In Game/Buffs/Drops.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Buffs/Drops.png
+
+#begin In Game/Buffs/Gems.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Buffs/Gems.png
+
+#begin In Game/Buffs/ItemBox.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Buffs/ItemBox.png
+
+#begin In Game/Buffs/Animals/crab.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Buffs/Animals/crab.png
+
+#begin In Game/Buffs/Animals/dragon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Buffs/Animals/dragon.png
+
+#begin In Game/Buffs/Animals/eagle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Buffs/Animals/eagle.png
+
+#begin In Game/Buffs/Animals/lion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Buffs/Animals/lion.png
+
+#begin In Game/Buffs/Animals/snake.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Buffs/Animals/snake.png
+
+#begin In Game/Buffs/Animals/squirrel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Buffs/Animals/squirrel.png
+
+#begin In Game/Buffs/Animals/toad.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Buffs/Animals/toad.png
+
+#begin In Game/Buffs/Animals/wolf.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Buffs/Animals/wolf.png
+
+#begin In Game/Camp/Captain's_house.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Captain's_house.png
+
+#begin In Game/Camp/barracks.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/barracks.png
+
+#begin In Game/Camp/camp.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/camp.png
+
+#begin In Game/Camp/ground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/ground.png
+
+#begin In Game/Camp/knight_box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/knight_box.png
+
+#begin In Game/Camp/picard_box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/picard_box.png
+
+#begin In Game/Camp/picard_guy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/picard_guy.png
+
+#begin In Game/Camp/smith.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/smith.png
+
+#begin In Game/Camp/smith_box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/smith_box.png
+
+#begin In Game/Camp/smith_guy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/smith_guy.png
+
+#begin In Game/Camp/spy_box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/spy_box.png
+
+#begin In Game/Camp/spy_guy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/spy_guy.png
+
+#begin In Game/Camp/supply hut.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/supply hut.png
+
+#begin In Game/Camp/surgeon_tent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/surgeon_tent.png
+
+#begin In Game/Camp/wagon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/wagon.png
+
+#begin In Game/Camp/Company Dialog/CompanyBox.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/CompanyBox.png
+
+#begin In Game/Camp/Company Dialog/CompanySelect.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/CompanySelect.png
+
+#begin In Game/Camp/Company Dialog/axe.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/axe.png
+
+#begin In Game/Camp/Company Dialog/battle_axe.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/battle_axe.png
+
+#begin In Game/Camp/Company Dialog/blue_jester.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/blue_jester.png
+
+#begin In Game/Camp/Company Dialog/click_to_drag.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/click_to_drag.png
+
+#begin In Game/Camp/Company Dialog/company_name.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/company_name.png
+
+#begin In Game/Camp/Company Dialog/company_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/company_window.png
+
+#begin In Game/Camp/Company Dialog/falchion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/falchion.png
+
+#begin In Game/Camp/Company Dialog/goblin.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/goblin.png
+
+#begin In Game/Camp/Company Dialog/green_genie.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/green_genie.png
+
+#begin In Game/Camp/Company Dialog/grid_arrow_left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/grid_arrow_left.png
+
+#begin In Game/Camp/Company Dialog/grid_arrow_left_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/grid_arrow_left_blue.png
+
+#begin In Game/Camp/Company Dialog/grid_arrow_right.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/grid_arrow_right.png
+
+#begin In Game/Camp/Company Dialog/grid_arrow_right_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/grid_arrow_right_blue.png
+
+#begin In Game/Camp/Company Dialog/horned_skull.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/horned_skull.png
+
+#begin In Game/Camp/Company Dialog/icon_grid.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/icon_grid.png
+
+#begin In Game/Camp/Company Dialog/icon_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/icon_window.png
+
+#begin In Game/Camp/Company Dialog/kite_shield.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/kite_shield.png
+
+#begin In Game/Camp/Company Dialog/knight_sword.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/knight_sword.png
+
+#begin In Game/Camp/Company Dialog/purple_demon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/purple_demon.png
+
+#begin In Game/Camp/Company Dialog/purple_skull.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/purple_skull.png
+
+#begin In Game/Camp/Company Dialog/red_demon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/red_demon.png
+
+#begin In Game/Camp/Company Dialog/red_skull.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/red_skull.png
+
+#begin In Game/Camp/Company Dialog/reset_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/reset_gray.png
+
+#begin In Game/Camp/Company Dialog/reset_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/reset_red.png
+
+#begin In Game/Camp/Company Dialog/sabre.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/sabre.png
+
+#begin In Game/Camp/Company Dialog/sai.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/sai.png
+
+#begin In Game/Camp/Company Dialog/sallet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/sallet.png
+
+#begin In Game/Camp/Company Dialog/size_box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/size_box.png
+
+#begin In Game/Camp/Company Dialog/skull.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/skull.png
+
+#begin In Game/Camp/Company Dialog/target.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/target.png
+
+#begin In Game/Camp/Company Dialog/template_arrow_left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/template_arrow_left.png
+
+#begin In Game/Camp/Company Dialog/template_arrow_right.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/template_arrow_right.png
+
+#begin In Game/Camp/Company Dialog/unit_allocation_arrows.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/unit_allocation_arrows.png
+
+#begin In Game/Camp/Company Dialog/unit_allocation_down.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/unit_allocation_down.png
+
+#begin In Game/Camp/Company Dialog/unit_allocation_up.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Company Dialog/unit_allocation_up.png
+
+#begin In Game/Camp/KnightMenu/captain_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/KnightMenu/captain_button.png
+
+#begin In Game/Camp/KnightMenu/company_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/KnightMenu/company_button.png
+
+#begin In Game/Camp/KnightMenu/dialogue_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/KnightMenu/dialogue_button.png
+
+#begin In Game/Camp/KnightMenu/knight_box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/KnightMenu/knight_box.png
+
+#begin In Game/Camp/KnightMenu/knight_guy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/KnightMenu/knight_guy.png
+
+#begin In Game/Camp/KnightMenu/template_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/KnightMenu/template_button.png
+
+#begin In Game/Camp/SmithMenu/armour_upgrade.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/SmithMenu/armour_upgrade.png
+
+#begin In Game/Camp/SmithMenu/smith_box.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/SmithMenu/smith_box.png
+
+#begin In Game/Camp/SmithMenu/smith_guy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/SmithMenu/smith_guy.png
+
+#begin In Game/Camp/SmithMenu/weapon_upgrade.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/SmithMenu/weapon_upgrade.png
+
+#begin In Game/Camp/Template/AtkPower.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/AtkPower.png
+
+#begin In Game/Camp/Template/AtkSpeed.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/AtkSpeed.png
+
+#begin In Game/Camp/Template/BottomSliders.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/BottomSliders.png
+
+#begin In Game/Camp/Template/HitPoints.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/HitPoints.png
+
+#begin In Game/Camp/Template/Left Arrow Large.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/Left Arrow Large.png
+
+#begin In Game/Camp/Template/Left Arrow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/Left Arrow.png
+
+#begin In Game/Camp/Template/MoveSpeed.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/MoveSpeed.png
+
+#begin In Game/Camp/Template/Right Arrow Large.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/Right Arrow Large.png
+
+#begin In Game/Camp/Template/Right Arrow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/Right Arrow.png
+
+#begin In Game/Camp/Template/TemplateSelect.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/TemplateSelect.png
+
+#begin In Game/Camp/Template/TopSliders.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/TopSliders.png
+
+#begin In Game/Camp/Template/absorb damage.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/absorb damage.png
+
+#begin In Game/Camp/Template/absorb damage_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/absorb damage_gray.png
+
+#begin In Game/Camp/Template/acts of prowess.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/acts of prowess.png
+
+#begin In Game/Camp/Template/atkx2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/atkx2.png
+
+#begin In Game/Camp/Template/atkx2_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/atkx2_gray.png
+
+#begin In Game/Camp/Template/atkx3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/atkx3.png
+
+#begin In Game/Camp/Template/atkx3_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/atkx3_gray.png
+
+#begin In Game/Camp/Template/battle mastery.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/battle mastery.png
+
+#begin In Game/Camp/Template/big time.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/big time.png
+
+#begin In Game/Camp/Template/big time_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/big time_gray.png
+
+#begin In Game/Camp/Template/bleed.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/bleed.png
+
+#begin In Game/Camp/Template/bleed_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/bleed_gray.png
+
+#begin In Game/Camp/Template/brave heart.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/brave heart.png
+
+#begin In Game/Camp/Template/brave heart_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/brave heart_gray.png
+
+#begin In Game/Camp/Template/chip blade.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/chip blade.png
+
+#begin In Game/Camp/Template/chip blade_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/chip blade_gray.png
+
+#begin In Game/Camp/Template/combinations.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/combinations.png
+
+#begin In Game/Camp/Template/counter attack.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/counter attack.png
+
+#begin In Game/Camp/Template/counter attack_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/counter attack_gray.png
+
+#begin In Game/Camp/Template/crit chance up.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/crit chance up.png
+
+#begin In Game/Camp/Template/crit chance up_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/crit chance up_gray.png
+
+#begin In Game/Camp/Template/don't bleed.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/don't bleed.png
+
+#begin In Game/Camp/Template/don't bleed_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/don't bleed_gray.png
+
+#begin In Game/Camp/Template/done.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/done.png
+
+#begin In Game/Camp/Template/eat my dust.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/eat my dust.png
+
+#begin In Game/Camp/Template/eat my dust_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/eat my dust_gray.png
+
+#begin In Game/Camp/Template/extra health.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/extra health.png
+
+#begin In Game/Camp/Template/extra health_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/extra health_gray.png
+
+#begin In Game/Camp/Template/flee!.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/flee!.png
+
+#begin In Game/Camp/Template/flee!_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/flee!_gray.png
+
+#begin In Game/Camp/Template/frame.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/frame.png
+
+#begin In Game/Camp/Template/safe guard.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/safe guard.png
+
+#begin In Game/Camp/Template/safe guard_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/safe guard_gray.png
+
+#begin In Game/Camp/Template/template_name.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/template_name.png
+
+#begin In Game/Camp/Template/template_select_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/template_select_window.png
+
+#begin In Game/Camp/Template/template_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/template_window.png
+
+#begin In Game/Camp/Template/tough enough.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/tough enough.png
+
+#begin In Game/Camp/Template/tough enough_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/tough enough_gray.png
+
+#begin In Game/Camp/Template/tremble and fear.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/tremble and fear.png
+
+#begin In Game/Camp/Template/tremble and fear_gray.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Camp/Template/tremble and fear_gray.png
+
+#begin In Game/Hud/border_jackson.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Hud/border_jackson.png
+
+#begin In Game/Map/camp_icon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/camp_icon.png
+
+#begin In Game/Map/littlemap.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/littlemap.png
+
+#begin In Game/Map/BuildingIcons/bridgeNE.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/bridgeNE.png
+
+#begin In Game/Map/BuildingIcons/bridgeNE_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/bridgeNE_blue.png
+
+#begin In Game/Map/BuildingIcons/bridgeNE_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/bridgeNE_red.png
+
+#begin In Game/Map/BuildingIcons/bridgeS.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/bridgeS.png
+
+#begin In Game/Map/BuildingIcons/bridgeSE.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/bridgeSE.png
+
+#begin In Game/Map/BuildingIcons/bridgeSE_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/bridgeSE_blue.png
+
+#begin In Game/Map/BuildingIcons/bridgeSE_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/bridgeSE_red.png
+
+#begin In Game/Map/BuildingIcons/bridgeS_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/bridgeS_blue.png
+
+#begin In Game/Map/BuildingIcons/bridgeS_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/bridgeS_red.png
+
+#begin In Game/Map/BuildingIcons/chapel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/chapel.png
+
+#begin In Game/Map/BuildingIcons/chapel_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/chapel_blue.png
+
+#begin In Game/Map/BuildingIcons/chapel_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/chapel_red.png
+
+#begin In Game/Map/BuildingIcons/citadel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/citadel.png
+
+#begin In Game/Map/BuildingIcons/citadel_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/citadel_blue.png
+
+#begin In Game/Map/BuildingIcons/citadel_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/citadel_red.png
+
+#begin In Game/Map/BuildingIcons/darvi.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/darvi.png
+
+#begin In Game/Map/BuildingIcons/darvi_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/darvi_blue.png
+
+#begin In Game/Map/BuildingIcons/darvi_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/darvi_red.png
+
+#begin In Game/Map/BuildingIcons/dungeon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/dungeon.png
+
+#begin In Game/Map/BuildingIcons/dungeon_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/dungeon_blue.png
+
+#begin In Game/Map/BuildingIcons/dungeon_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/dungeon_red.png
+
+#begin In Game/Map/BuildingIcons/hamlet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/hamlet.png
+
+#begin In Game/Map/BuildingIcons/hamlet_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/hamlet_blue.png
+
+#begin In Game/Map/BuildingIcons/hamlet_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/hamlet_red.png
+
+#begin In Game/Map/BuildingIcons/hut.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/hut.png
+
+#begin In Game/Map/BuildingIcons/hut_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/hut_blue.png
+
+#begin In Game/Map/BuildingIcons/hut_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/hut_red.png
+
+#begin In Game/Map/BuildingIcons/tower.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/tower.png
+
+#begin In Game/Map/BuildingIcons/tower_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/tower_blue.png
+
+#begin In Game/Map/BuildingIcons/tower_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/tower_red.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/bandit_party_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/bandit_party_window.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/bridge_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/bridge_window.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/chaos_dungeon_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/chaos_dungeon_window.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/chapel_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/chapel_window.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/citadel_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/citadel_window.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/dark_city_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/dark_city_window.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/hamlet_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/hamlet_window.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/rival_army_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/rival_army_window.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/smokey_hut_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/smokey_hut_window.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/tower_window.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/tower_window.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/abandon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/abandon.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/abandon_H.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/abandon_H.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/attack.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/attack.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/attack_H.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/attack_H.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/burglarize.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/burglarize.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/burglarize_H.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/burglarize_H.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/burn.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/burn.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/burn_H.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/burn_H.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/conquer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/conquer.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/conquer_H.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/conquer_H.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/destroy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/destroy.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/destroy_H.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/destroy_H.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/infiltrate.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/infiltrate.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/infiltrate_H.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/infiltrate_H.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/lay_seige.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/lay_seige.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/lay_seige_H.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/lay_seige_H.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/reinforce.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/reinforce.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/reinforce_H.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/reinforce_H.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/sabotage.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/sabotage.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/sabotage_H.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/sabotage_H.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/send_scout.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/send_scout.png
+
+#begin In Game/Map/BuildingIcons/MapMenus/Actions/send_scout_H.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/BuildingIcons/MapMenus/Actions/send_scout_H.png
+
+#begin In Game/Map/Buildings/bridgeNE.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/bridgeNE.png
+
+#begin In Game/Map/Buildings/bridgeNE_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/bridgeNE_blue.png
+
+#begin In Game/Map/Buildings/bridgeNE_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/bridgeNE_red.png
+
+#begin In Game/Map/Buildings/bridgeS.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/bridgeS.png
+
+#begin In Game/Map/Buildings/bridgeSE.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/bridgeSE.png
+
+#begin In Game/Map/Buildings/bridgeSE_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/bridgeSE_blue.png
+
+#begin In Game/Map/Buildings/bridgeSE_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/bridgeSE_red.png
+
+#begin In Game/Map/Buildings/bridgeS_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/bridgeS_blue.png
+
+#begin In Game/Map/Buildings/bridgeS_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/bridgeS_red.png
+
+#begin In Game/Map/Buildings/chapel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/chapel.png
+
+#begin In Game/Map/Buildings/chapel_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/chapel_blue.png
+
+#begin In Game/Map/Buildings/chapel_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/chapel_red.png
+
+#begin In Game/Map/Buildings/citadel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/citadel.png
+
+#begin In Game/Map/Buildings/citadel_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/citadel_blue.png
+
+#begin In Game/Map/Buildings/citadel_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/citadel_red.png
+
+#begin In Game/Map/Buildings/darvi.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/darvi.png
+
+#begin In Game/Map/Buildings/darvi_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/darvi_blue.png
+
+#begin In Game/Map/Buildings/darvi_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/darvi_red.png
+
+#begin In Game/Map/Buildings/dungeon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/dungeon.png
+
+#begin In Game/Map/Buildings/dungeon_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/dungeon_blue.png
+
+#begin In Game/Map/Buildings/dungeon_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/dungeon_red.png
+
+#begin In Game/Map/Buildings/hamlet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/hamlet.png
+
+#begin In Game/Map/Buildings/hamlet_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/hamlet_blue.png
+
+#begin In Game/Map/Buildings/hamlet_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/hamlet_red.png
+
+#begin In Game/Map/Buildings/hut.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/hut.png
+
+#begin In Game/Map/Buildings/hut_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/hut_blue.png
+
+#begin In Game/Map/Buildings/hut_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/hut_red.png
+
+#begin In Game/Map/Buildings/tower.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/tower.png
+
+#begin In Game/Map/Buildings/tower_blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/tower_blue.png
+
+#begin In Game/Map/Buildings/tower_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/Buildings/tower_red.png
+
+#begin In Game/Map/EnemyIcons/bandit1_icon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/EnemyIcons/bandit1_icon.png
+
+#begin In Game/Map/EnemyIcons/bandit2_icon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/EnemyIcons/bandit2_icon.png
+
+#begin In Game/Map/EnemyIcons/little_darvi.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/EnemyIcons/little_darvi.png
+
+#begin In Game/Map/EnemyIcons/little_darvi_outline.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/EnemyIcons/little_darvi_outline.png
+
+#begin In Game/Map/EnemyIcons/little_enemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/EnemyIcons/little_enemy.png
+
+#begin In Game/Map/EnemyIcons/little_enemy_outline.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Map/EnemyIcons/little_enemy_outline.png
+
+#begin Music/10 WV.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/10 WV.mp3
+
+#begin Music/Final_Fantasy_4_Submission_OC_ReMix.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/Final_Fantasy_4_Submission_OC_ReMix.mp3
+
+#begin Music/Final_Fantasy_4_The_Flying_Machine_OC_ReMix.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/Final_Fantasy_4_The_Flying_Machine_OC_ReMix.mp3
+
+#begin Music/Final_Fantasy_4_Treason_OC_ReMix.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/Final_Fantasy_4_Treason_OC_ReMix.mp3
+
+#begin Music/Final_Fantasy_6_Desertion_OC_ReMix.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/Final_Fantasy_6_Desertion_OC_ReMix.mp3
+
+#begin Music/Final_Fantasy_6_Smooth_Alexander_OC_ReMix.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/Final_Fantasy_6_Smooth_Alexander_OC_ReMix.mp3
+
+#begin Music/Final_Fantasy_7_Fight_On_OC_ReMix.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/Final_Fantasy_7_Fight_On_OC_ReMix.mp3
+
+#begin Music/Final_Fantasy_Duque_Battle_OC_ReMix.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/Final_Fantasy_Duque_Battle_OC_ReMix.mp3
+
+#begin Music/Final_Fantasy_Hostility_OC_ReMix.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/Final_Fantasy_Hostility_OC_ReMix.mp3
+
+#begin Music/Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.mp3
+
+#begin Music/Minibossies_FinalFantasy6_VictoryFanfare.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/Minibossies_FinalFantasy6_VictoryFanfare.mp3
+
+#begin Music/Battle/battle1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/Battle/battle1.mp3
+
+#begin Music/Battle/battle2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/Battle/battle2.mp3
+
+#begin Music/Camp/wodyn#4.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/Camp/wodyn#4.mp3
+
+#begin Music/TitleScreen/wodyn#3.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Music/TitleScreen/wodyn#3.mp3
+
+#begin Out Game/Main Menu/green_card.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/Main Menu/green_card.png
+
+#begin Out Game/Main Menu/red_card.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/Main Menu/red_card.png
+
+#begin Out Game/Main Menu/to_battle!-1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/Main Menu/to_battle!-1.png
+
+#begin Out Game/TitleScreen/big_map4.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/TitleScreen/big_map4.png
+
+#begin Out Game/TitleScreen/map4.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/TitleScreen/map4.png
+
+#begin Out Game/TitleScreen/map4big.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/TitleScreen/map4big.png
+
+#begin Out Game/TitleScreen/options00.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/TitleScreen/options00.png
+
+#begin Out Game/TitleScreen/options01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/TitleScreen/options01.png
+
+#begin Out Game/TitleScreen/play_game00.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/TitleScreen/play_game00.png
+
+#begin Out Game/TitleScreen/play_game01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/TitleScreen/play_game01.png
+
+#begin Out Game/TitleScreen/quit_exit.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/TitleScreen/quit_exit.png
+
+#begin Out Game/TitleScreen/sword.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/TitleScreen/sword.png
+
+#begin Out Game/TitleScreen/view_legends00.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/TitleScreen/view_legends00.png
+
+#begin Out Game/TitleScreen/view_legends01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/TitleScreen/view_legends01.png
+
+#begin Out Game/TitleScreen/wodyn_title.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Out Game/TitleScreen/wodyn_title.png
+
+#begin Particles/Beam.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Beam.png
+
+#begin Particles/BeamBlurred.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/BeamBlurred.png
+
+#begin Particles/Cloud001.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Cloud001.png
+
+#begin Particles/Cloud002.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Cloud002.png
+
+#begin Particles/Cloud003.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Cloud003.png
+
+#begin Particles/Cloud004.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Cloud004.png
+
+#begin Particles/Elipse001.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Elipse001.png
+
+#begin Particles/Flame.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Flame.png
+
+#begin Particles/FlowerBurst.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/FlowerBurst.png
+
+#begin Particles/Laser.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Laser.png
+
+#begin Particles/LensFlare.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/LensFlare.png
+
+#begin Particles/MultiDot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/MultiDot.png
+
+#begin Particles/Particle001.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Particle001.png
+
+#begin Particles/Particle002.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Particle002.png
+
+#begin Particles/Particle003.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Particle003.png
+
+#begin Particles/Particle004.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Particle004.png
+
+#begin Particles/Particle005.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Particle005.png
+
+#begin Particles/Particle006.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Particle006.png
+
+#begin Particles/Particle007.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Particle007.png
+
+#begin Particles/Ring001.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Ring001.png
+
+#begin Particles/Ring002.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Ring002.png
+
+#begin Particles/SoftClumpy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/SoftClumpy.png
+
+#begin Particles/SoftSmokey.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/SoftSmokey.png
+
+#begin Particles/Spikey001.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Spikey001.png
+
+#begin Particles/Spikey002.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Spikey002.png
+
+#begin Particles/Splash.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Splash.png
+
+#begin Particles/Spray001.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Spray001.png
+
+#begin Particles/Star.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Star.png
+
+#begin Particles/Water001.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Water001.png
+
+#begin Particles/Water002.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Water002.png
+
+#begin Particles/Weeds.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Particles/Weeds.png
+
+#begin SFX/Appear-KP-1137861048.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/build:SFX/Appear-KP-1137861048.mp3
+
+#begin SFX/Computer_Magic-Microsift-1901299923.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/build:SFX/Computer_Magic-Microsift-1901299923.mp3
+
+#begin SFX/Decapitation-SoundBible.com-800292304.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/build:SFX/Decapitation-SoundBible.com-800292304.mp3
+
+#begin SFX/Electrical_Sweep-Sweeper-1760111493.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/build:SFX/Electrical_Sweep-Sweeper-1760111493.mp3
+
+#begin SFX/Electronic_Chime-KevanGC-495939803.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/build:SFX/Electronic_Chime-KevanGC-495939803.mp3
+
+#begin SFX/Magic Wand Noise-SoundBible.com-375928671.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/build:SFX/Magic Wand Noise-SoundBible.com-375928671.mp3
+
+#begin SFX/Swords_Collide-Sound_Explorer-2015600826.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/build:SFX/Swords_Collide-Sound_Explorer-2015600826.mp3
+
+#begin Shared/DebugFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/build:Shared/DebugFont.spritefont
+
+#begin Shared/TestFon.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/build:Shared/TestFon.spritefont
+
+#begin Shared/arrow_cursor.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Shared/arrow_cursor.png
+
+#begin Shared/company_arrowdownx.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Shared/company_arrowdownx.png
+
+#begin Shared/company_arrowrightx.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Shared/company_arrowrightx.png
+
+#begin Shared/company_arrowupx.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Shared/company_arrowupx.png
+
+#begin Shared/gauntlet_cursor.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Shared/gauntlet_cursor.png
+
+#begin Shared/percentagedwn.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Shared/percentagedwn.png
+
+#begin Shared/percentagedwnx.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Shared/percentagedwnx.png
+
+#begin Shared/percentageup.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Shared/percentageup.png
+
+#begin Shared/percentageupx.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Shared/percentageupx.png
+
+#begin Shared/smallfont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/build:Shared/smallfont.spritefont
+
+#begin Sprite Data/Chaplain/Chaplain.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Chaplain/Chaplain.png
+
+#begin Sprite Data/Troopers/Halberd/Front Facing/front.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Front Facing/front.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/Footman.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/Footman.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/Footman_bill_steel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/Footman_bill_steel.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/darvi_bill.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/darvi_bill.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/fazure.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/fazure.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/fbrown.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/fbrown.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/fcrimson.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/fcrimson.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/fgrey.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/fgrey.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/fgules.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/fgules.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/fmidnight.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/fmidnight.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/fpurple.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/fpurple.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/frust.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/frust.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/fsable.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/fsable.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/fsteel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/fsteel.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/fstorm.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/fstorm.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/fvert.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/fvert.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/fvert2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/fvert2.png
+
+#begin Sprite Data/Troopers/Halberd/Textures/fzombie.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Halberd/Textures/fzombie.png

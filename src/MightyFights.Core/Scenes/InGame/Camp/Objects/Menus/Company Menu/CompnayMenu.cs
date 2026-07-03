@@ -290,7 +290,7 @@ namespace MightyFights_Prototype
 				_caSelTemplates.Add(cTmp);
 
 //// front guys for the drag draw on the template
-				_cGuy = new FrontGuys(cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"), 
+				_cGuy = new FrontGuys(DataManager.cInstance.LoadAnimationData(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"),
 					@"Sprite Data\Troopers\Halberd\Textures\fazure", new Dictionary<string, bool>());
 				_cGuy.cTexRef = cContent.Load<Texture2D>(@"Sprite Data\Troopers\Halberd\Front Facing\front");
 				_cGuy.fZRange = .3f;

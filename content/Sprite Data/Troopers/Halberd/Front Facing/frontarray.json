@@ -1,0 +1,124 @@
+{"frames": [
+
+{
+	"filename": "fazure00.png",
+	"frame": {"x":26,"y":102,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+},
+{
+	"filename": "fbrown00.png",
+	"frame": {"x":2,"y":202,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+},
+{
+	"filename": "fcrimson00.png",
+	"frame": {"x":2,"y":152,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+},
+{
+	"filename": "fgrey00.png",
+	"frame": {"x":2,"y":102,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+},
+{
+	"filename": "fgules00.png",
+	"frame": {"x":98,"y":52,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+},
+{
+	"filename": "fmidnight00.png",
+	"frame": {"x":74,"y":52,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+},
+{
+	"filename": "fpurple00.png",
+	"frame": {"x":50,"y":52,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+},
+{
+	"filename": "frust00.png",
+	"frame": {"x":26,"y":52,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+},
+{
+	"filename": "fsable00.png",
+	"frame": {"x":2,"y":52,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+},
+{
+	"filename": "fsteel00.png",
+	"frame": {"x":98,"y":2,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+},
+{
+	"filename": "fstorm00.png",
+	"frame": {"x":74,"y":2,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+},
+{
+	"filename": "fvert00.png",
+	"frame": {"x":50,"y":2,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+},
+{
+	"filename": "fvert200.png",
+	"frame": {"x":26,"y":2,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+},
+{
+	"filename": "fzombie00.png",
+	"frame": {"x":2,"y":2,"w":22,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":12,"w":22,"h":48},
+	"sourceSize": {"w":100,"h":64}
+}],
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "front00.png",
+	"format": "RGBA8888",
+	"size": {"w":128,"h":256},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:d75345d8121d4966ef1434a0c7d11a89$"
+}
+}

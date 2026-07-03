@@ -213,29 +213,29 @@ namespace MightyFights_Prototype
 				_caControls.Add(cTmpSpr);
 				_cName.sName = _cConfig.sTemplateName;
 
-				_cAtkPower = new StatDisplay(cContent.Load<AnimationData>(@"In Game\Camp\Template\AtkPowerArray"), "blue");
+				_cAtkPower = new StatDisplay(DataManager.cInstance.LoadAnimationData(@"In Game\Camp\Template\AtkPowerArray"), "blue");
 				_cAtkPower.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\AtkPower");
 				_cAtkPower.fZRange = .5f;
 				_cAtkPower.tPos = new Vector2(tPos.X + 108, tPos.Y + 56);
 				_cAtkPower.bLeft = true;
 
-				_cAtkSpeed = new StatDisplay(cContent.Load<AnimationData>(@"In Game\Camp\Template\AtkSpeedArray"), "orange");
+				_cAtkSpeed = new StatDisplay(DataManager.cInstance.LoadAnimationData(@"In Game\Camp\Template\AtkSpeedArray"), "orange");
 				_cAtkSpeed.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\AtkSpeed");
 				_cAtkSpeed.fZRange = .5f;
 				_cAtkSpeed.tPos = new Vector2(tPos.X + 208, tPos.Y + 56);
 
-				_cHitPoints = new StatDisplay(cContent.Load<AnimationData>(@"In Game\Camp\Template\HitPointsArray"), "pink");
+				_cHitPoints = new StatDisplay(DataManager.cInstance.LoadAnimationData(@"In Game\Camp\Template\HitPointsArray"), "pink");
 				_cHitPoints.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\HitPoints");
 				_cHitPoints.fZRange = .5f;
 				_cHitPoints.tPos = new Vector2(tPos.X + 108, tPos.Y + 138);
 				_cHitPoints.bLeft = true;
 
-				_cMoveSpeed = new StatDisplay(cContent.Load<AnimationData>(@"In Game\Camp\Template\MoveSpeedArray"), "green");
+				_cMoveSpeed = new StatDisplay(DataManager.cInstance.LoadAnimationData(@"In Game\Camp\Template\MoveSpeedArray"), "green");
 				_cMoveSpeed.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\MoveSpeed");
 				_cMoveSpeed.fZRange = .5f;
 				_cMoveSpeed.tPos = new Vector2(tPos.X + 208, tPos.Y + 138);
 
-				_cTopSlider = new Slider(cContent.Load<AnimationData>(@"In Game\Camp\Template\TopSlidersArray"), "top");
+				_cTopSlider = new Slider(DataManager.cInstance.LoadAnimationData(@"In Game\Camp\Template\TopSlidersArray"), "top");
 				_cTopSlider.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\TopSliders");
 				_cTopSlider.fZRange = .5f;
 				_cTopSlider.tPos = new Vector2(_cConfig.iTLeftPos, tPos.Y + 30);
@@ -245,7 +245,7 @@ namespace MightyFights_Prototype
 				_cTopSlider.iMaxRight = (int)_cAtkSpeed.tPos.X + _cAtkSpeed.cFrame.tRect.Width - 10;
 				_cTopSlider.SetLevel(_cConfig.iTopLevel);
 
-				_cBottomSlider = new Slider(cContent.Load<AnimationData>(@"In Game\Camp\Template\BottomSlidersArray"), "bottom");
+				_cBottomSlider = new Slider(DataManager.cInstance.LoadAnimationData(@"In Game\Camp\Template\BottomSlidersArray"), "bottom");
 				_cBottomSlider.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\Template\BottomSliders");
 				_cBottomSlider.fZRange = .5f;
 				_cBottomSlider.tPos = new Vector2(_cConfig.iBLeftPos, tPos.Y + 186);
@@ -269,7 +269,7 @@ namespace MightyFights_Prototype
 				_cLargeRightArrow.cFrame = new Frame(_cLargeRightArrow.cTexRef.Bounds, new Vector2(_cLargeRightArrow.cTexRef.Bounds.Width / 2, _cLargeRightArrow.cTexRef.Height / 2), 
 					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cLargeRightArrow.cTexRef.Bounds.Width, _cLargeRightArrow.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 
-				_cFrontGuys = new FrontGuys(cContent.Load<AnimationData>(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"), _cConfig.sColor, new Dictionary<string, bool>());
+				_cFrontGuys = new FrontGuys(DataManager.cInstance.LoadAnimationData(@"Sprite Data\Troopers\Halberd\Front Facing\frontarray"), _cConfig.sColor, new Dictionary<string, bool>());
 				_cFrontGuys.cTexRef = cContent.Load<Texture2D>(@"Sprite Data\Troopers\Halberd\Front Facing\front");
 				_cFrontGuys.fZRange = .5f;
 				_cFrontGuys.fScale = 2.0f;

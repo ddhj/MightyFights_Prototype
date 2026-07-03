@@ -14,4 +14,29 @@
     <ProjectReference Include="..\MightyFights.Core\MightyFights.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- PORT (Phase 2, T2.1): MonoGame.Framework.DesktopGL is referenced here too, not just from
+         Core, because its own .targets file sets MonoGamePlatform, which is required by
+         MonoGame.Content.Builder.Task's RunContentBuilder target. .props/.targets from a
+         PackageReference only auto-import into the project that references the package directly,
+         not transitively through a ProjectReference. See docs/PORT_NOTES.md. -->
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4.1" />
+    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <MonoGameContentReference Include="..\..\content\Content.mgcb" Link="Content\Content.mgcb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- PORT (Phase 2, T2.2): raw (non-MGCB) content: TexturePacker JSON source files, read
+         at runtime by MightyFights_Support.AnimationDataLoader instead of being built into
+         .xnb by the old AnimationDataEx pipeline extension (deleted). Particle XMLs (Phase 3-4)
+         will join this list once the Mercury shim reads them. Copied to the same relative path
+         under the output Content folder as the MGCB-built assets, so DataManager's
+         ResolveContentPath (Content.RootDirectory + asset key + ".json") finds them the same
+         way ContentManager finds .xnb files. See docs/PORT_NOTES.md. -->
+    <None Include="..\..\content\**\*.json" Link="Content\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

@@ -43,8 +43,36 @@ namespace MightyFights_Prototype
 
 		public bool Init()
 		{
-			_cContent = DataStore.cInstance.cContent; 
+			_cContent = DataStore.cInstance.cContent;
 			return true;
+		}
+
+		//// PORT (Phase 2, T2.2): AnimationData no longer routes through the XNA content
+		//// pipeline (AnimDataReader/AnimationDataEx, both deleted -- see docs/PORT_NOTES.md).
+		//// This is the single choke point every AnimationData load site (in this class and the
+		//// 3 others that used to call cContent.Load<AnimationData> directly) now goes through,
+		//// so the existing _cAnimationDataList cache still works exactly as before -- only the
+		//// underlying load mechanism (AnimationDataLoader parsing the source TexturePacker JSON
+		//// at runtime, instead of ContentManager deserializing a pre-built .xnb) changed.
+		public AnimationData LoadAnimationData(string sPath)
+		{
+			AnimationData	cAnimData;
+
+			if(!_cAnimationDataList.TryGetValue(sPath, out cAnimData))
+				_cAnimationDataList.Add(sPath, cAnimData = AnimationDataLoader.Load(ResolveContentPath(sPath, ".json")));
+
+			return cAnimData;
+		}
+
+		//// PORT (Phase 2, T2.1/T2.2): single shared path-normalization helper, per the port
+		//// plan's instruction not to hand-normalize \ -> / at each of the 157 Content.Load call
+		//// sites. Resolves an XNA-style asset key (e.g. @"Sprite Data\Chaplain\ChaplainArray")
+		//// against the game's Content root, on disk, with the given extension appended. Used
+		//// for raw (non-MGCB-built) content -- currently just the TexturePacker JSON sources.
+		internal static string ResolveContentPath(string sAssetPath, string sExtension)
+		{
+			string	sNormalized = sAssetPath.Replace('\\', System.IO.Path.DirectorySeparatorChar).Replace('/', System.IO.Path.DirectorySeparatorChar);
+			return System.IO.Path.Combine(AppContext.BaseDirectory, DataStore.cInstance.cContent.RootDirectory, sNormalized + sExtension);
 		}
 
 		public TrooperTemplate CreateTemplate(TemplateConfig cTemplateData)
@@ -54,10 +82,8 @@ namespace MightyFights_Prototype
 			Texture2D		cTexData;
 			int				iMod;
 
-			// check to see if we are already referencing this animation 
-			if(!_cAnimationDataList.TryGetValue(cTemplateData.sTrooperType, out cAnimData))
-				// add it to the reference list
-				_cAnimationDataList.Add(cTemplateData.sTrooperType, cAnimData = _cContent.Load<AnimationData>(cTemplateData.sTrooperType));
+			// check to see if we are already referencing this animation
+			cAnimData = LoadAnimationData(cTemplateData.sTrooperType);
 
 			// check to see if we are already refencing this texture 
 			if(!_cTextureList.TryGetValue(cTemplateData.sColor, out cTexData))
@@ -97,10 +123,8 @@ namespace MightyFights_Prototype
 			AnimationData	cAnimData;
 			Texture2D		cTexData;
 
-			// check to see if we are already referencing this animation 
-			if(!_cAnimationDataList.TryGetValue(@"Sprite Data\Chaplain\ChaplainArray", out cAnimData))
-				// add it to the reference list
-				_cAnimationDataList.Add(@"Sprite Data\Chaplain\ChaplainArray", cAnimData = _cContent.Load<AnimationData>(@"Sprite Data\Chaplain\ChaplainArray"));
+			// check to see if we are already referencing this animation
+			cAnimData = LoadAnimationData(@"Sprite Data\Chaplain\ChaplainArray");
 
 			// check to see if we are already refencing this texture 
 			if(!_cTextureList.TryGetValue(@"Sprite Data\Chaplain\Chaplain", out cTexData))
@@ -121,10 +145,8 @@ namespace MightyFights_Prototype
 			Texture2D			cTexData;
 			BasicBuff			cBasicBuff;
 
-			// check to see if we are already referencing this animation 
-			if(!_cAnimationDataList.TryGetValue(@"In Game\Buffs\DropsArray", out cAnimData))
-				// add it to the reference list
-				_cAnimationDataList.Add(@"In Game\Buffs\DropsArray", cAnimData = _cContent.Load<AnimationData>(@"In Game\Buffs\DropsArray"));
+			// check to see if we are already referencing this animation
+			cAnimData = LoadAnimationData(@"In Game\Buffs\DropsArray");
 
 			// check to see if we are already refencing this texture 
 			if(!_cTextureList.TryGetValue(@"In Game\Buffs\Drops", out cTexData))
@@ -145,10 +167,8 @@ namespace MightyFights_Prototype
 			Random				cRand = DataStore.cInstance.cRand;
 			Texture2D			cTexData;
 
-			// check to see if we are already referencing this animation 
-			if(!_cAnimationDataList.TryGetValue(@"In Game\Buffs\GemsArray", out cAnimData))
-				// add it to the reference list
-				_cAnimationDataList.Add(@"In Game\Buffs\GemsArray", cAnimData = _cContent.Load<AnimationData>(@"In Game\Buffs\GemsArray"));
+			// check to see if we are already referencing this animation
+			cAnimData = LoadAnimationData(@"In Game\Buffs\GemsArray");
 
 			// check to see if we are already refencing this texture 
 			if(!_cTextureList.TryGetValue(@"In Game\Buffs\Gems", out cTexData))
@@ -167,10 +187,8 @@ namespace MightyFights_Prototype
 			Random				cRand = DataStore.cInstance.cRand;
 			Texture2D			cTexData;
 
-			// check to see if we are already referencing this animation 
-			if(!_cAnimationDataList.TryGetValue(@"In Game\Buffs\GemsArray", out cAnimData))
-				// add it to the reference list
-				_cAnimationDataList.Add(@"In Game\Buffs\GemsArray", cAnimData = _cContent.Load<AnimationData>(@"In Game\Buffs\GemsArray"));
+			// check to see if we are already referencing this animation
+			cAnimData = LoadAnimationData(@"In Game\Buffs\GemsArray");
 
 			// check to see if we are already refencing this texture 
 			if(!_cTextureList.TryGetValue(@"In Game\Buffs\Gems", out cTexData))
@@ -208,10 +226,8 @@ namespace MightyFights_Prototype
 			Texture2D		cTexData;
 			AnimationData	cAnimData;
 
-			// check to see if we are already referencing this animation 
-			if(!_cAnimationDataList.TryGetValue(@"In Game\Buffs\DropsArray", out cAnimData))
-				// add it to the reference list
-				_cAnimationDataList.Add(@"In Game\Buffs\DropsArray", cAnimData = _cContent.Load<AnimationData>(@"In Game\Buffs\DropsArray"));
+			// check to see if we are already referencing this animation
+			cAnimData = LoadAnimationData(@"In Game\Buffs\DropsArray");
 
 			// check to see if we are already refencing this texture 
 			if(!_cTextureList.TryGetValue(@"In Game\Buffs\Drops", out cTexData))
@@ -233,10 +249,8 @@ namespace MightyFights_Prototype
 			Texture2D			cTexData;
 			Drop				cBasicBuff;
 
-			// check to see if we are already referencing this animation 
-			if(!_cAnimationDataList.TryGetValue(@"In Game\Buffs\DropsArray", out cAnimData))
-				// add it to the reference list
-				_cAnimationDataList.Add(@"In Game\Buffs\DropsArray", cAnimData = _cContent.Load<AnimationData>(@"In Game\Buffs\DropsArray"));
+			// check to see if we are already referencing this animation
+			cAnimData = LoadAnimationData(@"In Game\Buffs\DropsArray");
 
 			// check to see if we are already refencing this texture 
 			if(!_cTextureList.TryGetValue(@"In Game\Buffs\Drops", out cTexData))
