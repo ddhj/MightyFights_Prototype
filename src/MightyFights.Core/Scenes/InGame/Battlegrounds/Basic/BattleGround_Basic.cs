@@ -19,158 +19,70 @@ using MightyFights_Support;
 
 namespace MightyFights_Prototype
 {
-	public partial class BattleGround_Basic : IGameScene
+	//// ddhj: 2026 consolidation -- the shared battle machinery (state machine, drop economy,
+	//// slow-mo, cursor, music, common draw frame, teardown) moved to BattleSceneBase; this
+	//// scene keeps the classic skirmish mode: symmetric armies from both stewards, the
+	//// left-click rematch balance loop, and the dev HUD.
+	public partial class BattleGround_Basic : BattleSceneBase
 	{
-		ESceneStates	_eState;
-		Texture2D		_cBackground,
-						_cHudBorder;
-		SpriteBatch		_cSpriteBatch;
-		BattleObjectManager	_cObjMgr = new BattleObjectManager();
-		Cursor			_cCursor;
-		BattlegroundData	_cBattleData = new BattlegroundData();
-
 		Dictionary<string, List<IDrawable>>		_cDrawList = new Dictionary<string,List<IDrawable>>();
 		Dictionary<string, List<Combatant>>	_cTrooperRef = new Dictionary<string,List<Combatant>>();
-		Dictionary<EBuffEffects, BuffContainer>		_cBuffContainerList = new Dictionary<EBuffEffects,BuffContainer>();
 		List<TrooperTemplate>	_cTmpList = new List<TrooperTemplate>();
-
-		Random		_cRand = DataStore.cInstance.cRand;
-		Song		_cBgm;
-		SoundEffectInstance		_cBuffSfx,
-								_cHammerSfx;
 
 		////ddhj: debug data
 		TimeSpan		_tTime = TimeSpan.Zero,
 						_tVictoryElapsed = TimeSpan.Zero,
-						_tSlowMo = TimeSpan.Zero,
 						_tEllapsedTime,
-						_tOneSecond = TimeSpan.FromSeconds( 1 ),
-						_tSlowMoTrigger = TimeSpan.FromMilliseconds( 50 );
+						_tOneSecond = TimeSpan.FromSeconds( 1 );
 
 		int				_iFrameRate = 0,
-						_iFrameCtr = 0,
-						_iHammerCtr = 0;
-		SpriteFont		_cFont;
-		Texture2D		_cBorder;
-		bool			_bUpdate = true;
-		// PORT (Phase 1, T1.5): StatsDialog/DebugData/CapCompTempEditor were WinForms dialogs
-		// glued onto the XNA window's native HWND -- can't exist in a cross-platform Core.
-		// Stripped for now; see docs/PORT_NOTES.md "WinForms debug tooling" for disposition.
-		// The kill/experience tally that lived in StatsDialog was working balance bookkeeping,
-		// not display -- preserved in the framework-agnostic ExperienceTally.
-		ExperienceTally	_cExpTally = new ExperienceTally();
+						_iFrameCtr = 0;
 
-		public ESceneStates eState		{ get { return _eState; } set { _eState = value; }}
-	
-		#region IGameScene Members
-		public void Update(GameTime cTime)
+		protected override void OnBattleOver(int iLosingTeamId)
 		{
+			_cBgm = DataManager.cInstance.CreateMusic( "Minibossies_FinalFantasy6_VictoryFanfare" );
+			if(DataStore.cInstance.bPlayMusic) MediaPlayer.Play( _cBgm );
 
-			// set the datastore elapsed time for the action and heuristic processing 
-			DataStore.cInstance.tTime = cTime;
+			// debug for exp (the tally itself already ran in the base)
+			WriteExpData();
+		}
 
-			//// CBD, just a way to pause the screen for the moment
-//			{
-//				MouseState	cState = Mouse.GetState();
-//				if( cState.LeftButton == ButtonState.Pressed )
-//					_bUpdate = false;
-//				else	_bUpdate = true;
-//			}
+		protected override void ProcessVictoryState()
+		{
+			// left click is restart battle
+			if(Mouse.GetState().LeftButton == ButtonState.Pressed)
+				ResetBattle();
+			else if(Mouse.GetState().RightButton == ButtonState.Pressed)
+				BackToMenu();
+			else if(Mouse.GetState().MiddleButton == ButtonState.Pressed) { }
+				// PORT (T1.5): StatsDialog.ShowDialog() removed with the dialog -- see PORT_NOTES.md
 
-			// the effect is outside the slowmo loop 
-			if(_cBattleData.cAnimalEffect != null)
-				if(!_cBattleData.cAnimalEffect.Process(cTime))
-					_cBattleData.cAnimalEffect = null;
+			//_tVictoryElapsed += tTime.ElapsedGameTime;
+			//if(_tVictoryElapsed > TimeSpan.FromMilliseconds(2000)) {
+			//    ResetBattle();
+			//}
+		}
 
-			//// debug slow down the game
-			if(DataStore.cInstance.bSlowMo) { 
-				_tSlowMo += cTime.ElapsedGameTime;
-				if(_tSlowMo < _tSlowMoTrigger) 
-					return;
-			}			
-
-			if( _bUpdate )
-			{
-				// process the battle state
-				switch(_cBattleData.eState) { 
-					case EBattlegroundState.Init:
-						if(!WaitForBattleStart()) 
-							_cBattleData.eState = EBattlegroundState.Battle;				
-					break;
-
-					case EBattlegroundState.Battle:
-						// check to see if the battle is over 
-						foreach( Team cTeam in _cBattleData.caTeams )
-							if( cTeam.cActiveList.Count == 0 ) { 
-								_cBattleData.eState = EBattlegroundState.Victory;
-
-								MediaPlayer.Stop( );
-								_cBgm = DataManager.cInstance.CreateMusic( "Minibossies_FinalFantasy6_VictoryFanfare" );
-								if(DataStore.cInstance.bPlayMusic) MediaPlayer.Play( _cBgm );
-
-								// PORT (T1.5): the WinForms StatsDialog is gone, but its per-kill
-								// tally is balance bookkeeping -- run it via ExperienceTally.
-								_cExpTally.Tally( _cBattleData );
-
-								// debug for exp
-								WriteExpData();
-								break;
-							}
-					break;
-
-					case EBattlegroundState.Victory: 
-						// left click is restart battle
-						if(Mouse.GetState().LeftButton == ButtonState.Pressed)
-							ResetBattle();
-						else if(Mouse.GetState().RightButton == ButtonState.Pressed)
-							BackToMenu();
-						else if(Mouse.GetState().MiddleButton == ButtonState.Pressed) { }
-							// PORT (T1.5): StatsDialog.ShowDialog() removed with the dialog -- see PORT_NOTES.md
-
-						//_tVictoryElapsed += tTime.ElapsedGameTime;
-						//if(_tVictoryElapsed > TimeSpan.FromMilliseconds(2000)) { 
-						//    ResetBattle();
-						//}
-					break;
-				}
-
-				// process the battle actions
-				if(_cBattleData.eState != EBattlegroundState.Dialog) 
-					_cBattleData.cObjMgr.Process(cTime);
-			}
-
-			// this is for the debug 
+		protected override void UpdateDebug(GameTime cTime)
+		{
+			// this is for the debug
 			_tTime += cTime.ElapsedGameTime;
-			if(_tTime > _tOneSecond) { 
+			if(_tTime > _tOneSecond) {
 				_tTime -= _tOneSecond;
 				_iFrameRate = _iFrameCtr;
 				_iFrameCtr = 0;
 			}
-				
-			_tSlowMo = TimeSpan.Zero;
-		}
 
-		public void Draw(GameTime cTime)
-		{
-			++_iFrameCtr;
 			if( _cBattleData.eState == EBattlegroundState.Battle )
 				_tEllapsedTime += cTime.ElapsedGameTime;
+		}
 
-			_cSpriteBatch.Begin(SpriteSortMode.BackToFront, null); { 
-				if(DataStore.cInstance.bShowBg) { 
-					_cSpriteBatch.Draw(_cBackground, new Vector2(112, 70), null, Color.White, 0, new Vector2(0,0), 1, SpriteEffects.None, 1); 
-					_cSpriteBatch.Draw(_cHudBorder, new Vector2(0, 0), null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, .99f);
-				}
-			
-				// draw all objects in the manager
-				_cBattleData.cObjMgr.Draw(_cSpriteBatch);	
+		protected override void DrawHud(SpriteBatch cBatch)
+		{
+			++_iFrameCtr;
 
-				// check to see if we have an effect ( this may be replaced with a queue or stack of the effects )
-				if(_cBattleData.cAnimalEffect != null) 
-					_cBattleData.cAnimalEffect.Draw(_cSpriteBatch);
-
-				//// development interface
-				{
+			//// development interface
+			{
 					int		iLHp = 0,
 							iRHp = 0,
 							iLPow = 0,
@@ -192,48 +104,16 @@ namespace MightyFights_Prototype
 								iRAc += cTrooper.cStats.iArmorClass;
 							}
 
-					_cSpriteBatch.DrawString(_cFont, string.Format("LeftArmy: {0}    Left HP: {1}    Left Pow: {2}    Left AC: {3}",
+					cBatch.DrawString(_cFont, string.Format("LeftArmy: {0}    Left HP: {1}    Left Pow: {2}    Left AC: {3}",
 							_cBattleData.caTeams[0].cActiveList.Count, iLHp, iLPow, iLAc ), new Vector2(10, 10), Color.White);
-					_cSpriteBatch.DrawString(_cFont, string.Format("RightArmy: {0}  Right HP: {1}  Right Pow:{2}   Right AC: {3}",
+					cBatch.DrawString(_cFont, string.Format("RightArmy: {0}  Right HP: {1}  Right Pow:{2}   Right AC: {3}",
 							_cBattleData.caTeams[1].cActiveList.Count, iRHp, iRPow, iRAc ), new Vector2(10, 30), Color.White);
-					_cSpriteBatch.DrawString(_cFont, string.Format("fps: {0}", _iFrameRate ), new Vector2(820, 10), Color.White);
-					_cSpriteBatch.DrawString(_cFont, string.Format("Time: {0}", _tEllapsedTime.ToString( "c" )), new Vector2(860, 10), Color.White);
-					_cSpriteBatch.DrawString(_cFont, string.Format("x {0}", _iHammerCtr), new Vector2(955, 35), Color.White);
+					cBatch.DrawString(_cFont, string.Format("fps: {0}", _iFrameRate ), new Vector2(820, 10), Color.White);
+					cBatch.DrawString(_cFont, string.Format("Time: {0}", _tEllapsedTime.ToString( "c" )), new Vector2(860, 10), Color.White);
 				}
 
-				// if we are going to draw the active zones
-				if(DataStore.cInstance.bZoneDisplay) { 
-					Vector2	tZone;
-					foreach(Dictionary<int, Zone> cZoneList in _cBattleData.caActiveZones) { 
-						foreach(Zone cZone in cZoneList.Values) { 
-							tZone.X = cZone.cPoint.iX * (int)EZoneData.ZoneColWidth + 112;
-							tZone.Y = cZone.cPoint.iY * (int)EZoneData.ZoneRowHeight + 70;
-
-							_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
-							_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X + (int)EZoneData.ZoneColWidth, (int)tZone.Y, 1, (int)EZoneData.ZoneRowHeight), Color.White);
-							_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y, (int)EZoneData.ZoneColWidth, 1), Color.White);
-							_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tZone.X, (int)tZone.Y + (int)EZoneData.ZoneRowHeight, (int)EZoneData.ZoneColWidth, 1), Color.White);
-						}
-					}
-				}
-			} _cSpriteBatch.End();
-
-			_cSpriteBatch.Begin(); { 
-				// draw all objects in the manager
-				_cBattleData.cObjMgr.DrawParticles(_cSpriteBatch);
-			} _cSpriteBatch.End();
 		}
 
-		bool WaitForBattleStart()
-		{
-			bool bReady = false;
-
-			foreach( Team cTeam in _cBattleData.caTeams )
-				foreach( Trooper cTrooper in cTeam.cActiveList.Values )
-					bReady |= cTrooper.cAiData.eState != EBattleAiStates.Ready;
-
-			return bReady;
-		}
 
 		void SetBattleStart()
 		{
@@ -287,78 +167,8 @@ namespace MightyFights_Prototype
 					++iX;
 				}
 			}
-
-			string[] saMusic = new string[] { @"Battle\battle1", @"Battle\battle2" };
-			//DataStore.cInstance.cBgm = 
-			//    _cBgm = ObjectCreationManager.cInstance.CreateMusic( saMusic[DataStore.cInstance.cRand.Next( saMusic.Length )] );
-			DataStore.cInstance.cBgm = 
-			    _cBgm = DataManager.cInstance.CreateMusic( saMusic[_cRand.Next(2)] );
-			MediaPlayer.IsRepeating = true;
-			MediaPlayer.Volume = .6f;
-			if(DataStore.cInstance.bPlayMusic)	MediaPlayer.Play( _cBgm );
 		}
 
-		void CreateBuffContainers()
-		{
-			ContentManager	cContent = DataStore.cInstance.cContent;
-			BuffContainer	cTmpContainer;
-
-			_cBuffContainerList.Add(EBuffEffects.Squirrel_Acorn, cTmpContainer = new BuffContainer(new Vector2(132, 519)));
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-
-			_cBuffContainerList.Add(EBuffEffects.Crab_Claw, cTmpContainer = new BuffContainer(new Vector2(232, 519)));
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-
-			_cBuffContainerList.Add(EBuffEffects.Wolf_Ear, cTmpContainer = new BuffContainer(new Vector2(332, 519)));
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-
-			_cBuffContainerList.Add(EBuffEffects.Toad_Eye, cTmpContainer = new BuffContainer(new Vector2(432, 519)));
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-
-			_cBuffContainerList.Add(EBuffEffects.Snake_Fang, cTmpContainer = new BuffContainer(new Vector2(532, 519)));
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-
-			_cBuffContainerList.Add(EBuffEffects.Eagle_Feather, cTmpContainer = new BuffContainer(new Vector2(632, 519)));
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-
-			_cBuffContainerList.Add(EBuffEffects.Lion_Paw, cTmpContainer = new BuffContainer(new Vector2(732, 519)));
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-
-			_cBuffContainerList.Add(EBuffEffects.Dragon_Wing, cTmpContainer = new BuffContainer(new Vector2(832, 519)));
-			cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
-			cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
-			cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2), 
-				new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-			_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
-		}
 		
 		void InitTemplateList(List<TemplateCfgMaster> cList)
 		{
@@ -380,134 +190,70 @@ namespace MightyFights_Prototype
 			return true;
 		}
 
-		public bool Init()
+		protected override void SetupBattle()
 		{
 			DataStore		cData = DataStore.cInstance;
-			ContentManager	cContent = cData.cContent;
 			GraphicsDevice	cGraphics = cData.cGraphics;
-			Trooper			cTmpTrooper = null;
 			DataManager	cObjMgr = DataManager.cInstance;
+			Trooper			cTmpTrooper = null;
 			Team			cTeam;
 			Priest			cHealer;
 			TrooperTemplate cTemplate;
 
-			_cBattleData.cObjMgr = _cObjMgr;
-			_cBattleData.dlBuffClick = ProcessBuffClick;
-			_cBattleData.dlDropClick = ProcessHammerClick;
-
-			// PORT (T1.5): WinForms StatsDialog/DebugData construction + HWND-embedded debug
-			// button removed here -- see PORT_NOTES.md "WinForms debug tooling". The original
-			// re-created StatsDialog (and so its tally) fresh on every Init() -- ResetBattle()
-			// calls PartialClean() then Init(), so each battle restart got a clean slate.
-			// ExperienceTally must be re-created here too, or a mid-session ResetBattle() would
-			// silently mix stats from the previous battle into the new one.
-			_cExpTally = new ExperienceTally();
-
 			_tEllapsedTime = TimeSpan.Zero;
-			try { 
-				_cSpriteBatch = new SpriteBatch(DataStore.cInstance.cGraphics);
-				_cBackground = cContent.Load<Texture2D>(@"Backgrounds\dirt_grass 800x436");
-				_cHudBorder = cContent.Load<Texture2D>(@"In Game\Hud\border_jackson");
 
+			cTeam = _cBattleData.caTeams[0];
+			// make a block of troopers
+			InitTemplateList(cData.cLSteward.cTemplates);
+			while(GetTrooperTemplate(out cTemplate)) {
+				// add the newly created trooper to the active list and set some initial battle data
+				cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cTemplate);
+				cTeam.cActiveList.Add(cTmpTrooper.iId, cTmpTrooper);
+				// add to the member list just for debug maybe
+				cTeam.cMembers.Add(cTmpTrooper);
+				cTmpTrooper.tPos = new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2);
 
-				_cObjMgr.CreateParticleManager( );
-
-				_cBuffSfx = DataManager.cInstance.CreateSfx( "Magic Wand Noise-SoundBible.com-375928671" );
-				_cHammerSfx = DataManager.cInstance.CreateSfx( "Electronic_Chime-KevanGC-495939803" );
-				_cBuffSfx.Volume = _cHammerSfx.Volume = .4f;
-
-
-				// set the battle data to the datastore for reference 
-				DataStore.cInstance.cBattleData = _cBattleData;
-
-				cTeam = _cBattleData.caTeams[0];
-				// make a block of troopers
-				InitTemplateList(cData.cLSteward.cTemplates);
-				while(GetTrooperTemplate(out cTemplate)) { 
-					// add the newly created trooper to the active list and set some initial battle data
-					cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cTemplate);
-					cTeam.cActiveList.Add(cTmpTrooper.iId, cTmpTrooper);
-					// add to the member list just for debug maybe
-					cTeam.cMembers.Add(cTmpTrooper);
-					cTmpTrooper.tPos = new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2);
-
-					// add the new object to the object manager
-					_cObjMgr.AddObject(cTmpTrooper);
-				}
-
-				for( int iCount = 0; iCount < 2; ++iCount )
-				{
-					cHealer = cObjMgr.CreatePriest(new Vector2( 65, 180 + 120 * iCount ), cTeam,   (int)( 40f * 7 * 6 ), 7, 40f, 1.3333f, _cBattleData);
-					cTeam.cHealerList.Add( cHealer.iId, cHealer );
-					_cObjMgr.AddObject(cHealer);
-				}
-
-				cTeam = _cBattleData.caTeams[1];
-				// make a block of opponents
-				InitTemplateList(cData.cRSteward.cTemplates);
-				while(GetTrooperTemplate(out cTemplate)) { 
-					// set the opponents to the acitve list 
-					cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cTemplate);
-					cTeam.cActiveList.Add(cTmpTrooper.iId, cTmpTrooper);
-					// add to the member list just for debug maybe
-					cTeam.cMembers.Add(cTmpTrooper);
-					cTmpTrooper.tPos = new Vector2(950, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2);
-
-					// add to the object manger
-					_cObjMgr.AddObject(cTmpTrooper);
-				}
-				for( int iCount = 0; iCount < 2; ++iCount )
-				{
-					cHealer = cObjMgr.CreatePriest(new Vector2( 830, 180 + 120 * iCount ), cTeam,  (int)( 40f * 7 * 6 ), 7, 40f, 1.3333f, _cBattleData);
-					cTeam.cHealerList.Add( cHealer.iId, cHealer );
-					_cObjMgr.AddObject(cHealer);
-				}
-
-				// create the containers 
-				_cBattleData.cBuffContainers = _cBuffContainerList;
-				CreateBuffContainers();
-
-				// add the hammer
-				_cObjMgr.AddObject(DataManager.cInstance.CreateHammerIcon());
-
-				_cCursor = new Cursor();
-				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");
-				_cCursor.sTexName = @"Shared\arrow_cursor";
-				_cCursor.tPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-				_cCursor.cFrame = new Frame(_cCursor.cTexRef.Bounds, new Vector2(_cCursor.cTexRef.Bounds.Width / 2, _cCursor.cTexRef.Bounds.Height / 2), 
-					new Vector2(0, 0), new Vector2(0, 0), new Vector2(_cCursor.cTexRef.Bounds.Width, _cCursor.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
-				_cObjMgr.AddObject(_cCursor);
-				_cBattleData.cCursor = _cCursor;
-
-				//// ddhj: load in some debug data
-				_cFont = cContent.Load<SpriteFont>(@"Shared\TestFon");
-				DataStore.cInstance.cBorder = _cBorder = new Texture2D(cGraphics, 1, 1);
-				_cBorder.SetData<Color>(new[] { Color.White });
-
-				// set the start of battle
-				SetBattleStart();
-			} catch(Exception xEx) {
-				// PORT (T1.5): was System.Windows.Forms.MessageBox.Show -- swapped for a
-				// portable diagnostic sink, see PORT_NOTES.md.
-				System.Diagnostics.Debug.WriteLine(xEx.ToString());
+				// add the new object to the object manager
+				_cObjMgr.AddObject(cTmpTrooper);
 			}
 
-			return true;
+			for( int iCount = 0; iCount < 2; ++iCount )
+			{
+				cHealer = cObjMgr.CreatePriest(new Vector2( 65, 180 + 120 * iCount ), cTeam,   (int)( 40f * 7 * 6 ), 7, 40f, 1.3333f, _cBattleData);
+				cTeam.cHealerList.Add( cHealer.iId, cHealer );
+				_cObjMgr.AddObject(cHealer);
+			}
+
+			cTeam = _cBattleData.caTeams[1];
+			// make a block of opponents
+			InitTemplateList(cData.cRSteward.cTemplates);
+			while(GetTrooperTemplate(out cTemplate)) {
+				// set the opponents to the acitve list
+				cTmpTrooper = new Trooper(cObjMgr.iCurObjId, cTeam, cTemplate);
+				cTeam.cActiveList.Add(cTmpTrooper.iId, cTmpTrooper);
+				// add to the member list just for debug maybe
+				cTeam.cMembers.Add(cTmpTrooper);
+				cTmpTrooper.tPos = new Vector2(950, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2);
+
+				// add to the object manger
+				_cObjMgr.AddObject(cTmpTrooper);
+			}
+			for( int iCount = 0; iCount < 2; ++iCount )
+			{
+				cHealer = cObjMgr.CreatePriest(new Vector2( 830, 180 + 120 * iCount ), cTeam,  (int)( 40f * 7 * 6 ), 7, 40f, 1.3333f, _cBattleData);
+				cTeam.cHealerList.Add( cHealer.iId, cHealer );
+				_cObjMgr.AddObject(cHealer);
+			}
+
+			// set the start of battle
+			SetBattleStart();
 		}
 
-		void BackToMenu()
-		{
-			_eState = ESceneStates.Inactive;
-			DataStore.cInstance.cSceneMgr.RemoveScene(this);
-		}
 
 		void PartialClean()
 		{
-			_cSpriteBatch.Dispose();
+			CleanCommon();
 			_cTrooperRef.Clear();
-			_cBattleData.Clear();
-			_cObjMgr.Clear();
-			_cBuffContainerList.Clear();
 			// PORT (T1.5): dialog teardown removed along with the dialogs -- see PORT_NOTES.md
 		}
 
@@ -523,23 +269,15 @@ namespace MightyFights_Prototype
 		void CleanData()
 		{
 			MediaPlayer.Stop( );
-			_cSpriteBatch.Dispose();
+			CleanCommon();
 			_cDrawList.Clear();
 			_cTrooperRef.Clear();
-			_cBattleData.Clear();
-			_cObjMgr.Clear();
 		}
 
-		public void Unload()
+		public override void Unload()
 		{
 			CleanData();
 		}
 
-		public void ToggleControls()
-		{
-
-		}
-
-		#endregion
 	}
 }
