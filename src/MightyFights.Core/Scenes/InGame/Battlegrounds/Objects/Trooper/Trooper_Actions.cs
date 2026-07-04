@@ -82,7 +82,18 @@ namespace MightyFights_Prototype	{
 
 		public bool TrooperUpkeep(Action cAction, GameTime cTime)
 		{
-			if(_cStats.fHp <= 0) { 
+			//// ddhj: kaiju -- tried an unconditional UpdateRefPoints() call here (every frame,
+			//// regardless of movement) to keep _tCenter fresh against animation-frame changes
+			//// that don't reassign tPos. Owner observed it made the direction-flip visuals
+			//// WORSE in live testing, not better -- reverted. The movement code (MoveToPoint/
+			//// ChargeOpponent/PersueOpponent) already sets bDir immediately before reassigning
+			//// tPos each active-movement frame, so those two stay in sync with each other on
+			//// their own; forcing an extra recompute here, ahead of that in the same frame's
+			//// processing order (TrooperUpkeep is a perm action, runs before the queued
+			//// movement action), was evidently fighting that rather than helping it. The actual
+			//// ordering bug this was chasing (Kaiju Hunt's spawn code setting bDir AFTER tPos)
+			//// is fixed at the source instead -- see SpawnTrooper in KaijuHunt.cs.
+			if(_cStats.fHp <= 0) {
 				cAiData.eState = EBattleAiStates.Dying;
 				_cActionMgr.cActionQueue.Clear();
 				if(DataStore.cInstance.cRand.Next(2) == 1) 

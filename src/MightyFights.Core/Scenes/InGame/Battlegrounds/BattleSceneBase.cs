@@ -220,6 +220,24 @@ namespace MightyFights_Prototype
 						}
 					}
 				}
+
+				//// ddhj: kaiju -- F2 (GameShell.Update) toggle. Red dot = this combatant's real
+				//// tCenter (what zones/attack-points/damage-range actually use); green line =
+				//// facing per bDir, drawn toward +X when true, -X when false, so a sprite that's
+				//// visibly flipped one way while this line points the other is the bug, caught
+				//// on camera instead of argued about from code.
+				if(DataStore.cInstance.bDebugCenters) {
+					foreach(Team cDbgTeam in _cBattleData.caTeams) {
+						foreach(Combatant cDbgCom in cDbgTeam.cActiveList.Values) {
+							Vector2	tC = cDbgCom.tCenter;
+							_cSpriteBatch.Draw(_cBorder, new Rectangle((int)tC.X - 2, (int)tC.Y - 2, 4, 4), Color.Red);
+
+							bool	bFacing = (cDbgCom is Trooper) && ((Trooper)cDbgCom).bDir;
+							int		iLineX = bFacing ? (int)tC.X : (int)tC.X - 14;
+							_cSpriteBatch.Draw(_cBorder, new Rectangle(iLineX, (int)tC.Y - 1, 14, 2), Color.Lime);
+						}
+					}
+				}
 			} _cSpriteBatch.End();
 
 			_cSpriteBatch.Begin(); {

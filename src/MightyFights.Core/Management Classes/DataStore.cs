@@ -49,6 +49,11 @@ namespace MightyFights_Prototype
 		public bool				bHealSpots		{ get; set; }
 		public bool				bPlayMusic		{ get; set; }
 		public bool				bZoneDisplay	{ get; set; }
+		//// ddhj: kaiju -- toggle with F2 (GameShell.Update). Draws each combatant's real
+		//// tCenter (a dot) and bDir facing (a short line) so the direction-flip/ref-point bug
+		//// can be diagnosed visually instead of guessed at from code. Owner: use this during
+		//// playtest to pin down exactly what "worse" looks like.
+		public bool				bDebugCenters	{ get; set; }
 		public bool				bShowBg			{ get; set; }
 		public Song				cBgm			{ get; set; }
 

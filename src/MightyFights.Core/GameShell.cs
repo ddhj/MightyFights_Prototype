@@ -129,6 +129,8 @@ namespace MightyFights_Prototype
 		/// checking for collisions, gathering input, and playing audio.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		bool _bF2WasDown;
+
 		protected override void Update(GameTime gameTime)
 		{
 			// Allows the game to exit
@@ -138,6 +140,12 @@ namespace MightyFights_Prototype
 			if(GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
 #endif
+
+			//// ddhj: kaiju -- F2 toggles the tCenter/bDir debug draw (DataStore.bDebugCenters).
+			bool bF2Down = Keyboard.GetState().IsKeyDown(Keys.F2);
+			if(bF2Down && !_bF2WasDown)
+				DataStore.cInstance.bDebugCenters = !DataStore.cInstance.bDebugCenters;
+			_bF2WasDown = bF2Down;
 
 			// PORT (Phase 6): pump the higher-level input events. Replaces the old Win32 WndProc
 			// hook (which fired these during message dispatch); now polled once per frame before

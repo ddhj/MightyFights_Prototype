@@ -110,8 +110,7 @@ namespace MightyFights_Prototype
 			// detour, not just the visual march.
 			cTeam = _cBattleData.caTeams[0];
 			for(int iCount = 0; iCount < iInitialSquad; ++iCount) {
-				cTrooper = SpawnTrooper(cTeam, new Vector2(150, 100 + (iCount % 12) * 30), _caSpawnTypes[0].cCfg);
-				cTrooper.bDir = true;	// face right/toward the kaiju until ChooseOpponent corrects it
+				cTrooper = SpawnTrooper(cTeam, new Vector2(150, 100 + (iCount % 12) * 30), _caSpawnTypes[0].cCfg, bFaceRight: true);
 				cTrooper.cAiData.eState = EBattleAiStates.Ready;
 				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
 			}
@@ -125,7 +124,15 @@ namespace MightyFights_Prototype
 			// the kaiju: one monster on the opposing team
 			cTeam = _cBattleData.caTeams[1];
 			TemplateCfgMaster cKaijuCfg = new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fsable"));
-			cKaijuCfg.cStats = new Stats { iAtkSpeed = 25, iMovement = 5, fHp = 6000, iMaxHp = 6000, iPower = 55, fCrit = .15f, iHealPoint = 0, iFleePoint = 0, iArmorClass = 12 };
+			//// ddhj: owner call -- armor 12 vs a Halberdier's iPower=5 base attack meant
+			//// Trooper_Combatant.cs's DealDamage formula (iDamage - armor*rand(0.6,0.99)) was
+			//// negative for basically every non-crit hit (12*0.6=7.2 alone already exceeds 5),
+			//// which routes into the "attacking a monster" fallback: ceil(iDamage*.10) -- just
+			//// 1 damage per hit, reading as "damage numbers are 0's." Armor 3 keeps basic
+			//// Halberdier hits in the normal formula's positive range (~2-3 dmg) instead of
+			//// permanently degenerating to that floor, while still meaningfully soaking
+			//// Peasant hits (power 3) and rewarding Captains (power 40) for their cost.
+			cKaijuCfg.cStats = new Stats { iAtkSpeed = 25, iMovement = 5, fHp = 6000, iMaxHp = 6000, iPower = 55, fCrit = .15f, iHealPoint = 0, iFleePoint = 0, iArmorClass = 3 };
 			cKaijuCfg.sTemplateName = "Kaiju";
 
 			_cKaiju = new Kaiju(cMgr.iCurObjId, cTeam, cMgr.CreateTemplate(cKaijuCfg), fKaijuScale);
@@ -201,7 +208,7 @@ namespace MightyFights_Prototype
 	// Mode internals
 
 		// create a player trooper from the given template, register it with team/manager, place it
-		Trooper SpawnTrooper(Team cTeam, Vector2 tPos, TemplateCfgMaster cCfg)
+		Trooper SpawnTrooper(Team cTeam, Vector2 tPos, TemplateCfgMaster cCfg, bool bFaceRight = true)
 		{
 			TrooperTemplate		cTemplate = DataManager.cInstance.CreateTemplate(cCfg);
 			TemplateCfgMaster	cBank;
@@ -215,6 +222,13 @@ namespace MightyFights_Prototype
 
 			cTeam.cActiveList.Add(cTrooper.iId, cTrooper);
 			cTeam.cMembers.Add(cTrooper);
+			//// ddhj: kaiju -- bDir MUST be set before tPos: tPos's setter is what calls
+			//// UpdateRefPoints, so setting bDir afterward left _tCenter computed against the
+			//// pre-spawn default facing for a frame. TrooperUpkeep now refreshes ref points
+			//// every frame regardless (see that fix), so this alone wouldn't stay wrong for
+			//// long, but there is no reason to spawn wrong even briefly when getting the order
+			//// right costs nothing.
+			cTrooper.bDir = bFaceRight;
 			cTrooper.tPos = tPos;
 			_cObjMgr.AddObject(cTrooper);
 
@@ -272,9 +286,8 @@ namespace MightyFights_Prototype
 				// initial-squad comment above for why Kaiju Hunt skips the scripted march
 				int		iX = Math.Min(Math.Max(eMouseEvt.X, 130), 890);
 				int		iY = Math.Min(Math.Max(eMouseEvt.Y, 80), 480);
-				Trooper	cTrooper = SpawnTrooper(_cBattleData.caTeams[0], new Vector2(iX, iY), cSel.cCfg);
+				Trooper	cTrooper = SpawnTrooper(_cBattleData.caTeams[0], new Vector2(iX, iY), cSel.cCfg, bFaceRight: iX < _cKaiju.tCenter.X);
 
-				cTrooper.bDir = iX < _cKaiju.tCenter.X;
 				cTrooper.cAiData.eState = EBattleAiStates.Ready;
 				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
 			}

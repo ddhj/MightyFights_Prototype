@@ -29,8 +29,13 @@ namespace MightyFights_Prototype
 		{
 			_fScale = fScale;
 
-			// a monster this size can be swarmed from everywhere, and its reach matches its bulk
-			_iAvailablePositions = 14;
+			//// ddhj: owner call -- with the radial attack-slot rewrite, raising this actually
+			//// creates that many real, evenly-spaced rendezvous points (see
+			//// Trooper_Combatant.cs), not crowding. 14 was still too tight -- most of a swarm
+			//// stood around waiting for a slot. Set high enough that "a whole army surrounds
+			//// the kaiju" is basically never artificially capped; iReserveMax (KaijuHunt.cs) is
+			//// the real ceiling on how many troopers can ever exist at once anyway.
+			_iAvailablePositions = 200;
 			this.iWeaponRange = 30;
 			this.iWeaponRngSq = this.iWeaponRange * this.iWeaponRange;
 		}
