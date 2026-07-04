@@ -37,12 +37,12 @@ namespace MightyFights_Prototype
 		//// check whether a point already belongs to a registered clickable (a buff/hammer drop,
 		//// a buff container) before treating the click as something else. Prevents a click that
 		//// lands on a mid-field pickup from ALSO spawning a reinforcement on the same click.
-		public bool IsClickableAt(Point tPoint)
+		public IClickable IsClickableAt(Point tPoint)
 		{
 			foreach(IClickable nClickObj in _cClickable.Values)
 				if(nClickObj.ContainsPoint(tPoint))
-					return true;
-			return false;
+					return nClickObj;
+			return null;
 		}
 
 		public void AddObject(object oData)

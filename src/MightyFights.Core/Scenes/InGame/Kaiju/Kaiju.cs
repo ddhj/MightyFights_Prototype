@@ -38,7 +38,9 @@ namespace MightyFights_Prototype
 			_iAvailablePositions = 200;
 			this.iWeaponRange = 30;
 			this.iWeaponRngSq = this.iWeaponRange * this.iWeaponRange;
-		}
+            cAiData.cHeurisitics[EBattleHeuristics.Attack] = Attack_Kaiju;
+
+        }
 
 		public override void DealDamage(Combatant nOpponent, int iDamage, bool bCrit)
 		{
@@ -52,5 +54,74 @@ namespace MightyFights_Prototype
 				_iNextDropThresholdPct -= iDropThresholdStep;
 			}
 		}
-	}
+
+        public object Attack_Kaiju(BattlegroundData cData)
+        {
+            Random cRand = DataStore.cInstance.cRand;
+            int iAttackPercent,
+                        iCritChance;
+            Combatant nOpponent = (Combatant)this.cTarget;
+
+            // check to see if our opponent is living 
+            if (nOpponent.IsDead())
+            {
+                // null out my opponent because they are dying 
+                cTarget = null;
+                base._bAttacking = false;
+
+                // move our state to ready which will choose another opponent
+                cAiData.eState = EBattleAiStates.Ready;
+                return null;
+            }
+
+            // check to see if our opponent is running by distance check
+            if (nOpponent.cAiData.eState == EBattleAiStates.Flee || !InWeaponRange(true))
+            {
+                // one in three chance to persue rather than attack somone else 
+                nOpponent.RemoveAttacker(_iAttackingPos);
+                cTarget = null;
+                _bAttacking = false;
+                cAiData.eState = EBattleAiStates.Ready;
+                return null;
+            }
+
+            // get our percent for this attack
+            // roll two tens 
+            iAttackPercent = cRand.Next(100);
+            iCritChance = 100 - (int)(100 * _cStats.fCrit);
+
+            cAiData.eState = EBattleAiStates.Attacking;
+
+            // we are going to crit
+            if (iAttackPercent > iCritChance)
+            {
+                switch (cRand.Next(2))
+                {
+                    case 0: _cAnimProc.SetAnimationCriteria("Attack", "Critical", "bigchop", 1); break;
+                    case 1: _cAnimProc.SetAnimationCriteria("Attack", "Critical", "lunge", 1); break;
+                }
+            }
+
+            // kaiju defend 10% of the time
+            if(cRand.Next(100) < 10)
+            {
+                ++_cExpData.iDefenceAttempts;
+                cAiData.eState = EBattleAiStates.Defending;
+                _cAnimProc.SetAnimationCriteria("Defend", "Parry", "parry", 1);
+            }
+            else
+            {
+                switch (cRand.Next(5))
+                {
+                    case 0: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "low", 1); break;
+                    case 1: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "stab", 1); break;
+                    case 2: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "stick", 1); break;
+                    case 3: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "chop", 1); break;
+                    case 4: _cAnimProc.SetAnimationCriteria("Attack", "Basic", "chopb", 1); break;
+                }
+            }
+
+            return null;
+        }
+    }
 }

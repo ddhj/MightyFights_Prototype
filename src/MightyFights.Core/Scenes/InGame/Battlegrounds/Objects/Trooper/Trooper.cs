@@ -27,7 +27,10 @@ namespace MightyFights_Prototype	{
 		//// points, evenly spread around the target, so raising this actually creates more room
 		//// rather than crowding more attackers onto a fixed handful of points.
 		protected int	_iAvailablePositions = 6;
-		int			_iAttackingPos;
+		//// ddhj: kaiju -- protected so a subclass's own attack heuristic (Kaiju.Attack_Kaiju)
+		//// can drive the same attack-range/animation/attacker-bookkeeping plumbing the base
+		//// Attack_Basic uses, instead of duplicating Trooper's private state.
+		protected int	_iAttackingPos;
 		float		_fZorder;
 		protected float	_fScale = 1.25f;
 		//// ddhj: kaiju -- which of the (dynamically sized, _iAvailablePositions-wide) radial
@@ -35,11 +38,11 @@ namespace MightyFights_Prototype	{
 		//// subclass constructor (e.g. Kaiju's) only overwrites _iAvailablePositions AFTER the
 		//// base Trooper constructor has already run.
 		bool[]		_baSlotTaken;
-		bool		_bAttacking;
+		protected bool	_bAttacking;
 
 		ParticleEffect				_cBloodSpray;
 		ActionManager<Trooper>		_cActionMgr;
-		AnimationProcessor			_cAnimProc;
+		protected AnimationProcessor	_cAnimProc;
 		BattlegroundData			_cBattleDataRef = null;
 
 		SoundEffectInstance			_cSfxCrit,

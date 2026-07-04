@@ -8,6 +8,17 @@ A 2D tactics/RPG prototype ("MightyFights") built on **XNA 4.0 / VS2010 / .NET 4
 
 Until the port lands, the code in `MightyFights_Prototype/` is genuine XNA 4.0, not MonoGame — don't assume MonoGame-only APIs are available unless you're working inside the port itself.
 
+**The port has landed.** `src/MightyFights.Core` + `src/MightyFights.Desktop` (MonoGame 3.8.x
+DesktopGL, net8.0) is now the live, playable codebase — the game runs Title → mode select →
+Skirmish or **Kaiju Hunt** (a new boss-battle mode built on top of the port, not part of the
+original game). `MightyFights_Prototype/` is kept only as untouched reference/ground-truth for
+porting questions. **Read `HANDOFF.md` first, every session** — it's the current "where are we,
+what's next" doc and is kept up to date; `docs/DESIGN_DIRECTION.md` has the owner's design
+decisions for Kaiju Hunt and the art-recovery pipeline; `docs/PORT_NOTES.md` has the full phase-by-
+phase port decision log. The rest of this file (architecture, conventions) describes the original
+XNA prototype, which is still an accurate map of `MightyFights_Prototype/` and of the ported code's
+structure/intent, just not its literal namespaces or project layout anymore.
+
 ## Build
 
 There is no modern build command here. This solution targets .NET Framework 4.0 Client Profile via the legacy XNA 4.0 toolchain and requires **Visual Studio 2010 + XNA Game Studio 4.0** (or an equivalent old MSBuild toolset) to build — `dotnet build` will not work against it. Content (`MightyFights_PrototypeContent.contentproj`) is built through the XNA content pipeline, not MGCB.

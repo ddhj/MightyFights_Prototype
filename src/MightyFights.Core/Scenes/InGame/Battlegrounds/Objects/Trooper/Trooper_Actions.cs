@@ -416,6 +416,9 @@ namespace MightyFights_Prototype	{
 				nOpponent.SetAttacker(this, out _iAttackingPos);
 				_bAttacking = true;
 
+				// face the opponent
+				bDir = _tCenter.X < nOpponent.tCenter.X;
+
 				// call the attack heuristic because we are within attack range for our weapon 
 				//// ddhj this will need a tweek for weapon range 
 				cAiData.cHeurisitics[EBattleHeuristics.Attack](DataStore.cInstance.cBattleData);

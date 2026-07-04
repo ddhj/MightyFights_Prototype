@@ -266,30 +266,36 @@ namespace MightyFights_Prototype
 				return;
 			}
 
+			IClickable nClickableObj = null;
+
 			// mid-battle: left-click on the field sends the selected reinforcement toward the
 			// click. The field-bounds check alone already excludes the HUD margins (stat bar,
 			// hammer icon, and the buff-container row all sit outside this rect), but kill-drops
 			// (buffs/hammers) land INSIDE the field during combat -- IsClickableAt makes sure a
 			// click that's picking one of those up doesn't also spawn a trooper on top of it.
 			if(_cBattleData.eState == EBattlegroundState.Battle && eMouseEvt.Button == MouseButton.Left
-				&& eMouseEvt.X > 112 && eMouseEvt.X < 912 && eMouseEvt.Y > 70 && eMouseEvt.Y < 506
-				&& !_cObjMgr.IsClickableAt(eMouseEvt.Location)) {
-				SpawnType	cSel = _caSpawnTypes[_iSelSpawn];
+				&& eMouseEvt.X > 112 && eMouseEvt.X < 912 && eMouseEvt.Y > 70 && eMouseEvt.Y < 506) {
+				if ((nClickableObj = _cObjMgr.IsClickableAt(eMouseEvt.Location)) == null)
+				{
+					SpawnType cSel = _caSpawnTypes[_iSelSpawn];
 
-				// enough reserves, and under the type's cap?
-				if(_iReserves < cSel.iCost || (cSel.iCap >= 0 && cSel.iSpawned >= cSel.iCap))
-					return;
-				_iReserves -= cSel.iCost;
-				++cSel.iSpawned;
+					// enough reserves, and under the type's cap?
+					if (_iReserves < cSel.iCost || (cSel.iCap >= 0 && cSel.iSpawned >= cSel.iCap))
+						return;
+					_iReserves -= cSel.iCost;
+					++cSel.iSpawned;
 
-				// spawn right where the player clicked and charge immediately -- see the
-				// initial-squad comment above for why Kaiju Hunt skips the scripted march
-				int		iX = Math.Min(Math.Max(eMouseEvt.X, 130), 890);
-				int		iY = Math.Min(Math.Max(eMouseEvt.Y, 80), 480);
-				Trooper	cTrooper = SpawnTrooper(_cBattleData.caTeams[0], new Vector2(iX, iY), cSel.cCfg, bFaceRight: iX < _cKaiju.tCenter.X);
+					// spawn right where the player clicked and charge immediately -- see the
+					// initial-squad comment above for why Kaiju Hunt skips the scripted march
+					int iX = Math.Min(Math.Max(eMouseEvt.X, 130), 890);
+					int iY = Math.Min(Math.Max(eMouseEvt.Y, 80), 480);
+					Trooper cTrooper = SpawnTrooper(_cBattleData.caTeams[0], new Vector2(iX, iY), cSel.cCfg, bFaceRight: iX < _cKaiju.tCenter.X);
 
-				cTrooper.cAiData.eState = EBattleAiStates.Ready;
-				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
+					cTrooper.cAiData.eState = EBattleAiStates.Ready;
+					cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
+				} else {
+					nClickableObj.dlProcessClick(eMouseEvt.Button, nClickableObj);
+                }
 			}
 		}
 
