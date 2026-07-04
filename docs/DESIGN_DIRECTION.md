@@ -52,6 +52,18 @@ Architecture mapping (from code review, see PORT_NOTES Phase 6 archaeology):
   (level display in the Template editor, content gating by roster level).
 - Loader prerequisite: generalize the hardcoded 100px `sourceSize` assumption in
   `AnimationDataLoader` (kaiju sprites won't be 100px wide).
+- **Decided 2026-07-04 (owner): attack-slot count is a "rated strength" knob, not a pure
+  visual-scale one.** `Trooper._iAvailablePositions` (how many attackers a target can
+  meaningfully hold at once) is a designed, per-target gameplay decision independent of
+  `_fScale` (pure render/geometry size) -- because once minions exist, troopers need to be able
+  to peel off the kaiju to fight them, and each minion will want its own appropriately-sized cap
+  rather than everything being driven by body size alone. The underlying attack-slot geometry
+  (`Trooper_Combatant.cs`) was rewritten from a fixed 6-slot Left/Right x Top/Mid/Bottom enum to
+  a dynamic radial system: however many slots `_iAvailablePositions` says, that many rendezvous
+  points get generated evenly around the target. (The fixed 6-slot system is also *why* troopers
+  were "attacking but missing" the kaiju -- once Top/Bottom filled, every further attacker piled
+  onto the identical Mid point and couldn't all physically stand there.) See PORT_NOTES-equivalent
+  commit history for the full mechanics; this doc just records the design call.
 
 ## Art pipeline (for new units and the kaiju)
 
