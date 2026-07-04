@@ -40,8 +40,16 @@ Architecture mapping (from code review, see PORT_NOTES Phase 6 archaeology):
 - Mid-battle player spawning has precedent: buffs are already player-applied during battle via
   `BObjectManager`'s click path.
 - `ExperienceTally` + per-template `cExpData` already count kills/crits/etc. The **exp → level →
-  stat-growth formula was never designed** (the old WinForms StatsDialog existed to tune it) —
-  that is real design work on this path.
+  stat-growth formula was never designed** (the old WinForms StatsDialog existed to tune it).
+  **Decided 2026-07-04 (owner): Fibonacci thresholds** — the classic early-RPG curve — implemented
+  in `Support Classes/LevelCurve.cs` (cumulative 1,1,2,3,5,8,…×100 XP; XP weighted kills-first;
+  +6%/+8%/+4% power/hp/AC per level at spawn). **Templates level, not instances** (owner confirmed
+  the original design). Survivors bank exp into the persisted roster at hunt victory; SaveData runs
+  immediately.
+- **Owner direction (2026-07-04):** as kaiju difficulty tiers rise, the kaiju should **spawn
+  minions from the non-human sprite set** (skeleton, slug, wild dog, bandit, drau — all .xcf-locked,
+  pending the scripted GIMP export). The leveling mechanic must also **stitch into the Camp menus**
+  (level display in the Template editor, content gating by roster level).
 - Loader prerequisite: generalize the hardcoded 100px `sourceSize` assumption in
   `AnimationDataLoader` (kaiju sprites won't be 100px wide).
 

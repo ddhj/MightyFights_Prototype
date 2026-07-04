@@ -49,9 +49,17 @@ namespace MightyFights_Prototype
 			public int					iCost;
 			public int					iCap;		// -1 = unlimited
 			public int					iSpawned;
+			public int					iLevel;		// fibonacci level from the banked roster exp
 		}
 		List<SpawnType>	_caSpawnTypes = new List<SpawnType>();
 		int				_iSelSpawn;
+
+		//// ddhj: step 2 of the kaiju build order -- survivors bank their battle exp into the
+		//// persisted roster templates (template-level progression, the original design: see
+		//// DESIGN_DIRECTION.md). Keyed by sTemplateName; the captain's clone banks into the
+		//// REAL cCaptains entry, not the clone.
+		Dictionary<string, TemplateCfgMaster>	_cBankTargets = new Dictionary<string, TemplateCfgMaster>();
+		string			_sBankReport = "";
 
 		const int		iInitialSquad = 12;
 		const int		iReserveMax = 60;
@@ -84,8 +92,11 @@ namespace MightyFights_Prototype
 								if(DataStore.cInstance.bPlayMusic) MediaPlayer.Play(_cBgm);
 							}
 
-							// bank the survivors' experience through the standard tally
+							// aggregate the battle through the standard tally, then bank the
+							// survivors' exp into the persisted roster (a wipe banks nothing:
+							// cActiveList is already empty)
 							_cExpTally.Tally(_cBattleData);
+							BankSurvivorExperience();
 							break;
 						}
 				break;
@@ -124,7 +135,8 @@ namespace MightyFights_Prototype
 										: _iReserves < cSel.iCost ? "  (not enough reserves)" : "";
 
 						_cSpriteBatch.DrawString(_cFont, "Left-click the field to send reinforcements", new Vector2(620, 10), Color.LightGray);
-						_cSpriteBatch.DrawString(_cFont, string.Format("Spawn [wheel]: {0}  cost {1}{2}", cSel.sLabel, cSel.iCost, sCapNote),
+						_cSpriteBatch.DrawString(_cFont, string.Format("Spawn [wheel]: {0}{1}  cost {2}{3}", cSel.sLabel,
+							cSel.iLevel > 0 ? " L" + cSel.iLevel : "", cSel.iCost, sCapNote),
 							new Vector2(620, 30), Color.Gold);
 					} break;
 
@@ -133,6 +145,8 @@ namespace MightyFights_Prototype
 							_bPlayerWon ? "THE KAIJU HAS FALLEN -- right-click to withdraw"
 										: "YOUR ARMY IS DEVOURED -- right-click to withdraw",
 							new Vector2(330, 40), _bPlayerWon ? Color.Gold : Color.OrangeRed);
+						if(_sBankReport.Length > 0)
+							_cSpriteBatch.DrawString(_cFont, _sBankReport, new Vector2(330, 60), Color.LightGreen);
 					break;
 				}
 			} _cSpriteBatch.End();
@@ -183,6 +197,19 @@ namespace MightyFights_Prototype
 				// the copy ctor doesn't carry the name; "Cap" in the name drives the 1.4x scale
 				cCapCfg.sTemplateName = "Captain " + cData.cLSteward.cCaptains[0].sTemplateName;
 				_caSpawnTypes.Add(new SpawnType { sLabel = cCapCfg.sTemplateName, cCfg = cCapCfg, iCost = 6, iCap = 2 });
+
+				// where each spawn type's survivors bank their experience after the hunt
+				_cBankTargets.Clear();
+				_sBankReport = "";
+				_cBankTargets[cData.cLSteward.cTemplates[0].sTemplateName] = cData.cLSteward.cTemplates[0];
+				_cBankTargets[cCapCfg.sTemplateName] = cData.cLSteward.cCaptains[0];
+
+				// current fibonacci levels from the banked exp (levels change only between hunts)
+				foreach(SpawnType cType in _caSpawnTypes) {
+					TemplateCfgMaster cBank;
+					if(_cBankTargets.TryGetValue(cType.cCfg.sTemplateName, out cBank))
+						cType.iLevel = LevelCurve.GetLevel(cBank.cExpData);
+				}
 
 				// the player's starting squad, spawned exactly the way the classic battleground does
 				cTeam = _cBattleData.caTeams[0];
@@ -267,7 +294,15 @@ namespace MightyFights_Prototype
 		// create a player trooper from the given template, register it with team/manager, place it
 		Trooper SpawnTrooper(Team cTeam, Vector2 tPos, TemplateCfgMaster cCfg)
 		{
-			Trooper	cTrooper = new Trooper(DataManager.cInstance.iCurObjId, cTeam, DataManager.cInstance.CreateTemplate(cCfg));
+			TrooperTemplate		cTemplate = DataManager.cInstance.CreateTemplate(cCfg);
+			TemplateCfgMaster	cBank;
+
+			// leveled roster: apply the fibonacci growth to the template stats BEFORE the
+			// trooper snapshots them (so buff recalibration keeps the level bonus too)
+			if(_cBankTargets.TryGetValue(cCfg.sTemplateName, out cBank))
+				LevelCurve.ApplyLevel(cTemplate.cStats, LevelCurve.GetLevel(cBank.cExpData));
+
+			Trooper	cTrooper = new Trooper(DataManager.cInstance.iCurObjId, cTeam, cTemplate);
 
 			cTeam.cActiveList.Add(cTrooper.iId, cTrooper);
 			cTeam.cMembers.Add(cTrooper);
@@ -291,6 +326,29 @@ namespace MightyFights_Prototype
 		//// v1 drop sink -- kill-drops can be clicked away but grant nothing yet (see Init note)
 		void ProcessDropClick(object oSender, object oArgs)
 		{
+		}
+
+		// roll each survivor's battle exp into its roster template and persist the campaign
+		void BankSurvivorExperience()
+		{
+			int		iSurvivors = 0;
+			TemplateCfgMaster	cBank;
+
+			foreach(Combatant nCombatant in _cBattleData.caTeams[0].cActiveList.Values) {
+				Trooper	cTrooper = (Trooper)nCombatant;
+
+				if(!_cBankTargets.TryGetValue(cTrooper.sTemplateName, out cBank))
+					continue;
+
+				// ExperienceData.operator+ returns a fresh instance, so the bank never aliases
+				// the battle-scoped accumulator
+				cBank.cExpData = cBank.cExpData == null ? cTrooper.cExpData + new ExperienceData()
+														: cBank.cExpData + cTrooper.cExpData;
+				++iSurvivors;
+			}
+
+			DataStore.cInstance.SaveData();
+			_sBankReport = string.Format("{0} survivor(s) banked experience to the roster -- saved", iSurvivors);
 		}
 
 		void InputSystem_MouseMove(object oSender, MouseEventArgs eMouseEvt)
