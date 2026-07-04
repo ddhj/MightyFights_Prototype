@@ -5,35 +5,43 @@ Resume-here doc for the MightyFights MonoGame port. Read this first, then
 decision log — every finding/deviation below is written up in full there, this file is just the
 "where are we, what's next" summary). `CLAUDE.md` covers repo conventions.
 
-**Last updated:** 2026-07-03, end of Phase 5 work.
+**Last updated:** 2026-07-04, after the kaiju-mode build-out and BattleSceneBase consolidation.
+**The project has pivoted from porting to building** — read `docs/DESIGN_DIRECTION.md` first for
+the owner's decisions, the kaiju design, the art pipeline, and the reconstructed original design.
 
 ## Current state
 
 - **Branch:** `monogame-port` (tag `pre-port` marks the commit before any port work started).
-- **Phases 0, 1, 2, 3, 4, 5 are done.** Check `git log --oneline` for exact commit hashes.
-- **The full solution now compiles with 0 errors.** `dotnet build MightyFights.sln` → `Build
-  succeeded. 0 Error(s)`. This is the first clean build in the port; the ~15K-LOC game project is
-  fully compiling. (Heads up: the "1 error away" claim in prior handoffs was **undercounted** — a
-  broken `fastJSON` namespace `using` was masking two more latent XNA→MonoGame overload errors in
-  `TitleScreen.cs`/`CompnayMenu.cs`, which surfaced and were fixed the moment fastJSON was removed.
-  Both were ordinary API drift, not regressions. See PORT_NOTES Phase 5.)
-- **Next up: Phase 6 — Runtime Parity.** The game has never actually *booted* yet. Phase 6 is the
-  first time it runs end-to-end: title screen → camp → map → battleground, verifying save/load
-  round-trips mid-campaign (V6.5), particle effects fire visibly at the 4 trigger sites (V6.4,
-  deferred here from Phase 4), animation data loads, audio plays, input works. Expect real runtime
-  bugs that a clean compile can't catch. Note `DataStore.LoadData()` is still commented out at its
-  only callsite (`GameShell.cs:48`) — wiring load back into boot is part of Phase 6.
-- **R2 is closed and turned out LOWER risk than the register implied.** The persisted `Steward`
-  graph is plain POCOs with no XNA types; `BasicSprite`'s obsolete serialization interfaces are
-  **not** in the save graph (nothing persisted references it), so the SYSLIB0050 warning is
-  irrelevant to save/load. System.Text.Json handled the whole graph with two `[JsonIgnore]`s and no
-  Newtonsoft fallback. Full write-up in PORT_NOTES Phase 5 — read it before touching persistence.
-- **Particle simulation is real now** (`src/MightyFights.Particles/`), not stubs: 5 emitter
-  shapes (base `Emitter` + Circle/Cone/Line/Rect), 16 modifier types, a real XML parser
-  (`Serialization/ParticleEffectXmlLoader.cs`), verified against all 15 actual particle XML files
-  via an isolated smoke test (parses, simulates, particles expire on schedule, particle counts
-  stay bounded by `Budget` even under sustained repeated triggering). Not yet verified
-  *in-game* (the game has never booted end-to-end yet) — that's Phase 6's job (V6.4 covers it).
+- **The port is done except V6.7** (Linux build+boot smoke). Phases 0–5 complete; Phase 6
+  runtime-parity gates V6.1–V6.6 validated (owner playtest + scripted verification). The
+  map-campaign design was deprecated by the owner — V6.3 is obsolete, not failed.
+- **The game is playable end-to-end**: Title → mode select → **Skirmish** (classic Camp →
+  Battleground loop) or **Kaiju Hunt** (new demo mode). Music, SFX, particles, buffs, save/load
+  all live. Boot loads the saved campaign when one exists (`LoadData` with `InitNew` fallback).
+- **Kaiju Hunt v1 is feature-complete**: wheel-selected spawn roster (Halberdier/Captain, costs +
+  caps), mid-battle reinforcement clicks, one 2.5x-scale kaiju (fsable halberdier placeholder art),
+  survivor exp banking into the persisted roster, fibonacci leveling (`LevelCurve.cs`) applied at
+  spawn, drop economy (buffs drag-apply, hammer counter).
+- **`BattleSceneBase`** (`Scenes/InGame/Battlegrounds/`) is the shared battle driver — state
+  machine, victory+tally, drop economy, slow-mo, cursor, music, common draw frame, teardown.
+  `BattleGround_Basic` and `KaijuHunt` are thin modes over it (hooks: `SetupBattle`, `DrawHud`,
+  `OnBattleOver`, `ProcessVictoryState`, `UpdateDebug`). New modes extend the base — don't copy.
+- **Combat geometry is scale-relative** (`_fScale` drives `tCenter`, attack rings, and the zone
+  grid governs navigation: zoned units can't leave the field; healer trips are the exception;
+  unzoned units — spawn marches, kaiju entrance — roam until they step on). Off-field units are
+  untargetable (int-division truncation used to leak them into edge zones).
+- **The lost art toolchain is rebuilt**: `tools/sprite_stitcher/stitch.py` turns per-frame PNG
+  folders or GIFs into packed sheet + the game's AnimationData JSON (TexturePacker frames +
+  ActionTypes taxonomy + pack-time aliasing onto the 18 action names the trooper AI requests by
+  name). The original art source tree lives at `c:\dev\art assets raw\wodyn` — Peasant (stitched,
+  pending content wiring), Yeoman (config away), Vintenar x2 (GIF mode), dragon/skeleton/etc. in
+  .xcf (kaiju/minion art, needs scripted GIMP export).
+- **Next up (owner-agreed order):** (4) wire the stitched Peasant into MGCB content + the spawn
+  roster; then GIMP batch export (dragon = real kaiju art), kaiju minion tiers, leveling surfaced
+  in the Camp menus + gating. Fibonacci leveling curve and template-level progression are settled
+  decisions (see DESIGN_DIRECTION).
+- Note: `CampClickables.cs` may be dirty in the working tree — that's the **owner's** local edit
+  (spawn-count tuning); don't commit or revert it.
 - Content pipeline (MGCB) builds clean: `dotnet build
   src/MightyFights.Desktop/MightyFights.Desktop.csproj -t:RunContentBuilder` → 328/328 entries,
   0 errors. Now that Core compiles, a full solution build succeeds too; the explicit
