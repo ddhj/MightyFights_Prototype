@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 // 3rd party includes
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -35,6 +36,14 @@ namespace MightyFights_Prototype
 		BattlegroundData	_cBattleData = new BattlegroundData();
 		BattleObjectManager	_cObjMgr = new BattleObjectManager();
 		ExperienceTally		_cExpTally;
+
+		//// ddhj: the classic battleground's drop economy, wired for real (owner: "when the
+		//// hammers / buffs drop create effects etc") -- kill-drops route into the HUD buff
+		//// containers for drag-apply, hammers collect with a chime.
+		Dictionary<EBuffEffects, BuffContainer>	_cBuffContainerList = new Dictionary<EBuffEffects, BuffContainer>();
+		SoundEffectInstance	_cBuffSfx,
+							_cHammerSfx;
+		int					_iHammerCtr;
 
 		Kaiju			_cKaiju;
 		int				_iReserves;
@@ -127,6 +136,7 @@ namespace MightyFights_Prototype
 						new Vector2(10, 10), Color.OrangeRed);
 				_cSpriteBatch.DrawString(_cFont, string.Format("Troopers: {0}    Reserves: {1}",
 					_cBattleData.caTeams[0].cActiveList.Count, _iReserves), new Vector2(10, 30), Color.White);
+				_cSpriteBatch.DrawString(_cFont, string.Format("x {0}", _iHammerCtr), new Vector2(955, 35), Color.White);
 
 				switch(_cBattleData.eState) {
 					case EBattlegroundState.Battle: {
@@ -182,11 +192,14 @@ namespace MightyFights_Prototype
 				DataStore.cInstance.cBorder.SetData<Color>(new[] { Color.White });
 
 				_cBattleData.cObjMgr = _cObjMgr;
-				//// v1: kill-drops fall but buff pickup is a no-op here; the buff drag flow stays
-				//// exclusive to the classic battleground until the hunt wants its own economy.
-				_cBattleData.dlBuffClick = ProcessDropClick;
-				_cBattleData.dlDropClick = ProcessDropClick;
+				_cBattleData.dlBuffClick = ProcessBuffClick;
+				_cBattleData.dlDropClick = ProcessHammerClick;
 				_cObjMgr.CreateParticleManager();
+
+				_cBuffSfx = DataManager.cInstance.CreateSfx("Magic Wand Noise-SoundBible.com-375928671");
+				_cHammerSfx = DataManager.cInstance.CreateSfx("Electronic_Chime-KevanGC-495939803");
+				_cBuffSfx.Volume = _cHammerSfx.Volume = .4f;
+				_iHammerCtr = 0;
 				DataStore.cInstance.cBattleData = _cBattleData;
 
 				// the wheel-selectable spawn roster (step 4 of the build order adds the Peasant here)
@@ -241,6 +254,12 @@ namespace MightyFights_Prototype
 				_cKaiju.cActionManager.AddAction(new Action(_cKaiju.Wait, 50, TimeSpan.Zero));
 				_cKaiju.cActionManager.AddAction(new Action(_cKaiju.MoveToPoint, new Vector2(650, 260), null));
 				_cKaiju.cActionManager.AddPermAction(new Action(_cKaiju.BasicBattleManager, _cBattleData, null));
+
+				// the drop economy: buff containers in the HUD slots + the hammer icon
+				_cBuffContainerList.Clear();
+				_cBattleData.cBuffContainers = _cBuffContainerList;
+				CreateBuffContainers();
+				_cObjMgr.AddObject(DataManager.cInstance.CreateHammerIcon());
 
 				_cCursor = new Cursor();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\arrow_cursor");
@@ -323,9 +342,40 @@ namespace MightyFights_Prototype
 			return bReady;
 		}
 
-		//// v1 drop sink -- kill-drops can be clicked away but grant nothing yet (see Init note)
-		void ProcessDropClick(object oSender, object oArgs)
+		// the classic battleground's 8 buff containers, same HUD slot positions
+		void CreateBuffContainers()
 		{
+			ContentManager	cContent = DataStore.cInstance.cContent;
+			BuffContainer	cTmpContainer;
+
+			EBuffEffects[]	eaSlots = new EBuffEffects[] { EBuffEffects.Squirrel_Acorn, EBuffEffects.Crab_Claw,
+				EBuffEffects.Wolf_Ear, EBuffEffects.Toad_Eye, EBuffEffects.Snake_Fang, EBuffEffects.Eagle_Feather,
+				EBuffEffects.Lion_Paw, EBuffEffects.Dragon_Wing };
+
+			for(int iCount = 0; iCount < eaSlots.Length; ++iCount) {
+				_cBuffContainerList.Add(eaSlots[iCount], cTmpContainer = new BuffContainer(new Vector2(132 + iCount * 100, 519)));
+				cTmpContainer.cTexRef = cContent.Load<Texture2D>(@"In Game\Buffs\ItemBox");
+				cTmpContainer.sTexName = @"In Game\Buffs\ItemBox";
+				cTmpContainer.cFrame = new Frame(cTmpContainer.cTexRef.Bounds, new Vector2(cTmpContainer.cTexRef.Bounds.Width / 2, cTmpContainer.cTexRef.Bounds.Height / 2),
+					new Vector2(0, 0), new Vector2(0, 0), new Vector2(cTmpContainer.cTexRef.Bounds.Width, cTmpContainer.cTexRef.Bounds.Height), new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_cObjMgr.AddClickObject(cTmpContainer, cTmpContainer.ProcessClick);
+			}
+		}
+
+		void ProcessBuffClick(object oSender, object oArgs)
+		{
+			_cBuffContainerList[((BasicBuff)oArgs).eType].AddBuff((BasicBuff)oArgs);
+			if(_cBuffSfx.State == SoundState.Playing)
+				_cBuffSfx.Stop();
+			_cBuffSfx.Play();
+		}
+
+		void ProcessHammerClick(object oSender, object oArgs)
+		{
+			++_iHammerCtr;
+			if(_cHammerSfx.State == SoundState.Playing)
+				_cHammerSfx.Stop();
+			_cHammerSfx.Play();
 		}
 
 		// roll each survivor's battle exp into its roster template and persist the campaign

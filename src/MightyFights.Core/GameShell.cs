@@ -45,8 +45,12 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cGame = this;
 			DataStore.cInstance.cRand = new Random();
 
-			//DataStore.cInstance.LoadData();
-			DataStore.cInstance.InitNew();
+			//// ddhj: 2026 -- load the saved campaign if one exists (kaiju hunts bank survivor
+			//// exp into the roster and save; a fresh boot must not wipe it), else start new.
+			//// LoadData is a no-op when no save file is present.
+			DataStore.cInstance.LoadData();
+			if(DataStore.cInstance.cLSteward == null)
+				DataStore.cInstance.InitNew();
 
 ////right side
 			DataStore.cInstance.cRSteward = new Steward();
