@@ -1650,3 +1650,8 @@
 /importer:TextureImporter
 /processor:TextureProcessor
 /build:Sprite Data/Troopers/Halberd/Textures/fzombie.png
+
+#begin Sprite Data/Troopers/Peasant/Peasant.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Peasant/Peasant.png

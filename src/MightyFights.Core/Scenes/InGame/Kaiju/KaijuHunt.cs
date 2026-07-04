@@ -63,7 +63,9 @@ namespace MightyFights_Prototype
 			_sBankReport = "";
 			_iReserves = iReserveMax;
 
-			// the wheel-selectable spawn roster (step 4 of the build order adds the Peasant here)
+			// the wheel-selectable spawn roster. Index 0 stays Halberdier -- it seeds the
+			// initial squad below, so new entries are appended, never inserted, to keep that
+			// behavior stable across roster changes.
 			_caSpawnTypes.Clear();
 			_iSelSpawn = 0;
 			_caSpawnTypes.Add(new SpawnType { sLabel = "Halberdier", cCfg = cData.cLSteward.cTemplates[0], iCost = 2, iCap = -1 });
@@ -71,6 +73,18 @@ namespace MightyFights_Prototype
 			// the copy ctor doesn't carry the name; "Cap" in the name drives the 1.4x scale
 			cCapCfg.sTemplateName = "Captain " + cData.cLSteward.cCaptains[0].sTemplateName;
 			_caSpawnTypes.Add(new SpawnType { sLabel = cCapCfg.sTemplateName, cCfg = cCapCfg, iCost = 6, iCap = 2 });
+
+			//// ddhj: 2026 build-order step 4 -- the first unit out of the rebuilt sprite
+			//// stitcher (tools/sprite_stitcher), from the recovered original art at
+			//// c:/dev/art assets raw/wodyn/peasant_pngs. Cheap fodder: not yet a persisted
+			//// roster template (no cLSteward slot), so it deliberately has no bank target --
+			//// BankSurvivorExperience already no-ops for template names it doesn't recognize.
+			//// Stats are a first-pass placeholder, weaker than the Halberdier to justify the
+			//// lower cost; tune freely.
+			TemplateCfgMaster cPeasantCfg = new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Peasant\PeasantArray", @"Sprite Data\Troopers\Peasant\Peasant"));
+			cPeasantCfg.cStats = new Stats { iAtkSpeed = 0, iMovement = 5, fHp = 60, iMaxHp = 60, iPower = 3, fCrit = .03f, iHealPoint = 20, iFleePoint = 10, iArmorClass = 1 };
+			cPeasantCfg.sTemplateName = "Peasant";
+			_caSpawnTypes.Add(new SpawnType { sLabel = "Peasant", cCfg = cPeasantCfg, iCost = 1, iCap = -1 });
 
 			// where each spawn type's survivors bank their experience after the hunt
 			_cBankTargets.Clear();

@@ -73,6 +73,17 @@ Reconstructed original toolchain (evidence in PORT_NOTES Phase 6 / the JSONs the
   itch.io CC0 packs, OpenGameArt; owner's separate artwork repo may hold original style-matched
   units. AI generation: strongest for the kaiju (large canvas, 4–6 actions, single instance);
   humanoid frame-sets need a human-in-the-loop cleanup pass; the JSON side is fully automatable.
+- **2026-07-04: Peasant is live** — the stitcher's first unit shipped end-to-end. Content at
+  `content/Sprite Data/Troopers/Peasant/` (`Peasant.png` MGCB-built + `PeasantArray.json` raw,
+  mirroring Chaplain's single-texture layout since there's only one skin so far — Peasant is a
+  combat `Trooper` like Halberd, not a `Priest`/healer; the layout choice was file-organization
+  only). Wired into the Kaiju Hunt wheel roster (cost 1, cheap fodder, appended after Captain so
+  index 0/the initial squad stays Halberdier). Verified in a live battle: renders correctly
+  (visually distinct from the Halberdiers), fights the kaiju, no exceptions — confirms
+  `AnimationDataLoader` parses stitcher output through the real game path, not just the
+  stitcher's own self-check. The **AnimationProcessor fallback chain is still unbuilt** — Peasant
+  didn't need it (its config carries all 18 action names), but the non-human minion sets (task
+  #16/#17) likely have sparser coverage and will need it.
 
 ## Reconstructed original design (archaeology record)
 
