@@ -113,6 +113,23 @@ namespace MightyFights_Prototype	{
 			// sort the z order by y pos
 			_fZorder = 1 - _tCenter.Y / 684;
 
+			//// ddhj: kaiju -- the zone grid governs where combatants may navigate: once a unit
+			//// is on the field (zoned), its center stays inside the field rect no matter what
+			//// its current action wants. Healer trips (Flee/Panting) are the sanctioned
+			//// exception (heal spots sit off-field); unzoned units (spawn marches, the kaiju's
+			//// entrance) roam free until they first step onto the grid.
+			if(cZone != null && cAiData.eState != EBattleAiStates.Flee && cAiData.eState != EBattleAiStates.Panting) {
+				Vector2	tClamped = _tPos;
+
+				if(_tCenter.X < 112)		tClamped.X += 112 - _tCenter.X;
+				else if(_tCenter.X > 912)	tClamped.X -= _tCenter.X - 912;
+				if(_tCenter.Y < 70)			tClamped.Y += 70 - _tCenter.Y;
+				else if(_tCenter.Y > 506)	tClamped.Y -= _tCenter.Y - 506;
+
+				if(tClamped != _tPos)
+					this.tPos = tClamped;
+			}
+
 			// update position in the battle zone
 			if(_cBattleDataRef != null)
 				_cBattleDataRef.SetZone(this);
@@ -362,6 +379,16 @@ namespace MightyFights_Prototype	{
 			}
 
 			tDest = nOpponent.RequestAttackPoint(this, out _iAttackingPos);
+
+			//// ddhj: kaiju -- same off-field guard as PersueOpponent: never charge toward a
+			//// destination outside the play field; drop the target and re-choose instead.
+			if(tDest.X < 112 || tDest.X > 912 || tDest.Y < 70 || tDest.Y > 506) {
+				cAiData.eState = EBattleAiStates.Ready;
+				cTarget = null;
+				cAction.bConditionNotMet = false;
+				return false;
+			}
+
 			tDirVect = tDest - _tCenter;
 			bDir = tDirVect.X > 0 + float.Epsilon;
 			tDirVect.Normalize();
