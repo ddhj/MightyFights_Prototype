@@ -20,17 +20,6 @@ namespace MightyFights_Prototype
 		ZoneRowHeight = 72
 	}
 
-	[Flags]
-	public enum ETrooperAttackPos
-	{
-		RightMid = 0x01,
-		RightTop = 0x02,
-		RightBottom = 0x04,
-		LeftMid = 0x08,
-		LeftTop = 0x10,
-		LeftBottom = 0x20
-	}
-
 	public enum EMainWindowSize
 	{
 		WindowWidth = 1024,

@@ -33,6 +33,18 @@ namespace MightyFights_Prototype
 
 		public BattlegroundData cParentData		{ get; set; }
 
+		//// ddhj: kaiju -- lets a scene's own click handler (e.g. KaijuHunt's spawn-on-click)
+		//// check whether a point already belongs to a registered clickable (a buff/hammer drop,
+		//// a buff container) before treating the click as something else. Prevents a click that
+		//// lands on a mid-field pickup from ALSO spawning a reinforcement on the same click.
+		public bool IsClickableAt(Point tPoint)
+		{
+			foreach(IClickable nClickObj in _cClickable.Values)
+				if(nClickObj.ContainsPoint(tPoint))
+					return true;
+			return false;
+		}
+
 		public void AddObject(object oData)
 		{
 			IObject nObj = (IObject)oData;

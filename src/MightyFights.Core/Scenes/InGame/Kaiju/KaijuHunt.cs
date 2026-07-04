@@ -44,7 +44,7 @@ namespace MightyFights_Prototype
 		Dictionary<string, TemplateCfgMaster>	_cBankTargets = new Dictionary<string, TemplateCfgMaster>();
 		string			_sBankReport = "";
 
-		const int		iInitialSquad = 12;
+		const int		iInitialSquad = 10;
 		const int		iReserveMax = 60;
 		const float		fKaijuScale = 2.5f;
 
@@ -252,9 +252,14 @@ namespace MightyFights_Prototype
 				return;
 			}
 
-			// mid-battle: left-click on the field sends the selected reinforcement toward the click
+			// mid-battle: left-click on the field sends the selected reinforcement toward the
+			// click. The field-bounds check alone already excludes the HUD margins (stat bar,
+			// hammer icon, and the buff-container row all sit outside this rect), but kill-drops
+			// (buffs/hammers) land INSIDE the field during combat -- IsClickableAt makes sure a
+			// click that's picking one of those up doesn't also spawn a trooper on top of it.
 			if(_cBattleData.eState == EBattlegroundState.Battle && eMouseEvt.Button == MouseButton.Left
-				&& eMouseEvt.X > 112 && eMouseEvt.X < 912 && eMouseEvt.Y > 70 && eMouseEvt.Y < 506) {
+				&& eMouseEvt.X > 112 && eMouseEvt.X < 912 && eMouseEvt.Y > 70 && eMouseEvt.Y < 506
+				&& !_cObjMgr.IsClickableAt(eMouseEvt.Location)) {
 				SpawnType	cSel = _caSpawnTypes[_iSelSpawn];
 
 				// enough reserves, and under the type's cap?

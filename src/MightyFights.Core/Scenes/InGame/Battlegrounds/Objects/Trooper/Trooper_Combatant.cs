@@ -152,9 +152,22 @@ namespace MightyFights_Prototype	{
 			Combatant	nOpponent = (Combatant)cTarget;
 			Vector2		tDest = nOpponent.RequestPersuitPoint(_iAttackingPos);
 
+			//// ddhj: kaiju -- GetVectByPos positions attack points using the TARGET's own
+			//// scale (an oversized target's rendezvous points sit proportionally farther from
+			//// its true center), but this arrival tolerance was still the attacker's small,
+			//// fixed base reach. With only 6 named attack slots (Trooper_Combatant.cs's
+			//// Left/RightAttackPos) and a kaiju allowing far more simultaneous attackers than
+			//// that (_iAvailablePositions), several troopers can end up assigned the literal
+			//// same point once Top/Bottom fill and everyone else falls back to Mid -- they
+			//// can't all physically stand there, so they kept drifting outside the old fixed
+			//// tolerance and endlessly re-entering/re-choosing (looked like "attacking but
+			//// missing"). Scaling the tolerance by the target's own size gives real slack for
+			//// that unavoidable crowding around a much bigger target's rendezvous points.
+			float		fRangeScale = nOpponent.fCombatantScale;
+
 			if( bCollision )
-				return(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRngSq * 1.3f ));
-			return(((tDest - _tCenter).LengthSquared()) < this.iWeaponRngSq );
+				return(((tDest - _tCenter).LengthSquared()) < ( this.iWeaponRngSq * 1.3f * fRangeScale ));
+			return(((tDest - _tCenter).LengthSquared()) < this.iWeaponRngSq * fRangeScale );
 		}
 
 		public override bool IsDead()
@@ -164,178 +177,98 @@ namespace MightyFights_Prototype	{
 
 		public override void SetAttacker(Combatant nCombatant, out int iPos)
 		{
-			Vector2		tDir = _tCenter - nCombatant.tCenter;
-
 			GetAttackPoint(nCombatant, out iPos);
-			_cAttackers.Add((ETrooperAttackPos)iPos, nCombatant);
-			_byAttakPos |= (byte)iPos;
-
-			// set left or right
-			switch((ETrooperAttackPos)iPos) { 
-				case ETrooperAttackPos.LeftBottom:
-				case ETrooperAttackPos.LeftMid:
-				case ETrooperAttackPos.LeftTop:
-					++_iCurLeftAttackers;
-				break;
-
-				case ETrooperAttackPos.RightBottom:
-				case ETrooperAttackPos.RightMid:
-				case ETrooperAttackPos.RightTop:
-					++_iCurRightAttakers;
-				break;
-			}
+			_cAttackers.Add(iPos, nCombatant);
+			_baSlotTaken[iPos] = true;
 		}
 
 		public override void RemoveAttacker(int iPos)
 		{
-			_byAttakPos &= (byte)~iPos;
-			_cAttackers.Remove((ETrooperAttackPos)iPos);
-			
-			switch((ETrooperAttackPos)iPos) { 
-				case ETrooperAttackPos.LeftBottom:
-				case ETrooperAttackPos.LeftMid:
-				case ETrooperAttackPos.LeftTop:
-					--_iCurLeftAttackers;
-				break;
-
-				case ETrooperAttackPos.RightBottom:
-				case ETrooperAttackPos.RightMid:
-				case ETrooperAttackPos.RightTop:
-					--_iCurRightAttakers;
-				break;
-			}
+			if(_baSlotTaken != null && iPos >= 0 && iPos < _baSlotTaken.Length)
+				_baSlotTaken[iPos] = false;
+			_cAttackers.Remove(iPos);
 		}
 
-		Vector2 GetVectByPos(ETrooperAttackPos ePos)
+		//// ddhj: kaiju (owner-directed) -- replaces the old fixed 6-slot Left/Right x Top/Mid/
+		//// Bottom enum+bitmask system. _iAvailablePositions is the "rated strength" knob (a
+		//// design decision, independent of visual _fScale): however many attack slots it's set
+		//// to, that many rendezvous points are generated, evenly spaced in a full circle around
+		//// this unit's tCenter. A normal Trooper's default (6) reproduces roughly the old
+		//// system's spacing; a kaiju set much higher actually gets that many distinct points
+		//// instead of everyone piling onto a handful of fixed ones once Top/Bottom filled (the
+		//// old fallback-to-Mid behavior, which is what was causing "attacking but missing" --
+		//// several attackers assigned the literal same coordinate can't all stand there, so they
+		//// kept drifting outside InWeaponRange's tolerance). Bonus: the old system had a blind
+		//// spot at exactly +/-90 degrees (no Top/Bottom-only slot existed, only Left/Right diagonals)
+		//// -- full-circle placement fills that in naturally instead of leaving it as a gap.
+		void EnsureSlotArray()
 		{
-			//// ddhj: kaiju -- the attack-slot ring is built from this unit's own body, so it
-			//// scales with _fScale: attackers on an oversized unit form up around its bulk
-			//// instead of standing inside it (relative location, not absolute man-sized offsets).
-			Vector2 tDir = _tCenter;
-			switch(ePos) {
-				case ETrooperAttackPos.LeftBottom:
-					tDir.X -= ( 10 + iWeaponRange / 2 ) * _fScale;
-					tDir.Y += ( 10 + iWeaponRange / 2 ) * _fScale;
-				break;
-				case ETrooperAttackPos.LeftMid:
-					tDir.X -= ( 10 + iWeaponRange ) * _fScale;
-				break;
-				case ETrooperAttackPos.LeftTop:
-					tDir.X -= ( 10 + iWeaponRange / 2 ) * _fScale;
-					tDir.Y -= ( 10 + iWeaponRange / 2 ) * _fScale;
-				break;
-				case ETrooperAttackPos.RightBottom:
-					tDir.X += ( 10 + iWeaponRange / 2 ) * _fScale;
-					tDir.Y += ( 10 + iWeaponRange / 2 ) * _fScale;
-				break;
-				case ETrooperAttackPos.RightMid:
-					tDir.X += ( 10 + iWeaponRange ) * _fScale;
-				break;
-				case ETrooperAttackPos.RightTop:
-					tDir.X += ( 10 + iWeaponRange / 2 ) * _fScale;
-					tDir.Y -= ( 10 + iWeaponRange / 2 ) * _fScale;
-				break;
-			}
+			if(_baSlotTaken == null || _baSlotTaken.Length != _iAvailablePositions)
+				_baSlotTaken = new bool[_iAvailablePositions];
+		}
+
+		Vector2 GetVectByPos(int iSlotIndex)
+		{
+			EnsureSlotArray();
+
+			float	fAngle = MathHelper.TwoPi * iSlotIndex / _iAvailablePositions;
+			float	fRadius = ( 10 + iWeaponRange ) * _fScale;
+			Vector2	tDir = _tCenter;
+
+			tDir.X += (float)Math.Cos(fAngle) * fRadius;
+			tDir.Y += (float)Math.Sin(fAngle) * fRadius;
 
 			return tDir;
 		}
 
-		void RightAttackPos(Vector2 tDir, out int iPos, int iWeaponRange) 
+		// shortest signed angular distance from fFrom to fTo, wrapped into [-pi, pi]
+		static float AngleDelta(float fFrom, float fTo)
 		{
-			ETrooperAttackPos	ePos;
-			switch(_iCurRightAttakers) { 
-			// if its zero its always the midpoint
-			case 0:
-				ePos = ETrooperAttackPos.RightMid;
-				break;
-						
-			// it cant be more than 1 (for now there may be more but that will be on a different type of class and not a trooper 
-				// probably)
-			default:
-				// check if the opponent is above or below
-				if(tDir.Y >= 0.0 + float.Epsilon) { 
-					// check to see if the right bottom is taken 
-					if((_byAttakPos & (int)ETrooperAttackPos.RightBottom) != (int)ETrooperAttackPos.RightBottom)
-						ePos = ETrooperAttackPos.RightBottom;
-					// send out right bottom
-					else if((_byAttakPos & (int)ETrooperAttackPos.RightTop) != (int)ETrooperAttackPos.RightTop)
-						ePos = ETrooperAttackPos.RightTop;
-					else	ePos = ETrooperAttackPos.RightMid;
-				} else { 
-					// the opponent is above us, check to see if our right top is taken
-					if((_byAttakPos & (int)ETrooperAttackPos.RightTop) != (int)ETrooperAttackPos.RightTop)
-						ePos = ETrooperAttackPos.RightTop;
-					else if((_byAttakPos & (int)ETrooperAttackPos.RightBottom) != (int)ETrooperAttackPos.RightBottom)
-						ePos = ETrooperAttackPos.RightBottom;
-					else	ePos = ETrooperAttackPos.RightMid;
-				}
-				break;
-			}
-			iPos = (int)ePos;
-		}
-
-		void LeftAttackPos(Vector2 tDir, out int iPos, int iWeaponRange)
-		{
-			ETrooperAttackPos	ePos;
-			switch(_iCurLeftAttackers) { 
-			// if its zero its always the midpoint
-			case 0:
-				ePos = ETrooperAttackPos.LeftMid;
-				break;
-						
-			// it cant be more than 1 (for now there may be more but that will be on a different type of class and not a trooper 
-				// probably)
-			default:
-				// check if the opponent is above or below
-				if(tDir.Y >= 0.0 + float.Epsilon) { 
-					// check to see if the right bottom is taken 
-					if((_byAttakPos & (int)ETrooperAttackPos.LeftBottom) != (int)ETrooperAttackPos.LeftBottom)
-						ePos = ETrooperAttackPos.LeftBottom;
-					// send out left bottom
-					else if((_byAttakPos & (int)ETrooperAttackPos.LeftTop) != (int)ETrooperAttackPos.LeftTop)
-						ePos = ETrooperAttackPos.LeftTop;
-					else	ePos = ETrooperAttackPos.LeftMid;
-				} else { 
-					// the opponent is above us, check to see if our left top is taken
-					if((_byAttakPos & (int)ETrooperAttackPos.LeftTop) != (int)ETrooperAttackPos.LeftTop)
-						ePos = ETrooperAttackPos.LeftTop;
-					else if((_byAttakPos & (int)ETrooperAttackPos.LeftBottom) != (int)ETrooperAttackPos.LeftBottom)
-						ePos = ETrooperAttackPos.LeftBottom;
-					else	ePos = ETrooperAttackPos.LeftMid;
-				}
-				break;
-			}
-			iPos = (int)ePos;
+			float	fDelta = fTo - fFrom;
+			while(fDelta > Math.PI) fDelta -= MathHelper.TwoPi;
+			while(fDelta < -Math.PI) fDelta += MathHelper.TwoPi;
+			return fDelta;
 		}
 
 		void GetAttackPoint( Combatant nCombatant, out int iPos)
 		{
-			// determine up down left an right from combatant
-			Vector2		tDir = nCombatant.tCenter - _tCenter;
+			EnsureSlotArray();
 
-			// check left or right 
-			if(tDir.X >= 0.0 + float.Epsilon) { 
-				// check to see if our right positions are filled 
-				if(_iCurRightAttakers < 3) { 
-					RightAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
-				} else LeftAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
-			// we are left
-			} else { 
-				if(_iCurLeftAttackers < 3) { 
-					LeftAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
-				} else RightAttackPos(tDir, out iPos, nCombatant.iWeaponRange);
+			// the direction the attacker is actually approaching from decides which free slot
+			// is the best fit -- closest angle to their real position, not a fixed category
+			Vector2	tDir = nCombatant.tCenter - _tCenter;
+			float	fIdealAngle = (float)Math.Atan2(tDir.Y, tDir.X);
+
+			int		iBest = -1;
+			float	fBestDelta = float.MaxValue;
+
+			for(int i = 0; i < _iAvailablePositions; ++i) {
+				if(_baSlotTaken[i])
+					continue;
+
+				float	fSlotAngle = MathHelper.TwoPi * i / _iAvailablePositions;
+				float	fDelta = Math.Abs(AngleDelta(fIdealAngle, fSlotAngle));
+
+				if(fDelta < fBestDelta) {
+					fBestDelta = fDelta;
+					iBest = i;
+				}
 			}
+
+			// every slot taken shouldn't normally happen (bAvailablePos gates assignment before
+			// this is ever called) but fall back to slot 0 rather than an invalid index
+			iPos = iBest >= 0 ? iBest : 0;
 		}
 
 		public override Vector2 RequestAttackPoint(Combatant nCombatant, out int iPos)
 		{
 			GetAttackPoint( nCombatant, out iPos );
-			return GetVectByPos((ETrooperAttackPos)iPos );
+			return GetVectByPos(iPos);
 		}
 
 		public override Vector2 RequestPersuitPoint(int iPos)
 		{
-			return GetVectByPos((ETrooperAttackPos)iPos);
+			return GetVectByPos(iPos);
 		}
 
 		void UpdateRefPoints()

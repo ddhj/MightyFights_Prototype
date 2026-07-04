@@ -21,13 +21,20 @@ namespace MightyFights_Prototype	{
 		Stats		_cInitialStats;
 		//// ddhj: kaiju -- protected so oversized combatant subclasses can widen the swarm
 		//// capacity and render scale (captains already used _fScale via the "Cap" name check).
+		//// This is the "rated strength" knob (owner-directed): how many troopers can
+		//// meaningfully engage this target at once, a design/gameplay decision independent of
+		//// its pure visual size -- attack-slot GEOMETRY (below) generates that many rendezvous
+		//// points, evenly spread around the target, so raising this actually creates more room
+		//// rather than crowding more attackers onto a fixed handful of points.
 		protected int	_iAvailablePositions = 6;
-		int			_iCurLeftAttackers = 0,
-					_iCurRightAttakers = 0,
-					_iAttackingPos;
+		int			_iAttackingPos;
 		float		_fZorder;
 		protected float	_fScale = 1.25f;
-		byte		_byAttakPos;
+		//// ddhj: kaiju -- which of the (dynamically sized, _iAvailablePositions-wide) radial
+		//// attack slots are currently occupied. Lazily (re)sized in EnsureSlotArray because a
+		//// subclass constructor (e.g. Kaiju's) only overwrites _iAvailablePositions AFTER the
+		//// base Trooper constructor has already run.
+		bool[]		_baSlotTaken;
 		bool		_bAttacking;
 
 		ParticleEffect				_cBloodSpray;
@@ -39,7 +46,9 @@ namespace MightyFights_Prototype	{
 									_cSfxParry;
 
 		Dictionary<EBuffEffects, BuffActionData>	_cBuffList = new Dictionary<EBuffEffects,BuffActionData>();
-		Dictionary<ETrooperAttackPos, Combatant>	_cAttackers = new Dictionary<ETrooperAttackPos,Combatant>();
+		//// ddhj: kaiju -- key is now a plain radial slot index (0.._iAvailablePositions-1),
+		//// not the old fixed 6-value ETrooperAttackPos bitmask enum. See Trooper_Combatant.cs.
+		Dictionary<int, Combatant>	_cAttackers = new Dictionary<int, Combatant>();
 
 		////ddhj template stuff... not sure if it should go on trooper proper
 		float	_fRunMovementSpeed,
@@ -54,6 +63,7 @@ namespace MightyFights_Prototype	{
 		public int iWeaponRngSq			{ get; set; }
 		public Vector2 tAttackPos		{ get; set; }
 		public float fZorder			{ get { return _fZorder; }}
+		public override float fCombatantScale	{ get { return _fScale; }}
 
 
 		public Texture2D cTexRef		{ get { return _cTexRef; } set { _cTexRef = value; }}
@@ -65,7 +75,7 @@ namespace MightyFights_Prototype	{
 		// so the trooper can dump their exp into it
 		public string sTemplateName		{ get; set; }
 
-		public override bool bAvailablePos		{ get { return _iCurLeftAttackers + _iCurRightAttakers < _iAvailablePositions; }} 
+		public override bool bAvailablePos		{ get { return _cAttackers.Count < _iAvailablePositions; }}
 
 		//public Dictionary<EBuffEffects, BuffActionData> cBuffList		{ get { return _cBuffList; }}
 		public AnimationProcessor cAnimationProcessor	{ get { return _cAnimProc; } set { _cAnimProc = value; }}

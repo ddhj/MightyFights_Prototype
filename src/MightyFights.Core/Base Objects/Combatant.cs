@@ -41,6 +41,10 @@ namespace MightyFights_Prototype	{
 		public Stats cStats				{ get { return _cStats; } set { _cStats = value; }}
 		public BattleObj cTarget		{ get { return _cTarget; } set { _cTarget = value; }}
 		public Team cTeam				{ get { return _cTeam; } set { _cTeam = value; }}
+		//// ddhj: kaiju -- render/geometry scale of this combatant's body. Defaults to 1 (a
+		//// normal-sized fighter); Trooper overrides it to expose _fScale so attackers can widen
+		//// their own arrival tolerance against oversized targets (see InWeaponRange).
+		public virtual float fCombatantScale	{ get { return 1f; }}
 		public ExperienceData cExpData	{ get { return _cExpData; } set { _cExpData = value; }}
 		public virtual bool bAvailablePos		{ get; set; }
 
