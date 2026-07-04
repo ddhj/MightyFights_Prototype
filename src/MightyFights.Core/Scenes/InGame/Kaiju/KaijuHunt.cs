@@ -37,12 +37,24 @@ namespace MightyFights_Prototype
 		ExperienceTally		_cExpTally;
 
 		Kaiju			_cKaiju;
-		TemplateCfgMaster	_cSpawnCfg;
 		int				_iReserves;
 		bool			_bPlayerWon;
 
+		//// ddhj: wheel-selectable spawn roster -- scroll to pick what the next left-click
+		//// deploys. Captains ride the existing "Cap"-in-name 1.4x scale mechanic.
+		class SpawnType
+		{
+			public string				sLabel;
+			public TemplateCfgMaster	cCfg;
+			public int					iCost;
+			public int					iCap;		// -1 = unlimited
+			public int					iSpawned;
+		}
+		List<SpawnType>	_caSpawnTypes = new List<SpawnType>();
+		int				_iSelSpawn;
+
 		const int		iInitialSquad = 12;
-		const int		iReserveMax = 48;
+		const int		iReserveMax = 60;
 		const float		fKaijuScale = 2.5f;
 
 		#region IGameScene Members
@@ -106,9 +118,15 @@ namespace MightyFights_Prototype
 					_cBattleData.caTeams[0].cActiveList.Count, _iReserves), new Vector2(10, 30), Color.White);
 
 				switch(_cBattleData.eState) {
-					case EBattlegroundState.Battle:
+					case EBattlegroundState.Battle: {
+						SpawnType	cSel = _caSpawnTypes[_iSelSpawn];
+						string		sCapNote = cSel.iCap >= 0 && cSel.iSpawned >= cSel.iCap ? "  (cap reached)"
+										: _iReserves < cSel.iCost ? "  (not enough reserves)" : "";
+
 						_cSpriteBatch.DrawString(_cFont, "Left-click the field to send reinforcements", new Vector2(620, 10), Color.LightGray);
-					break;
+						_cSpriteBatch.DrawString(_cFont, string.Format("Spawn [wheel]: {0}  cost {1}{2}", cSel.sLabel, cSel.iCost, sCapNote),
+							new Vector2(620, 30), Color.Gold);
+					} break;
 
 					case EBattlegroundState.Victory:
 						_cSpriteBatch.DrawString(_cFont,
@@ -157,11 +175,19 @@ namespace MightyFights_Prototype
 				_cObjMgr.CreateParticleManager();
 				DataStore.cInstance.cBattleData = _cBattleData;
 
+				// the wheel-selectable spawn roster (step 4 of the build order adds the Peasant here)
+				_caSpawnTypes.Clear();
+				_iSelSpawn = 0;
+				_caSpawnTypes.Add(new SpawnType { sLabel = "Halberdier", cCfg = cData.cLSteward.cTemplates[0], iCost = 2, iCap = -1 });
+				TemplateCfgMaster cCapCfg = new TemplateCfgMaster(cData.cLSteward.cCaptains[0]);
+				// the copy ctor doesn't carry the name; "Cap" in the name drives the 1.4x scale
+				cCapCfg.sTemplateName = "Captain " + cData.cLSteward.cCaptains[0].sTemplateName;
+				_caSpawnTypes.Add(new SpawnType { sLabel = cCapCfg.sTemplateName, cCfg = cCapCfg, iCost = 6, iCap = 2 });
+
 				// the player's starting squad, spawned exactly the way the classic battleground does
 				cTeam = _cBattleData.caTeams[0];
-				_cSpawnCfg = cData.cLSteward.cTemplates[0];
 				for(int iCount = 0; iCount < iInitialSquad; ++iCount) {
-					cTrooper = SpawnTrooper(cTeam, new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2));
+					cTrooper = SpawnTrooper(cTeam, new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2), _caSpawnTypes[0].cCfg);
 					cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, 50 * iCount, TimeSpan.Zero));
 					cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(200, 100 + (iCount % 12) * 30), null));
 					cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
@@ -226,20 +252,22 @@ namespace MightyFights_Prototype
 		{
 			InputSystem.MouseMove += new MouseEventHandler(InputSystem_MouseMove);
 			InputSystem.MouseDown += new MouseEventHandler(InputSystem_MouseDown);
+			InputSystem.MouseWheel += new MouseEventHandler(InputSystem_MouseWheel);
 		}
 
 		public void UnRegisterHandlers()
 		{
 			InputSystem.MouseMove -= InputSystem_MouseMove;
 			InputSystem.MouseDown -= InputSystem_MouseDown;
+			InputSystem.MouseWheel -= InputSystem_MouseWheel;
 		}
 
 		#endregion
 
-		// create a player trooper from the spawn template, register it with team/manager, place it
-		Trooper SpawnTrooper(Team cTeam, Vector2 tPos)
+		// create a player trooper from the given template, register it with team/manager, place it
+		Trooper SpawnTrooper(Team cTeam, Vector2 tPos, TemplateCfgMaster cCfg)
 		{
-			Trooper	cTrooper = new Trooper(DataManager.cInstance.iCurObjId, cTeam, DataManager.cInstance.CreateTemplate(_cSpawnCfg));
+			Trooper	cTrooper = new Trooper(DataManager.cInstance.iCurObjId, cTeam, DataManager.cInstance.CreateTemplate(cCfg));
 
 			cTeam.cActiveList.Add(cTrooper.iId, cTrooper);
 			cTeam.cMembers.Add(cTrooper);
@@ -280,17 +308,32 @@ namespace MightyFights_Prototype
 				return;
 			}
 
-			// mid-battle: left-click on the field sends a reinforcement toward the click
-			if(_cBattleData.eState == EBattlegroundState.Battle && eMouseEvt.Button == MouseButton.Left && _iReserves > 0
+			// mid-battle: left-click on the field sends the selected reinforcement toward the click
+			if(_cBattleData.eState == EBattlegroundState.Battle && eMouseEvt.Button == MouseButton.Left
 				&& eMouseEvt.X > 112 && eMouseEvt.X < 912 && eMouseEvt.Y > 70 && eMouseEvt.Y < 506) {
-				--_iReserves;
+				SpawnType	cSel = _caSpawnTypes[_iSelSpawn];
+
+				// enough reserves, and under the type's cap?
+				if(_iReserves < cSel.iCost || (cSel.iCap >= 0 && cSel.iSpawned >= cSel.iCap))
+					return;
+				_iReserves -= cSel.iCost;
+				++cSel.iSpawned;
 
 				int		iY = Math.Min(Math.Max(eMouseEvt.Y, 80), 480);
-				Trooper	cTrooper = SpawnTrooper(_cBattleData.caTeams[0], new Vector2(25, iY));
+				Trooper	cTrooper = SpawnTrooper(_cBattleData.caTeams[0], new Vector2(25, iY), cSel.cCfg);
 
 				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(Math.Min(eMouseEvt.X, 860), iY), null));
 				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
 			}
+		}
+
+		void InputSystem_MouseWheel(object oSender, MouseEventArgs eMouseEvt)
+		{
+			if(_cBattleData.eState != EBattlegroundState.Battle || _caSpawnTypes.Count == 0)
+				return;
+
+			// wheel cycles the spawn roster (wraps both directions)
+			_iSelSpawn = (_iSelSpawn + (eMouseEvt.Delta > 0 ? 1 : _caSpawnTypes.Count - 1)) % _caSpawnTypes.Count;
 		}
 	}
 }
