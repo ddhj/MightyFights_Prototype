@@ -155,8 +155,16 @@ namespace MightyFights_Prototype
 
 			Zone	cZone = cCombatant.cZone;
 
-			// check to see if we have a zone at all 
-			if(cCombatant.cZone == null) { 
+			//// ddhj: kaiju -- integer division truncates toward zero, so off-field units (fresh
+			//// spawns at x=25, troopers visiting the healers at x~65) landed in edge zones and
+			//// were targetable, luring pursuers off the map. Owner call: units not yet on the
+			//// field must not enter the zone lists. Anything left/above the grid origin stays
+			//// unzoned until it actually walks onto the field.
+			if(cCombatant.cZone == null && ((int)cCombatant.tCenter.X < 112 || (int)cCombatant.tCenter.Y < 70))
+				return;
+
+			// check to see if we have a zone at all
+			if(cCombatant.cZone == null) {
 				// this check is for the start 
 				if(iXPos < 0 || iYPos < 0 || iXPos >= (int)EZoneData.ZoneColumns || iYPos >= (int)EZoneData.ZoneRows)
 					return;

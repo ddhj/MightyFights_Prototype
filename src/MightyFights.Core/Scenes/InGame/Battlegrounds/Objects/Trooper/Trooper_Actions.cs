@@ -276,6 +276,17 @@ namespace MightyFights_Prototype	{
 
 
 			tDest =	nOpponent.RequestAttackPoint( this, out _iAttackingPos );
+
+			//// ddhj: kaiju -- never pursue a destination off the play field (a target standing
+			//// at a healer or the spawn edge would drag the pursuer off the map; the owner's
+			//// kaiju walked clean off the border this way). Drop the target and re-choose.
+			if(tDest.X < 112 || tDest.X > 912 || tDest.Y < 70 || tDest.Y > 506) {
+				cAiData.eState = EBattleAiStates.Ready;
+				cTarget = null;
+				cAction.bConditionNotMet = false;
+				return false;
+			}
+
 			tDirVect = tDest - _tCenter;
 			bDir = tDirVect.X > 0 + float.Epsilon;
 			tDirVect.Normalize();
