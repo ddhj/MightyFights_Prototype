@@ -193,4 +193,63 @@ namespace MightyFights_Prototype
 
 		#endregion
 	}
+
+	//// ddhj: 2026 -- Camp's own entry point into Kaiju Hunt, mirroring ClickablePikard's direct
+	//// scene-push pattern so a right-click withdraw from KaijuHunt's Victory state (BackToMenu)
+	//// naturally pops back to Camp, not ModeSelect. Reuses the previously-unwired spy_guy art.
+	public class ClickableKaijuHunt : ClickableSprite, IActiveBasic, IMouseInteractive
+	{
+		CampMenuManager		_cMgr;
+
+		public ClickableKaijuHunt(CampMenuManager cMgr)
+		{
+			_cMgr = cMgr;
+		}
+
+		#region IActiveBasic Members
+
+		public void Process(GameTime cTime)
+		{
+		}
+
+		#endregion
+
+		#region IMouseInteractive Members
+
+		public void MouseMove(object oSender, MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void MouseDown(object oSender, MouseEventArgs eMouseEvt)
+		{
+			if(ContainsPoint(eMouseEvt.Location)) {
+				IGameScene nScene = new KaijuHunt();
+				if(nScene.Init())
+					DataStore.cInstance.cSceneMgr.AddScene(nScene);
+			}
+		}
+
+		public void MouseUp(object oSender, MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void MouseHover(object oSender, MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void MouseWheel(object oSender, MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void MouseDoubleClick(object oSender, MouseEventArgs eMouseEvt)
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
+	}
 }

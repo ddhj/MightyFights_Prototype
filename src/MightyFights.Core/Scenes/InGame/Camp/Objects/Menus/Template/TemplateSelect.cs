@@ -102,7 +102,7 @@ namespace MightyFights_Prototype
 
 
 				return true;
-			} catch(Exception xEx) { 
+			} catch(Exception) {
 				return false;
 			}
 		}

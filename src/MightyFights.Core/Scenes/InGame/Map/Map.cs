@@ -32,18 +32,6 @@ namespace MightyFights_Prototype
 
 		BattleObjectManager	_cObjMgr = new BattleObjectManager();
 
-		ClickableSprite	_cDungeon, 
-						_cCitadel, 
-						_cDarvi,
-						_cTower1,
-						_cTower2,
-						_cBridgeNE,
-						_cBridgeS,
-						_cBridgeSE,
-						_cChapel,
-						_cHamlet,
-						_cHut;
-
 		#region IGameScene Members
 
 		public ESceneStates eState	{ get { return _eState; } set { _eState = value; }}

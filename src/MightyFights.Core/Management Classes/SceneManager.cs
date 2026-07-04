@@ -14,7 +14,6 @@ namespace MightyFights_Prototype
 	public class SceneManager : DrawableGameComponent
 	{
 		List<IGameScene>	_naSceneList = new List<IGameScene>();
-		Game				_cGameObj;
 
 		public SceneManager(Game cGame) : base(cGame) {}
 

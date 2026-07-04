@@ -18,8 +18,7 @@ namespace MightyFights_Prototype
 	{
 		Slider			_cTopSlider,
 						_cBottomSlider;
-		ClickableSprite	_cDone,
-						_cLargeLeftArrow,
+		ClickableSprite	_cLargeLeftArrow,
 						_cLargeRightArrow;
 
 		StatDisplay		_cAtkPower, 
@@ -145,6 +144,12 @@ namespace MightyFights_Prototype
 
 			foreach(Ability cAbility in _caAbilities)
 				cAbility.Draw(cBatch);
+
+			TemplateCfgMaster	cBank = _cConfig as TemplateCfgMaster;
+			if(cBank != null)
+				cBatch.DrawString(_cFont, string.Format("Level {0}  --  {1} points to spend",
+					LevelCurve.GetLevel(cBank.cExpData), LevelCurve.GetAvailablePoints(cBank)),
+					new Vector2(tPos.X + 14, tPos.Y + 2), Color.Gold);
 		}
 
 		public bool InitMenu()
@@ -485,8 +490,22 @@ namespace MightyFights_Prototype
 					new Vector2(cTmp.cTexRef.Bounds.Width, cTmp.cTexRef.Bounds.Height), 
 					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 				_caAbilities.Add(cTmp);
+
+				//// ddhj: 2026 -- lazily size the persisted unlock flags to the actual ability
+				//// count, then pre-swap any already-unlocked card to its unlocked texture so
+				//// reopening the screen reflects prior spends instead of always starting gray.
+				if(_cConfig.baAbilitiesOn == null || _cConfig.baAbilitiesOn.Length != _caAbilities.Count)
+					_cConfig.baAbilitiesOn = new bool[_caAbilities.Count];
+
+				for(int iCount = 0; iCount < _caAbilities.Count; ++iCount)
+					if(_cConfig.baAbilitiesOn[iCount]) {
+						Texture2D cSwap = _caAbilities[iCount].cTexRef;
+						_caAbilities[iCount].cTexRef = _caAbilities[iCount].cTexRefAlt;
+						_caAbilities[iCount].cTexRefAlt = cSwap;
+					}
+
 				return true;
-			} catch { 
+			} catch {
 				return false;
 			}
 		}
@@ -538,14 +557,32 @@ namespace MightyFights_Prototype
 				return;
 			}
 
-			if(eMouseEvt.Button == MouseButton.Right) { 
+			//// ddhj: 2026 -- shared point-spend gate (docs/DESIGN_DIRECTION.md). A slider bump or
+			//// an ability unlock each cost one point; GetAvailablePoints derives the remaining
+			//// budget from iTopLevel/iBottomLevel/baAbilitiesOn directly, so there's no separate
+			//// counter to keep in sync. cBank is null only for a non-persisted caller (none exist
+			//// today -- every real Template comes from a cLSteward.cTemplates/cCaptains entry),
+			//// in which case editing stays ungated (legacy free-form behavior).
+			TemplateCfgMaster	cBank = _cConfig as TemplateCfgMaster;
+			bool				bHavePoints = cBank == null || LevelCurve.GetAvailablePoints(cBank) > 0;
+
+			if(eMouseEvt.Button == MouseButton.Right && bHavePoints) {
 				if(_cTopSlider.ContainsPoint(eMouseEvt.Location)) _cTopSlider.dlProcessClick(null, null);
 				if(_cBottomSlider.ContainsPoint(eMouseEvt.Location)) _cBottomSlider.dlProcessClick(null, null);
 			}
 
-			foreach(Ability cAbility in _caAbilities)
-				if(cAbility.ContainsPoint(eMouseEvt.Location))
-					cAbility.dlProcessClick(null, null);
+			for(int iCount = 0; iCount < _caAbilities.Count; ++iCount) {
+				Ability	cAbility = _caAbilities[iCount];
+				if(!cAbility.ContainsPoint(eMouseEvt.Location))
+					continue;
+
+				// already unlocked: nothing to toggle back off in this pass
+				if(_cConfig.baAbilitiesOn[iCount] || !bHavePoints)
+					continue;
+
+				_cConfig.baAbilitiesOn[iCount] = true;
+				cAbility.dlProcessClick(null, null);
+			}
 		}
 
 		public void MouseHover(object oSender, Microsoft.Xna.Framework.Input.MouseEventArgs eMouseEvt)

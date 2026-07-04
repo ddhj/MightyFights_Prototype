@@ -11,7 +11,6 @@ namespace MightyFights_Prototype
 
 	public abstract class ActionManager<T>
 	{
-		T _cData;
 		List<Action>	_cActionQueue = new List<Action>();
 		List<Action>	_cPerminantActions = new List<Action>();
 

@@ -17,8 +17,7 @@ namespace MightyFights_Prototype
 
 		string		_sDamage;
 		Color		_tTextColor;
-		int			_iAlpha,
-					_iStartY;
+		int			_iStartY;
 		Vector2		_tPos,
 					_tOrigin = new Vector2(0, 0);
 		SpriteFont	_cFont;

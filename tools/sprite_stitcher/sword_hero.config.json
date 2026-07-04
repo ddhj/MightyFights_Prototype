@@ -1,0 +1,26 @@
+{
+	"name": "SwordHero",
+	"canvas": [86, 49],
+	"source": "C:/dev/art assets raw/wodyn/sword_hero_pngs",
+	"actions": [
+		{ "main": "Attack", "sub": "Basic",    "name": "low",     "src": "sword_attack", "increment": 110 },
+		{ "main": "Attack", "sub": "Basic",    "name": "stab",    "src": "sword_attack", "increment": 105 },
+		{ "main": "Attack", "sub": "Basic",    "name": "stick",   "src": "sword_attack", "increment": 100 },
+		{ "main": "Attack", "sub": "Basic",    "name": "chop",    "src": "sword_attack", "increment": 100 },
+		{ "main": "Attack", "sub": "Basic",    "name": "chopb",   "src": "sword_attack", "increment": 100 },
+		{ "main": "Attack", "sub": "Basic",    "name": "punch",   "src": "sword_attack", "increment": 100 },
+		{ "main": "Attack", "sub": "Critical", "name": "bigchop", "src": "sword_attack", "increment": 90 },
+		{ "main": "Attack", "sub": "Critical", "name": "lunge",   "src": "sword_attack", "increment": 90 },
+		{ "main": "Defend", "sub": "Parry",    "name": "parry",   "src": "sword_idle",   "increment": 105 },
+		{ "main": "Idle",   "sub": "Normal",   "name": "idle",    "src": "sword_idle",   "increment": 130 },
+		{ "main": "Idle",   "sub": "Battle",   "name": "stance",  "src": "sword_idle",   "increment": 130 },
+		{ "main": "Idle",   "sub": "Battle",   "name": "ready",   "src": "sword_idle",   "increment": 130 },
+		{ "main": "Idle",   "sub": "Pant",     "name": "pant",    "src": "sword_idle",   "increment": 300 },
+		{ "main": "Idle",   "sub": "Victory",  "name": "victory", "src": "sword_idle",   "increment": 95 },
+		{ "main": "Death",  "sub": "Normal",   "name": "death",   "src": "sword_idle",   "increment": 95 },
+		{ "main": "Death",  "sub": "Normal",   "name": "deathb",  "src": "sword_idle",   "increment": 95 },
+		{ "main": "Move",   "sub": "Walk",     "name": "walk",    "src": "sword_idle",   "increment": 130 },
+		{ "main": "Move",   "sub": "Run",      "name": "run",     "src": "sword_idle",   "increment": 100 },
+		{ "main": "Move",   "sub": "Flee",     "name": "flee",    "src": "sword_idle",   "increment": 100 }
+	]
+}

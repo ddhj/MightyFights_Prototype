@@ -1655,3 +1655,13 @@
 /importer:TextureImporter
 /processor:TextureProcessor
 /build:Sprite Data/Troopers/Peasant/Peasant.png
+
+#begin Sprite Data/Troopers/Bandit/Bandit.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Bandit/Bandit.png
+
+#begin Sprite Data/Troopers/SwordHero/SwordHero.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/SwordHero/SwordHero.png

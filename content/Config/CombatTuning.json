@@ -1,0 +1,36 @@
+{
+  "Kaiju": {
+    "fHp": 6000,
+    "iMaxHp": 6000,
+    "iHealPoint": 0,
+    "iFleePoint": 0,
+    "iPower": 55,
+    "iAtkSpeed": 25,
+    "iMovement": 5,
+    "iArmorClass": 3,
+    "fCrit": 0.15
+  },
+  "Halberdier": {
+    "fHp": 100,
+    "iMaxHp": 100,
+    "iHealPoint": 40,
+    "iFleePoint": 5,
+    "iPower": 5,
+    "iAtkSpeed": 0,
+    "iMovement": 0,
+    "iArmorClass": 3,
+    "fCrit": 0.05
+  },
+  "Peasant": {
+    "fHp": 60,
+    "iMaxHp": 60,
+    "iHealPoint": 20,
+    "iFleePoint": 10,
+    "iPower": 3,
+    "iAtkSpeed": 0,
+    "iMovement": 5,
+    "iArmorClass": 1,
+    "fCrit": 0.03
+  },
+  "fKaijuScale": 2.5
+}

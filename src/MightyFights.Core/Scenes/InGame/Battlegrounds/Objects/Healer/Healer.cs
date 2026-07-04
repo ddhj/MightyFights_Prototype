@@ -24,10 +24,6 @@ namespace MightyFights_Prototype	{
 					_fRegenRate,
 					_fHealRate,
 					_fZOrder;
-		bool		_bCooldown;
-
-		TimeSpan	_tCooldown, 
-					_tUniqueIdle;
 		Team		_cTeam;
 		FleeSpot	_cSupportZone;
 		Texture2D	_cTexRef;

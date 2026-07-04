@@ -134,13 +134,6 @@ namespace MightyFights_Prototype
 	public class CompanySelectedTemplate : ClickableSprite
 	{
 		SelectedTemplate	_cTemplate = new SelectedTemplate(0, 0, 0);
-		ClickableSprite		_cUpArrow,
-							_cDownArrow;
-		FrontGuys			_cGuy;
-		SpriteFont			_cFont;
-		Company				_cCompany;
-
-
 
 		void ProcessClick(object oSender, object oArgs)
 		{

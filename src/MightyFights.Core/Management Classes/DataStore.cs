@@ -87,6 +87,13 @@ namespace MightyFights_Prototype
 
 		public void InitNew()
 		{
+			//// ddhj: 2026 -- artist-tunable starting stats (content/Config/CombatTuning.json,
+			//// see CombatTuning.cs) for the footman and Peasant baselines. Only applies here, at
+			//// first-ever campaign creation: past this point cLSteward.cTemplates[*].cStats is
+			//// live player progression (Template-editor leveling), so it must never be
+			//// re-clobbered from the config on a later boot.
+			CombatTuning	cTuning = CombatTuning.Load();
+
 			DataStore.cInstance.cLSteward = new Steward();
 			// make the first company
 			// create the captain data
@@ -95,15 +102,27 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cLSteward.cCaptains[0].iBottomLevel = DataStore.cInstance.cLSteward.cCaptains[0].iTopLevel = 6;
 			DataStore.cInstance.cLSteward.cCaptains[0].sTemplateName = "Phillip";
 			DataStore.cInstance.cLSteward.cCaptains[0].iCount = 1;
-			
+
 			// add the basic guys (these start at level 1)
 			DataStore.cInstance.cLSteward.cTemplates.Add(new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Halberd\HalberdArray", @"Sprite Data\Troopers\Halberd\Textures\fazure")));
-			DataStore.cInstance.cLSteward.cTemplates[0].cStats = new Stats { iAtkSpeed = 0, iMovement = 0, fHp = 100, iMaxHp = 100, iPower = 5, fCrit = .05f, iHealPoint = 40, iFleePoint = 5, iArmorClass = 3 };
+			DataStore.cInstance.cLSteward.cTemplates[0].cStats = cTuning.Halberdier;
 			DataStore.cInstance.cLSteward.cTemplates[0].iBottomLevel = DataStore.cInstance.cLSteward.cTemplates[0].iTopLevel = 0;
 			DataStore.cInstance.cLSteward.cTemplates[0].sTemplateName = "Initial Template";
 			DataStore.cInstance.cLSteward.cTemplates[0].iCount = 20;
 			DataStore.cInstance.cLSteward.cTemplates[0].iBLeftPos = DataStore.cInstance.cLSteward.cTemplates[0].iTLeftPos = 466;
 			DataStore.cInstance.cLSteward.cTemplates[0].iId = 0;
+
+			//// ddhj: 2026 -- Peasant's persisted roster slot (docs/DESIGN_DIRECTION.md kaiju
+			//// leveling task). Previously only existed as a disposable per-hunt config in
+			//// KaijuHunt.SetupBattle with no bank target; giving it a real Steward slot lets it
+			//// bank exp and level like the Halberdier. Stats come from the same tuning config.
+			DataStore.cInstance.cLSteward.cTemplates.Add(new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Peasant\PeasantArray", @"Sprite Data\Troopers\Peasant\Peasant")));
+			DataStore.cInstance.cLSteward.cTemplates[1].cStats = cTuning.Peasant;
+			DataStore.cInstance.cLSteward.cTemplates[1].iBottomLevel = DataStore.cInstance.cLSteward.cTemplates[1].iTopLevel = 0;
+			DataStore.cInstance.cLSteward.cTemplates[1].sTemplateName = "Peasant";
+			DataStore.cInstance.cLSteward.cTemplates[1].iCount = 20;
+			DataStore.cInstance.cLSteward.cTemplates[1].iBLeftPos = DataStore.cInstance.cLSteward.cTemplates[1].iTLeftPos = 466;
+			DataStore.cInstance.cLSteward.cTemplates[1].iId = 1;
 
 //// the initial company with refereneces back to the template
 			Company cCompany = new Company();

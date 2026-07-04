@@ -9,6 +9,11 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <RootNamespace>MightyFights_Prototype</RootNamespace>
+    <!-- BasicSprite implements ISafeSerializationData/ISerializable, both obsolete in .NET 8.
+         Phase 5 established this is irrelevant to save/load (BasicSprite isn't in the persisted
+         Steward graph; see HANDOFF.md). Suppressed rather than removed since the interfaces
+         are load-bearing if BasicSprite is ever wired into binary serialization. -->
+    <NoWarn>$(NoWarn);SYSLIB0050</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

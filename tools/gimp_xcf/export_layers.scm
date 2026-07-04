@@ -16,6 +16,14 @@
 ; crashes this GIMP build on real legacy .xcf group layers). If a "frame" layer is itself a
 ; group, gimp-layer-new-from-drawable copies its flattened appearance, which is normally what
 ; you want for a single animation frame anyway.
+;
+; Does NOT call gimp-image-flatten: flatten always merges onto GIMP's opaque background color,
+; discarding alpha even when there's only one layer to "flatten." That shipped a first batch of
+; exports (bandit/sword_hero) as fully opaque frames with a solid white canvas around the
+; character -- sprite_stitcher's alpha-bbox trim saw no transparency to trim, and the game
+; rendered every frame as an opaque white box. Since dest-image only ever holds the one copied
+; layer, there's nothing to flatten against; just make sure it has an alpha channel (some source
+; layers may not) and save that layer's drawable directly.
 
 (define (export-one-layer path filename layer-index out-dir prefix)
   (let* ((src-image (car (gimp-file-load RUN-NONINTERACTIVE path filename)))
@@ -32,8 +40,10 @@
     ; were saved hidden (the artist toggles one visible at a time while drawing), which made
     ; gimp-image-flatten fail outright with "no visible layer"
     (gimp-item-set-visible new-layer TRUE)
-    (gimp-image-flatten dest-image)
-    (file-png-save RUN-NONINTERACTIVE dest-image (car (gimp-image-get-active-drawable dest-image))
+    (if (= (car (gimp-drawable-has-alpha new-layer)) FALSE)
+        (gimp-layer-add-alpha new-layer))
+    (gimp-image-set-active-layer dest-image new-layer)
+    (file-png-save RUN-NONINTERACTIVE dest-image new-layer
                     (string-append out-dir "/" prefix name ".png") name 0 9 1 1 1 1 1)
     (gimp-image-delete dest-image)
     (gimp-image-delete src-image)))

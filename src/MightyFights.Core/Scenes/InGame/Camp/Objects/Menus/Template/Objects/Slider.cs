@@ -157,11 +157,13 @@ namespace MightyFights_Prototype
 			return tRect.Contains(tPoint);
 		}
 
+		//// ddhj: 2026 -- was an unconditional wrap (13 -> 0) for free-form editing; now that
+		//// clicks cost a point (Template.cs gates the call before this ever fires), wrapping
+		//// back to 0 would waste a spent point for nothing, so this clamps at max instead.
 		void ProcessClick(object oSender, object oArgs)
 		{
-			++iLevel;
-			if(iLevel > 13) iLevel = 0;
-			SetLevel(iLevel);
+			if(iLevel < 13)
+				SetLevel(iLevel + 1);
 		}
 	}
 }

@@ -46,7 +46,6 @@ namespace MightyFights_Prototype
 
 		const int		iInitialSquad = 10;
 		const int		iReserveMax = 60;
-		const float		fKaijuScale = 2.5f;
 
 	// BattleSceneBase hooks
 
@@ -63,6 +62,14 @@ namespace MightyFights_Prototype
 			_sBankReport = "";
 			_iReserves = iReserveMax;
 
+			//// ddhj: 2026 -- artist-tunable combat balance (content/Config/CombatTuning.json,
+			//// see CombatTuning.cs). Kaiju and a brand-new Peasant slot pull their stats straight
+			//// from here every hunt since neither is persisted progression; the Halberdier
+			//// ("footmen") baseline instead only applies at DataStore.InitNew (a fresh campaign),
+			//// since cLSteward.cTemplates[0].cStats is live player progression (Template leveling)
+			//// after that and must not be clobbered on every hunt.
+			CombatTuning	cTuning = CombatTuning.Load();
+
 			// the wheel-selectable spawn roster. Index 0 stays Halberdier -- it seeds the
 			// initial squad below, so new entries are appended, never inserted, to keep that
 			// behavior stable across roster changes.
@@ -76,20 +83,43 @@ namespace MightyFights_Prototype
 
 			//// ddhj: 2026 build-order step 4 -- the first unit out of the rebuilt sprite
 			//// stitcher (tools/sprite_stitcher), from the recovered original art at
-			//// c:/dev/art assets raw/wodyn/peasant_pngs. Cheap fodder: not yet a persisted
-			//// roster template (no cLSteward slot), so it deliberately has no bank target --
-			//// BankSurvivorExperience already no-ops for template names it doesn't recognize.
-			//// Stats are a first-pass placeholder, weaker than the Halberdier to justify the
-			//// lower cost; tune freely.
-			TemplateCfgMaster cPeasantCfg = new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Peasant\PeasantArray", @"Sprite Data\Troopers\Peasant\Peasant"));
-			cPeasantCfg.cStats = new Stats { iAtkSpeed = 0, iMovement = 5, fHp = 60, iMaxHp = 60, iPower = 3, fCrit = .03f, iHealPoint = 20, iFleePoint = 10, iArmorClass = 1 };
-			cPeasantCfg.sTemplateName = "Peasant";
+			//// c:/dev/art assets raw/wodyn/peasant_pngs. Now a real persisted roster template
+			//// (DataStore.InitNew adds it for fresh saves); find-or-create here self-heals any
+			//// save file written before this template slot existed, so an in-progress campaign
+			//// doesn't lose the ability to level Peasant.
+			TemplateCfgMaster cPeasantCfg = cData.cLSteward.cTemplates.Find(t => t.sTemplateName == "Peasant");
+			if(cPeasantCfg == null) {
+				cPeasantCfg = new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Peasant\PeasantArray", @"Sprite Data\Troopers\Peasant\Peasant"));
+				cPeasantCfg.cStats = cTuning.Peasant;
+				cPeasantCfg.sTemplateName = "Peasant";
+				cPeasantCfg.iTLeftPos = cPeasantCfg.iBLeftPos = 466;
+				cPeasantCfg.iCount = 20;
+				cPeasantCfg.iId = cData.cLSteward.cTemplates.Count;
+				cData.cLSteward.cTemplates.Add(cPeasantCfg);
+			}
 			_caSpawnTypes.Add(new SpawnType { sLabel = "Peasant", cCfg = cPeasantCfg, iCost = 1, iCap = -1 });
+
+			//// ddhj: second and third units out of the stitcher, from the recovered bandit.xcf /
+			//// sword_hero.xcf frames (tools/gimp_xcf export -> tools/sprite_stitcher). Neither
+			//// source had all 18 action names -- both configs alias every Attack/Idle/Death/Move
+			//// name onto the one real idle loop + one real attack swing each unit actually has
+			//// (same aliasing approach peasant.config.json used, just with fewer distinct source
+			//// animations to alias from). Stats are first-pass placeholders, not yet balanced.
+			TemplateCfgMaster cBanditCfg = new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Bandit\BanditArray", @"Sprite Data\Troopers\Bandit\Bandit"));
+			cBanditCfg.cStats = new Stats { iAtkSpeed = 0, iMovement = 5, fHp = 80, iMaxHp = 80, iPower = 4, fCrit = .05f, iHealPoint = 25, iFleePoint = 12, iArmorClass = 1 };
+			cBanditCfg.sTemplateName = "Bandit";
+			_caSpawnTypes.Add(new SpawnType { sLabel = "Bandit", cCfg = cBanditCfg, iCost = 2, iCap = -1 });
+
+			TemplateCfgMaster cSwordHeroCfg = new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\SwordHero\SwordHeroArray", @"Sprite Data\Troopers\SwordHero\SwordHero"));
+			cSwordHeroCfg.cStats = new Stats { iAtkSpeed = 0, iMovement = 5, fHp = 90, iMaxHp = 90, iPower = 6, fCrit = .08f, iHealPoint = 25, iFleePoint = 10, iArmorClass = 1 };
+			cSwordHeroCfg.sTemplateName = "SwordHero";
+			_caSpawnTypes.Add(new SpawnType { sLabel = "Sword Hero", cCfg = cSwordHeroCfg, iCost = 3, iCap = -1 });
 
 			// where each spawn type's survivors bank their experience after the hunt
 			_cBankTargets.Clear();
 			_cBankTargets[cData.cLSteward.cTemplates[0].sTemplateName] = cData.cLSteward.cTemplates[0];
 			_cBankTargets[cCapCfg.sTemplateName] = cData.cLSteward.cCaptains[0];
+			_cBankTargets[cPeasantCfg.sTemplateName] = cPeasantCfg;
 
 			// current fibonacci levels from the banked exp (levels change only between hunts)
 			foreach(SpawnType cType in _caSpawnTypes) {
@@ -128,14 +158,15 @@ namespace MightyFights_Prototype
 			//// Trooper_Combatant.cs's DealDamage formula (iDamage - armor*rand(0.6,0.99)) was
 			//// negative for basically every non-crit hit (12*0.6=7.2 alone already exceeds 5),
 			//// which routes into the "attacking a monster" fallback: ceil(iDamage*.10) -- just
-			//// 1 damage per hit, reading as "damage numbers are 0's." Armor 3 keeps basic
-			//// Halberdier hits in the normal formula's positive range (~2-3 dmg) instead of
-			//// permanently degenerating to that floor, while still meaningfully soaking
-			//// Peasant hits (power 3) and rewarding Captains (power 40) for their cost.
-			cKaijuCfg.cStats = new Stats { iAtkSpeed = 25, iMovement = 5, fHp = 6000, iMaxHp = 6000, iPower = 55, fCrit = .15f, iHealPoint = 0, iFleePoint = 0, iArmorClass = 3 };
+			//// 1 damage per hit, reading as "damage numbers are 0's." Armor 3 (the shipped
+			//// CombatTuning.json default) keeps basic Halberdier hits in the normal formula's
+			//// positive range (~2-3 dmg) instead of permanently degenerating to that floor, while
+			//// still meaningfully soaking Peasant hits (power 3) and rewarding Captains (power 40)
+			//// for their cost -- worth knowing before retuning armor much higher.
+			cKaijuCfg.cStats = cTuning.Kaiju;
 			cKaijuCfg.sTemplateName = "Kaiju";
 
-			_cKaiju = new Kaiju(cMgr.iCurObjId, cTeam, cMgr.CreateTemplate(cKaijuCfg), fKaijuScale);
+			_cKaiju = new Kaiju(cMgr.iCurObjId, cTeam, cMgr.CreateTemplate(cKaijuCfg), cTuning.fKaijuScale);
 			cTeam.cActiveList.Add(_cKaiju.iId, _cKaiju);
 			cTeam.cMembers.Add(_cKaiju);
 			_cKaiju.tPos = new Vector2(850, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2);

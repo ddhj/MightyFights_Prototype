@@ -95,9 +95,7 @@ namespace MightyFights_Prototype
 
 	public class MenuControlBase : ClickableSprite, IMouseInteractive
 	{
-		CampMenuManager		_cMgr; 
-
-		public MenuControlBase(CampMenuManager _cMgr) 
+		public MenuControlBase(CampMenuManager _cMgr)
 		{
 
 		}

@@ -1,0 +1,26 @@
+{
+	"name": "Bandit",
+	"canvas": [100, 70],
+	"source": "C:/dev/art assets raw/wodyn/bandit_pngs",
+	"actions": [
+		{ "main": "Attack", "sub": "Basic",    "name": "low",     "src": "bandit_attack", "increment": 110 },
+		{ "main": "Attack", "sub": "Basic",    "name": "stab",    "src": "bandit_attack", "increment": 105 },
+		{ "main": "Attack", "sub": "Basic",    "name": "stick",   "src": "bandit_attack", "increment": 100 },
+		{ "main": "Attack", "sub": "Basic",    "name": "chop",    "src": "bandit_attack", "increment": 100 },
+		{ "main": "Attack", "sub": "Basic",    "name": "chopb",   "src": "bandit_attack", "increment": 100 },
+		{ "main": "Attack", "sub": "Basic",    "name": "punch",   "src": "bandit_attack", "increment": 100 },
+		{ "main": "Attack", "sub": "Critical", "name": "bigchop", "src": "bandit_attack", "increment": 90 },
+		{ "main": "Attack", "sub": "Critical", "name": "lunge",   "src": "bandit_attack", "increment": 90 },
+		{ "main": "Defend", "sub": "Parry",    "name": "parry",   "src": "bandit_idle",   "increment": 105 },
+		{ "main": "Idle",   "sub": "Normal",   "name": "idle",    "src": "bandit_idle",   "increment": 130 },
+		{ "main": "Idle",   "sub": "Battle",   "name": "stance",  "src": "bandit_idle",   "increment": 130 },
+		{ "main": "Idle",   "sub": "Battle",   "name": "ready",   "src": "bandit_idle",   "increment": 130 },
+		{ "main": "Idle",   "sub": "Pant",     "name": "pant",    "src": "bandit_idle",   "increment": 300 },
+		{ "main": "Idle",   "sub": "Victory",  "name": "victory", "src": "bandit_idle",   "increment": 95 },
+		{ "main": "Death",  "sub": "Normal",   "name": "death",   "src": "bandit_idle",   "increment": 95 },
+		{ "main": "Death",  "sub": "Normal",   "name": "deathb",  "src": "bandit_idle",   "increment": 95 },
+		{ "main": "Move",   "sub": "Walk",     "name": "walk",    "src": "bandit_idle",   "increment": 130 },
+		{ "main": "Move",   "sub": "Run",      "name": "run",     "src": "bandit_idle",   "increment": 100 },
+		{ "main": "Move",   "sub": "Flee",     "name": "flee",    "src": "bandit_idle",   "increment": 100 }
+	]
+}

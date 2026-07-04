@@ -26,6 +26,12 @@ namespace MightyFights_Prototype
 		public string sTemplateName		{ get; set; }
 		public Dictionary<string, float> cActionModifier	{ get { return _cActionModifier; } set { _cActionModifier = value; }}
 
+		//// ddhj: 2026 -- persisted "which ability cards has this template's owner unlocked"
+		//// state (docs/DESIGN_DIRECTION.md kaiju leveling task). Previously the Template editor's
+		//// ability icons were a pure texture-swap toggle with no backing state at all. Sized/
+		//// populated lazily by Template.InitMenu; null until a template's first visit.
+		public bool[] baAbilitiesOn		{ get; set; }
+
 
 		public TemplateConfig() {}
 

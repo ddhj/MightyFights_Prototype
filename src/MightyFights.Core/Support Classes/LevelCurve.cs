@@ -57,5 +57,31 @@ namespace MightyFights_Prototype
 			cStats.fHp = cStats.iMaxHp;
 			cStats.iArmorClass = (int)(cStats.iArmorClass * Math.Pow(1.04, iLevel));
 		}
+
+		//// ddhj: 2026 -- the Template editor's shared point-spend economy (owner call, see
+		//// docs/DESIGN_DIRECTION.md). Every banked level is one point; a point buys either one
+		//// slider notch bump (top or bottom) or one ability-card unlock, player's choice.
+		/// <summary> points already committed via the Template editor: one per slider notch
+		/// (iTopLevel/iBottomLevel each count directly since they start at 0) plus one per
+		/// unlocked ability card </summary>
+		public static int GetSpentPoints(TemplateConfig cCfg)
+		{
+			int	iAbilities = 0;
+
+			if(cCfg.baAbilitiesOn != null)
+				foreach(bool bOn in cCfg.baAbilitiesOn)
+					if(bOn)
+						++iAbilities;
+
+			return cCfg.iTopLevel + cCfg.iBottomLevel + iAbilities;
+		}
+
+		/// <summary> points earned (GetLevel) minus points already spent, floored at 0 -- a
+		/// template whose preset stats already imply "spend" ahead of its banked exp (e.g. the
+		/// Captain preset) just shows 0 available rather than going negative </summary>
+		public static int GetAvailablePoints(TemplateCfgMaster cBank)
+		{
+			return Math.Max(0, GetLevel(cBank.cExpData) - GetSpentPoints(cBank));
+		}
 	}
 }

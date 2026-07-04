@@ -72,13 +72,11 @@ namespace MightyFights_Prototype	{
 		bool HealInit(Action cAction, GameTime cTime) 
 		{
 			Random	cRand = DataStore.cInstance.cRand;
-			if(cAction.bInit) { 
+			if(cAction.bInit) {
 				_eState = EHealerStates.Healing;
 				if(cRand.Next(4) == 1)
 					_cAnimProc.SetAnimationCriteria("Heal", "Basic", "chaplain_healb", 1);
 				else _cAnimProc.SetAnimationCriteria("Heal", "Basic", "chaplain_heal", 1);
-
-				_bCooldown = true;
 			}
 
 			cAction.bConditionNotMet = false;

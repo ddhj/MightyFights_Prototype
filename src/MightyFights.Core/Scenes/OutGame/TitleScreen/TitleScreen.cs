@@ -31,7 +31,6 @@ namespace MightyFights_Prototype
 		int				_iPlay,
 						_iOptions,
 						_iView;
-		bool			_bProcessState;
 
 		#region IGameScene Members
 

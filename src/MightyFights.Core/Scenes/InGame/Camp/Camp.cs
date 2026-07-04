@@ -40,7 +40,8 @@ namespace MightyFights_Prototype
 		// button guys
 		IMouseInteractive	_nKnight,
 							_nPikard,
-							_nSmith;
+							_nSmith,
+							_nKaijuHunt;
 
 		CampObjectManager	_cObjMgr = new CampObjectManager();
 		CampMenuManager		_cMenuMgr;
@@ -139,6 +140,21 @@ namespace MightyFights_Prototype
 					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
 				_cObjMgr.AddObject(cTmpSpr);
 				_nPikard = (IMouseInteractive)cTmpSpr;
+
+				//// ddhj: 2026 -- Camp's own path into Kaiju Hunt (see docs/DESIGN_DIRECTION.md).
+				//// spy_guy/spy_box were unused camp art, free to repurpose here without a new
+				//// art dependency.
+				cTmpSpr = new ClickableKaijuHunt(_cMenuMgr);
+				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\spy_guy");
+				cTmpSpr.tPos = new Vector2(90, 460);
+				cTmpSpr.sTexName = @"In Game\Camp\spy_guy";
+				cTmpSpr.cFrame = new Frame(cTmpSpr.cTexRef.Bounds,
+					new Vector2(cTmpSpr.cTexRef.Bounds.Width / 2, cTmpSpr.cTexRef.Bounds.Height / 2),
+					new Vector2(0, 0), new Vector2(0, 0),
+					new Vector2(cTmpSpr.cTexRef.Bounds.Width, cTmpSpr.cTexRef.Bounds.Height),
+					new Vector2(0, 0), new Vector2(0, 0), null, false, false);
+				_cObjMgr.AddObject(cTmpSpr);
+				_nKaijuHunt = (IMouseInteractive)cTmpSpr;
 
 				_cCursor = new Cursor();
 				_cCursor.cTexRef = cContent.Load<Texture2D>(@"Shared\gauntlet_cursor");

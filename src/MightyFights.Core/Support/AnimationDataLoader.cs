@@ -143,7 +143,7 @@ namespace MightyFights_Support
 				}
 
 				tTopLeft = new Vector2(-cFrame.spriteSourceSize.x, -cFrame.spriteSourceSize.y);
-				tFlipTopLeft = new Vector2(-(100 - (cFrame.spriteSourceSize.x + cFrame.spriteSourceSize.w)), -cFrame.spriteSourceSize.y);
+				tFlipTopLeft = new Vector2(-(cFrame.sourceSize.w - (cFrame.spriteSourceSize.x + cFrame.spriteSourceSize.w)), -cFrame.spriteSourceSize.y);
 
 				tCenter = new Vector2(((cFrame.sourceSize.w / 2.0f) - (cFrame.spriteSourceSize.x)),
 					((cFrame.sourceSize.h / 2.0f) - (cFrame.spriteSourceSize.y)));
@@ -155,7 +155,7 @@ namespace MightyFights_Support
 				{
 					cRect = new Rectangle(cFrame.frame.x, cFrame.frame.y, cFrame.frame.h, cFrame.frame.w);
 					tTopLeft = new Vector2(cFrame.spriteSourceSize.y + cFrame.frame.h, -cFrame.spriteSourceSize.x);
-					tFlipTopLeft = new Vector2(cFrame.spriteSourceSize.y + cFrame.frame.h, -(100 - (cFrame.spriteSourceSize.x + cFrame.spriteSourceSize.w)));
+					tFlipTopLeft = new Vector2(cFrame.spriteSourceSize.y + cFrame.frame.h, -(cFrame.sourceSize.w - (cFrame.spriteSourceSize.x + cFrame.spriteSourceSize.w)));
 
 					tCenterLeft = new Vector2(Math.Abs(tTopLeft.Y), tTopLeft.X - cRect.Width);
 					tCenterRight = new Vector2(Math.Abs(tTopLeft.Y + cRect.Height), Math.Abs(tTopLeft.X + cRect.Width / 2));
@@ -217,7 +217,7 @@ namespace MightyFights_Support
 				}
 
 				tTopLeft = new Vector2(-cFrame.spriteSourceSize.x, -cFrame.spriteSourceSize.y);
-				tFlipTopLeft = new Vector2(-(100 - (cFrame.spriteSourceSize.x + cFrame.spriteSourceSize.w)), -cFrame.spriteSourceSize.y);
+				tFlipTopLeft = new Vector2(-(cFrame.sourceSize.w - (cFrame.spriteSourceSize.x + cFrame.spriteSourceSize.w)), -cFrame.spriteSourceSize.y);
 
 				tCenter = new Vector2(((cFrame.sourceSize.w / 2.0f) - (cFrame.spriteSourceSize.x)),
 					((cFrame.sourceSize.h / 2.0f) - (cFrame.spriteSourceSize.y)));
@@ -229,7 +229,7 @@ namespace MightyFights_Support
 				{
 					cRect = new Rectangle(cFrame.frame.x, cFrame.frame.y, cFrame.frame.h, cFrame.frame.w);
 					tTopLeft = new Vector2(cFrame.spriteSourceSize.y + cFrame.frame.h, -cFrame.spriteSourceSize.x);
-					tFlipTopLeft = new Vector2(cFrame.spriteSourceSize.y + cFrame.frame.h, -(100 - (cFrame.spriteSourceSize.x + cFrame.spriteSourceSize.w)));
+					tFlipTopLeft = new Vector2(cFrame.spriteSourceSize.y + cFrame.frame.h, -(cFrame.sourceSize.w - (cFrame.spriteSourceSize.x + cFrame.spriteSourceSize.w)));
 					tCenterLeft = new Vector2(Math.Abs(tTopLeft.Y), Math.Abs(tTopLeft.X + cRect.Width / 2));
 					tCenterRight = new Vector2(Math.Abs(tTopLeft.Y + cRect.Height), Math.Abs(tTopLeft.X + cRect.Width / 2));
 				}

@@ -23,7 +23,6 @@ namespace MightyFights_Prototype
 		protected AnimationProcessor	_cAnimProc;
 		protected int				_iItteration = 0,
 									_iItterations;
-		Vector2			_tDest;
 		Color			_tAlpha = Color.White;
 		TimeSpan		_tVisible = TimeSpan.FromMilliseconds(3000), 
 						_tCurrentLife = TimeSpan.Zero;

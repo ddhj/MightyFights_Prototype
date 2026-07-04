@@ -27,15 +27,10 @@ namespace MightyFights_Prototype
 		List<BasicSprite>		_caBasicSprites = new List<BasicSprite>();
 		List<CompanyTemplate>	_caTemplates = new List<CompanyTemplate>();
 		List<CompanyTemplate>	_caSelTemplates = new List<CompanyTemplate>();
-		SpriteFont				_cFont;
 		CompanyName				_cName;
 		CompanyBox				_cSelectedCompany;
 		CompanyTemplate			_cSelectedTemplate;
-		bool					_bNew;
 		FrontGuys				_cGuy;
-
-		int						_iRows = 0,
-								_iRow = 0;
 
 		IconGrid				_cIconGrid;
 
@@ -317,7 +312,7 @@ namespace MightyFights_Prototype
 //// auto select the first company
 				_cSelectedCompany = _caCompanyBoxes[0];
 				//LoadSelectedCompany();				
-			} catch(Exception xEx) { 
+			} catch(Exception) {
 				return false;
 			}
 			
@@ -419,11 +414,7 @@ namespace MightyFights_Prototype
 						return;
 					}
 
-					// check to see if we have clicked on the name and we are in add mode
-					if(_bNew) { 
-					}
-
-					if(_cName.ContainsPoint(eMouseEvt.Location)) { 
+					if(_cName.ContainsPoint(eMouseEvt.Location)) {
 						_eMouseState = EMouseState.IconGrid;
 						_cIconGrid.bDraw = true;
 					}
