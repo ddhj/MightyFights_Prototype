@@ -98,12 +98,21 @@ namespace MightyFights_Prototype
 					cType.iLevel = LevelCurve.GetLevel(cBank.cExpData);
 			}
 
-			// the player's starting squad, spawned exactly the way the classic battleground does
+			// the player's starting squad. Owner call: unlike the classic battleground, Kaiju
+			// Hunt skips the scripted Wait+MoveToPoint march-to-formation entirely -- units
+			// spawn already Ready and immediately charge the kaiju via the normal
+			// ChooseOpponent/ChargeOpponent pursuit, which recomputes facing (bDir) toward the
+			// real attack point every frame. The march's one-shot destination-based bDir could
+			// end up frozen wrong for units assigned an attack point on the kaiju's far side
+			// (anyone approaching a Right-side slot after a long, entirely-rightward march from
+			// the left edge never got a reason to flip until arrival, and attack swings don't
+			// update bDir at all) -- starting the real pursuit from spawn avoids that scripted
+			// detour, not just the visual march.
 			cTeam = _cBattleData.caTeams[0];
 			for(int iCount = 0; iCount < iInitialSquad; ++iCount) {
-				cTrooper = SpawnTrooper(cTeam, new Vector2(25, cGraphics.Viewport.Height / 2 - (int)EConstants.HalberdHeight / 2), _caSpawnTypes[0].cCfg);
-				cTrooper.cActionManager.AddAction(new Action(cTrooper.Wait, 50 * iCount, TimeSpan.Zero));
-				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(200, 100 + (iCount % 12) * 30), null));
+				cTrooper = SpawnTrooper(cTeam, new Vector2(150, 100 + (iCount % 12) * 30), _caSpawnTypes[0].cCfg);
+				cTrooper.bDir = true;	// face right/toward the kaiju until ChooseOpponent corrects it
+				cTrooper.cAiData.eState = EBattleAiStates.Ready;
 				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
 			}
 
@@ -254,10 +263,14 @@ namespace MightyFights_Prototype
 				_iReserves -= cSel.iCost;
 				++cSel.iSpawned;
 
+				// spawn right where the player clicked and charge immediately -- see the
+				// initial-squad comment above for why Kaiju Hunt skips the scripted march
+				int		iX = Math.Min(Math.Max(eMouseEvt.X, 130), 890);
 				int		iY = Math.Min(Math.Max(eMouseEvt.Y, 80), 480);
-				Trooper	cTrooper = SpawnTrooper(_cBattleData.caTeams[0], new Vector2(25, iY), cSel.cCfg);
+				Trooper	cTrooper = SpawnTrooper(_cBattleData.caTeams[0], new Vector2(iX, iY), cSel.cCfg);
 
-				cTrooper.cActionManager.AddAction(new Action(cTrooper.MoveToPoint, new Vector2(Math.Min(eMouseEvt.X, 860), iY), null));
+				cTrooper.bDir = iX < _cKaiju.tCenter.X;
+				cTrooper.cAiData.eState = EBattleAiStates.Ready;
 				cTrooper.cActionManager.AddPermAction(new Action(cTrooper.BasicBattleManager, _cBattleData, null));
 			}
 		}

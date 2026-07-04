@@ -351,12 +351,26 @@ namespace MightyFights_Prototype
 			int		iTmp = int.MaxValue,
 					iOpponentIdx = _cTeam.iId ^ 1;
 
-			// not sure if this is required or not but just in case 
+			// not sure if this is required or not but just in case
 			if(cTarget != null)
 				return null;
 
-			// check to see if I have any attackers currently attacking me 
-			if(_cAttackers.Count > 0) { 
+			//// ddhj: kaiju -- a trooper set straight to Ready at spawn (Kaiju Hunt skips the
+			//// scripted march) can call this before TrooperUpkeep has ever run SetZone: perm
+			//// actions execute in insertion order, TrooperUpkeep (added in the Trooper ctor)
+			//// runs before BasicBattleManager (added after construction) on frame one, but
+			//// TrooperUpkeep needs _cBattleDataRef -- only initialized by BasicBattleManager's
+			//// own first tick -- before it will call SetZone. So on that very first frame
+			//// cZone is still null here and below (the closest-zone fallback also dereferences
+			//// it unconditionally). Nothing to choose yet; BasicBattleManager retries every
+			//// frame while still Ready, and TrooperUpkeep will have zoned this trooper by the
+			//// next one. The classic march-to-formation flow never hit this because several
+			//// frames of walking always elapsed before a trooper first reached Ready.
+			if(this.cZone == null)
+				return null;
+
+			// check to see if I have any attackers currently attacking me
+			if(_cAttackers.Count > 0) {
 				// check the weakest of my opponents and attack them
 				foreach(Combatant nCombatant in _cAttackers.Values) { 
 					if(nCombatant.cStats.fHp < iTmp) { 
