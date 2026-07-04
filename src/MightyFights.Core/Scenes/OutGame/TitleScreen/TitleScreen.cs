@@ -201,10 +201,11 @@ namespace MightyFights_Prototype
 
 		void InputSystem_MouseDown(object sender, Microsoft.Xna.Framework.Input.MouseEventArgs vE)
 		{
-			if(_cPlay[0].ContainsPoint(vE.Location)) { 
-				IGameScene nScene = new Camp();
-				//IGameScene nScene = new MainMenu();
-				if(nScene.Init()) 
+			if(_cPlay[0].ContainsPoint(vE.Location)) {
+				//// ddhj: 2026 -- Play now goes to mode select (Skirmish / Kaiju Hunt) instead of
+				//// straight to Camp. See docs/DESIGN_DIRECTION.md.
+				IGameScene nScene = new ModeSelect();
+				if(nScene.Init())
 					DataStore.cInstance.cSceneMgr.AddScene(nScene);
 			} else if(_cExit.ContainsPoint(vE.Location)) { 
 				DataStore.cInstance.cGame.Exit();

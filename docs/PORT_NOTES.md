@@ -763,10 +763,27 @@ Music was NOT verified here: the debug boot in `GameShell.Initialize` sets `bPla
 `MediaPlayer.Play` is skipped in every scene (title/camp/map/battleground all gate on `bPlayMusic`).
 That is expected, not a regression — music playback verification is tracked separately below.
 
-### V6.2 — Camp scene — PARTIAL
+### V6.2–V6.6 — VALIDATED by owner playtest (2026-07-03)
 
-Camp loads and renders (command tent, barracks tents, hall, huts, farm, palisade, environment). Menu
-interactions (Company/Knight/Template editor), sliders, and clickables still to be exercised.
+The owner playtested the game through the day and reports the game mechanics corresponding to
+V6.2–V6.6 validated: Camp interactions (Knight → Template editor; Smith/Captains/Company are
+original stubs, see archaeology below — not port regressions), full battleground combat
+(spawning, animation, combat resolution, damage numbers, particles, victory state), save/load,
+and extended play without crash/leak/audio-drop. Owner statement: satisfied with the mechanics
+as-is to continue development.
+
+**V6.3 (Map) is obsolete, not failed:** the Map scene was never reachable or interactive in the
+original (orphaned scene, empty handlers, locations never instantiated — blocked on art), and the
+owner has deprecated the map-campaign design entirely (see `docs/DESIGN_DIRECTION.md`). No map
+gate to pass.
+
+**Remaining Phase 6 gate: V6.7 only** (Linux build + boot smoke). Everything else is closed.
+
+### Post-port direction
+
+Development pivots from porting to building: mode-select at the main menu, a Kaiju Hunt demo mode
+on the combat core, camp/level-up salvage. Decisions, kaiju design sketch, art-pipeline plan, and
+the full design archaeology are recorded in `docs/DESIGN_DIRECTION.md`.
 
 ### Music / audio (V6.1 "music plays", V6.4 SFX)
 
