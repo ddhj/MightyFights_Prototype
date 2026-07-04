@@ -208,29 +208,32 @@ namespace MightyFights_Prototype	{
 
 		Vector2 GetVectByPos(ETrooperAttackPos ePos)
 		{
+			//// ddhj: kaiju -- the attack-slot ring is built from this unit's own body, so it
+			//// scales with _fScale: attackers on an oversized unit form up around its bulk
+			//// instead of standing inside it (relative location, not absolute man-sized offsets).
 			Vector2 tDir = _tCenter;
-			switch(ePos) { 
+			switch(ePos) {
 				case ETrooperAttackPos.LeftBottom:
-					tDir.X -= ( 10 + iWeaponRange / 2 );
-					tDir.Y += ( 10 + iWeaponRange / 2 );
+					tDir.X -= ( 10 + iWeaponRange / 2 ) * _fScale;
+					tDir.Y += ( 10 + iWeaponRange / 2 ) * _fScale;
 				break;
 				case ETrooperAttackPos.LeftMid:
-					tDir.X -= 10 + iWeaponRange;
+					tDir.X -= ( 10 + iWeaponRange ) * _fScale;
 				break;
 				case ETrooperAttackPos.LeftTop:
-					tDir.X -= ( 10 + iWeaponRange / 2 );
-					tDir.Y -= ( 10 + iWeaponRange / 2 );
+					tDir.X -= ( 10 + iWeaponRange / 2 ) * _fScale;
+					tDir.Y -= ( 10 + iWeaponRange / 2 ) * _fScale;
 				break;
 				case ETrooperAttackPos.RightBottom:
-					tDir.X += ( 10 + iWeaponRange / 2 );
-					tDir.Y += ( 10 + iWeaponRange / 2 );
+					tDir.X += ( 10 + iWeaponRange / 2 ) * _fScale;
+					tDir.Y += ( 10 + iWeaponRange / 2 ) * _fScale;
 				break;
 				case ETrooperAttackPos.RightMid:
-					tDir.X += 10 + iWeaponRange;
+					tDir.X += ( 10 + iWeaponRange ) * _fScale;
 				break;
 				case ETrooperAttackPos.RightTop:
-					tDir.X += ( 10 + iWeaponRange / 2 );
-					tDir.Y -= ( 10 + iWeaponRange / 2 );
+					tDir.X += ( 10 + iWeaponRange / 2 ) * _fScale;
+					tDir.Y -= ( 10 + iWeaponRange / 2 ) * _fScale;
 				break;
 			}
 
@@ -347,12 +350,16 @@ namespace MightyFights_Prototype	{
 
 			_tCenter = _tPos;
 
-			if(cFrame.bRot) { 
-				_tCenter.X += Math.Abs(tTopLeft.Y) + iHeight / 2;
-				_tCenter.Y += tTopLeft.X - iWidth / 2;
-			} else { 
-				_tCenter.X += Math.Abs(tTopLeft.X) + iWidth / 2;
-				_tCenter.Y += Math.Abs(tTopLeft.Y) + iHeight / 2;
+			//// ddhj: kaiju -- these offsets are in unscaled frame pixels but Draw renders at
+			//// _fScale, so the reference center must scale too or an oversized unit keeps a
+			//// man-sized center down at its feet and every alignment mechanic built on tCenter
+			//// (zones, attack slots, range checks) is off by the scale factor.
+			if(cFrame.bRot) {
+				_tCenter.X += (Math.Abs(tTopLeft.Y) + iHeight / 2) * _fScale;
+				_tCenter.Y += (tTopLeft.X - iWidth / 2) * _fScale;
+			} else {
+				_tCenter.X += (Math.Abs(tTopLeft.X) + iWidth / 2) * _fScale;
+				_tCenter.Y += (Math.Abs(tTopLeft.Y) + iHeight / 2) * _fScale;
 			}
 		}
 	}

@@ -28,7 +28,7 @@ namespace MightyFights_Prototype	{
 			if( _cBloodSpray != null )
 				if(((TerminatingParticleEffect)_cBloodSpray ).bTimeElapsed )
 					_cBloodSpray = null;
-				else	_cBloodSpray.Trigger( new Vector2( _tCenter.X + 0, _tCenter.Y - 18 ));
+				else	_cBloodSpray.Trigger( new Vector2( _tCenter.X + 0, _tCenter.Y - 18 * _fScale ));
 		}
 
 	// IDrawable Members

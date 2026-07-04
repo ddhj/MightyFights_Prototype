@@ -1,0 +1,26 @@
+{
+	"name": "Peasant",
+	"canvas": [100, 64],
+	"source": "C:/dev/art assets raw/wodyn/peasant_pngs",
+	"actions": [
+		{ "main": "Attack", "sub": "Basic",    "name": "low",     "src": "pea_low",     "increment": 110 },
+		{ "main": "Attack", "sub": "Basic",    "name": "stab",    "src": "pea_stab",    "increment": 105 },
+		{ "main": "Attack", "sub": "Basic",    "name": "stick",   "src": "pea_stick",   "increment": 100 },
+		{ "main": "Attack", "sub": "Basic",    "name": "chop",    "src": "pea_1knife",  "increment": 100 },
+		{ "main": "Attack", "sub": "Basic",    "name": "chopb",   "src": "pea_2knife",  "increment": 100 },
+		{ "main": "Attack", "sub": "Basic",    "name": "punch",   "src": "pea_punch",   "increment": 100 },
+		{ "main": "Attack", "sub": "Critical", "name": "bigchop", "src": "pea_combo",   "increment": 100 },
+		{ "main": "Attack", "sub": "Critical", "name": "lunge",   "src": "pea_lunge",   "increment": 100 },
+		{ "main": "Defend", "sub": "Parry",    "name": "parry",   "src": "pea_parry",   "increment": 105 },
+		{ "main": "Idle",   "sub": "Normal",   "name": "idle",    "src": "pea_idle",    "increment": 100 },
+		{ "main": "Idle",   "sub": "Battle",   "name": "stance",  "src": "pea_ready",   "increment": 100 },
+		{ "main": "Idle",   "sub": "Battle",   "name": "ready",   "src": "pea_ready",   "increment": 100 },
+		{ "main": "Idle",   "sub": "Pant",     "name": "pant",    "src": "pea_pant",    "increment": 300 },
+		{ "main": "Idle",   "sub": "Victory",  "name": "victory", "src": "pea_victory", "increment": 95 },
+		{ "main": "Death",  "sub": "Normal",   "name": "death",   "src": "pea_death",   "increment": 95 },
+		{ "main": "Death",  "sub": "Normal",   "name": "deathb",  "src": "pea_death",   "increment": 95 },
+		{ "main": "Move",   "sub": "Walk",     "name": "walk",    "src": "pea_walk",    "increment": 100 },
+		{ "main": "Move",   "sub": "Run",      "name": "run",     "src": "pea_run",     "increment": 100 },
+		{ "main": "Move",   "sub": "Flee",     "name": "flee",    "src": "pea_retreat", "increment": 100 }
+	]
+}

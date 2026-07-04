@@ -166,8 +166,16 @@ namespace MightyFights_Prototype
 				// add combatant to the zone list 
 				caBattleZones[iXPos][iYPos].naCombatantLists[cCombatant.cTeam.iId].Add(cCombatant);
 			} else {
-				// check to see if we are in the same zone 
-				if(cCombatant.cZone.iX != iXPos || cCombatant.cZone.iY != iYPos) { 
+				//// ddhj: kaiju -- a scale-corrected tCenter can step past the grid edge (an
+				//// oversized unit standing at the field border); clamp to the nearest zone, the
+				//// same idiom GetZoneByPosition below already uses, instead of indexing out.
+				if(iXPos < 0) iXPos = 0;
+				else if(iXPos >= (int)EZoneData.ZoneColumns) iXPos = (int)EZoneData.ZoneColumns - 1;
+				if(iYPos < 0) iYPos = 0;
+				else if(iYPos >= (int)EZoneData.ZoneRows) iYPos = (int)EZoneData.ZoneRows - 1;
+
+				// check to see if we are in the same zone
+				if(cCombatant.cZone.iX != iXPos || cCombatant.cZone.iY != iYPos) {
 					// remove the combatant from the zone
 					cCombatant.cZone.naCombatantLists[cCombatant.cTeam.iId].Remove(cCombatant);
 

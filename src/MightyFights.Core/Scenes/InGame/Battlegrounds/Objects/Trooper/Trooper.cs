@@ -19,12 +19,14 @@ namespace MightyFights_Prototype	{
 	// Data
 		Texture2D	_cTexRef;
 		Stats		_cInitialStats;
-		int			_iAvailablePositions = 6,
-					_iCurLeftAttackers = 0,
+		//// ddhj: kaiju -- protected so oversized combatant subclasses can widen the swarm
+		//// capacity and render scale (captains already used _fScale via the "Cap" name check).
+		protected int	_iAvailablePositions = 6;
+		int			_iCurLeftAttackers = 0,
 					_iCurRightAttakers = 0,
 					_iAttackingPos;
-		float		_fZorder,
-					_fScale = 1.25f;
+		float		_fZorder;
+		protected float	_fScale = 1.25f;
 		byte		_byAttakPos;
 		bool		_bAttacking;
 
