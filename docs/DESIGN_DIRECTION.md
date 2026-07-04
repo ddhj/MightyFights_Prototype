@@ -96,6 +96,39 @@ Reconstructed original toolchain (evidence in PORT_NOTES Phase 6 / the JSONs the
   stitcher's own self-check. The **AnimationProcessor fallback chain is still unbuilt** — Peasant
   didn't need it (its config carries all 18 action names), but the non-human minion sets (task
   #16/#17) likely have sparser coverage and will need it.
+- 2026-07-04: full .xcf archaeology scan (tools/gimp_xcf), 63/63 files, 0 failures. Report +
+  thumbnails classify every recovered file by actual contents. Findings:
+  - Griggan_units.xcf and units.xcf/master_sheet.xcf reveal a much bigger planned roster than
+    ever shipped -- full enemy-army concept sheets (dark-armored soldiers with swords/pikes,
+    likely a named "Griggan" faction), multiple knight factions with banners (gold/blue/teal),
+    skeleton warriors, ape/troll creatures, at least one more dragon design, and dozens more
+    humanoid unit variants. Dense reference/moodboard compilations (units.xcf even appears to
+    contain a screenshot of a palette-swap tool UI), not extractable single assets -- but they
+    conclusively answer the "more than pikemen" question with a yes.
+  - quartermaster.xcf -- a bearded NPC vendor behind a supply cart plus two spear-soldiers.
+    Reads as a Camp shop NPC concept, distinct from (and maybe overlapping with) the never-
+    implemented Smith clickable.
+  - trainer.xcf -- an actual UI mockup for a weapon/ability progression system: "Attack
+    Combinations," an "Upgrade Weapon Phase 2" wheel, "Rate of Progress," "Main Training," a
+    named character ("Brave Bill"), and icon-grid skill trees. A planned progression system
+    distinct from the simple stat-leveling (LevelCurve.cs) built this session -- worth a look
+    if/when the Camp-menu leveling task (#18) wants richer presentation.
+  - sword_hero.xcf -- a lone orange-armored hero character, likely a protagonist/avatar design
+    that was never wired into the game.
+  - Kaiju-art reality check: dragon.xcf is a 2-pose concept sketch (3 layers: medium/big/
+    Background), not an animation set. Same for skeleton.xcf/wild_dog.xcf/slug.xcf/drau.xcf
+    (2-7 composition layers each, single illustrations). Strong style references for a real
+    kaiju/minion redesign, but NOT mechanically extractable -- real animated sprites for any of
+    these need new art (hand-drawn to match, or AI-assisted from these references; see the
+    art-pipeline AI-generation note above), not a batch-export job.
+  - bandit.xcf (11 numbered frames, confirmed idle -> wind-up -> attack-lunge -> idle) and
+    sword_hero.xcf (6 numbered frames, a small attack swing) are genuinely extractable,
+    hand-animated units -- tools/gimp_xcf/export_layers.scm pulls each layer out as its own
+    correctly-isolated PNG (see that tool's README for two real bugs hit and fixed: naively
+    flattening a duplicated-in-place layer re-composites everything underneath it, and copied
+    layers inherit the source's hidden visibility state). Not yet run through the sprite
+    stitcher into a playable unit -- that needs someone to look at all 11/6 frames and map them
+    onto the trooper AI's action names, the same way peasant.config.json did for Peasant.
 
 ## Reconstructed original design (archaeology record)
 
