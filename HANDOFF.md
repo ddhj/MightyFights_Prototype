@@ -5,9 +5,17 @@ Resume-here doc for the MightyFights MonoGame port. Read this first, then
 decision log — every finding/deviation below is written up in full there, this file is just the
 "where are we, what's next" summary). `CLAUDE.md` covers repo conventions.
 
-**Last updated:** 2026-07-04, mid-session handoff during active kaiju combat-tuning + art recovery
-work (owner is popping to a fresh chat to reset context; this doc + `docs/DESIGN_DIRECTION.md` are
-the two things to read first there).
+**Last updated:** 2026-07-05. Since the 07-04 handoff below was written, commit `0f5f394` landed
+11 items (leveling loop in Camp, Bandit + SwordHero stitched into content, CombatTuning.json,
+win-x64 publish). Then this session: **the "direction flip looks wrong" bug is root-caused and
+fixed** — it was never the trooper heuristics (they're correct); the Bandit's GIMP-exported frames
+had the body at x≈21 of the 100px canvas instead of centered, and because the flip math mirrors
+across the canvas AND `Trooper.UpdateRefPoints` derives `tCenter` from the same flip offsets,
+every `bDir` change teleported sprite+`tCenter` ~48–58px and made `bDir` oscillate near any
+destination. Fix: `stitch.py` gained a `"recenter"` config option + a flip-jump validator, Bandit
+and SwordHero were re-stitched (movement-frame flip-jump now 0–2px, was 48/18px), content rebuilds
+clean. New: `docs/AI_ART_PIPELINE.md` — the template contract for generating new units (artist or
+AI) + tool options. All uncommitted alongside the owner's own working-tree edits.
 **The project has pivoted from porting to building** — read `docs/DESIGN_DIRECTION.md` first for
 the owner's decisions, the kaiju design, the art pipeline, and the reconstructed original design.
 

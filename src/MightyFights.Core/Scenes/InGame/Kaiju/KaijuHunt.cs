@@ -87,15 +87,25 @@ namespace MightyFights_Prototype
 			//// (DataStore.InitNew adds it for fresh saves); find-or-create here self-heals any
 			//// save file written before this template slot existed, so an in-progress campaign
 			//// doesn't lose the ability to level Peasant.
+			const string	sPeasantColor = @"Sprite Data\Troopers\Peasant\Peasant";
 			TemplateCfgMaster cPeasantCfg = cData.cLSteward.cTemplates.Find(t => t.sTemplateName == "Peasant");
 			if(cPeasantCfg == null) {
-				cPeasantCfg = new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Peasant\PeasantArray", @"Sprite Data\Troopers\Peasant\Peasant"));
+				cPeasantCfg = new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Peasant\PeasantArray", sPeasantColor));
 				cPeasantCfg.cStats = cTuning.Peasant;
 				cPeasantCfg.sTemplateName = "Peasant";
 				cPeasantCfg.iTLeftPos = cPeasantCfg.iBLeftPos = 466;
 				cPeasantCfg.iCount = 20;
 				cPeasantCfg.iId = cData.cLSteward.cTemplates.Count;
 				cData.cLSteward.cTemplates.Add(cPeasantCfg);
+			//// ddhj: 2026 -- one-time repair for a save written before the Template.cs
+			//// PopulateConfig fix: opening Peasant's Template screen used to overwrite its real
+			//// sprite path (sColor) with a Halberd recolor path, and its tuned stats with generic
+			//// Halberd tier-0 numbers, since the editor assumed every template was Halberd. sColor
+			//// mismatch is the reliable tell (nothing else could have changed it); both writes
+			//// happened together in the same old bug, so both get reset here.
+			} else if(cPeasantCfg.sColor != sPeasantColor) {
+				cPeasantCfg.sColor = sPeasantColor;
+				cPeasantCfg.cStats = cTuning.Peasant;
 			}
 			_caSpawnTypes.Add(new SpawnType { sLabel = "Peasant", cCfg = cPeasantCfg, iCost = 1, iCap = -1 });
 
@@ -291,6 +301,10 @@ namespace MightyFights_Prototype
 
 		void InputSystem_MouseDown(object oSender, MouseEventArgs eMouseEvt)
 		{
+			// paused: clicks belong to the pause menu (BattleSceneBase), not the battle underneath
+			if(!_bUpdate)
+				return;
+
 			// battle over: right-click withdraws (battleground convention)
 			if(_cBattleData.eState == EBattlegroundState.Victory && eMouseEvt.Button == MouseButton.Right) {
 				BackToMenu();

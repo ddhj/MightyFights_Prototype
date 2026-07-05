@@ -24,6 +24,8 @@ namespace MightyFights_Prototype
 		public void RegisterHandlers()
 		{
 			InputSystem.MouseMove += new MouseEventHandler(InputSystem_MouseMove);
+			InputSystem.KeyDown += new KeyEventHandler(InputSystem_KeyDown_Quit);
+			InputSystem.MouseDown += new MouseEventHandler(InputSystem_MouseDown_Quit);
 
 			// add all the clickable guys
 			InputSystem.MouseDown += new MouseEventHandler(_nKnight.MouseDown);
@@ -46,6 +48,38 @@ namespace MightyFights_Prototype
 			_cCursor.Update(e.Location);
 		}
 
+		//// ddhj: 2026 -- Escape quit-confirm (owner call). Only opens from bare Camp (bNoMenus)
+		//// so it can't fight with CampMenuManager's own suppress/restore of the clickable guys;
+		//// reuses that exact suppress/restore pair (UnRegisterHandlersMenu/RegisterHandlersMenu)
+		//// while the confirm dialog is up.
+		void InputSystem_KeyDown_Quit(object oSender, KeyEventArgs eKeyEvt)
+		{
+			if(eKeyEvt.KeyCode != Keys.Escape)
+				return;
+
+			if(_bQuitConfirm) {
+				_bQuitConfirm = false;
+				RegisterHandlersMenu();
+			} else if(_cMenuMgr.bNoMenus) {
+				_bQuitConfirm = true;
+				UnRegisterHandlersMenu();
+			}
+		}
+
+		void InputSystem_MouseDown_Quit(object oSender, MouseEventArgs eMouseEvt)
+		{
+			if(!_bQuitConfirm || eMouseEvt.Button != MouseButton.Left)
+				return;
+
+			if(_tQuitYesRect.Contains(eMouseEvt.Location)) {
+				_bQuitConfirm = false;
+				DataStore.cInstance.cSceneMgr.PopToRoot();
+			} else if(_tQuitNoRect.Contains(eMouseEvt.Location)) {
+				_bQuitConfirm = false;
+				RegisterHandlersMenu();
+			}
+		}
+
 		public void UnRegisterHandlersMenu()
 		{
 			InputSystem.MouseDown -= _nKnight.MouseDown;
@@ -57,6 +91,8 @@ namespace MightyFights_Prototype
 		public void UnRegisterHandlers()
 		{
 			InputSystem.MouseMove -= InputSystem_MouseMove;
+			InputSystem.KeyDown -= InputSystem_KeyDown_Quit;
+			InputSystem.MouseDown -= InputSystem_MouseDown_Quit;
 
 			// add all the clickable guys
 			InputSystem.MouseDown -= _nKnight.MouseDown;

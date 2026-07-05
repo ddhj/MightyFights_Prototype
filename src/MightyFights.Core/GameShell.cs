@@ -45,6 +45,14 @@ namespace MightyFights_Prototype
 			DataStore.cInstance.cGame = this;
 			DataStore.cInstance.cRand = new Random();
 
+			//// ddhj: 2026 -- content/Config/GameSettings.json, editable without recompiling.
+			//// Applied here (not the ctor) since DataStore.cInstance.cContent -- needed to resolve
+			//// the config's path -- isn't wired up until this point; ApplyChanges runs before the
+			//// window is first presented, so there's no visible windowed-then-fullscreen flash.
+			GameSettings	cSettings = GameSettings.Load();
+			graphics.IsFullScreen = cSettings.bFullscreen;
+			graphics.ApplyChanges();
+
 			//// ddhj: 2026 -- load the saved campaign if one exists (kaiju hunts bank survivor
 			//// exp into the roster and save; a fresh boot must not wipe it), else start new.
 			//// LoadData is a no-op when no save file is present.

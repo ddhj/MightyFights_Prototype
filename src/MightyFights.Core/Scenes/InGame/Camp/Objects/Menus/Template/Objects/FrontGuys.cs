@@ -69,9 +69,21 @@ namespace MightyFights_Prototype
 			this.cFrame = _cAnimData.caFrameData[_iFrameIdx];
 		}
 
+		//// ddhj: 2026 -- TemplateConfig.sColor doubles as the unit's actual battle-sprite texture
+		//// path (see DataManager.CreateTemplate), which for a single-skin unit like Peasant is its
+		//// own sprite sheet path, not one of these 14 Halberd recolor variants. The Template
+		//// editor's portrait is still hardcoded to the Halberd front-facing sheet regardless of
+		//// unit (a known, not-yet-fixed limitation -- see docs/DESIGN_DIRECTION.md), so an
+		//// unrecognized color used to throw and silently kill the whole Template list (the caller
+		//// swallows exceptions). Falling back to index 0 keeps the list open; the portrait is
+		//// wrong-but-harmless for non-Halberd units either way until that limitation is fixed.
 		public void SetByColor(string sColor)
 		{
-			this.cFrame = _cAnimData.caFrameData[_iFrameIdx = _caNameLookup[sColor]];
+			int	iIdx;
+			if(!_caNameLookup.TryGetValue(sColor, out iIdx))
+				iIdx = 0;
+
+			this.cFrame = _cAnimData.caFrameData[_iFrameIdx = iIdx];
 		}
 
 		public override void Draw(SpriteBatch cBatch)

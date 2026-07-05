@@ -11,6 +11,1464 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MightyFights.Core", "src\Mi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MightyFights.Particles", "src\MightyFights.Particles\MightyFights.Particles.csproj", "{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{9137F2C7-923B-57E6-A7C8-901896DC0580}"
+	ProjectSection(SolutionItems) = preProject
+		content\Content.mgcb = content\Content.mgcb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backgrounds", "Backgrounds", "{F159ACF7-3DC6-513D-9127-685957CDE7D5}"
+	ProjectSection(SolutionItems) = preProject
+		content\Backgrounds\dirt_grass 800x436.png = content\Backgrounds\dirt_grass 800x436.png
+		content\Backgrounds\dirt_grass 800x500.png = content\Backgrounds\dirt_grass 800x500.png
+		content\Backgrounds\dirt_grass_large.png = content\Backgrounds\dirt_grass_large.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{CA9C4232-A6E7-582F-ABAE-3A6E7D48A583}"
+	ProjectSection(SolutionItems) = preProject
+		content\Config\CombatTuning.json = content\Config\CombatTuning.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "In Game", "In Game", "{786E2084-3E3E-555F-B616-EFECD3B5C40B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Buffs", "Buffs", "{EECD0CCB-14E2-5594-AEA5-1145E1321DDC}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Buffs\BufItems.png = content\In Game\Buffs\BufItems.png
+		content\In Game\Buffs\BufItemsArray.json = content\In Game\Buffs\BufItemsArray.json
+		content\In Game\Buffs\Drops.png = content\In Game\Buffs\Drops.png
+		content\In Game\Buffs\DropsArray.json = content\In Game\Buffs\DropsArray.json
+		content\In Game\Buffs\Gems.png = content\In Game\Buffs\Gems.png
+		content\In Game\Buffs\GemsArray.json = content\In Game\Buffs\GemsArray.json
+		content\In Game\Buffs\ItemBox.png = content\In Game\Buffs\ItemBox.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Animals", "Animals", "{D9B99AA7-8D2D-5E29-B946-E1FCA64F350D}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Buffs\Animals\crab.png = content\In Game\Buffs\Animals\crab.png
+		content\In Game\Buffs\Animals\dragon.png = content\In Game\Buffs\Animals\dragon.png
+		content\In Game\Buffs\Animals\eagle.png = content\In Game\Buffs\Animals\eagle.png
+		content\In Game\Buffs\Animals\lion.png = content\In Game\Buffs\Animals\lion.png
+		content\In Game\Buffs\Animals\snake.png = content\In Game\Buffs\Animals\snake.png
+		content\In Game\Buffs\Animals\squirrel.png = content\In Game\Buffs\Animals\squirrel.png
+		content\In Game\Buffs\Animals\toad.png = content\In Game\Buffs\Animals\toad.png
+		content\In Game\Buffs\Animals\wolf.png = content\In Game\Buffs\Animals\wolf.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Camp", "Camp", "{965D0F26-E9CD-55F1-9EC2-9A90577FD443}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Camp\Captain's_house.png = content\In Game\Camp\Captain's_house.png
+		content\In Game\Camp\barracks.png = content\In Game\Camp\barracks.png
+		content\In Game\Camp\camp.png = content\In Game\Camp\camp.png
+		content\In Game\Camp\ground.png = content\In Game\Camp\ground.png
+		content\In Game\Camp\knight_box.png = content\In Game\Camp\knight_box.png
+		content\In Game\Camp\picard_box.png = content\In Game\Camp\picard_box.png
+		content\In Game\Camp\picard_guy.png = content\In Game\Camp\picard_guy.png
+		content\In Game\Camp\smith.png = content\In Game\Camp\smith.png
+		content\In Game\Camp\smith_box.png = content\In Game\Camp\smith_box.png
+		content\In Game\Camp\smith_guy.png = content\In Game\Camp\smith_guy.png
+		content\In Game\Camp\spy_box.png = content\In Game\Camp\spy_box.png
+		content\In Game\Camp\spy_guy.png = content\In Game\Camp\spy_guy.png
+		content\In Game\Camp\supply hut.png = content\In Game\Camp\supply hut.png
+		content\In Game\Camp\surgeon_tent.png = content\In Game\Camp\surgeon_tent.png
+		content\In Game\Camp\wagon.png = content\In Game\Camp\wagon.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Company Dialog", "Company Dialog", "{F256DF59-ED8F-5021-85E5-DF7B0B69BCDF}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Camp\Company Dialog\CompanyBox.png = content\In Game\Camp\Company Dialog\CompanyBox.png
+		content\In Game\Camp\Company Dialog\CompanySelect.png = content\In Game\Camp\Company Dialog\CompanySelect.png
+		content\In Game\Camp\Company Dialog\axe.png = content\In Game\Camp\Company Dialog\axe.png
+		content\In Game\Camp\Company Dialog\battle_axe.png = content\In Game\Camp\Company Dialog\battle_axe.png
+		content\In Game\Camp\Company Dialog\blue_jester.png = content\In Game\Camp\Company Dialog\blue_jester.png
+		content\In Game\Camp\Company Dialog\click_to_drag.png = content\In Game\Camp\Company Dialog\click_to_drag.png
+		content\In Game\Camp\Company Dialog\company_name.png = content\In Game\Camp\Company Dialog\company_name.png
+		content\In Game\Camp\Company Dialog\company_window.png = content\In Game\Camp\Company Dialog\company_window.png
+		content\In Game\Camp\Company Dialog\falchion.png = content\In Game\Camp\Company Dialog\falchion.png
+		content\In Game\Camp\Company Dialog\goblin.png = content\In Game\Camp\Company Dialog\goblin.png
+		content\In Game\Camp\Company Dialog\green_genie.png = content\In Game\Camp\Company Dialog\green_genie.png
+		content\In Game\Camp\Company Dialog\grid_arrow_left.png = content\In Game\Camp\Company Dialog\grid_arrow_left.png
+		content\In Game\Camp\Company Dialog\grid_arrow_left_blue.png = content\In Game\Camp\Company Dialog\grid_arrow_left_blue.png
+		content\In Game\Camp\Company Dialog\grid_arrow_right.png = content\In Game\Camp\Company Dialog\grid_arrow_right.png
+		content\In Game\Camp\Company Dialog\grid_arrow_right_blue.png = content\In Game\Camp\Company Dialog\grid_arrow_right_blue.png
+		content\In Game\Camp\Company Dialog\horned_skull.png = content\In Game\Camp\Company Dialog\horned_skull.png
+		content\In Game\Camp\Company Dialog\icon_grid.png = content\In Game\Camp\Company Dialog\icon_grid.png
+		content\In Game\Camp\Company Dialog\icon_window.png = content\In Game\Camp\Company Dialog\icon_window.png
+		content\In Game\Camp\Company Dialog\kite_shield.png = content\In Game\Camp\Company Dialog\kite_shield.png
+		content\In Game\Camp\Company Dialog\knight_sword.png = content\In Game\Camp\Company Dialog\knight_sword.png
+		content\In Game\Camp\Company Dialog\purple_demon.png = content\In Game\Camp\Company Dialog\purple_demon.png
+		content\In Game\Camp\Company Dialog\purple_skull.png = content\In Game\Camp\Company Dialog\purple_skull.png
+		content\In Game\Camp\Company Dialog\red_demon.png = content\In Game\Camp\Company Dialog\red_demon.png
+		content\In Game\Camp\Company Dialog\red_skull.png = content\In Game\Camp\Company Dialog\red_skull.png
+		content\In Game\Camp\Company Dialog\reset_gray.png = content\In Game\Camp\Company Dialog\reset_gray.png
+		content\In Game\Camp\Company Dialog\reset_red.png = content\In Game\Camp\Company Dialog\reset_red.png
+		content\In Game\Camp\Company Dialog\sabre.png = content\In Game\Camp\Company Dialog\sabre.png
+		content\In Game\Camp\Company Dialog\sai.png = content\In Game\Camp\Company Dialog\sai.png
+		content\In Game\Camp\Company Dialog\sallet.png = content\In Game\Camp\Company Dialog\sallet.png
+		content\In Game\Camp\Company Dialog\size_box.png = content\In Game\Camp\Company Dialog\size_box.png
+		content\In Game\Camp\Company Dialog\skull.png = content\In Game\Camp\Company Dialog\skull.png
+		content\In Game\Camp\Company Dialog\target.png = content\In Game\Camp\Company Dialog\target.png
+		content\In Game\Camp\Company Dialog\template_arrow_left.png = content\In Game\Camp\Company Dialog\template_arrow_left.png
+		content\In Game\Camp\Company Dialog\template_arrow_right.png = content\In Game\Camp\Company Dialog\template_arrow_right.png
+		content\In Game\Camp\Company Dialog\unit_allocation_arrows.png = content\In Game\Camp\Company Dialog\unit_allocation_arrows.png
+		content\In Game\Camp\Company Dialog\unit_allocation_down.png = content\In Game\Camp\Company Dialog\unit_allocation_down.png
+		content\In Game\Camp\Company Dialog\unit_allocation_up.png = content\In Game\Camp\Company Dialog\unit_allocation_up.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KnightMenu", "KnightMenu", "{3F0F1410-8A70-5C90-850E-DA6C08830E8E}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Camp\KnightMenu\captain_button.png = content\In Game\Camp\KnightMenu\captain_button.png
+		content\In Game\Camp\KnightMenu\company_button.png = content\In Game\Camp\KnightMenu\company_button.png
+		content\In Game\Camp\KnightMenu\dialogue_button.png = content\In Game\Camp\KnightMenu\dialogue_button.png
+		content\In Game\Camp\KnightMenu\knight_box.png = content\In Game\Camp\KnightMenu\knight_box.png
+		content\In Game\Camp\KnightMenu\knight_guy.png = content\In Game\Camp\KnightMenu\knight_guy.png
+		content\In Game\Camp\KnightMenu\template_button.png = content\In Game\Camp\KnightMenu\template_button.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmithMenu", "SmithMenu", "{AA996736-B238-50DA-BEE0-178AF7DAF49D}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Camp\SmithMenu\armour_upgrade.png = content\In Game\Camp\SmithMenu\armour_upgrade.png
+		content\In Game\Camp\SmithMenu\smith_box.png = content\In Game\Camp\SmithMenu\smith_box.png
+		content\In Game\Camp\SmithMenu\smith_guy.png = content\In Game\Camp\SmithMenu\smith_guy.png
+		content\In Game\Camp\SmithMenu\weapon_upgrade.png = content\In Game\Camp\SmithMenu\weapon_upgrade.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Template", "Template", "{83B3F3D8-5EC0-5A1D-A580-B92278B839EE}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Camp\Template\AtkPower.png = content\In Game\Camp\Template\AtkPower.png
+		content\In Game\Camp\Template\AtkPowerArray.json = content\In Game\Camp\Template\AtkPowerArray.json
+		content\In Game\Camp\Template\AtkSpeed.png = content\In Game\Camp\Template\AtkSpeed.png
+		content\In Game\Camp\Template\AtkSpeedArray.json = content\In Game\Camp\Template\AtkSpeedArray.json
+		content\In Game\Camp\Template\BottomSliders.png = content\In Game\Camp\Template\BottomSliders.png
+		content\In Game\Camp\Template\BottomSlidersArray.json = content\In Game\Camp\Template\BottomSlidersArray.json
+		content\In Game\Camp\Template\HitPoints.png = content\In Game\Camp\Template\HitPoints.png
+		content\In Game\Camp\Template\HitPointsArray.json = content\In Game\Camp\Template\HitPointsArray.json
+		content\In Game\Camp\Template\Left Arrow Large.png = content\In Game\Camp\Template\Left Arrow Large.png
+		content\In Game\Camp\Template\Left Arrow.png = content\In Game\Camp\Template\Left Arrow.png
+		content\In Game\Camp\Template\MoveSpeed.png = content\In Game\Camp\Template\MoveSpeed.png
+		content\In Game\Camp\Template\MoveSpeedArray.json = content\In Game\Camp\Template\MoveSpeedArray.json
+		content\In Game\Camp\Template\Right Arrow Large.png = content\In Game\Camp\Template\Right Arrow Large.png
+		content\In Game\Camp\Template\Right Arrow.png = content\In Game\Camp\Template\Right Arrow.png
+		content\In Game\Camp\Template\TemplateSelect.png = content\In Game\Camp\Template\TemplateSelect.png
+		content\In Game\Camp\Template\TopSliders.png = content\In Game\Camp\Template\TopSliders.png
+		content\In Game\Camp\Template\TopSlidersArray.json = content\In Game\Camp\Template\TopSlidersArray.json
+		content\In Game\Camp\Template\absorb damage.png = content\In Game\Camp\Template\absorb damage.png
+		content\In Game\Camp\Template\absorb damage_gray.png = content\In Game\Camp\Template\absorb damage_gray.png
+		content\In Game\Camp\Template\acts of prowess.png = content\In Game\Camp\Template\acts of prowess.png
+		content\In Game\Camp\Template\atkx2.png = content\In Game\Camp\Template\atkx2.png
+		content\In Game\Camp\Template\atkx2_gray.png = content\In Game\Camp\Template\atkx2_gray.png
+		content\In Game\Camp\Template\atkx3.png = content\In Game\Camp\Template\atkx3.png
+		content\In Game\Camp\Template\atkx3_gray.png = content\In Game\Camp\Template\atkx3_gray.png
+		content\In Game\Camp\Template\battle mastery.png = content\In Game\Camp\Template\battle mastery.png
+		content\In Game\Camp\Template\big time.png = content\In Game\Camp\Template\big time.png
+		content\In Game\Camp\Template\big time_gray.png = content\In Game\Camp\Template\big time_gray.png
+		content\In Game\Camp\Template\bleed.png = content\In Game\Camp\Template\bleed.png
+		content\In Game\Camp\Template\bleed_gray.png = content\In Game\Camp\Template\bleed_gray.png
+		content\In Game\Camp\Template\brave heart.png = content\In Game\Camp\Template\brave heart.png
+		content\In Game\Camp\Template\brave heart_gray.png = content\In Game\Camp\Template\brave heart_gray.png
+		content\In Game\Camp\Template\chip blade.png = content\In Game\Camp\Template\chip blade.png
+		content\In Game\Camp\Template\chip blade_gray.png = content\In Game\Camp\Template\chip blade_gray.png
+		content\In Game\Camp\Template\combinations.png = content\In Game\Camp\Template\combinations.png
+		content\In Game\Camp\Template\counter attack.png = content\In Game\Camp\Template\counter attack.png
+		content\In Game\Camp\Template\counter attack_gray.png = content\In Game\Camp\Template\counter attack_gray.png
+		content\In Game\Camp\Template\crit chance up.png = content\In Game\Camp\Template\crit chance up.png
+		content\In Game\Camp\Template\crit chance up_gray.png = content\In Game\Camp\Template\crit chance up_gray.png
+		content\In Game\Camp\Template\don't bleed.png = content\In Game\Camp\Template\don't bleed.png
+		content\In Game\Camp\Template\don't bleed_gray.png = content\In Game\Camp\Template\don't bleed_gray.png
+		content\In Game\Camp\Template\done.png = content\In Game\Camp\Template\done.png
+		content\In Game\Camp\Template\eat my dust.png = content\In Game\Camp\Template\eat my dust.png
+		content\In Game\Camp\Template\eat my dust_gray.png = content\In Game\Camp\Template\eat my dust_gray.png
+		content\In Game\Camp\Template\extra health.png = content\In Game\Camp\Template\extra health.png
+		content\In Game\Camp\Template\extra health_gray.png = content\In Game\Camp\Template\extra health_gray.png
+		content\In Game\Camp\Template\flee!.png = content\In Game\Camp\Template\flee!.png
+		content\In Game\Camp\Template\flee!_gray.png = content\In Game\Camp\Template\flee!_gray.png
+		content\In Game\Camp\Template\frame.png = content\In Game\Camp\Template\frame.png
+		content\In Game\Camp\Template\safe guard.png = content\In Game\Camp\Template\safe guard.png
+		content\In Game\Camp\Template\safe guard_gray.png = content\In Game\Camp\Template\safe guard_gray.png
+		content\In Game\Camp\Template\template_name.png = content\In Game\Camp\Template\template_name.png
+		content\In Game\Camp\Template\template_select_window.png = content\In Game\Camp\Template\template_select_window.png
+		content\In Game\Camp\Template\template_window.png = content\In Game\Camp\Template\template_window.png
+		content\In Game\Camp\Template\tough enough.png = content\In Game\Camp\Template\tough enough.png
+		content\In Game\Camp\Template\tough enough_gray.png = content\In Game\Camp\Template\tough enough_gray.png
+		content\In Game\Camp\Template\tremble and fear.png = content\In Game\Camp\Template\tremble and fear.png
+		content\In Game\Camp\Template\tremble and fear_gray.png = content\In Game\Camp\Template\tremble and fear_gray.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hud", "Hud", "{90FC6310-691A-5535-A0EE-3733155932BA}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Hud\border_jackson.png = content\In Game\Hud\border_jackson.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Map", "Map", "{BE4DE88D-2B7C-5021-9DA5-242393E9973A}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Map\camp_icon.png = content\In Game\Map\camp_icon.png
+		content\In Game\Map\littlemap.png = content\In Game\Map\littlemap.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingIcons", "BuildingIcons", "{3038EC53-DF3C-5E77-A00A-EFB1D4E503B1}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Map\BuildingIcons\bridgeNE.png = content\In Game\Map\BuildingIcons\bridgeNE.png
+		content\In Game\Map\BuildingIcons\bridgeNE_blue.png = content\In Game\Map\BuildingIcons\bridgeNE_blue.png
+		content\In Game\Map\BuildingIcons\bridgeNE_red.png = content\In Game\Map\BuildingIcons\bridgeNE_red.png
+		content\In Game\Map\BuildingIcons\bridgeS.png = content\In Game\Map\BuildingIcons\bridgeS.png
+		content\In Game\Map\BuildingIcons\bridgeSE.png = content\In Game\Map\BuildingIcons\bridgeSE.png
+		content\In Game\Map\BuildingIcons\bridgeSE_blue.png = content\In Game\Map\BuildingIcons\bridgeSE_blue.png
+		content\In Game\Map\BuildingIcons\bridgeSE_red.png = content\In Game\Map\BuildingIcons\bridgeSE_red.png
+		content\In Game\Map\BuildingIcons\bridgeS_blue.png = content\In Game\Map\BuildingIcons\bridgeS_blue.png
+		content\In Game\Map\BuildingIcons\bridgeS_red.png = content\In Game\Map\BuildingIcons\bridgeS_red.png
+		content\In Game\Map\BuildingIcons\chapel.png = content\In Game\Map\BuildingIcons\chapel.png
+		content\In Game\Map\BuildingIcons\chapel_blue.png = content\In Game\Map\BuildingIcons\chapel_blue.png
+		content\In Game\Map\BuildingIcons\chapel_red.png = content\In Game\Map\BuildingIcons\chapel_red.png
+		content\In Game\Map\BuildingIcons\citadel.png = content\In Game\Map\BuildingIcons\citadel.png
+		content\In Game\Map\BuildingIcons\citadel_blue.png = content\In Game\Map\BuildingIcons\citadel_blue.png
+		content\In Game\Map\BuildingIcons\citadel_red.png = content\In Game\Map\BuildingIcons\citadel_red.png
+		content\In Game\Map\BuildingIcons\darvi.png = content\In Game\Map\BuildingIcons\darvi.png
+		content\In Game\Map\BuildingIcons\darvi_blue.png = content\In Game\Map\BuildingIcons\darvi_blue.png
+		content\In Game\Map\BuildingIcons\darvi_red.png = content\In Game\Map\BuildingIcons\darvi_red.png
+		content\In Game\Map\BuildingIcons\dungeon.png = content\In Game\Map\BuildingIcons\dungeon.png
+		content\In Game\Map\BuildingIcons\dungeon_blue.png = content\In Game\Map\BuildingIcons\dungeon_blue.png
+		content\In Game\Map\BuildingIcons\dungeon_red.png = content\In Game\Map\BuildingIcons\dungeon_red.png
+		content\In Game\Map\BuildingIcons\hamlet.png = content\In Game\Map\BuildingIcons\hamlet.png
+		content\In Game\Map\BuildingIcons\hamlet_blue.png = content\In Game\Map\BuildingIcons\hamlet_blue.png
+		content\In Game\Map\BuildingIcons\hamlet_red.png = content\In Game\Map\BuildingIcons\hamlet_red.png
+		content\In Game\Map\BuildingIcons\hut.png = content\In Game\Map\BuildingIcons\hut.png
+		content\In Game\Map\BuildingIcons\hut_blue.png = content\In Game\Map\BuildingIcons\hut_blue.png
+		content\In Game\Map\BuildingIcons\hut_red.png = content\In Game\Map\BuildingIcons\hut_red.png
+		content\In Game\Map\BuildingIcons\tower.png = content\In Game\Map\BuildingIcons\tower.png
+		content\In Game\Map\BuildingIcons\tower_blue.png = content\In Game\Map\BuildingIcons\tower_blue.png
+		content\In Game\Map\BuildingIcons\tower_red.png = content\In Game\Map\BuildingIcons\tower_red.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MapMenus", "MapMenus", "{93ED5799-8929-5953-8B54-CD74C831A61C}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Map\BuildingIcons\MapMenus\bandit_party_window.png = content\In Game\Map\BuildingIcons\MapMenus\bandit_party_window.png
+		content\In Game\Map\BuildingIcons\MapMenus\bridge_window.png = content\In Game\Map\BuildingIcons\MapMenus\bridge_window.png
+		content\In Game\Map\BuildingIcons\MapMenus\chaos_dungeon_window.png = content\In Game\Map\BuildingIcons\MapMenus\chaos_dungeon_window.png
+		content\In Game\Map\BuildingIcons\MapMenus\chapel_window.png = content\In Game\Map\BuildingIcons\MapMenus\chapel_window.png
+		content\In Game\Map\BuildingIcons\MapMenus\citadel_window.png = content\In Game\Map\BuildingIcons\MapMenus\citadel_window.png
+		content\In Game\Map\BuildingIcons\MapMenus\dark_city_window.png = content\In Game\Map\BuildingIcons\MapMenus\dark_city_window.png
+		content\In Game\Map\BuildingIcons\MapMenus\hamlet_window.png = content\In Game\Map\BuildingIcons\MapMenus\hamlet_window.png
+		content\In Game\Map\BuildingIcons\MapMenus\rival_army_window.png = content\In Game\Map\BuildingIcons\MapMenus\rival_army_window.png
+		content\In Game\Map\BuildingIcons\MapMenus\smokey_hut_window.png = content\In Game\Map\BuildingIcons\MapMenus\smokey_hut_window.png
+		content\In Game\Map\BuildingIcons\MapMenus\tower_window.png = content\In Game\Map\BuildingIcons\MapMenus\tower_window.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{ABF6F27B-22E6-5567-A518-02360E159C6E}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon_H.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon_H.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\attack.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\attack.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\attack_H.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\attack_H.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize_H.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize_H.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\burn.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\burn.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\burn_H.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\burn_H.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer_H.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer_H.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy_H.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy_H.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate_H.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate_H.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige_H.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige_H.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce_H.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce_H.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage_H.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage_H.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout.png
+		content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout_H.png = content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout_H.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Buildings", "Buildings", "{EDEACC57-0128-58BD-B20C-AA49F6BAB6BB}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Map\Buildings\bridgeNE.png = content\In Game\Map\Buildings\bridgeNE.png
+		content\In Game\Map\Buildings\bridgeNE_blue.png = content\In Game\Map\Buildings\bridgeNE_blue.png
+		content\In Game\Map\Buildings\bridgeNE_red.png = content\In Game\Map\Buildings\bridgeNE_red.png
+		content\In Game\Map\Buildings\bridgeS.png = content\In Game\Map\Buildings\bridgeS.png
+		content\In Game\Map\Buildings\bridgeSE.png = content\In Game\Map\Buildings\bridgeSE.png
+		content\In Game\Map\Buildings\bridgeSE_blue.png = content\In Game\Map\Buildings\bridgeSE_blue.png
+		content\In Game\Map\Buildings\bridgeSE_red.png = content\In Game\Map\Buildings\bridgeSE_red.png
+		content\In Game\Map\Buildings\bridgeS_blue.png = content\In Game\Map\Buildings\bridgeS_blue.png
+		content\In Game\Map\Buildings\bridgeS_red.png = content\In Game\Map\Buildings\bridgeS_red.png
+		content\In Game\Map\Buildings\chapel.png = content\In Game\Map\Buildings\chapel.png
+		content\In Game\Map\Buildings\chapel_blue.png = content\In Game\Map\Buildings\chapel_blue.png
+		content\In Game\Map\Buildings\chapel_red.png = content\In Game\Map\Buildings\chapel_red.png
+		content\In Game\Map\Buildings\citadel.png = content\In Game\Map\Buildings\citadel.png
+		content\In Game\Map\Buildings\citadel_blue.png = content\In Game\Map\Buildings\citadel_blue.png
+		content\In Game\Map\Buildings\citadel_red.png = content\In Game\Map\Buildings\citadel_red.png
+		content\In Game\Map\Buildings\darvi.png = content\In Game\Map\Buildings\darvi.png
+		content\In Game\Map\Buildings\darvi_blue.png = content\In Game\Map\Buildings\darvi_blue.png
+		content\In Game\Map\Buildings\darvi_red.png = content\In Game\Map\Buildings\darvi_red.png
+		content\In Game\Map\Buildings\dungeon.png = content\In Game\Map\Buildings\dungeon.png
+		content\In Game\Map\Buildings\dungeon_blue.png = content\In Game\Map\Buildings\dungeon_blue.png
+		content\In Game\Map\Buildings\dungeon_red.png = content\In Game\Map\Buildings\dungeon_red.png
+		content\In Game\Map\Buildings\hamlet.png = content\In Game\Map\Buildings\hamlet.png
+		content\In Game\Map\Buildings\hamlet_blue.png = content\In Game\Map\Buildings\hamlet_blue.png
+		content\In Game\Map\Buildings\hamlet_red.png = content\In Game\Map\Buildings\hamlet_red.png
+		content\In Game\Map\Buildings\hut.png = content\In Game\Map\Buildings\hut.png
+		content\In Game\Map\Buildings\hut_blue.png = content\In Game\Map\Buildings\hut_blue.png
+		content\In Game\Map\Buildings\hut_red.png = content\In Game\Map\Buildings\hut_red.png
+		content\In Game\Map\Buildings\tower.png = content\In Game\Map\Buildings\tower.png
+		content\In Game\Map\Buildings\tower_blue.png = content\In Game\Map\Buildings\tower_blue.png
+		content\In Game\Map\Buildings\tower_red.png = content\In Game\Map\Buildings\tower_red.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EnemyIcons", "EnemyIcons", "{9037449C-CCF4-5F1F-ACB9-C1E24C3E27C7}"
+	ProjectSection(SolutionItems) = preProject
+		content\In Game\Map\EnemyIcons\bandit1_icon.png = content\In Game\Map\EnemyIcons\bandit1_icon.png
+		content\In Game\Map\EnemyIcons\bandit2_icon.png = content\In Game\Map\EnemyIcons\bandit2_icon.png
+		content\In Game\Map\EnemyIcons\little_darvi.png = content\In Game\Map\EnemyIcons\little_darvi.png
+		content\In Game\Map\EnemyIcons\little_darvi_outline.png = content\In Game\Map\EnemyIcons\little_darvi_outline.png
+		content\In Game\Map\EnemyIcons\little_enemy.png = content\In Game\Map\EnemyIcons\little_enemy.png
+		content\In Game\Map\EnemyIcons\little_enemy_outline.png = content\In Game\Map\EnemyIcons\little_enemy_outline.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Music", "Music", "{5944077A-C43F-577D-A150-E066C70F8473}"
+	ProjectSection(SolutionItems) = preProject
+		content\Music\10 WV.mp3 = content\Music\10 WV.mp3
+		content\Music\Final_Fantasy_4_Submission_OC_ReMix.mp3 = content\Music\Final_Fantasy_4_Submission_OC_ReMix.mp3
+		content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.mp3 = content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.mp3
+		content\Music\Final_Fantasy_4_Treason_OC_ReMix.mp3 = content\Music\Final_Fantasy_4_Treason_OC_ReMix.mp3
+		content\Music\Final_Fantasy_6_Desertion_OC_ReMix.mp3 = content\Music\Final_Fantasy_6_Desertion_OC_ReMix.mp3
+		content\Music\Final_Fantasy_6_Smooth_Alexander_OC_ReMix.mp3 = content\Music\Final_Fantasy_6_Smooth_Alexander_OC_ReMix.mp3
+		content\Music\Final_Fantasy_7_Fight_On_OC_ReMix.mp3 = content\Music\Final_Fantasy_7_Fight_On_OC_ReMix.mp3
+		content\Music\Final_Fantasy_Duque_Battle_OC_ReMix.mp3 = content\Music\Final_Fantasy_Duque_Battle_OC_ReMix.mp3
+		content\Music\Final_Fantasy_Hostility_OC_ReMix.mp3 = content\Music\Final_Fantasy_Hostility_OC_ReMix.mp3
+		content\Music\Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.mp3 = content\Music\Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.mp3
+		content\Music\Minibossies_FinalFantasy6_VictoryFanfare.mp3 = content\Music\Minibossies_FinalFantasy6_VictoryFanfare.mp3
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Battle", "Battle", "{FE770052-F2A2-5949-B915-AF90DA22CF90}"
+	ProjectSection(SolutionItems) = preProject
+		content\Music\Battle\battle1.mp3 = content\Music\Battle\battle1.mp3
+		content\Music\Battle\battle2.mp3 = content\Music\Battle\battle2.mp3
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Camp", "Camp", "{EB601913-231A-5C84-BFAB-349137CCC767}"
+	ProjectSection(SolutionItems) = preProject
+		content\Music\Camp\wodyn#4.mp3 = content\Music\Camp\wodyn#4.mp3
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TitleScreen", "TitleScreen", "{C5E77B39-A2E8-5362-88BF-ECF82E1514CC}"
+	ProjectSection(SolutionItems) = preProject
+		content\Music\TitleScreen\wodyn#3.mp3 = content\Music\TitleScreen\wodyn#3.mp3
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Out Game", "Out Game", "{A99553CF-C29C-5A20-8354-9ECDBB89B6AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main Menu", "Main Menu", "{465AA124-D3C9-5ECE-894F-0D8594A04830}"
+	ProjectSection(SolutionItems) = preProject
+		content\Out Game\Main Menu\green_card.png = content\Out Game\Main Menu\green_card.png
+		content\Out Game\Main Menu\red_card.png = content\Out Game\Main Menu\red_card.png
+		content\Out Game\Main Menu\to_battle!-1.png = content\Out Game\Main Menu\to_battle!-1.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TitleScreen", "TitleScreen", "{204C8A74-EA07-50BF-83DB-2E9FFB488E57}"
+	ProjectSection(SolutionItems) = preProject
+		content\Out Game\TitleScreen\big_map4.png = content\Out Game\TitleScreen\big_map4.png
+		content\Out Game\TitleScreen\map4.png = content\Out Game\TitleScreen\map4.png
+		content\Out Game\TitleScreen\map4big.png = content\Out Game\TitleScreen\map4big.png
+		content\Out Game\TitleScreen\options00.png = content\Out Game\TitleScreen\options00.png
+		content\Out Game\TitleScreen\options01.png = content\Out Game\TitleScreen\options01.png
+		content\Out Game\TitleScreen\play_game00.png = content\Out Game\TitleScreen\play_game00.png
+		content\Out Game\TitleScreen\play_game01.png = content\Out Game\TitleScreen\play_game01.png
+		content\Out Game\TitleScreen\quit_exit.png = content\Out Game\TitleScreen\quit_exit.png
+		content\Out Game\TitleScreen\sword.png = content\Out Game\TitleScreen\sword.png
+		content\Out Game\TitleScreen\view_legends00.png = content\Out Game\TitleScreen\view_legends00.png
+		content\Out Game\TitleScreen\view_legends01.png = content\Out Game\TitleScreen\view_legends01.png
+		content\Out Game\TitleScreen\wodyn_title.png = content\Out Game\TitleScreen\wodyn_title.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Particles", "Particles", "{60BF0BBB-FB8D-5EF3-AF65-093D02B72DF6}"
+	ProjectSection(SolutionItems) = preProject
+		content\Particles\BasicExplosion.xml = content\Particles\BasicExplosion.xml
+		content\Particles\BasicFireball.xml = content\Particles\BasicFireball.xml
+		content\Particles\BasicSmokePlume.xml = content\Particles\BasicSmokePlume.xml
+		content\Particles\Beam.png = content\Particles\Beam.png
+		content\Particles\BeamBlurred.png = content\Particles\BeamBlurred.png
+		content\Particles\BeamMeUp.xml = content\Particles\BeamMeUp.xml
+		content\Particles\BloodSpray.xml = content\Particles\BloodSpray.xml
+		content\Particles\Buff Sparkle.xml = content\Particles\Buff Sparkle.xml
+		content\Particles\CampFire.xml = content\Particles\CampFire.xml
+		content\Particles\Cloud001.png = content\Particles\Cloud001.png
+		content\Particles\Cloud002.png = content\Particles\Cloud002.png
+		content\Particles\Cloud003.png = content\Particles\Cloud003.png
+		content\Particles\Cloud004.png = content\Particles\Cloud004.png
+		content\Particles\Elipse001.png = content\Particles\Elipse001.png
+		content\Particles\Flame.png = content\Particles\Flame.png
+		content\Particles\FlowerBloom.xml = content\Particles\FlowerBloom.xml
+		content\Particles\FlowerBurst.png = content\Particles\FlowerBurst.png
+		content\Particles\HealerRecharge.xml = content\Particles\HealerRecharge.xml
+		content\Particles\HealingCircle.xml = content\Particles\HealingCircle.xml
+		content\Particles\Laser.png = content\Particles\Laser.png
+		content\Particles\LensFlare.png = content\Particles\LensFlare.png
+		content\Particles\MagicTrail.xml = content\Particles\MagicTrail.xml
+		content\Particles\MultiDot.png = content\Particles\MultiDot.png
+		content\Particles\Paparazzi.xml = content\Particles\Paparazzi.xml
+		content\Particles\Particle001.png = content\Particles\Particle001.png
+		content\Particles\Particle002.png = content\Particles\Particle002.png
+		content\Particles\Particle003.png = content\Particles\Particle003.png
+		content\Particles\Particle004.png = content\Particles\Particle004.png
+		content\Particles\Particle005.png = content\Particles\Particle005.png
+		content\Particles\Particle006.png = content\Particles\Particle006.png
+		content\Particles\Particle007.png = content\Particles\Particle007.png
+		content\Particles\Ring001.png = content\Particles\Ring001.png
+		content\Particles\Ring002.png = content\Particles\Ring002.png
+		content\Particles\SimpleRain.xml = content\Particles\SimpleRain.xml
+		content\Particles\SoftClumpy.png = content\Particles\SoftClumpy.png
+		content\Particles\SoftSmokey.png = content\Particles\SoftSmokey.png
+		content\Particles\Spikey001.png = content\Particles\Spikey001.png
+		content\Particles\Spikey002.png = content\Particles\Spikey002.png
+		content\Particles\Splash.png = content\Particles\Splash.png
+		content\Particles\Spray001.png = content\Particles\Spray001.png
+		content\Particles\Star.png = content\Particles\Star.png
+		content\Particles\StarTrail.xml = content\Particles\StarTrail.xml
+		content\Particles\Water001.png = content\Particles\Water001.png
+		content\Particles\Water002.png = content\Particles\Water002.png
+		content\Particles\WaterJet.xml = content\Particles\WaterJet.xml
+		content\Particles\Weeds.png = content\Particles\Weeds.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SFX", "SFX", "{DAE6A450-1AF9-5CA5-8286-F50AA9F4BB9B}"
+	ProjectSection(SolutionItems) = preProject
+		content\SFX\Appear-KP-1137861048.mp3 = content\SFX\Appear-KP-1137861048.mp3
+		content\SFX\Computer_Magic-Microsift-1901299923.mp3 = content\SFX\Computer_Magic-Microsift-1901299923.mp3
+		content\SFX\Decapitation-SoundBible.com-800292304.mp3 = content\SFX\Decapitation-SoundBible.com-800292304.mp3
+		content\SFX\Electrical_Sweep-Sweeper-1760111493.mp3 = content\SFX\Electrical_Sweep-Sweeper-1760111493.mp3
+		content\SFX\Electronic_Chime-KevanGC-495939803.mp3 = content\SFX\Electronic_Chime-KevanGC-495939803.mp3
+		content\SFX\Magic Wand Noise-SoundBible.com-375928671.mp3 = content\SFX\Magic Wand Noise-SoundBible.com-375928671.mp3
+		content\SFX\Swords_Collide-Sound_Explorer-2015600826.mp3 = content\SFX\Swords_Collide-Sound_Explorer-2015600826.mp3
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{9518A512-F93F-5677-97DF-7EED1C650261}"
+	ProjectSection(SolutionItems) = preProject
+		content\Shared\DebugFont.spritefont = content\Shared\DebugFont.spritefont
+		content\Shared\TestFon.spritefont = content\Shared\TestFon.spritefont
+		content\Shared\arrow_cursor.png = content\Shared\arrow_cursor.png
+		content\Shared\company_arrowdownx.png = content\Shared\company_arrowdownx.png
+		content\Shared\company_arrowrightx.png = content\Shared\company_arrowrightx.png
+		content\Shared\company_arrowupx.png = content\Shared\company_arrowupx.png
+		content\Shared\gauntlet_cursor.png = content\Shared\gauntlet_cursor.png
+		content\Shared\percentagedwn.png = content\Shared\percentagedwn.png
+		content\Shared\percentagedwnx.png = content\Shared\percentagedwnx.png
+		content\Shared\percentageup.png = content\Shared\percentageup.png
+		content\Shared\percentageupx.png = content\Shared\percentageupx.png
+		content\Shared\smallfont.spritefont = content\Shared\smallfont.spritefont
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sprite Data", "Sprite Data", "{6E549893-186D-5FFB-9744-ED7E5D68EF5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chaplain", "Chaplain", "{58383FFB-0047-5C18-881C-E92E2FAC421B}"
+	ProjectSection(SolutionItems) = preProject
+		content\Sprite Data\Chaplain\Chaplain.png = content\Sprite Data\Chaplain\Chaplain.png
+		content\Sprite Data\Chaplain\ChaplainArray.json = content\Sprite Data\Chaplain\ChaplainArray.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Troopers", "Troopers", "{7F580ACD-B8C1-5F04-B38D-865FD13BDC67}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bandit", "Bandit", "{E42428D0-0034-562C-966F-0802ED3440B7}"
+	ProjectSection(SolutionItems) = preProject
+		content\Sprite Data\Troopers\Bandit\Bandit.png = content\Sprite Data\Troopers\Bandit\Bandit.png
+		content\Sprite Data\Troopers\Bandit\BanditArray.json = content\Sprite Data\Troopers\Bandit\BanditArray.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Halberd", "Halberd", "{2D310BE7-4277-57C7-8BFE-5D30DF164643}"
+	ProjectSection(SolutionItems) = preProject
+		content\Sprite Data\Troopers\Halberd\HalberdArray.json = content\Sprite Data\Troopers\Halberd\HalberdArray.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Front Facing", "Front Facing", "{C314B3BC-FC6F-5D7D-8A3C-E8726468AB4F}"
+	ProjectSection(SolutionItems) = preProject
+		content\Sprite Data\Troopers\Halberd\Front Facing\front.png = content\Sprite Data\Troopers\Halberd\Front Facing\front.png
+		content\Sprite Data\Troopers\Halberd\Front Facing\frontarray.json = content\Sprite Data\Troopers\Halberd\Front Facing\frontarray.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Textures", "Textures", "{09E6F36D-5301-5DAD-94A5-2F6A809E84FB}"
+	ProjectSection(SolutionItems) = preProject
+		content\Sprite Data\Troopers\Halberd\Textures\Footman.png = content\Sprite Data\Troopers\Halberd\Textures\Footman.png
+		content\Sprite Data\Troopers\Halberd\Textures\Footman_bill_steel.png = content\Sprite Data\Troopers\Halberd\Textures\Footman_bill_steel.png
+		content\Sprite Data\Troopers\Halberd\Textures\darvi_bill.png = content\Sprite Data\Troopers\Halberd\Textures\darvi_bill.png
+		content\Sprite Data\Troopers\Halberd\Textures\fazure.png = content\Sprite Data\Troopers\Halberd\Textures\fazure.png
+		content\Sprite Data\Troopers\Halberd\Textures\fbrown.png = content\Sprite Data\Troopers\Halberd\Textures\fbrown.png
+		content\Sprite Data\Troopers\Halberd\Textures\fcrimson.png = content\Sprite Data\Troopers\Halberd\Textures\fcrimson.png
+		content\Sprite Data\Troopers\Halberd\Textures\fgrey.png = content\Sprite Data\Troopers\Halberd\Textures\fgrey.png
+		content\Sprite Data\Troopers\Halberd\Textures\fgules.png = content\Sprite Data\Troopers\Halberd\Textures\fgules.png
+		content\Sprite Data\Troopers\Halberd\Textures\fmidnight.png = content\Sprite Data\Troopers\Halberd\Textures\fmidnight.png
+		content\Sprite Data\Troopers\Halberd\Textures\fpurple.png = content\Sprite Data\Troopers\Halberd\Textures\fpurple.png
+		content\Sprite Data\Troopers\Halberd\Textures\frust.png = content\Sprite Data\Troopers\Halberd\Textures\frust.png
+		content\Sprite Data\Troopers\Halberd\Textures\fsable.png = content\Sprite Data\Troopers\Halberd\Textures\fsable.png
+		content\Sprite Data\Troopers\Halberd\Textures\fsteel.png = content\Sprite Data\Troopers\Halberd\Textures\fsteel.png
+		content\Sprite Data\Troopers\Halberd\Textures\fstorm.png = content\Sprite Data\Troopers\Halberd\Textures\fstorm.png
+		content\Sprite Data\Troopers\Halberd\Textures\fvert.png = content\Sprite Data\Troopers\Halberd\Textures\fvert.png
+		content\Sprite Data\Troopers\Halberd\Textures\fvert2.png = content\Sprite Data\Troopers\Halberd\Textures\fvert2.png
+		content\Sprite Data\Troopers\Halberd\Textures\fzombie.png = content\Sprite Data\Troopers\Halberd\Textures\fzombie.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Peasant", "Peasant", "{07D5A6C5-16BF-5DD9-8468-02E38EE8991B}"
+	ProjectSection(SolutionItems) = preProject
+		content\Sprite Data\Troopers\Peasant\Peasant.png = content\Sprite Data\Troopers\Peasant\Peasant.png
+		content\Sprite Data\Troopers\Peasant\PeasantArray.json = content\Sprite Data\Troopers\Peasant\PeasantArray.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SwordHero", "SwordHero", "{6E2BD648-BF42-5A29-A064-E7238FBF8E0F}"
+	ProjectSection(SolutionItems) = preProject
+		content\Sprite Data\Troopers\SwordHero\SwordHero.png = content\Sprite Data\Troopers\SwordHero\SwordHero.png
+		content\Sprite Data\Troopers\SwordHero\SwordHeroArray.json = content\Sprite Data\Troopers\SwordHero\SwordHeroArray.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{D8E613D2-FE0B-5028-93DF-2D79035781DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesktopGL", "DesktopGL", "{557A3F3A-7089-5255-A490-70F56F00D3F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{09B8C104-B40E-5C13-8077-905324F75023}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backgrounds", "Backgrounds", "{9B7E8043-8F27-5D1D-A80F-C296BB04FC7F}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Backgrounds\dirt_grass 800x436.xnb = content\bin\DesktopGL\Content\Backgrounds\dirt_grass 800x436.xnb
+		content\bin\DesktopGL\Content\Backgrounds\dirt_grass 800x500.xnb = content\bin\DesktopGL\Content\Backgrounds\dirt_grass 800x500.xnb
+		content\bin\DesktopGL\Content\Backgrounds\dirt_grass_large.xnb = content\bin\DesktopGL\Content\Backgrounds\dirt_grass_large.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "In Game", "In Game", "{90B41CD7-EA95-5569-9253-2B4C225593A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Buffs", "Buffs", "{8A22567D-7610-5065-8744-4922B7CACA6B}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Buffs\BufItems.xnb = content\bin\DesktopGL\Content\In Game\Buffs\BufItems.xnb
+		content\bin\DesktopGL\Content\In Game\Buffs\Drops.xnb = content\bin\DesktopGL\Content\In Game\Buffs\Drops.xnb
+		content\bin\DesktopGL\Content\In Game\Buffs\Gems.xnb = content\bin\DesktopGL\Content\In Game\Buffs\Gems.xnb
+		content\bin\DesktopGL\Content\In Game\Buffs\ItemBox.xnb = content\bin\DesktopGL\Content\In Game\Buffs\ItemBox.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Animals", "Animals", "{3000F291-3399-5942-B3AD-0DA000F01BE7}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Buffs\Animals\crab.xnb = content\bin\DesktopGL\Content\In Game\Buffs\Animals\crab.xnb
+		content\bin\DesktopGL\Content\In Game\Buffs\Animals\dragon.xnb = content\bin\DesktopGL\Content\In Game\Buffs\Animals\dragon.xnb
+		content\bin\DesktopGL\Content\In Game\Buffs\Animals\eagle.xnb = content\bin\DesktopGL\Content\In Game\Buffs\Animals\eagle.xnb
+		content\bin\DesktopGL\Content\In Game\Buffs\Animals\lion.xnb = content\bin\DesktopGL\Content\In Game\Buffs\Animals\lion.xnb
+		content\bin\DesktopGL\Content\In Game\Buffs\Animals\snake.xnb = content\bin\DesktopGL\Content\In Game\Buffs\Animals\snake.xnb
+		content\bin\DesktopGL\Content\In Game\Buffs\Animals\squirrel.xnb = content\bin\DesktopGL\Content\In Game\Buffs\Animals\squirrel.xnb
+		content\bin\DesktopGL\Content\In Game\Buffs\Animals\toad.xnb = content\bin\DesktopGL\Content\In Game\Buffs\Animals\toad.xnb
+		content\bin\DesktopGL\Content\In Game\Buffs\Animals\wolf.xnb = content\bin\DesktopGL\Content\In Game\Buffs\Animals\wolf.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Camp", "Camp", "{37F93686-91AA-5C6C-AD0E-3934B8C42FB4}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Camp\Captain's_house.xnb = content\bin\DesktopGL\Content\In Game\Camp\Captain's_house.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\barracks.xnb = content\bin\DesktopGL\Content\In Game\Camp\barracks.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\camp.xnb = content\bin\DesktopGL\Content\In Game\Camp\camp.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\ground.xnb = content\bin\DesktopGL\Content\In Game\Camp\ground.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\knight_box.xnb = content\bin\DesktopGL\Content\In Game\Camp\knight_box.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\picard_box.xnb = content\bin\DesktopGL\Content\In Game\Camp\picard_box.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\picard_guy.xnb = content\bin\DesktopGL\Content\In Game\Camp\picard_guy.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\smith.xnb = content\bin\DesktopGL\Content\In Game\Camp\smith.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\smith_box.xnb = content\bin\DesktopGL\Content\In Game\Camp\smith_box.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\smith_guy.xnb = content\bin\DesktopGL\Content\In Game\Camp\smith_guy.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\spy_box.xnb = content\bin\DesktopGL\Content\In Game\Camp\spy_box.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\spy_guy.xnb = content\bin\DesktopGL\Content\In Game\Camp\spy_guy.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\supply hut.xnb = content\bin\DesktopGL\Content\In Game\Camp\supply hut.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\surgeon_tent.xnb = content\bin\DesktopGL\Content\In Game\Camp\surgeon_tent.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\wagon.xnb = content\bin\DesktopGL\Content\In Game\Camp\wagon.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Company Dialog", "Company Dialog", "{7F9C9FA9-2F37-534B-9BB4-47CD9E06D73E}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\CompanyBox.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\CompanyBox.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\CompanySelect.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\CompanySelect.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\axe.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\axe.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\battle_axe.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\battle_axe.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\blue_jester.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\blue_jester.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\click_to_drag.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\click_to_drag.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\company_name.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\company_name.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\company_window.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\company_window.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\falchion.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\falchion.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\goblin.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\goblin.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\green_genie.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\green_genie.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\grid_arrow_left.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\grid_arrow_left.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\grid_arrow_left_blue.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\grid_arrow_left_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\grid_arrow_right.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\grid_arrow_right.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\grid_arrow_right_blue.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\grid_arrow_right_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\horned_skull.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\horned_skull.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\icon_grid.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\icon_grid.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\icon_window.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\icon_window.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\kite_shield.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\kite_shield.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\knight_sword.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\knight_sword.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\purple_demon.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\purple_demon.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\purple_skull.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\purple_skull.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\red_demon.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\red_demon.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\red_skull.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\red_skull.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\reset_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\reset_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\reset_red.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\reset_red.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\sabre.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\sabre.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\sai.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\sai.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\sallet.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\sallet.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\size_box.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\size_box.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\skull.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\skull.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\target.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\target.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\template_arrow_left.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\template_arrow_left.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\template_arrow_right.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\template_arrow_right.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\unit_allocation_arrows.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\unit_allocation_arrows.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\unit_allocation_down.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\unit_allocation_down.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\unit_allocation_up.xnb = content\bin\DesktopGL\Content\In Game\Camp\Company Dialog\unit_allocation_up.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KnightMenu", "KnightMenu", "{43839822-1F38-59BF-A7EE-828E2A8163E0}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Camp\KnightMenu\captain_button.xnb = content\bin\DesktopGL\Content\In Game\Camp\KnightMenu\captain_button.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\KnightMenu\company_button.xnb = content\bin\DesktopGL\Content\In Game\Camp\KnightMenu\company_button.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\KnightMenu\dialogue_button.xnb = content\bin\DesktopGL\Content\In Game\Camp\KnightMenu\dialogue_button.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\KnightMenu\knight_box.xnb = content\bin\DesktopGL\Content\In Game\Camp\KnightMenu\knight_box.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\KnightMenu\knight_guy.xnb = content\bin\DesktopGL\Content\In Game\Camp\KnightMenu\knight_guy.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\KnightMenu\template_button.xnb = content\bin\DesktopGL\Content\In Game\Camp\KnightMenu\template_button.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmithMenu", "SmithMenu", "{226D1CC2-49BC-5BFE-A01B-53720202D6F0}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Camp\SmithMenu\armour_upgrade.xnb = content\bin\DesktopGL\Content\In Game\Camp\SmithMenu\armour_upgrade.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\SmithMenu\smith_box.xnb = content\bin\DesktopGL\Content\In Game\Camp\SmithMenu\smith_box.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\SmithMenu\smith_guy.xnb = content\bin\DesktopGL\Content\In Game\Camp\SmithMenu\smith_guy.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\SmithMenu\weapon_upgrade.xnb = content\bin\DesktopGL\Content\In Game\Camp\SmithMenu\weapon_upgrade.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Template", "Template", "{E5E3EE8A-CAD0-57DF-B2B4-060404AA0022}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Camp\Template\AtkPower.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\AtkPower.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\AtkSpeed.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\AtkSpeed.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\BottomSliders.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\BottomSliders.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\HitPoints.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\HitPoints.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\Left Arrow Large.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\Left Arrow Large.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\Left Arrow.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\Left Arrow.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\MoveSpeed.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\MoveSpeed.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\Right Arrow Large.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\Right Arrow Large.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\Right Arrow.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\Right Arrow.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\TemplateSelect.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\TemplateSelect.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\TopSliders.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\TopSliders.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\absorb damage.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\absorb damage.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\absorb damage_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\absorb damage_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\acts of prowess.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\acts of prowess.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\atkx2.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\atkx2.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\atkx2_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\atkx2_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\atkx3.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\atkx3.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\atkx3_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\atkx3_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\battle mastery.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\battle mastery.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\big time.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\big time.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\big time_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\big time_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\bleed.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\bleed.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\bleed_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\bleed_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\brave heart.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\brave heart.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\brave heart_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\brave heart_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\chip blade.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\chip blade.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\chip blade_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\chip blade_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\combinations.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\combinations.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\counter attack.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\counter attack.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\counter attack_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\counter attack_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\crit chance up.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\crit chance up.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\crit chance up_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\crit chance up_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\don't bleed.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\don't bleed.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\don't bleed_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\don't bleed_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\done.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\done.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\eat my dust.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\eat my dust.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\eat my dust_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\eat my dust_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\extra health.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\extra health.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\extra health_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\extra health_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\flee!.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\flee!.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\flee!_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\flee!_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\frame.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\frame.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\safe guard.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\safe guard.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\safe guard_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\safe guard_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\template_name.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\template_name.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\template_select_window.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\template_select_window.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\template_window.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\template_window.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\tough enough.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\tough enough.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\tough enough_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\tough enough_gray.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\tremble and fear.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\tremble and fear.xnb
+		content\bin\DesktopGL\Content\In Game\Camp\Template\tremble and fear_gray.xnb = content\bin\DesktopGL\Content\In Game\Camp\Template\tremble and fear_gray.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hud", "Hud", "{4DF8318A-6CF5-5CA0-8998-71CF51932ED7}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Hud\border_jackson.xnb = content\bin\DesktopGL\Content\In Game\Hud\border_jackson.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Map", "Map", "{568B9EC3-DF5E-58ED-8F31-E9A38451E23D}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Map\camp_icon.xnb = content\bin\DesktopGL\Content\In Game\Map\camp_icon.xnb
+		content\bin\DesktopGL\Content\In Game\Map\littlemap.xnb = content\bin\DesktopGL\Content\In Game\Map\littlemap.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingIcons", "BuildingIcons", "{21CFE9EC-1F5B-5BDE-9EDB-CF1A8CDC1FF3}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeNE.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeNE.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeNE_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeNE_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeNE_red.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeNE_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeS.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeS.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeSE.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeSE.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeSE_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeSE_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeSE_red.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeSE_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeS_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeS_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeS_red.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\bridgeS_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\chapel.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\chapel.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\chapel_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\chapel_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\chapel_red.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\chapel_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\citadel.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\citadel.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\citadel_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\citadel_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\citadel_red.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\citadel_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\darvi.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\darvi.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\darvi_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\darvi_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\darvi_red.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\darvi_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\dungeon.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\dungeon.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\dungeon_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\dungeon_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\dungeon_red.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\dungeon_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\hamlet.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\hamlet.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\hamlet_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\hamlet_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\hamlet_red.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\hamlet_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\hut.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\hut.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\hut_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\hut_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\hut_red.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\hut_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\tower.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\tower.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\tower_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\tower_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\tower_red.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\tower_red.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MapMenus", "MapMenus", "{1760D60A-AAC1-5E44-B0A4-61A9FDE6E9E6}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\bandit_party_window.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\bandit_party_window.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\bridge_window.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\bridge_window.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\chaos_dungeon_window.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\chaos_dungeon_window.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\chapel_window.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\chapel_window.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\citadel_window.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\citadel_window.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\dark_city_window.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\dark_city_window.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\hamlet_window.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\hamlet_window.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\rival_army_window.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\rival_army_window.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\smokey_hut_window.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\smokey_hut_window.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\tower_window.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\tower_window.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{9BF11C8B-322B-5608-9E15-30327C41EDE1}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon_H.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon_H.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\attack.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\attack.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\attack_H.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\attack_H.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize_H.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize_H.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burn.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burn.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burn_H.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burn_H.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer_H.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer_H.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy_H.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy_H.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate_H.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate_H.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige_H.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige_H.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce_H.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce_H.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage_H.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage_H.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout.xnb
+		content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout_H.xnb = content\bin\DesktopGL\Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout_H.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Buildings", "Buildings", "{EFD6C43E-E89C-5DA6-A859-154B69055A1C}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeNE.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeNE.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeNE_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeNE_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeNE_red.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeNE_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeS.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeS.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeSE.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeSE.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeSE_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeSE_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeSE_red.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeSE_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeS_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeS_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeS_red.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\bridgeS_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\chapel.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\chapel.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\chapel_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\chapel_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\chapel_red.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\chapel_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\citadel.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\citadel.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\citadel_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\citadel_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\citadel_red.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\citadel_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\darvi.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\darvi.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\darvi_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\darvi_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\darvi_red.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\darvi_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\dungeon.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\dungeon.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\dungeon_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\dungeon_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\dungeon_red.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\dungeon_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\hamlet.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\hamlet.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\hamlet_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\hamlet_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\hamlet_red.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\hamlet_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\hut.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\hut.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\hut_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\hut_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\hut_red.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\hut_red.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\tower.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\tower.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\tower_blue.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\tower_blue.xnb
+		content\bin\DesktopGL\Content\In Game\Map\Buildings\tower_red.xnb = content\bin\DesktopGL\Content\In Game\Map\Buildings\tower_red.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EnemyIcons", "EnemyIcons", "{5BE00114-420C-5971-989C-98D8EEDCBAA4}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\In Game\Map\EnemyIcons\bandit1_icon.xnb = content\bin\DesktopGL\Content\In Game\Map\EnemyIcons\bandit1_icon.xnb
+		content\bin\DesktopGL\Content\In Game\Map\EnemyIcons\bandit2_icon.xnb = content\bin\DesktopGL\Content\In Game\Map\EnemyIcons\bandit2_icon.xnb
+		content\bin\DesktopGL\Content\In Game\Map\EnemyIcons\little_darvi.xnb = content\bin\DesktopGL\Content\In Game\Map\EnemyIcons\little_darvi.xnb
+		content\bin\DesktopGL\Content\In Game\Map\EnemyIcons\little_darvi_outline.xnb = content\bin\DesktopGL\Content\In Game\Map\EnemyIcons\little_darvi_outline.xnb
+		content\bin\DesktopGL\Content\In Game\Map\EnemyIcons\little_enemy.xnb = content\bin\DesktopGL\Content\In Game\Map\EnemyIcons\little_enemy.xnb
+		content\bin\DesktopGL\Content\In Game\Map\EnemyIcons\little_enemy_outline.xnb = content\bin\DesktopGL\Content\In Game\Map\EnemyIcons\little_enemy_outline.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Music", "Music", "{69C5C83D-4A58-5E6A-BD40-ED29862539D0}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Music\10 WV.ogg = content\bin\DesktopGL\Content\Music\10 WV.ogg
+		content\bin\DesktopGL\Content\Music\10 WV.xnb = content\bin\DesktopGL\Content\Music\10 WV.xnb
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_4_Submission_OC_ReMix.ogg = content\bin\DesktopGL\Content\Music\Final_Fantasy_4_Submission_OC_ReMix.ogg
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_4_Submission_OC_ReMix.xnb = content\bin\DesktopGL\Content\Music\Final_Fantasy_4_Submission_OC_ReMix.xnb
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.ogg = content\bin\DesktopGL\Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.ogg
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.xnb = content\bin\DesktopGL\Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.xnb
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_4_Treason_OC_ReMix.ogg = content\bin\DesktopGL\Content\Music\Final_Fantasy_4_Treason_OC_ReMix.ogg
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_4_Treason_OC_ReMix.xnb = content\bin\DesktopGL\Content\Music\Final_Fantasy_4_Treason_OC_ReMix.xnb
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_6_Desertion_OC_ReMix.ogg = content\bin\DesktopGL\Content\Music\Final_Fantasy_6_Desertion_OC_ReMix.ogg
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_6_Desertion_OC_ReMix.xnb = content\bin\DesktopGL\Content\Music\Final_Fantasy_6_Desertion_OC_ReMix.xnb
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_6_Smooth_Alexander_OC_ReMix.ogg = content\bin\DesktopGL\Content\Music\Final_Fantasy_6_Smooth_Alexander_OC_ReMix.ogg
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_6_Smooth_Alexander_OC_ReMix.xnb = content\bin\DesktopGL\Content\Music\Final_Fantasy_6_Smooth_Alexander_OC_ReMix.xnb
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_7_Fight_On_OC_ReMix.ogg = content\bin\DesktopGL\Content\Music\Final_Fantasy_7_Fight_On_OC_ReMix.ogg
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_7_Fight_On_OC_ReMix.xnb = content\bin\DesktopGL\Content\Music\Final_Fantasy_7_Fight_On_OC_ReMix.xnb
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_Duque_Battle_OC_ReMix.ogg = content\bin\DesktopGL\Content\Music\Final_Fantasy_Duque_Battle_OC_ReMix.ogg
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_Duque_Battle_OC_ReMix.xnb = content\bin\DesktopGL\Content\Music\Final_Fantasy_Duque_Battle_OC_ReMix.xnb
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_Hostility_OC_ReMix.ogg = content\bin\DesktopGL\Content\Music\Final_Fantasy_Hostility_OC_ReMix.ogg
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_Hostility_OC_ReMix.xnb = content\bin\DesktopGL\Content\Music\Final_Fantasy_Hostility_OC_ReMix.xnb
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.ogg = content\bin\DesktopGL\Content\Music\Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.ogg
+		content\bin\DesktopGL\Content\Music\Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.xnb = content\bin\DesktopGL\Content\Music\Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.xnb
+		content\bin\DesktopGL\Content\Music\Minibossies_FinalFantasy6_VictoryFanfare.ogg = content\bin\DesktopGL\Content\Music\Minibossies_FinalFantasy6_VictoryFanfare.ogg
+		content\bin\DesktopGL\Content\Music\Minibossies_FinalFantasy6_VictoryFanfare.xnb = content\bin\DesktopGL\Content\Music\Minibossies_FinalFantasy6_VictoryFanfare.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Battle", "Battle", "{A907C9F2-42FB-53D9-82F4-EFDD3B283466}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Music\Battle\battle1.ogg = content\bin\DesktopGL\Content\Music\Battle\battle1.ogg
+		content\bin\DesktopGL\Content\Music\Battle\battle1.xnb = content\bin\DesktopGL\Content\Music\Battle\battle1.xnb
+		content\bin\DesktopGL\Content\Music\Battle\battle2.ogg = content\bin\DesktopGL\Content\Music\Battle\battle2.ogg
+		content\bin\DesktopGL\Content\Music\Battle\battle2.xnb = content\bin\DesktopGL\Content\Music\Battle\battle2.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Camp", "Camp", "{91604405-D02E-5FBD-9D4E-8CD6792C5EB5}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Music\Camp\wodyn#4.ogg = content\bin\DesktopGL\Content\Music\Camp\wodyn#4.ogg
+		content\bin\DesktopGL\Content\Music\Camp\wodyn#4.xnb = content\bin\DesktopGL\Content\Music\Camp\wodyn#4.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TitleScreen", "TitleScreen", "{8EAD7941-1514-58E4-87BD-36D1D6CC47BC}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Music\TitleScreen\wodyn#3.ogg = content\bin\DesktopGL\Content\Music\TitleScreen\wodyn#3.ogg
+		content\bin\DesktopGL\Content\Music\TitleScreen\wodyn#3.xnb = content\bin\DesktopGL\Content\Music\TitleScreen\wodyn#3.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Out Game", "Out Game", "{58B8CC0C-6CA5-5626-BB62-6FAE66509270}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main Menu", "Main Menu", "{723F669A-576E-5B8A-9CDD-7C478EE2B7AF}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Out Game\Main Menu\green_card.xnb = content\bin\DesktopGL\Content\Out Game\Main Menu\green_card.xnb
+		content\bin\DesktopGL\Content\Out Game\Main Menu\red_card.xnb = content\bin\DesktopGL\Content\Out Game\Main Menu\red_card.xnb
+		content\bin\DesktopGL\Content\Out Game\Main Menu\to_battle!-1.xnb = content\bin\DesktopGL\Content\Out Game\Main Menu\to_battle!-1.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TitleScreen", "TitleScreen", "{D53CCEED-22CA-5E58-ADFC-94548DEADC62}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Out Game\TitleScreen\big_map4.xnb = content\bin\DesktopGL\Content\Out Game\TitleScreen\big_map4.xnb
+		content\bin\DesktopGL\Content\Out Game\TitleScreen\map4.xnb = content\bin\DesktopGL\Content\Out Game\TitleScreen\map4.xnb
+		content\bin\DesktopGL\Content\Out Game\TitleScreen\map4big.xnb = content\bin\DesktopGL\Content\Out Game\TitleScreen\map4big.xnb
+		content\bin\DesktopGL\Content\Out Game\TitleScreen\options00.xnb = content\bin\DesktopGL\Content\Out Game\TitleScreen\options00.xnb
+		content\bin\DesktopGL\Content\Out Game\TitleScreen\options01.xnb = content\bin\DesktopGL\Content\Out Game\TitleScreen\options01.xnb
+		content\bin\DesktopGL\Content\Out Game\TitleScreen\play_game00.xnb = content\bin\DesktopGL\Content\Out Game\TitleScreen\play_game00.xnb
+		content\bin\DesktopGL\Content\Out Game\TitleScreen\play_game01.xnb = content\bin\DesktopGL\Content\Out Game\TitleScreen\play_game01.xnb
+		content\bin\DesktopGL\Content\Out Game\TitleScreen\quit_exit.xnb = content\bin\DesktopGL\Content\Out Game\TitleScreen\quit_exit.xnb
+		content\bin\DesktopGL\Content\Out Game\TitleScreen\sword.xnb = content\bin\DesktopGL\Content\Out Game\TitleScreen\sword.xnb
+		content\bin\DesktopGL\Content\Out Game\TitleScreen\view_legends00.xnb = content\bin\DesktopGL\Content\Out Game\TitleScreen\view_legends00.xnb
+		content\bin\DesktopGL\Content\Out Game\TitleScreen\view_legends01.xnb = content\bin\DesktopGL\Content\Out Game\TitleScreen\view_legends01.xnb
+		content\bin\DesktopGL\Content\Out Game\TitleScreen\wodyn_title.xnb = content\bin\DesktopGL\Content\Out Game\TitleScreen\wodyn_title.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Particles", "Particles", "{AB08B841-E424-502A-8C37-256AED361CA8}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Particles\Beam.xnb = content\bin\DesktopGL\Content\Particles\Beam.xnb
+		content\bin\DesktopGL\Content\Particles\BeamBlurred.xnb = content\bin\DesktopGL\Content\Particles\BeamBlurred.xnb
+		content\bin\DesktopGL\Content\Particles\Cloud001.xnb = content\bin\DesktopGL\Content\Particles\Cloud001.xnb
+		content\bin\DesktopGL\Content\Particles\Cloud002.xnb = content\bin\DesktopGL\Content\Particles\Cloud002.xnb
+		content\bin\DesktopGL\Content\Particles\Cloud003.xnb = content\bin\DesktopGL\Content\Particles\Cloud003.xnb
+		content\bin\DesktopGL\Content\Particles\Cloud004.xnb = content\bin\DesktopGL\Content\Particles\Cloud004.xnb
+		content\bin\DesktopGL\Content\Particles\Elipse001.xnb = content\bin\DesktopGL\Content\Particles\Elipse001.xnb
+		content\bin\DesktopGL\Content\Particles\Flame.xnb = content\bin\DesktopGL\Content\Particles\Flame.xnb
+		content\bin\DesktopGL\Content\Particles\FlowerBurst.xnb = content\bin\DesktopGL\Content\Particles\FlowerBurst.xnb
+		content\bin\DesktopGL\Content\Particles\Laser.xnb = content\bin\DesktopGL\Content\Particles\Laser.xnb
+		content\bin\DesktopGL\Content\Particles\LensFlare.xnb = content\bin\DesktopGL\Content\Particles\LensFlare.xnb
+		content\bin\DesktopGL\Content\Particles\MultiDot.xnb = content\bin\DesktopGL\Content\Particles\MultiDot.xnb
+		content\bin\DesktopGL\Content\Particles\Particle001.xnb = content\bin\DesktopGL\Content\Particles\Particle001.xnb
+		content\bin\DesktopGL\Content\Particles\Particle002.xnb = content\bin\DesktopGL\Content\Particles\Particle002.xnb
+		content\bin\DesktopGL\Content\Particles\Particle003.xnb = content\bin\DesktopGL\Content\Particles\Particle003.xnb
+		content\bin\DesktopGL\Content\Particles\Particle004.xnb = content\bin\DesktopGL\Content\Particles\Particle004.xnb
+		content\bin\DesktopGL\Content\Particles\Particle005.xnb = content\bin\DesktopGL\Content\Particles\Particle005.xnb
+		content\bin\DesktopGL\Content\Particles\Particle006.xnb = content\bin\DesktopGL\Content\Particles\Particle006.xnb
+		content\bin\DesktopGL\Content\Particles\Particle007.xnb = content\bin\DesktopGL\Content\Particles\Particle007.xnb
+		content\bin\DesktopGL\Content\Particles\Ring001.xnb = content\bin\DesktopGL\Content\Particles\Ring001.xnb
+		content\bin\DesktopGL\Content\Particles\Ring002.xnb = content\bin\DesktopGL\Content\Particles\Ring002.xnb
+		content\bin\DesktopGL\Content\Particles\SoftClumpy.xnb = content\bin\DesktopGL\Content\Particles\SoftClumpy.xnb
+		content\bin\DesktopGL\Content\Particles\SoftSmokey.xnb = content\bin\DesktopGL\Content\Particles\SoftSmokey.xnb
+		content\bin\DesktopGL\Content\Particles\Spikey001.xnb = content\bin\DesktopGL\Content\Particles\Spikey001.xnb
+		content\bin\DesktopGL\Content\Particles\Spikey002.xnb = content\bin\DesktopGL\Content\Particles\Spikey002.xnb
+		content\bin\DesktopGL\Content\Particles\Splash.xnb = content\bin\DesktopGL\Content\Particles\Splash.xnb
+		content\bin\DesktopGL\Content\Particles\Spray001.xnb = content\bin\DesktopGL\Content\Particles\Spray001.xnb
+		content\bin\DesktopGL\Content\Particles\Star.xnb = content\bin\DesktopGL\Content\Particles\Star.xnb
+		content\bin\DesktopGL\Content\Particles\Water001.xnb = content\bin\DesktopGL\Content\Particles\Water001.xnb
+		content\bin\DesktopGL\Content\Particles\Water002.xnb = content\bin\DesktopGL\Content\Particles\Water002.xnb
+		content\bin\DesktopGL\Content\Particles\Weeds.xnb = content\bin\DesktopGL\Content\Particles\Weeds.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SFX", "SFX", "{737E5147-6DA3-504D-BA0B-490287E923BD}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\SFX\Appear-KP-1137861048.xnb = content\bin\DesktopGL\Content\SFX\Appear-KP-1137861048.xnb
+		content\bin\DesktopGL\Content\SFX\Computer_Magic-Microsift-1901299923.xnb = content\bin\DesktopGL\Content\SFX\Computer_Magic-Microsift-1901299923.xnb
+		content\bin\DesktopGL\Content\SFX\Decapitation-SoundBible.com-800292304.xnb = content\bin\DesktopGL\Content\SFX\Decapitation-SoundBible.com-800292304.xnb
+		content\bin\DesktopGL\Content\SFX\Electrical_Sweep-Sweeper-1760111493.xnb = content\bin\DesktopGL\Content\SFX\Electrical_Sweep-Sweeper-1760111493.xnb
+		content\bin\DesktopGL\Content\SFX\Electronic_Chime-KevanGC-495939803.xnb = content\bin\DesktopGL\Content\SFX\Electronic_Chime-KevanGC-495939803.xnb
+		content\bin\DesktopGL\Content\SFX\Magic Wand Noise-SoundBible.com-375928671.xnb = content\bin\DesktopGL\Content\SFX\Magic Wand Noise-SoundBible.com-375928671.xnb
+		content\bin\DesktopGL\Content\SFX\Swords_Collide-Sound_Explorer-2015600826.xnb = content\bin\DesktopGL\Content\SFX\Swords_Collide-Sound_Explorer-2015600826.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{AA4431F4-DC53-5C8D-B142-A6859B7007A9}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Shared\DebugFont.xnb = content\bin\DesktopGL\Content\Shared\DebugFont.xnb
+		content\bin\DesktopGL\Content\Shared\TestFon.xnb = content\bin\DesktopGL\Content\Shared\TestFon.xnb
+		content\bin\DesktopGL\Content\Shared\arrow_cursor.xnb = content\bin\DesktopGL\Content\Shared\arrow_cursor.xnb
+		content\bin\DesktopGL\Content\Shared\company_arrowdownx.xnb = content\bin\DesktopGL\Content\Shared\company_arrowdownx.xnb
+		content\bin\DesktopGL\Content\Shared\company_arrowrightx.xnb = content\bin\DesktopGL\Content\Shared\company_arrowrightx.xnb
+		content\bin\DesktopGL\Content\Shared\company_arrowupx.xnb = content\bin\DesktopGL\Content\Shared\company_arrowupx.xnb
+		content\bin\DesktopGL\Content\Shared\gauntlet_cursor.xnb = content\bin\DesktopGL\Content\Shared\gauntlet_cursor.xnb
+		content\bin\DesktopGL\Content\Shared\percentagedwn.xnb = content\bin\DesktopGL\Content\Shared\percentagedwn.xnb
+		content\bin\DesktopGL\Content\Shared\percentagedwnx.xnb = content\bin\DesktopGL\Content\Shared\percentagedwnx.xnb
+		content\bin\DesktopGL\Content\Shared\percentageup.xnb = content\bin\DesktopGL\Content\Shared\percentageup.xnb
+		content\bin\DesktopGL\Content\Shared\percentageupx.xnb = content\bin\DesktopGL\Content\Shared\percentageupx.xnb
+		content\bin\DesktopGL\Content\Shared\smallfont.xnb = content\bin\DesktopGL\Content\Shared\smallfont.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sprite Data", "Sprite Data", "{01DB67C4-86CF-5556-9501-52F2697AB0EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chaplain", "Chaplain", "{D145F6CB-C3B1-53BF-97A4-E33DBF1BFDAA}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Sprite Data\Chaplain\Chaplain.xnb = content\bin\DesktopGL\Content\Sprite Data\Chaplain\Chaplain.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Troopers", "Troopers", "{92A77874-7668-5577-A3D4-E0328849FE5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bandit", "Bandit", "{26AE07DB-7115-5663-B0BE-4DFD0AD5CA45}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Bandit\Bandit.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Bandit\Bandit.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Halberd", "Halberd", "{28F1DA29-6822-569B-AAE3-166E2E439FF2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Front Facing", "Front Facing", "{8B391AB8-A440-5679-8D25-D79DC95ECBDC}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Front Facing\front.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Front Facing\front.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Textures", "Textures", "{2579D150-ABF6-539D-99C3-4409994D9E64}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\Footman.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\Footman.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\Footman_bill_steel.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\Footman_bill_steel.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\darvi_bill.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\darvi_bill.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fazure.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fazure.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fbrown.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fbrown.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fgrey.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fgrey.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fgules.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fgules.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fmidnight.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fmidnight.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fpurple.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fpurple.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\frust.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\frust.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fsable.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fsable.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fsteel.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fsteel.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fstorm.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fstorm.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fvert.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fvert.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fvert2.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fvert2.xnb
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fzombie.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Halberd\Textures\fzombie.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Peasant", "Peasant", "{3D1A7898-C95F-5729-ABA7-45727D266160}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\Peasant\Peasant.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\Peasant\Peasant.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SwordHero", "SwordHero", "{65403B6B-AA46-5FA0-815B-81496BDC16FD}"
+	ProjectSection(SolutionItems) = preProject
+		content\bin\DesktopGL\Content\Sprite Data\Troopers\SwordHero\SwordHero.xnb = content\bin\DesktopGL\Content\Sprite Data\Troopers\SwordHero\SwordHero.xnb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "obj", "obj", "{D8E10212-DD66-545C-B1CA-21C2BEE827D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesktopGL", "DesktopGL", "{92AEF30E-8A1F-55D3-9858-15207BCC914C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "net8.0", "net8.0", "{108328E7-9DF3-5702-9A45-703597E29014}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{6319F42C-AC0A-53F1-8D6B-AE1458118483}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\.mgcontent = content\obj\DesktopGL\net8.0\Content\.mgcontent
+		content\obj\DesktopGL\net8.0\Content\.mgstats = content\obj\DesktopGL\net8.0\Content\.mgstats
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backgrounds", "Backgrounds", "{832629E2-2B7A-57B9-A443-8E75A8F69E60}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Backgrounds\dirt_grass 800x436.mgcontent = content\obj\DesktopGL\net8.0\Content\Backgrounds\dirt_grass 800x436.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Backgrounds\dirt_grass 800x500.mgcontent = content\obj\DesktopGL\net8.0\Content\Backgrounds\dirt_grass 800x500.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Backgrounds\dirt_grass_large.mgcontent = content\obj\DesktopGL\net8.0\Content\Backgrounds\dirt_grass_large.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "In Game", "In Game", "{BBDB38D5-3576-55D3-9969-F2CCA0D616A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Buffs", "Buffs", "{6621CD05-6611-5966-A17E-A5B5A06B01D2}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Buffs\BufItems.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Buffs\BufItems.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Drops.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Drops.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Gems.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Gems.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Buffs\ItemBox.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Buffs\ItemBox.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Animals", "Animals", "{FC789307-2C1B-5D17-8509-076DCCA3D84C}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\crab.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\crab.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\dragon.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\dragon.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\eagle.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\eagle.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\lion.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\lion.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\snake.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\snake.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\squirrel.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\squirrel.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\toad.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\toad.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\wolf.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Buffs\Animals\wolf.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Camp", "Camp", "{B18DD35F-F818-5E05-972B-57A6EADF3181}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Captain's_house.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Captain's_house.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\barracks.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\barracks.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\camp.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\camp.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\ground.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\ground.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\knight_box.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\knight_box.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\picard_box.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\picard_box.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\picard_guy.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\picard_guy.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\smith.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\smith.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\smith_box.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\smith_box.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\smith_guy.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\smith_guy.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\spy_box.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\spy_box.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\spy_guy.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\spy_guy.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\supply hut.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\supply hut.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\surgeon_tent.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\surgeon_tent.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\wagon.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\wagon.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Company Dialog", "Company Dialog", "{D2209F8A-6AF7-5B9D-AF8B-8CA737050924}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\CompanyBox.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\CompanyBox.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\CompanySelect.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\CompanySelect.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\axe.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\axe.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\battle_axe.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\battle_axe.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\blue_jester.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\blue_jester.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\click_to_drag.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\click_to_drag.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\company_name.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\company_name.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\company_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\company_window.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\falchion.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\falchion.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\goblin.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\goblin.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\green_genie.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\green_genie.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\grid_arrow_left.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\grid_arrow_left.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\grid_arrow_left_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\grid_arrow_left_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\grid_arrow_right.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\grid_arrow_right.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\grid_arrow_right_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\grid_arrow_right_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\horned_skull.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\horned_skull.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\icon_grid.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\icon_grid.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\icon_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\icon_window.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\kite_shield.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\kite_shield.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\knight_sword.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\knight_sword.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\purple_demon.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\purple_demon.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\purple_skull.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\purple_skull.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\red_demon.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\red_demon.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\red_skull.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\red_skull.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\reset_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\reset_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\reset_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\reset_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\sabre.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\sabre.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\sai.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\sai.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\sallet.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\sallet.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\size_box.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\size_box.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\skull.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\skull.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\target.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\target.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\template_arrow_left.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\template_arrow_left.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\template_arrow_right.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\template_arrow_right.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\unit_allocation_arrows.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\unit_allocation_arrows.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\unit_allocation_down.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\unit_allocation_down.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\unit_allocation_up.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Company Dialog\unit_allocation_up.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KnightMenu", "KnightMenu", "{C08F8FCC-7822-5ECE-A3CB-5EC8116EFFF6}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\KnightMenu\captain_button.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\KnightMenu\captain_button.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\KnightMenu\company_button.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\KnightMenu\company_button.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\KnightMenu\dialogue_button.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\KnightMenu\dialogue_button.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\KnightMenu\knight_box.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\KnightMenu\knight_box.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\KnightMenu\knight_guy.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\KnightMenu\knight_guy.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\KnightMenu\template_button.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\KnightMenu\template_button.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmithMenu", "SmithMenu", "{39C839AF-5D5A-5413-9496-406F234DE5E8}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\SmithMenu\armour_upgrade.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\SmithMenu\armour_upgrade.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\SmithMenu\smith_box.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\SmithMenu\smith_box.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\SmithMenu\smith_guy.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\SmithMenu\smith_guy.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\SmithMenu\weapon_upgrade.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\SmithMenu\weapon_upgrade.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Template", "Template", "{DEBCDB13-3D68-5109-A44B-6227D30E1550}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\AtkPower.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\AtkPower.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\AtkSpeed.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\AtkSpeed.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\BottomSliders.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\BottomSliders.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\HitPoints.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\HitPoints.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\Left Arrow Large.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\Left Arrow Large.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\Left Arrow.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\Left Arrow.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\MoveSpeed.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\MoveSpeed.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\Right Arrow Large.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\Right Arrow Large.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\Right Arrow.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\Right Arrow.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\TemplateSelect.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\TemplateSelect.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\TopSliders.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\TopSliders.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\absorb damage.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\absorb damage.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\absorb damage_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\absorb damage_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\acts of prowess.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\acts of prowess.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\atkx2.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\atkx2.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\atkx2_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\atkx2_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\atkx3.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\atkx3.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\atkx3_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\atkx3_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\battle mastery.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\battle mastery.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\big time.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\big time.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\big time_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\big time_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\bleed.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\bleed.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\bleed_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\bleed_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\brave heart.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\brave heart.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\brave heart_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\brave heart_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\chip blade.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\chip blade.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\chip blade_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\chip blade_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\combinations.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\combinations.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\counter attack.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\counter attack.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\counter attack_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\counter attack_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\crit chance up.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\crit chance up.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\crit chance up_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\crit chance up_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\don't bleed.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\don't bleed.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\don't bleed_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\don't bleed_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\done.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\done.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\eat my dust.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\eat my dust.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\eat my dust_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\eat my dust_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\extra health.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\extra health.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\extra health_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\extra health_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\flee!.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\flee!.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\flee!_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\flee!_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\frame.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\frame.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\safe guard.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\safe guard.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\safe guard_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\safe guard_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\template_name.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\template_name.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\template_select_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\template_select_window.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\template_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\template_window.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\tough enough.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\tough enough.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\tough enough_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\tough enough_gray.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\tremble and fear.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\tremble and fear.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\tremble and fear_gray.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Camp\Template\tremble and fear_gray.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hud", "Hud", "{B947136A-81A7-565D-9852-4CD95A5A1E54}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Hud\border_jackson.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Hud\border_jackson.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Map", "Map", "{249472B3-F3B3-5EF1-BC4E-0AF75A48D6F3}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\camp_icon.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\camp_icon.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\littlemap.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\littlemap.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingIcons", "BuildingIcons", "{CDCE7006-71FD-52D6-814D-2D867DC5EB7C}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeNE.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeNE.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeNE_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeNE_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeNE_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeNE_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeS.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeS.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeSE.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeSE.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeSE_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeSE_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeSE_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeSE_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeS_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeS_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeS_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\bridgeS_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\chapel.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\chapel.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\chapel_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\chapel_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\chapel_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\chapel_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\citadel.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\citadel.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\citadel_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\citadel_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\citadel_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\citadel_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\darvi.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\darvi.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\darvi_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\darvi_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\darvi_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\darvi_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\dungeon.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\dungeon.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\dungeon_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\dungeon_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\dungeon_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\dungeon_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\hamlet.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\hamlet.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\hamlet_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\hamlet_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\hamlet_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\hamlet_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\hut.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\hut.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\hut_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\hut_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\hut_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\hut_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\tower.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\tower.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\tower_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\tower_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\tower_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\tower_red.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MapMenus", "MapMenus", "{052DC18B-A002-501A-A6F9-FB9AA0FE9F04}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\bandit_party_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\bandit_party_window.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\bridge_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\bridge_window.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\chaos_dungeon_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\chaos_dungeon_window.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\chapel_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\chapel_window.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\citadel_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\citadel_window.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\dark_city_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\dark_city_window.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\hamlet_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\hamlet_window.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\rival_army_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\rival_army_window.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\smokey_hut_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\smokey_hut_window.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\tower_window.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\tower_window.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{3DEC4D20-777C-56EF-9931-961A8B487D83}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon_H.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\abandon_H.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\attack.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\attack.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\attack_H.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\attack_H.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize_H.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burglarize_H.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burn.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burn.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burn_H.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\burn_H.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer_H.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\conquer_H.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy_H.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\destroy_H.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate_H.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\infiltrate_H.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige_H.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\lay_seige_H.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce_H.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\reinforce_H.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage_H.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\sabotage_H.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout_H.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\BuildingIcons\MapMenus\Actions\send_scout_H.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Buildings", "Buildings", "{5344170B-CF3C-546D-AC03-B33557422988}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeNE.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeNE.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeNE_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeNE_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeNE_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeNE_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeS.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeS.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeSE.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeSE.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeSE_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeSE_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeSE_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeSE_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeS_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeS_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeS_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\bridgeS_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\chapel.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\chapel.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\chapel_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\chapel_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\chapel_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\chapel_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\citadel.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\citadel.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\citadel_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\citadel_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\citadel_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\citadel_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\darvi.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\darvi.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\darvi_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\darvi_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\darvi_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\darvi_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\dungeon.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\dungeon.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\dungeon_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\dungeon_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\dungeon_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\dungeon_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\hamlet.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\hamlet.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\hamlet_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\hamlet_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\hamlet_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\hamlet_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\hut.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\hut.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\hut_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\hut_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\hut_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\hut_red.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\tower.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\tower.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\tower_blue.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\tower_blue.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\tower_red.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\Buildings\tower_red.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EnemyIcons", "EnemyIcons", "{AD94F3C0-A650-5F2E-86DA-890E337B8A4B}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\EnemyIcons\bandit1_icon.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\EnemyIcons\bandit1_icon.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\EnemyIcons\bandit2_icon.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\EnemyIcons\bandit2_icon.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\EnemyIcons\little_darvi.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\EnemyIcons\little_darvi.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\EnemyIcons\little_darvi_outline.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\EnemyIcons\little_darvi_outline.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\EnemyIcons\little_enemy.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\EnemyIcons\little_enemy.mgcontent
+		content\obj\DesktopGL\net8.0\Content\In Game\Map\EnemyIcons\little_enemy_outline.mgcontent = content\obj\DesktopGL\net8.0\Content\In Game\Map\EnemyIcons\little_enemy_outline.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Music", "Music", "{E8F07686-4655-59F1-9D72-73BB295CADD0}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Music\10 WV.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\10 WV.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_4_Submission_OC_ReMix.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_4_Submission_OC_ReMix.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_4_The_Flying_Machine_OC_ReMix.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_4_Treason_OC_ReMix.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_4_Treason_OC_ReMix.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_6_Desertion_OC_ReMix.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_6_Desertion_OC_ReMix.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_6_Smooth_Alexander_OC_ReMix.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_6_Smooth_Alexander_OC_ReMix.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_7_Fight_On_OC_ReMix.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_7_Fight_On_OC_ReMix.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_Duque_Battle_OC_ReMix.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_Duque_Battle_OC_ReMix.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_Hostility_OC_ReMix.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_Hostility_OC_ReMix.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\Final_Fantasy_The_Beginning_of_a_Legacy_OC_ReMix.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Music\Minibossies_FinalFantasy6_VictoryFanfare.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\Minibossies_FinalFantasy6_VictoryFanfare.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Battle", "Battle", "{18BE9EC7-CBF5-5241-AB1A-7233587124A2}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Music\Battle\battle1.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\Battle\battle1.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Music\Battle\battle2.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\Battle\battle2.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Camp", "Camp", "{7A40A854-EDC4-5E8D-896F-B0CBED69F56C}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Music\Camp\wodyn#4.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\Camp\wodyn#4.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TitleScreen", "TitleScreen", "{14657C49-7BA3-5F1A-B8D5-8654914713CF}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Music\TitleScreen\wodyn#3.mgcontent = content\obj\DesktopGL\net8.0\Content\Music\TitleScreen\wodyn#3.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Out Game", "Out Game", "{9073AC15-2106-55D2-A04C-E6AC4A0CA9A4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main Menu", "Main Menu", "{6189CCC2-7532-5B7F-A397-7EA2AD2DBC29}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Out Game\Main Menu\green_card.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\Main Menu\green_card.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Out Game\Main Menu\red_card.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\Main Menu\red_card.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Out Game\Main Menu\to_battle!-1.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\Main Menu\to_battle!-1.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TitleScreen", "TitleScreen", "{F20F4754-6FDC-5950-9954-EA47D9FA606E}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\big_map4.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\big_map4.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\map4.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\map4.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\map4big.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\map4big.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\options00.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\options00.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\options01.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\options01.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\play_game00.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\play_game00.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\play_game01.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\play_game01.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\quit_exit.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\quit_exit.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\sword.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\sword.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\view_legends00.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\view_legends00.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\view_legends01.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\view_legends01.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\wodyn_title.mgcontent = content\obj\DesktopGL\net8.0\Content\Out Game\TitleScreen\wodyn_title.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Particles", "Particles", "{00967CF2-666C-53E4-9F67-8D378579E9BD}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Particles\Beam.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Beam.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\BeamBlurred.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\BeamBlurred.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Cloud001.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Cloud001.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Cloud002.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Cloud002.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Cloud003.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Cloud003.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Cloud004.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Cloud004.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Elipse001.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Elipse001.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Flame.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Flame.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\FlowerBurst.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\FlowerBurst.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Laser.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Laser.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\LensFlare.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\LensFlare.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\MultiDot.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\MultiDot.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Particle001.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Particle001.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Particle002.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Particle002.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Particle003.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Particle003.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Particle004.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Particle004.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Particle005.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Particle005.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Particle006.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Particle006.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Particle007.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Particle007.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Ring001.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Ring001.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Ring002.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Ring002.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\SoftClumpy.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\SoftClumpy.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\SoftSmokey.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\SoftSmokey.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Spikey001.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Spikey001.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Spikey002.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Spikey002.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Splash.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Splash.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Spray001.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Spray001.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Star.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Star.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Water001.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Water001.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Water002.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Water002.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Particles\Weeds.mgcontent = content\obj\DesktopGL\net8.0\Content\Particles\Weeds.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SFX", "SFX", "{EEA6B236-CB2B-5232-BFC7-37BC06983E7B}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\SFX\Appear-KP-1137861048.mgcontent = content\obj\DesktopGL\net8.0\Content\SFX\Appear-KP-1137861048.mgcontent
+		content\obj\DesktopGL\net8.0\Content\SFX\Computer_Magic-Microsift-1901299923.mgcontent = content\obj\DesktopGL\net8.0\Content\SFX\Computer_Magic-Microsift-1901299923.mgcontent
+		content\obj\DesktopGL\net8.0\Content\SFX\Decapitation-SoundBible.com-800292304.mgcontent = content\obj\DesktopGL\net8.0\Content\SFX\Decapitation-SoundBible.com-800292304.mgcontent
+		content\obj\DesktopGL\net8.0\Content\SFX\Electrical_Sweep-Sweeper-1760111493.mgcontent = content\obj\DesktopGL\net8.0\Content\SFX\Electrical_Sweep-Sweeper-1760111493.mgcontent
+		content\obj\DesktopGL\net8.0\Content\SFX\Electronic_Chime-KevanGC-495939803.mgcontent = content\obj\DesktopGL\net8.0\Content\SFX\Electronic_Chime-KevanGC-495939803.mgcontent
+		content\obj\DesktopGL\net8.0\Content\SFX\Magic Wand Noise-SoundBible.com-375928671.mgcontent = content\obj\DesktopGL\net8.0\Content\SFX\Magic Wand Noise-SoundBible.com-375928671.mgcontent
+		content\obj\DesktopGL\net8.0\Content\SFX\Swords_Collide-Sound_Explorer-2015600826.mgcontent = content\obj\DesktopGL\net8.0\Content\SFX\Swords_Collide-Sound_Explorer-2015600826.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{43B7C18E-F49F-5754-B545-DE6128E4468E}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Shared\DebugFont.mgcontent = content\obj\DesktopGL\net8.0\Content\Shared\DebugFont.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Shared\TestFon.mgcontent = content\obj\DesktopGL\net8.0\Content\Shared\TestFon.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Shared\arrow_cursor.mgcontent = content\obj\DesktopGL\net8.0\Content\Shared\arrow_cursor.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Shared\company_arrowdownx.mgcontent = content\obj\DesktopGL\net8.0\Content\Shared\company_arrowdownx.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Shared\company_arrowrightx.mgcontent = content\obj\DesktopGL\net8.0\Content\Shared\company_arrowrightx.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Shared\company_arrowupx.mgcontent = content\obj\DesktopGL\net8.0\Content\Shared\company_arrowupx.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Shared\gauntlet_cursor.mgcontent = content\obj\DesktopGL\net8.0\Content\Shared\gauntlet_cursor.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Shared\percentagedwn.mgcontent = content\obj\DesktopGL\net8.0\Content\Shared\percentagedwn.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Shared\percentagedwnx.mgcontent = content\obj\DesktopGL\net8.0\Content\Shared\percentagedwnx.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Shared\percentageup.mgcontent = content\obj\DesktopGL\net8.0\Content\Shared\percentageup.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Shared\percentageupx.mgcontent = content\obj\DesktopGL\net8.0\Content\Shared\percentageupx.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Shared\smallfont.mgcontent = content\obj\DesktopGL\net8.0\Content\Shared\smallfont.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sprite Data", "Sprite Data", "{8943E01A-E59F-503C-AEBA-0CAAA0DABEBD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chaplain", "Chaplain", "{1669820A-614C-5A04-A559-FCB1F75356CB}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Chaplain\Chaplain.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Chaplain\Chaplain.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Troopers", "Troopers", "{E2AE2A41-9AEF-583A-BA05-31F8DED0194B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bandit", "Bandit", "{378B5B40-D604-5F9B-BCF3-02C8EA1DC2E6}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Bandit\Bandit.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Bandit\Bandit.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Halberd", "Halberd", "{33A33D98-C44E-5655-B11C-F340200EE844}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Front Facing", "Front Facing", "{2D46A22C-4841-5131-9821-CF9F5D73C2AA}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Front Facing\front.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Front Facing\front.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Textures", "Textures", "{4A106554-4FF0-56D4-8205-6D69AEE1CD09}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\Footman.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\Footman.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\Footman_bill_steel.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\Footman_bill_steel.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\darvi_bill.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\darvi_bill.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fazure.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fazure.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fbrown.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fbrown.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fcrimson.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fgrey.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fgrey.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fgules.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fgules.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fmidnight.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fmidnight.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fpurple.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fpurple.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\frust.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\frust.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fsable.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fsable.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fsteel.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fsteel.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fstorm.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fstorm.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fvert.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fvert.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fvert2.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fvert2.mgcontent
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fzombie.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Halberd\Textures\fzombie.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Peasant", "Peasant", "{419EFDA1-09AB-5DEB-A577-E18B6C315533}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Peasant\Peasant.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\Peasant\Peasant.mgcontent
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SwordHero", "SwordHero", "{BBD14A7F-43EF-5ABB-8780-F13F129F01FA}"
+	ProjectSection(SolutionItems) = preProject
+		content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\SwordHero\SwordHero.mgcontent = content\obj\DesktopGL\net8.0\Content\Sprite Data\Troopers\SwordHero\SwordHero.mgcontent
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +1520,119 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{F159ACF7-3DC6-513D-9127-685957CDE7D5} = {9137F2C7-923B-57E6-A7C8-901896DC0580}
+		{CA9C4232-A6E7-582F-ABAE-3A6E7D48A583} = {9137F2C7-923B-57E6-A7C8-901896DC0580}
+		{786E2084-3E3E-555F-B616-EFECD3B5C40B} = {9137F2C7-923B-57E6-A7C8-901896DC0580}
+		{EECD0CCB-14E2-5594-AEA5-1145E1321DDC} = {786E2084-3E3E-555F-B616-EFECD3B5C40B}
+		{D9B99AA7-8D2D-5E29-B946-E1FCA64F350D} = {EECD0CCB-14E2-5594-AEA5-1145E1321DDC}
+		{965D0F26-E9CD-55F1-9EC2-9A90577FD443} = {786E2084-3E3E-555F-B616-EFECD3B5C40B}
+		{F256DF59-ED8F-5021-85E5-DF7B0B69BCDF} = {965D0F26-E9CD-55F1-9EC2-9A90577FD443}
+		{3F0F1410-8A70-5C90-850E-DA6C08830E8E} = {965D0F26-E9CD-55F1-9EC2-9A90577FD443}
+		{AA996736-B238-50DA-BEE0-178AF7DAF49D} = {965D0F26-E9CD-55F1-9EC2-9A90577FD443}
+		{83B3F3D8-5EC0-5A1D-A580-B92278B839EE} = {965D0F26-E9CD-55F1-9EC2-9A90577FD443}
+		{90FC6310-691A-5535-A0EE-3733155932BA} = {786E2084-3E3E-555F-B616-EFECD3B5C40B}
+		{BE4DE88D-2B7C-5021-9DA5-242393E9973A} = {786E2084-3E3E-555F-B616-EFECD3B5C40B}
+		{3038EC53-DF3C-5E77-A00A-EFB1D4E503B1} = {BE4DE88D-2B7C-5021-9DA5-242393E9973A}
+		{93ED5799-8929-5953-8B54-CD74C831A61C} = {3038EC53-DF3C-5E77-A00A-EFB1D4E503B1}
+		{ABF6F27B-22E6-5567-A518-02360E159C6E} = {93ED5799-8929-5953-8B54-CD74C831A61C}
+		{EDEACC57-0128-58BD-B20C-AA49F6BAB6BB} = {BE4DE88D-2B7C-5021-9DA5-242393E9973A}
+		{9037449C-CCF4-5F1F-ACB9-C1E24C3E27C7} = {BE4DE88D-2B7C-5021-9DA5-242393E9973A}
+		{5944077A-C43F-577D-A150-E066C70F8473} = {9137F2C7-923B-57E6-A7C8-901896DC0580}
+		{FE770052-F2A2-5949-B915-AF90DA22CF90} = {5944077A-C43F-577D-A150-E066C70F8473}
+		{EB601913-231A-5C84-BFAB-349137CCC767} = {5944077A-C43F-577D-A150-E066C70F8473}
+		{C5E77B39-A2E8-5362-88BF-ECF82E1514CC} = {5944077A-C43F-577D-A150-E066C70F8473}
+		{A99553CF-C29C-5A20-8354-9ECDBB89B6AC} = {9137F2C7-923B-57E6-A7C8-901896DC0580}
+		{465AA124-D3C9-5ECE-894F-0D8594A04830} = {A99553CF-C29C-5A20-8354-9ECDBB89B6AC}
+		{204C8A74-EA07-50BF-83DB-2E9FFB488E57} = {A99553CF-C29C-5A20-8354-9ECDBB89B6AC}
+		{60BF0BBB-FB8D-5EF3-AF65-093D02B72DF6} = {9137F2C7-923B-57E6-A7C8-901896DC0580}
+		{DAE6A450-1AF9-5CA5-8286-F50AA9F4BB9B} = {9137F2C7-923B-57E6-A7C8-901896DC0580}
+		{9518A512-F93F-5677-97DF-7EED1C650261} = {9137F2C7-923B-57E6-A7C8-901896DC0580}
+		{6E549893-186D-5FFB-9744-ED7E5D68EF5C} = {9137F2C7-923B-57E6-A7C8-901896DC0580}
+		{58383FFB-0047-5C18-881C-E92E2FAC421B} = {6E549893-186D-5FFB-9744-ED7E5D68EF5C}
+		{7F580ACD-B8C1-5F04-B38D-865FD13BDC67} = {6E549893-186D-5FFB-9744-ED7E5D68EF5C}
+		{E42428D0-0034-562C-966F-0802ED3440B7} = {7F580ACD-B8C1-5F04-B38D-865FD13BDC67}
+		{2D310BE7-4277-57C7-8BFE-5D30DF164643} = {7F580ACD-B8C1-5F04-B38D-865FD13BDC67}
+		{C314B3BC-FC6F-5D7D-8A3C-E8726468AB4F} = {2D310BE7-4277-57C7-8BFE-5D30DF164643}
+		{09E6F36D-5301-5DAD-94A5-2F6A809E84FB} = {2D310BE7-4277-57C7-8BFE-5D30DF164643}
+		{07D5A6C5-16BF-5DD9-8468-02E38EE8991B} = {7F580ACD-B8C1-5F04-B38D-865FD13BDC67}
+		{6E2BD648-BF42-5A29-A064-E7238FBF8E0F} = {7F580ACD-B8C1-5F04-B38D-865FD13BDC67}
+		{D8E613D2-FE0B-5028-93DF-2D79035781DD} = {9137F2C7-923B-57E6-A7C8-901896DC0580}
+		{557A3F3A-7089-5255-A490-70F56F00D3F5} = {D8E613D2-FE0B-5028-93DF-2D79035781DD}
+		{09B8C104-B40E-5C13-8077-905324F75023} = {557A3F3A-7089-5255-A490-70F56F00D3F5}
+		{9B7E8043-8F27-5D1D-A80F-C296BB04FC7F} = {09B8C104-B40E-5C13-8077-905324F75023}
+		{90B41CD7-EA95-5569-9253-2B4C225593A2} = {09B8C104-B40E-5C13-8077-905324F75023}
+		{8A22567D-7610-5065-8744-4922B7CACA6B} = {90B41CD7-EA95-5569-9253-2B4C225593A2}
+		{3000F291-3399-5942-B3AD-0DA000F01BE7} = {8A22567D-7610-5065-8744-4922B7CACA6B}
+		{37F93686-91AA-5C6C-AD0E-3934B8C42FB4} = {90B41CD7-EA95-5569-9253-2B4C225593A2}
+		{7F9C9FA9-2F37-534B-9BB4-47CD9E06D73E} = {37F93686-91AA-5C6C-AD0E-3934B8C42FB4}
+		{43839822-1F38-59BF-A7EE-828E2A8163E0} = {37F93686-91AA-5C6C-AD0E-3934B8C42FB4}
+		{226D1CC2-49BC-5BFE-A01B-53720202D6F0} = {37F93686-91AA-5C6C-AD0E-3934B8C42FB4}
+		{E5E3EE8A-CAD0-57DF-B2B4-060404AA0022} = {37F93686-91AA-5C6C-AD0E-3934B8C42FB4}
+		{4DF8318A-6CF5-5CA0-8998-71CF51932ED7} = {90B41CD7-EA95-5569-9253-2B4C225593A2}
+		{568B9EC3-DF5E-58ED-8F31-E9A38451E23D} = {90B41CD7-EA95-5569-9253-2B4C225593A2}
+		{21CFE9EC-1F5B-5BDE-9EDB-CF1A8CDC1FF3} = {568B9EC3-DF5E-58ED-8F31-E9A38451E23D}
+		{1760D60A-AAC1-5E44-B0A4-61A9FDE6E9E6} = {21CFE9EC-1F5B-5BDE-9EDB-CF1A8CDC1FF3}
+		{9BF11C8B-322B-5608-9E15-30327C41EDE1} = {1760D60A-AAC1-5E44-B0A4-61A9FDE6E9E6}
+		{EFD6C43E-E89C-5DA6-A859-154B69055A1C} = {568B9EC3-DF5E-58ED-8F31-E9A38451E23D}
+		{5BE00114-420C-5971-989C-98D8EEDCBAA4} = {568B9EC3-DF5E-58ED-8F31-E9A38451E23D}
+		{69C5C83D-4A58-5E6A-BD40-ED29862539D0} = {09B8C104-B40E-5C13-8077-905324F75023}
+		{A907C9F2-42FB-53D9-82F4-EFDD3B283466} = {69C5C83D-4A58-5E6A-BD40-ED29862539D0}
+		{91604405-D02E-5FBD-9D4E-8CD6792C5EB5} = {69C5C83D-4A58-5E6A-BD40-ED29862539D0}
+		{8EAD7941-1514-58E4-87BD-36D1D6CC47BC} = {69C5C83D-4A58-5E6A-BD40-ED29862539D0}
+		{58B8CC0C-6CA5-5626-BB62-6FAE66509270} = {09B8C104-B40E-5C13-8077-905324F75023}
+		{723F669A-576E-5B8A-9CDD-7C478EE2B7AF} = {58B8CC0C-6CA5-5626-BB62-6FAE66509270}
+		{D53CCEED-22CA-5E58-ADFC-94548DEADC62} = {58B8CC0C-6CA5-5626-BB62-6FAE66509270}
+		{AB08B841-E424-502A-8C37-256AED361CA8} = {09B8C104-B40E-5C13-8077-905324F75023}
+		{737E5147-6DA3-504D-BA0B-490287E923BD} = {09B8C104-B40E-5C13-8077-905324F75023}
+		{AA4431F4-DC53-5C8D-B142-A6859B7007A9} = {09B8C104-B40E-5C13-8077-905324F75023}
+		{01DB67C4-86CF-5556-9501-52F2697AB0EB} = {09B8C104-B40E-5C13-8077-905324F75023}
+		{D145F6CB-C3B1-53BF-97A4-E33DBF1BFDAA} = {01DB67C4-86CF-5556-9501-52F2697AB0EB}
+		{92A77874-7668-5577-A3D4-E0328849FE5D} = {01DB67C4-86CF-5556-9501-52F2697AB0EB}
+		{26AE07DB-7115-5663-B0BE-4DFD0AD5CA45} = {92A77874-7668-5577-A3D4-E0328849FE5D}
+		{28F1DA29-6822-569B-AAE3-166E2E439FF2} = {92A77874-7668-5577-A3D4-E0328849FE5D}
+		{8B391AB8-A440-5679-8D25-D79DC95ECBDC} = {28F1DA29-6822-569B-AAE3-166E2E439FF2}
+		{2579D150-ABF6-539D-99C3-4409994D9E64} = {28F1DA29-6822-569B-AAE3-166E2E439FF2}
+		{3D1A7898-C95F-5729-ABA7-45727D266160} = {92A77874-7668-5577-A3D4-E0328849FE5D}
+		{65403B6B-AA46-5FA0-815B-81496BDC16FD} = {92A77874-7668-5577-A3D4-E0328849FE5D}
+		{D8E10212-DD66-545C-B1CA-21C2BEE827D4} = {9137F2C7-923B-57E6-A7C8-901896DC0580}
+		{92AEF30E-8A1F-55D3-9858-15207BCC914C} = {D8E10212-DD66-545C-B1CA-21C2BEE827D4}
+		{108328E7-9DF3-5702-9A45-703597E29014} = {92AEF30E-8A1F-55D3-9858-15207BCC914C}
+		{6319F42C-AC0A-53F1-8D6B-AE1458118483} = {108328E7-9DF3-5702-9A45-703597E29014}
+		{832629E2-2B7A-57B9-A443-8E75A8F69E60} = {6319F42C-AC0A-53F1-8D6B-AE1458118483}
+		{BBDB38D5-3576-55D3-9969-F2CCA0D616A7} = {6319F42C-AC0A-53F1-8D6B-AE1458118483}
+		{6621CD05-6611-5966-A17E-A5B5A06B01D2} = {BBDB38D5-3576-55D3-9969-F2CCA0D616A7}
+		{FC789307-2C1B-5D17-8509-076DCCA3D84C} = {6621CD05-6611-5966-A17E-A5B5A06B01D2}
+		{B18DD35F-F818-5E05-972B-57A6EADF3181} = {BBDB38D5-3576-55D3-9969-F2CCA0D616A7}
+		{D2209F8A-6AF7-5B9D-AF8B-8CA737050924} = {B18DD35F-F818-5E05-972B-57A6EADF3181}
+		{C08F8FCC-7822-5ECE-A3CB-5EC8116EFFF6} = {B18DD35F-F818-5E05-972B-57A6EADF3181}
+		{39C839AF-5D5A-5413-9496-406F234DE5E8} = {B18DD35F-F818-5E05-972B-57A6EADF3181}
+		{DEBCDB13-3D68-5109-A44B-6227D30E1550} = {B18DD35F-F818-5E05-972B-57A6EADF3181}
+		{B947136A-81A7-565D-9852-4CD95A5A1E54} = {BBDB38D5-3576-55D3-9969-F2CCA0D616A7}
+		{249472B3-F3B3-5EF1-BC4E-0AF75A48D6F3} = {BBDB38D5-3576-55D3-9969-F2CCA0D616A7}
+		{CDCE7006-71FD-52D6-814D-2D867DC5EB7C} = {249472B3-F3B3-5EF1-BC4E-0AF75A48D6F3}
+		{052DC18B-A002-501A-A6F9-FB9AA0FE9F04} = {CDCE7006-71FD-52D6-814D-2D867DC5EB7C}
+		{3DEC4D20-777C-56EF-9931-961A8B487D83} = {052DC18B-A002-501A-A6F9-FB9AA0FE9F04}
+		{5344170B-CF3C-546D-AC03-B33557422988} = {249472B3-F3B3-5EF1-BC4E-0AF75A48D6F3}
+		{AD94F3C0-A650-5F2E-86DA-890E337B8A4B} = {249472B3-F3B3-5EF1-BC4E-0AF75A48D6F3}
+		{E8F07686-4655-59F1-9D72-73BB295CADD0} = {6319F42C-AC0A-53F1-8D6B-AE1458118483}
+		{18BE9EC7-CBF5-5241-AB1A-7233587124A2} = {E8F07686-4655-59F1-9D72-73BB295CADD0}
+		{7A40A854-EDC4-5E8D-896F-B0CBED69F56C} = {E8F07686-4655-59F1-9D72-73BB295CADD0}
+		{14657C49-7BA3-5F1A-B8D5-8654914713CF} = {E8F07686-4655-59F1-9D72-73BB295CADD0}
+		{9073AC15-2106-55D2-A04C-E6AC4A0CA9A4} = {6319F42C-AC0A-53F1-8D6B-AE1458118483}
+		{6189CCC2-7532-5B7F-A397-7EA2AD2DBC29} = {9073AC15-2106-55D2-A04C-E6AC4A0CA9A4}
+		{F20F4754-6FDC-5950-9954-EA47D9FA606E} = {9073AC15-2106-55D2-A04C-E6AC4A0CA9A4}
+		{00967CF2-666C-53E4-9F67-8D378579E9BD} = {6319F42C-AC0A-53F1-8D6B-AE1458118483}
+		{EEA6B236-CB2B-5232-BFC7-37BC06983E7B} = {6319F42C-AC0A-53F1-8D6B-AE1458118483}
+		{43B7C18E-F49F-5754-B545-DE6128E4468E} = {6319F42C-AC0A-53F1-8D6B-AE1458118483}
+		{8943E01A-E59F-503C-AEBA-0CAAA0DABEBD} = {6319F42C-AC0A-53F1-8D6B-AE1458118483}
+		{1669820A-614C-5A04-A559-FCB1F75356CB} = {8943E01A-E59F-503C-AEBA-0CAAA0DABEBD}
+		{E2AE2A41-9AEF-583A-BA05-31F8DED0194B} = {8943E01A-E59F-503C-AEBA-0CAAA0DABEBD}
+		{378B5B40-D604-5F9B-BCF3-02C8EA1DC2E6} = {E2AE2A41-9AEF-583A-BA05-31F8DED0194B}
+		{33A33D98-C44E-5655-B11C-F340200EE844} = {E2AE2A41-9AEF-583A-BA05-31F8DED0194B}
+		{2D46A22C-4841-5131-9821-CF9F5D73C2AA} = {33A33D98-C44E-5655-B11C-F340200EE844}
+		{4A106554-4FF0-56D4-8205-6D69AEE1CD09} = {33A33D98-C44E-5655-B11C-F340200EE844}
+		{419EFDA1-09AB-5DEB-A577-E18B6C315533} = {E2AE2A41-9AEF-583A-BA05-31F8DED0194B}
+		{BBD14A7F-43EF-5ABB-8780-F13F129F01FA} = {E2AE2A41-9AEF-583A-BA05-31F8DED0194B}
 		{21A3BCFA-F326-44FD-BCF5-6075A72CFD89} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{4C821571-D5CC-4CD8-910D-F3F128AD8D9B} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{5ECCFBDC-A7FB-4201-9113-CE58CA6EF793} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}

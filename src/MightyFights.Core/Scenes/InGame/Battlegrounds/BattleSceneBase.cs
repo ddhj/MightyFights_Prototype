@@ -45,9 +45,17 @@ namespace MightyFights_Prototype
 										_cHammerSfx;
 		protected int					_iHammerCtr;
 
+		//// ddhj: 2026 -- was declared and gated on but never actually toggled anywhere (dead
+		//// infrastructure); repurposed as the Escape-menu's pause flag below.
 		protected bool			_bUpdate = true;
 		TimeSpan				_tSlowMo = TimeSpan.Zero,
 								_tSlowMoTrigger = TimeSpan.FromMilliseconds(50);
+
+		//// ddhj: 2026 -- Escape pause menu (owner call). Only enterable mid-Battle; Victory
+		//// already has its own right-click withdraw. Resume/quit hit-boxes are fixed screen
+		//// rects matching the viewport set in GameShell's ctor (1024x576).
+		static readonly Rectangle	_tPauseResumeRect = new Rectangle(412, 260, 200, 30),
+									_tPauseQuitRect = new Rectangle(412, 300, 200, 30);
 
 	// Mode hooks
 		/// <summary> build the armies / mode-specific objects and their battle scripts;
@@ -244,6 +252,19 @@ namespace MightyFights_Prototype
 				// draw all objects in the manager
 				_cObjMgr.DrawParticles(_cSpriteBatch);
 			} _cSpriteBatch.End();
+
+			//// ddhj: 2026 -- Escape pause overlay, drawn last so it sits over everything
+			//// (including particles) while the battle sim is frozen underneath it.
+			if(!_bUpdate) {
+				_cSpriteBatch.Begin(); {
+					_cSpriteBatch.Draw(_cBorder, new Rectangle(0, 0, 1024, 576), Color.Black * .6f);
+					_cSpriteBatch.DrawString(_cFont, "PAUSED", new Vector2(462, 210), Color.White);
+					_cSpriteBatch.Draw(_cBorder, _tPauseResumeRect, Color.White * .15f);
+					_cSpriteBatch.DrawString(_cFont, "Resume", new Vector2(_tPauseResumeRect.X + 60, _tPauseResumeRect.Y + 6), Color.White);
+					_cSpriteBatch.Draw(_cBorder, _tPauseQuitRect, Color.White * .15f);
+					_cSpriteBatch.DrawString(_cFont, "Quit to Camp", new Vector2(_tPauseQuitRect.X + 30, _tPauseQuitRect.Y + 6), Color.OrangeRed);
+				} _cSpriteBatch.End();
+			}
 		}
 
 		public virtual void Unload()
@@ -259,11 +280,15 @@ namespace MightyFights_Prototype
 		public virtual void RegisterHandlers()
 		{
 			InputSystem.MouseMove += new MouseEventHandler(InputSystem_MouseMove);
+			InputSystem.KeyDown += new KeyEventHandler(InputSystem_KeyDown_Pause);
+			InputSystem.MouseDown += new MouseEventHandler(InputSystem_MouseDown_Pause);
 		}
 
 		public virtual void UnRegisterHandlers()
 		{
 			InputSystem.MouseMove -= InputSystem_MouseMove;
+			InputSystem.KeyDown -= InputSystem_KeyDown_Pause;
+			InputSystem.MouseDown -= InputSystem_MouseDown_Pause;
 		}
 
 	// Shared machinery
@@ -333,6 +358,28 @@ namespace MightyFights_Prototype
 		{
 			if(_cCursor != null)
 				_cCursor.Update(eMouseEvt.Location);
+		}
+
+		void InputSystem_KeyDown_Pause(object oSender, KeyEventArgs eKeyEvt)
+		{
+			if(eKeyEvt.KeyCode != Keys.Escape)
+				return;
+
+			if(!_bUpdate)
+				_bUpdate = true;
+			else if(_cBattleData.eState == EBattlegroundState.Battle)
+				_bUpdate = false;
+		}
+
+		void InputSystem_MouseDown_Pause(object oSender, MouseEventArgs eMouseEvt)
+		{
+			if(_bUpdate || eMouseEvt.Button != MouseButton.Left)
+				return;
+
+			if(_tPauseResumeRect.Contains(eMouseEvt.Location))
+				_bUpdate = true;
+			else if(_tPauseQuitRect.Contains(eMouseEvt.Location))
+				BackToMenu();
 		}
 	}
 }

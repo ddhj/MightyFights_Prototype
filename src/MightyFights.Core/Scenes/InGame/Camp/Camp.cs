@@ -36,6 +36,10 @@ namespace MightyFights_Prototype
 		ESceneStates	_eState;
 		SpriteFont		_cFont;
 		Cursor			_cCursor;
+		//// ddhj: 2026 -- the quit-confirm overlay's own 1x1 white pixel. Not
+		//// DataStore.cInstance.cBorder -- that's only ever assigned in BattleSceneBase.Init, so
+		//// it's null on a fresh save that reaches Camp without a battle ever having run first.
+		Texture2D		_cBorder;
 
 		// button guys
 		IMouseInteractive	_nKnight,
@@ -47,6 +51,13 @@ namespace MightyFights_Prototype
 		CampMenuManager		_cMenuMgr;
 
 		public CampMenuManager cMenuMgr		{ get { return _cMenuMgr; }}
+
+		//// ddhj: 2026 -- Escape quit-confirm (owner call). Only openable from bare Camp (no
+		//// Knight/Template/etc. menu already open -- see the bNoMenus gate in Camp_Events.cs) so
+		//// it can't fight with CampMenuManager's own suppress/restore of the clickable guys.
+		bool						_bQuitConfirm;
+		static readonly Rectangle	_tQuitYesRect = new Rectangle(412, 260, 200, 30),
+									_tQuitNoRect = new Rectangle(412, 300, 200, 30);
 
 		#region IGameScene Members
 
@@ -75,6 +86,15 @@ namespace MightyFights_Prototype
 				_cMenuMgr.Draw(_cSpriteBatch);
 
 				_cCursor.Draw(_cSpriteBatch);
+
+				if(_bQuitConfirm) {
+					_cSpriteBatch.Draw(_cBorder, new Rectangle(0, 0, 1024, 576), Color.Black * .6f);
+					_cSpriteBatch.DrawString(_cFont, "Quit to title screen?", new Vector2(430, 210), Color.White);
+					_cSpriteBatch.Draw(_cBorder, _tQuitYesRect, Color.White * .15f);
+					_cSpriteBatch.DrawString(_cFont, "Quit to Title", new Vector2(_tQuitYesRect.X + 30, _tQuitYesRect.Y + 6), Color.OrangeRed);
+					_cSpriteBatch.Draw(_cBorder, _tQuitNoRect, Color.White * .15f);
+					_cSpriteBatch.DrawString(_cFont, "Cancel", new Vector2(_tQuitNoRect.X + 70, _tQuitNoRect.Y + 6), Color.White);
+				}
 			} _cSpriteBatch.End();
 		}
 
@@ -91,6 +111,9 @@ namespace MightyFights_Prototype
 				_cCampGround = cContent.Load<Texture2D>(@"In Game\Camp\ground");
 				_cFont = cContent.Load<SpriteFont>(@"Shared\DebugFont");
 				_cBgm = DataManager.cInstance.CreateMusic(@"\Camp\wodyn#4");
+
+				_cBorder = new Texture2D(cGraphics, 1, 1);
+				_cBorder.SetData<Color>(new[] { Color.White });
 
 				// set the object manager parent
 				_cObjMgr.cParentData = this;
@@ -146,7 +169,7 @@ namespace MightyFights_Prototype
 				//// art dependency.
 				cTmpSpr = new ClickableKaijuHunt(_cMenuMgr);
 				cTmpSpr.cTexRef = cContent.Load<Texture2D>(@"In Game\Camp\spy_guy");
-				cTmpSpr.tPos = new Vector2(90, 460);
+				cTmpSpr.tPos = new Vector2(90, 490);
 				cTmpSpr.sTexName = @"In Game\Camp\spy_guy";
 				cTmpSpr.cFrame = new Frame(cTmpSpr.cTexRef.Bounds,
 					new Vector2(cTmpSpr.cTexRef.Bounds.Width / 2, cTmpSpr.cTexRef.Bounds.Height / 2),

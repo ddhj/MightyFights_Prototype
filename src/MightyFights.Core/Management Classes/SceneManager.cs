@@ -67,6 +67,16 @@ namespace MightyFights_Prototype
 
 		public void RemoveScene(IGameScene nGameScene)
 		{
+			//// ddhj: 2026 -- AddScene unregisters the handlers of the scene it covers, but this
+			//// never unregistered the handlers of the scene being removed. A removed scene's
+			//// input handlers (e.g. a battle's own MouseDown) stayed subscribed forever, and since
+			//// BattlegroundData.Clear() never resets eState back off Victory, a left battle's
+			//// stale handler permanently matches its own "Victory + right-click" withdraw check on
+			//// every future click anywhere, re-triggering RemoveScene/RegisterHandlers on whatever
+			//// is currently on top. Harmless the first time any given scene type was only ever
+			//// entered once, but re-entering the same reentrant scene (Camp <-> Kaiju Hunt) leaks
+			//// one more of these every round trip and snowballs.
+			nGameScene.UnRegisterHandlers();
 			nGameScene.Unload();
 			// this could be remove last or pop scene rather than a search
 			_naSceneList.Remove(nGameScene);
@@ -75,6 +85,26 @@ namespace MightyFights_Prototype
 			_naSceneList[_naSceneList.Count - 1].eState = ESceneStates.Active;
 			_naSceneList[_naSceneList.Count - 1].ToggleControls();
 			_naSceneList[_naSceneList.Count - 1].RegisterHandlers();
+		}
+
+		//// ddhj: 2026 -- "quit to title" from deep in the stack (e.g. Camp, itself several
+		//// pushes below Title -> ModeSelect -> Camp) needs to unwind every scene above the root
+		//// in one shot, with the same per-scene cleanup RemoveScene already does, rather than the
+		//// caller needing a reference to each intermediate scene.
+		public void PopToRoot()
+		{
+			while(_naSceneList.Count > 1) {
+				IGameScene	cTop = _naSceneList[_naSceneList.Count - 1];
+				cTop.UnRegisterHandlers();
+				cTop.Unload();
+				_naSceneList.RemoveAt(_naSceneList.Count - 1);
+			}
+
+			if(_naSceneList.Count > 0) {
+				_naSceneList[0].eState = ESceneStates.Active;
+				_naSceneList[0].ToggleControls();
+				_naSceneList[0].RegisterHandlers();
+			}
 		}
 	}
 }

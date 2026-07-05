@@ -2,6 +2,7 @@
 	"name": "SwordHero",
 	"canvas": [86, 49],
 	"source": "C:/dev/art assets raw/wodyn/sword_hero_pngs",
+	"recenter": "idle",
 	"actions": [
 		{ "main": "Attack", "sub": "Basic",    "name": "low",     "src": "sword_attack", "increment": 110 },
 		{ "main": "Attack", "sub": "Basic",    "name": "stab",    "src": "sword_attack", "increment": 105 },

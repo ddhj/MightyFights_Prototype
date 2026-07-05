@@ -2,6 +2,7 @@
 	"name": "Bandit",
 	"canvas": [100, 70],
 	"source": "C:/dev/art assets raw/wodyn/bandit_pngs",
+	"recenter": "idle",
 	"actions": [
 		{ "main": "Attack", "sub": "Basic",    "name": "low",     "src": "bandit_attack", "increment": 110 },
 		{ "main": "Attack", "sub": "Basic",    "name": "stab",    "src": "bandit_attack", "increment": 105 },

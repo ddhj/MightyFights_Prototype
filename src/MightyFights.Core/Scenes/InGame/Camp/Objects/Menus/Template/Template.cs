@@ -67,16 +67,31 @@ namespace MightyFights_Prototype
 
 		void PopulateConfig()
 		{
-			_cConfig.sColor = _cFrontGuys.sCurColor;
-			_cConfig.cStats = new Stats();
-			_cConfig.cStats.iAtkSpeed = _iaAtkSpeedStats[_cAtkSpeed.iCurFrame];
-			_cConfig.cStats.fCrit = _fCrit[_cAtkSpeed.iCurFrame];
-			_cConfig.cStats.fHp = _cConfig.cStats.iMaxHp = _iaHitPointStats[_cHitPoints.iCurFrame];
-			_cConfig.cStats.iHealPoint = (int)(.4 * _cConfig.cStats.fHp);
-			_cConfig.cStats.iFleePoint = (int)(.05 * _cConfig.cStats.fHp);
-			_cConfig.cStats.iPower = _iaAtkPowerStats[_cAtkPower.iCurFrame];
-			_cConfig.cStats.iMovement = _iaMoveSpeedStats[_cMoveSpeed.iCurFrame];
-			_cConfig.cStats.iArmorClass = _iaAC[_cHitPoints.iCurFrame];
+			//// ddhj: 2026 -- sColor doubles as the unit's real battle-sprite texture path
+			//// (DataManager.CreateTemplate loads from it) and the recolor arrows/tier-table stat
+			//// recompute below both only make sense for a Halberd-family template (14 real recolor
+			//// variants + tier tables built around Halberd's stat range). For any other unit
+			//// (Peasant, Bandit, SwordHero, ...) _cFrontGuys is still hardcoded to Halberd's
+			//// portrait sheet (a known, separate limitation), so writing its color back here would
+			//// silently overwrite that unit's actual texture path with a Halberd one, and the
+			//// tier tables would clobber its tuned CombatTuning.json stats with Halberd-shaped
+			//// numbers. Guard on sTrooperType so only Halberd templates get these two writes;
+			//// slider level / name / ability-unlock persistence still applies to every template.
+			bool	bHalberdFamily = _cConfig.sTrooperType != null && _cConfig.sTrooperType.Contains(@"Halberd");
+
+			if(bHalberdFamily) {
+				_cConfig.sColor = _cFrontGuys.sCurColor;
+				_cConfig.cStats = new Stats();
+				_cConfig.cStats.iAtkSpeed = _iaAtkSpeedStats[_cAtkSpeed.iCurFrame];
+				_cConfig.cStats.fCrit = _fCrit[_cAtkSpeed.iCurFrame];
+				_cConfig.cStats.fHp = _cConfig.cStats.iMaxHp = _iaHitPointStats[_cHitPoints.iCurFrame];
+				_cConfig.cStats.iHealPoint = (int)(.4 * _cConfig.cStats.fHp);
+				_cConfig.cStats.iFleePoint = (int)(.05 * _cConfig.cStats.fHp);
+				_cConfig.cStats.iPower = _iaAtkPowerStats[_cAtkPower.iCurFrame];
+				_cConfig.cStats.iMovement = _iaMoveSpeedStats[_cMoveSpeed.iCurFrame];
+				_cConfig.cStats.iArmorClass = _iaAC[_cHitPoints.iCurFrame];
+			}
+
 			_cConfig.iBottomLevel = _cBottomSlider.iLevel;
 			_cConfig.iTopLevel = _cTopSlider.iLevel;
 			_cConfig.sTemplateName = _cName.sName;
@@ -88,25 +103,30 @@ namespace MightyFights_Prototype
 
 		public void Process(GameTime cTime)
 		{
-			// this is a little wonky because its older code when the template was in the alpha state and I am just straight porting 
+			// this is a little wonky because its older code when the template was in the alpha state and I am just straight porting
 			// rather than rewriting it from scratch
 			MouseState	cState = Mouse.GetState();
 			Point		tPoint = new Point(cState.X, cState.Y);
-			if(cState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed) { 
-				if(_bProcessPress) { 
-					if(_cTopSlider.ContainsPoint(tPoint)) { 
+			//// ddhj: 2026 -- left-drag redistributes the CURRENT bar between its two paired
+			//// stats (Attack Power/Speed, Hit Points/Move Speed) -- free, no point cost, since
+			//// it's not growing the bar, just reallocating what's already there. Growing the bar
+			//// itself (more total budget to split) is the separate, point-gated right-click notch
+			//// bump handled in MouseUp.
+			if(cState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed) {
+				if(_bProcessPress) {
+					if(_cTopSlider.ContainsPoint(tPoint)) {
 						_cTopSlider.bSelected = true;
-					} else if(_cBottomSlider.ContainsPoint(tPoint)) { 
+					} else if(_cBottomSlider.ContainsPoint(tPoint)) {
 						_cBottomSlider.bSelected = true;
-					} else if(_cLargeLeftArrow.ContainsPoint(tPoint)) { 
+					} else if(_cLargeLeftArrow.ContainsPoint(tPoint)) {
 						_cFrontGuys.DecrementColor();
-					} else if(_cLargeRightArrow.ContainsPoint(tPoint)) { 
+					} else if(_cLargeRightArrow.ContainsPoint(tPoint)) {
 						_cFrontGuys.IncrementColor();
 					}
 				}
 
 				_bProcessPress = false;
-			} else { 
+			} else {
 				_cTopSlider.bSelected = _cBottomSlider.bSelected = false;
 				_bProcessPress = true;
 			}
@@ -557,18 +577,30 @@ namespace MightyFights_Prototype
 				return;
 			}
 
-			//// ddhj: 2026 -- shared point-spend gate (docs/DESIGN_DIRECTION.md). A slider bump or
-			//// an ability unlock each cost one point; GetAvailablePoints derives the remaining
-			//// budget from iTopLevel/iBottomLevel/baAbilitiesOn directly, so there's no separate
-			//// counter to keep in sync. cBank is null only for a non-persisted caller (none exist
-			//// today -- every real Template comes from a cLSteward.cTemplates/cCaptains entry),
-			//// in which case editing stays ungated (legacy free-form behavior).
+			//// ddhj: 2026 -- shared point-spend gate (docs/DESIGN_DIRECTION.md). Right-click grows
+			//// the bar a notch (more total budget to split between its two paired stats); left
+			//// click is reserved for the free drag in Process() that redistributes the CURRENT
+			//// bar between them, which doesn't cost a point. GetAvailablePoints derives the
+			//// remaining budget from iTopLevel/iBottomLevel/baAbilitiesOn directly -- those two
+			//// fields only used to get written back to _cConfig on menu close (PopulateConfig),
+			//// so the gate was reading a stale pre-session value for the whole session and let you
+			//// spend the same points over and over; writing them back to _cConfig immediately
+			//// after each click (like baAbilitiesOn already does) keeps the live check honest.
+			//// cBank is null only for a non-persisted caller (none exist today -- every real
+			//// Template comes from a cLSteward.cTemplates/cCaptains entry), in which case editing
+			//// stays ungated (legacy free-form behavior).
 			TemplateCfgMaster	cBank = _cConfig as TemplateCfgMaster;
 			bool				bHavePoints = cBank == null || LevelCurve.GetAvailablePoints(cBank) > 0;
 
 			if(eMouseEvt.Button == MouseButton.Right && bHavePoints) {
-				if(_cTopSlider.ContainsPoint(eMouseEvt.Location)) _cTopSlider.dlProcessClick(null, null);
-				if(_cBottomSlider.ContainsPoint(eMouseEvt.Location)) _cBottomSlider.dlProcessClick(null, null);
+				if(_cTopSlider.ContainsPoint(eMouseEvt.Location)) {
+					_cTopSlider.dlProcessClick(null, null);
+					_cConfig.iTopLevel = _cTopSlider.iLevel;
+				}
+				if(_cBottomSlider.ContainsPoint(eMouseEvt.Location)) {
+					_cBottomSlider.dlProcessClick(null, null);
+					_cConfig.iBottomLevel = _cBottomSlider.iLevel;
+				}
 			}
 
 			for(int iCount = 0; iCount < _caAbilities.Count; ++iCount) {

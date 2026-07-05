@@ -28,6 +28,9 @@ Config shape (see peasant.config.json next to this script):
     "canvas": [100, 64],
     "source": "C:/dev/art assets raw/wodyn/peasant_pngs",   # folder-of-action-folders
     "gifs": { "actionname": "path/to/anim.gif", ... },       # optional gif sources
+    "recenter": "idle",     # optional: shift ALL frames by one constant dx so this
+                            # action's first-frame body center sits on the canvas
+                            # midline -- see the flip-jump note in main()
     "actions": [
       { "main": "Attack", "sub": "Basic", "name": "chop", "src": "pea_1knife", "increment": 100 },
       ...
@@ -65,6 +68,18 @@ def fit_to_canvas(frame, canvas):
         raise SystemExit(f"frame {frame.size} exceeds canvas {canvas}")
     out = Image.new("RGBA", (cw, ch), (0, 0, 0, 0))
     out.paste(frame, ((cw - frame.width) // 2, ch - frame.height))
+    return out
+
+
+def shift_x(frame, dx):
+    """Shift frame content horizontally by dx on the same canvas (see 'recenter')."""
+    if dx == 0:
+        return frame
+    bbox = frame.getbbox()
+    if bbox and (bbox[0] + dx < 0 or bbox[2] + dx > frame.width):
+        raise SystemExit(f"recenter shift dx={dx} pushes content off the canvas")
+    out = Image.new("RGBA", frame.size, (0, 0, 0, 0))
+    out.paste(frame, (dx, 0))
     return out
 
 
@@ -107,6 +122,28 @@ def main():
     gifs = cfg.get("gifs", {})
     os.makedirs(args.out, exist_ok=True)
 
+    # ---- optional horizontal recentering ----
+    # The game's flip math mirrors a frame across its source canvas, and
+    # Trooper.UpdateRefPoints derives tCenter from the same flip offsets, so a unit
+    # whose body sits off-center in the canvas teleports sideways by 2x the offset --
+    # and oscillates bDir -- every time it turns. One constant dx for ALL frames (so
+    # in-animation motion like lunges is preserved), anchored on the named action's
+    # first frame.
+    dx = 0
+    ref_name = cfg.get("recenter")
+    if ref_name:
+        ref_act = next((a for a in cfg["actions"] if a["name"] == ref_name), None)
+        if ref_act is None:
+            raise SystemExit(f"recenter action '{ref_name}' not in actions list")
+        ref_src = ref_act["src"]
+        ref_frames = (load_frames_from_gif(gifs[ref_src]) if ref_src in gifs
+                      else load_frames_from_folder(os.path.join(source, ref_src)))
+        bbox = fit_to_canvas(ref_frames[0], canvas).getbbox()
+        if bbox is None:
+            raise SystemExit(f"recenter action '{ref_name}' first frame is empty")
+        dx = round(canvas[0] / 2 - (bbox[0] + bbox[2]) / 2)
+        print(f"recenter: shifting all frames by dx={dx} (anchor '{ref_name}')")
+
     # ---- gather frames per output action, in taxonomy order ----
     entries = []            # one dict per packed frame
     taxonomy = {}           # MainType -> SubType -> [ {sAction, iIncrement} ]
@@ -131,7 +168,7 @@ def main():
             raise SystemExit(f"action '{out_name}' has {len(frames)} frames; 2-digit numbering caps at 100")
 
         for i, fr in enumerate(frames):
-            fr = fit_to_canvas(fr, canvas)
+            fr = shift_x(fit_to_canvas(fr, canvas), dx)
             cropped, tx, ty, tw, th = trim(fr)
             entries.append({
                 "filename": f"{out_name}{i:02d}.png",
@@ -188,6 +225,18 @@ def main():
         print(f"WARNING: trooper AI requests these by name and they are MISSING: {missing}")
     else:
         print("trooper-compat: all 18 explicitly-requested action names present")
+
+    # flip-jump check: bDir flips mirror the frame across the canvas AND move tCenter
+    # by the same amount (Trooper.UpdateRefPoints), so movement frames with an
+    # off-center body make the unit teleport sideways and flip-flop bDir every frame
+    # it walks near a destination (this is exactly what broke the first Bandit stitch).
+    move_jump = max((abs(canvas[0] - 2 * (e["sss"][0] + e["sss"][2] / 2))
+                     for e in entries if e["filename"][:-6] in ("walk", "run", "flee")),
+                    default=0)
+    print(f"flip-jump on movement frames: {move_jump:.0f}px (sprite/tCenter shift when bDir flips)")
+    if move_jump > 12:
+        print("WARNING: body is off-center in the canvas -> turning will teleport/oscillate;"
+              " add \"recenter\" to the config")
 
 
 if __name__ == "__main__":
