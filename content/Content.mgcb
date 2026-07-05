@@ -1675,3 +1675,8 @@
 /importer:TextureImporter
 /processor:TextureProcessor
 /build:Sprite Data/Troopers/Griggan/Griggan.png
+
+#begin Sprite Data/Troopers/Drau/Drau.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Drau/Drau.png

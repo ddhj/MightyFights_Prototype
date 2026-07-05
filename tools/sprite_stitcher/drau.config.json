@@ -1,0 +1,145 @@
+{
+ "name": "Drau",
+ "canvas": [
+  64,
+  64
+ ],
+ "source": "C:/dev/art assets raw/wodyn/drau_pngs",
+ "flipX": true,
+ "recenter": "idle",
+ "actions": [
+  {
+   "main": "Attack",
+   "sub": "Basic",
+   "name": "low",
+   "src": "drau_attack",
+   "increment": 110
+  },
+  {
+   "main": "Attack",
+   "sub": "Basic",
+   "name": "stab",
+   "src": "drau_attack",
+   "increment": 105
+  },
+  {
+   "main": "Attack",
+   "sub": "Basic",
+   "name": "stick",
+   "src": "drau_attack",
+   "increment": 100
+  },
+  {
+   "main": "Attack",
+   "sub": "Basic",
+   "name": "chop",
+   "src": "drau_attack",
+   "increment": 100
+  },
+  {
+   "main": "Attack",
+   "sub": "Basic",
+   "name": "chopb",
+   "src": "drau_attack",
+   "increment": 100
+  },
+  {
+   "main": "Attack",
+   "sub": "Basic",
+   "name": "punch",
+   "src": "drau_attack",
+   "increment": 100
+  },
+  {
+   "main": "Attack",
+   "sub": "Critical",
+   "name": "bigchop",
+   "src": "drau_attack",
+   "increment": 90
+  },
+  {
+   "main": "Attack",
+   "sub": "Critical",
+   "name": "lunge",
+   "src": "drau_attack",
+   "increment": 90
+  },
+  {
+   "main": "Defend",
+   "sub": "Parry",
+   "name": "parry",
+   "src": "drau_idle",
+   "increment": 105
+  },
+  {
+   "main": "Idle",
+   "sub": "Normal",
+   "name": "idle",
+   "src": "drau_idle",
+   "increment": 130
+  },
+  {
+   "main": "Idle",
+   "sub": "Battle",
+   "name": "stance",
+   "src": "drau_idle",
+   "increment": 130
+  },
+  {
+   "main": "Idle",
+   "sub": "Battle",
+   "name": "ready",
+   "src": "drau_idle",
+   "increment": 130
+  },
+  {
+   "main": "Idle",
+   "sub": "Pant",
+   "name": "pant",
+   "src": "drau_idle",
+   "increment": 300
+  },
+  {
+   "main": "Idle",
+   "sub": "Victory",
+   "name": "victory",
+   "src": "drau_idle",
+   "increment": 95
+  },
+  {
+   "main": "Death",
+   "sub": "Normal",
+   "name": "death",
+   "src": "drau_death",
+   "increment": 95
+  },
+  {
+   "main": "Death",
+   "sub": "Normal",
+   "name": "deathb",
+   "src": "drau_death",
+   "increment": 95
+  },
+  {
+   "main": "Move",
+   "sub": "Walk",
+   "name": "walk",
+   "src": "drau_walk",
+   "increment": 130
+  },
+  {
+   "main": "Move",
+   "sub": "Run",
+   "name": "run",
+   "src": "drau_walk",
+   "increment": 100
+  },
+  {
+   "main": "Move",
+   "sub": "Flee",
+   "name": "flee",
+   "src": "drau_walk",
+   "increment": 100
+  }
+ ]
+}

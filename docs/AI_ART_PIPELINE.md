@@ -134,6 +134,18 @@ drau.xcf (6 ape-brute variants), wild_dog.xcf (4 dogs), more Griggan variants in
 horned commanders; dragon.xcf is single-pose kaiju-scale and needs the
 `/animate-with-skeleton` endpoint (up to 256px) instead of animate-with-text (64 only).
 
+## Third unit: Drau brute (drau.xcf) — DONE 2026-07-05, end of trial session
+
+Wheel entry "Drau" (cost 4): glass-cannon brute (HP 140, power 8, armor 0, never heals/flees).
+Trial quota is 40 generations; **23 used**, 17 left for next session. New data point: the
+**empty-frames failure is action-phrase-correlated, not just reference-size** — "idle,
+standing hunched, breathing heavily" and both attack phrasings returned 4 fully-transparent
+frames (billed) with the same reference that produced a good walk. Drau's idle = walk frame 0
+(which is always the reference pose — useful trick), attack = the two lunging walk frames
+bracketed by idle (both API attack takes failed). Queued for next session with remaining
+quota: wild_dog quadruped test, Griggan commander (1.5x variant), dragon kaiju via
+/animate-with-skeleton at 128-256px, or re-rolls of the weak actions above.
+
 ## TexturePacker note (owner has the new version installed)
 
 Not needed for this pipeline: `stitch.py` already replaces both TexturePacker's packing *and*

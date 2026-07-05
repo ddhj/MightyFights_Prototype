@@ -147,6 +147,15 @@ namespace MightyFights_Prototype
 			cGrigganCfg.sTemplateName = "Griggan";
 			_caSpawnTypes.Add(new SpawnType { sLabel = "Griggan", cCfg = cGrigganCfg, iCost = 3, iCap = -1 });
 
+			//// ddhj: third AI-generated unit -- the orange ape-brute from drau.xcf. The API
+			//// returned empty frames for both attack takes (see AI_ART_PIPELINE.md), so its
+			//// attack animation is assembled from the two lunging walk frames instead. Brute
+			//// flavor: hits hard, no armor, never heals or flees. Placeholder numbers.
+			TemplateCfgMaster cDrauCfg = new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Drau\DrauArray", @"Sprite Data\Troopers\Drau\Drau"));
+			cDrauCfg.cStats = new Stats { iAtkSpeed = 10, iMovement = 4, fHp = 140, iMaxHp = 140, iPower = 8, fCrit = .10f, iHealPoint = 0, iFleePoint = 0, iArmorClass = 0 };
+			cDrauCfg.sTemplateName = "Drau";
+			_caSpawnTypes.Add(new SpawnType { sLabel = "Drau", cCfg = cDrauCfg, iCost = 4, iCap = -1 });
+
 			// where each spawn type's survivors bank their experience after the hunt
 			_cBankTargets.Clear();
 			_cBankTargets[cData.cLSteward.cTemplates[0].sTemplateName] = cData.cLSteward.cTemplates[0];
