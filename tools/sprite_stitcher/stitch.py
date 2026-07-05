@@ -31,6 +31,9 @@ Config shape (see peasant.config.json next to this script):
     "recenter": "idle",     # optional: shift ALL frames by one constant dx so this
                             # action's first-frame body center sits on the canvas
                             # midline -- see the flip-jump note in main()
+    "flipX": true,          # optional: mirror every frame horizontally. The game's
+                            # convention is art faces LEFT (bDir flips it right);
+                            # set this when a source (e.g. AI-generated) faces right
     "actions": [
       { "main": "Attack", "sub": "Basic", "name": "chop", "src": "pea_1knife", "increment": 100 },
       ...
@@ -129,6 +132,8 @@ def main():
     # and oscillates bDir -- every time it turns. One constant dx for ALL frames (so
     # in-animation motion like lunges is preserved), anchored on the named action's
     # first frame.
+    flip_x = bool(cfg.get("flipX", False))
+
     dx = 0
     ref_name = cfg.get("recenter")
     if ref_name:
@@ -138,7 +143,10 @@ def main():
         ref_src = ref_act["src"]
         ref_frames = (load_frames_from_gif(gifs[ref_src]) if ref_src in gifs
                       else load_frames_from_folder(os.path.join(source, ref_src)))
-        bbox = fit_to_canvas(ref_frames[0], canvas).getbbox()
+        ref_fit = fit_to_canvas(ref_frames[0], canvas)
+        if flip_x:
+            ref_fit = ref_fit.transpose(Image.FLIP_LEFT_RIGHT)
+        bbox = ref_fit.getbbox()
         if bbox is None:
             raise SystemExit(f"recenter action '{ref_name}' first frame is empty")
         dx = round(canvas[0] / 2 - (bbox[0] + bbox[2]) / 2)
@@ -168,7 +176,10 @@ def main():
             raise SystemExit(f"action '{out_name}' has {len(frames)} frames; 2-digit numbering caps at 100")
 
         for i, fr in enumerate(frames):
-            fr = shift_x(fit_to_canvas(fr, canvas), dx)
+            fr = fit_to_canvas(fr, canvas)
+            if flip_x:
+                fr = fr.transpose(Image.FLIP_LEFT_RIGHT)
+            fr = shift_x(fr, dx)
             cropped, tx, ty, tw, th = trim(fr)
             entries.append({
                 "filename": f"{out_name}{i:02d}.png",

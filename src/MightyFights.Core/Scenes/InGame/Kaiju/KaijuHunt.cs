@@ -125,6 +125,28 @@ namespace MightyFights_Prototype
 			cSwordHeroCfg.sTemplateName = "SwordHero";
 			_caSpawnTypes.Add(new SpawnType { sLabel = "Sword Hero", cCfg = cSwordHeroCfg, iCost = 3, iCap = -1 });
 
+			//// ddhj: 2026 -- first AI-generated unit: PixelLab animate-with-text, referenced on the
+			//// blue-sword skeleton already painted in the recovered skeleton.xcf concept sheet (see
+			//// docs/AI_ART_PIPELINE.md for the exact settings + what needed hand-assembly). Same
+			//// sparse-aliasing config approach as Bandit/SwordHero (4 real animations aliased onto
+			//// all 18 requested names). Undead flavor: never seeks the healer, never flees. Stats
+			//// are first-pass placeholders, not yet balanced.
+			TemplateCfgMaster cSkeletonCfg = new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Skeleton\SkeletonArray", @"Sprite Data\Troopers\Skeleton\Skeleton"));
+			cSkeletonCfg.cStats = new Stats { iAtkSpeed = 0, iMovement = 5, fHp = 70, iMaxHp = 70, iPower = 4, fCrit = .05f, iHealPoint = 0, iFleePoint = 0, iArmorClass = 2 };
+			cSkeletonCfg.sTemplateName = "Skeleton";
+			_caSpawnTypes.Add(new SpawnType { sLabel = "Skeleton", cCfg = cSkeletonCfg, iCost = 2, iCap = -1 });
+
+			//// ddhj: second AI-generated unit -- a rank-and-file soldier cut from the
+			//// Griggan_units.xcf enemy-army concept sheet (the "Griggan" faction that never
+			//// shipped) and animated the same way as Skeleton. The model kept hallucinating a
+			//// white banner off the pike tip; frames are post-processed (streamer strip +
+			//// highlight darkening), see docs/AI_ART_PIPELINE.md. Heavy-armor flavor, placeholder
+			//// numbers.
+			TemplateCfgMaster cGrigganCfg = new TemplateCfgMaster(new TemplateConfig(@"Sprite Data\Troopers\Griggan\GrigganArray", @"Sprite Data\Troopers\Griggan\Griggan"));
+			cGrigganCfg.cStats = new Stats { iAtkSpeed = 0, iMovement = 4, fHp = 110, iMaxHp = 110, iPower = 5, fCrit = .05f, iHealPoint = 30, iFleePoint = 5, iArmorClass = 4 };
+			cGrigganCfg.sTemplateName = "Griggan";
+			_caSpawnTypes.Add(new SpawnType { sLabel = "Griggan", cCfg = cGrigganCfg, iCost = 3, iCap = -1 });
+
 			// where each spawn type's survivors bank their experience after the hunt
 			_cBankTargets.Clear();
 			_cBankTargets[cData.cLSteward.cTemplates[0].sTemplateName] = cData.cLSteward.cTemplates[0];

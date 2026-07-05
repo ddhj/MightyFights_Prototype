@@ -1665,3 +1665,13 @@
 /importer:TextureImporter
 /processor:TextureProcessor
 /build:Sprite Data/Troopers/SwordHero/SwordHero.png
+
+#begin Sprite Data/Troopers/Skeleton/Skeleton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Skeleton/Skeleton.png
+
+#begin Sprite Data/Troopers/Griggan/Griggan.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Sprite Data/Troopers/Griggan/Griggan.png

@@ -71,13 +71,68 @@ when someone — human or model — delivers per-frame PNGs meeting this contrac
    least for a huge single-instance boss with 4–6 actions at `fKaijuScale`. Still the
    recommended source for the kaiju per DESIGN_DIRECTION; not recommended for 100px humanoids.
 
-## Recommended first experiment
+## First experiment: Skeleton via PixelLab — DONE 2026-07-05, findings
 
-Skeleton minion via PixelLab: export `skeleton.xcf` composition as the reference, generate
-idle + walk + one attack + death (4 animations ≈ bandit-level sparseness), drop frames into
-`C:/dev/art assets raw/wodyn/skeleton_pngs/<action>/`, copy `bandit.config.json` →
-`skeleton.config.json` (keep `"recenter": "idle"`), stitch, wire a roster entry. Total new
-tooling required: none. Needs an API key / small budget decision from the owner.
+The skeleton minion was generated end-to-end on a free-trial key (11 generations total,
+including 3 burned on learning the quirks below) and is stitched at
+`content/Sprite Data/Troopers/Skeleton/` (sources kept at
+`C:/dev/art assets raw/wodyn/skeleton_pngs/`, config `tools/sprite_stitcher/skeleton.config.json`).
+A bonus find made this cheap: **`skeleton.xcf` already contains three finished game-scale
+skeleton sprites** (bone / silver-armored / blue-sword variants, plus the artist's palette
+swatches), so no base-character generation was needed — the blue-sword one, background-keyed
+and 2x-upscaled to fill a 64x64 canvas, went straight in as `reference_image`.
+
+Hard-won settings for `POST /v1/animate-with-text` (64x64 only, ~4 frames/call, 1 "generation"
+billed per call, Bearer auth):
+- **The reference must substantially fill the canvas.** A native-scale 21x26 character in a
+  64x64 frame returned four 100%-empty frames — billed, no error. 2x nearest-neighbor upscale
+  fixed it completely.
+- **`image_guidance_scale` 10 (default 1.4) is the identity knob.** At default, the skeleton
+  came back as a hooded human with a yellow sword; at 10 the skull/ribcage/blue-sword identity
+  held across every subsequent call. Trade-off: at 10 the pose is also pinned — "collapse to
+  the ground" death animations came back standing, even at guidance 4 with explicit prompts.
+- Negative prompt earning its keep: `"human, skin, flesh, clothes, hood, robe, hair, sword
+  trail, motion blur, glowing arc, energy wave"` (the model loves giant anime slash arcs;
+  two idle frames still caught them and were dropped).
+- What worked per action: walk (4 frames, clean cycle), stab attack (`"quick short sword stab
+  forward, blade stays small"`), idle (2 of 4 frames usable). **Death had to be hand-built**:
+  stagger frame from a rejected take + the idle body split from its ground shadow, rotated
+  -45deg/-90deg onto the baseline — the retro tip-over corpse. Budget for this kind of
+  assembly pass; pure-API animation coverage was ~3 of 4 actions.
+- PixelLab centered the character well: the stitched unit needed dx=0 recentering and shows a
+  1px movement flip-jump.
+
+Wired into the Kaiju Hunt spawn wheel (cost 2, no cap) alongside Bandit/SwordHero in
+`KaijuHunt.SetupBattle`, with undead-flavored placeholder stats (never heals, never flees,
+armor 2) inline like the other stitcher units — promote to a CombatTuning slot if it sticks.
+
+Post-playtest fixes (owner feedback, same day): PixelLab output faces EAST even with
+`direction: "west"` — the stitcher gained a `"flipX"` config option (game art faces left);
+assume every animate-with-text unit needs it. The hand-built death frames originally rotated
+part of the ground shadow with the body — fixed with a per-pixel split (dark ground-shadow
+pixels stay at the baseline, bright bone pixels rotate). Size note: 64x64 output reads big
+in-game (owner: kaiju-sized); if smaller tiers are wanted, add a downscale step at stitch
+time or drive per-template scale in-engine.
+
+## Second unit: Griggan knight (from Griggan_units.xcf) — DONE 2026-07-05
+
+Confirms the pipeline generalizes to the concept sheets. `Griggan_units.xcf` (400x300) is not
+just a moodboard — its top rows are individually croppable ~20x49 dark-armored soldiers with
+clean spacing; connected-component isolation on the background-keyed sheet cuts any of them
+out (neighboring weapons stay separate components). One horned red-eyed pike soldier was
+scaled to fill 64x64 (1.22x non-integer nearest — the model doesn't care) and animated with
+the skeleton recipe. New failure mode: **the model hallucinated a giant white banner/pennant
+off the pale pike tip in nearly every frame**, surviving explicit anti-flag negatives and a
+re-roll (a "flag on a pike" prior, triggered by bright weapon-tip pixels). What shipped:
+post-processed frames — flood-fill deletion of big near-white components (>55px) for
+attack/idle, brightness-darkening to "dark iron" for walk (its blade was at least consistent),
+idle built as clean-frame + 1px bob, death tip-over rotation (this art has no ground shadow,
+so no shadow split needed). Practical rule learned: **give the model references with dark,
+low-contrast weapons, or expect a cleanup pass on every bright prop.** 5 generations spent
+(18 total on the trial key so far, no quota wall yet). Also croppable for future units:
+drau.xcf (6 ape-brute variants), wild_dog.xcf (4 dogs), more Griggan variants including 1.5x
+horned commanders; dragon.xcf is single-pose kaiju-scale and needs the
+`/animate-with-skeleton` endpoint (up to 256px) instead of animate-with-text (64 only).
 
 ## TexturePacker note (owner has the new version installed)
 

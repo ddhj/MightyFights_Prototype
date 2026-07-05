@@ -1,0 +1,145 @@
+{
+ "name": "Skeleton",
+ "canvas": [
+  64,
+  64
+ ],
+ "source": "C:/dev/art assets raw/wodyn/skeleton_pngs",
+ "flipX": true,
+ "recenter": "idle",
+ "actions": [
+  {
+   "main": "Attack",
+   "sub": "Basic",
+   "name": "low",
+   "src": "skel_attack",
+   "increment": 110
+  },
+  {
+   "main": "Attack",
+   "sub": "Basic",
+   "name": "stab",
+   "src": "skel_attack",
+   "increment": 105
+  },
+  {
+   "main": "Attack",
+   "sub": "Basic",
+   "name": "stick",
+   "src": "skel_attack",
+   "increment": 100
+  },
+  {
+   "main": "Attack",
+   "sub": "Basic",
+   "name": "chop",
+   "src": "skel_attack",
+   "increment": 100
+  },
+  {
+   "main": "Attack",
+   "sub": "Basic",
+   "name": "chopb",
+   "src": "skel_attack",
+   "increment": 100
+  },
+  {
+   "main": "Attack",
+   "sub": "Basic",
+   "name": "punch",
+   "src": "skel_attack",
+   "increment": 100
+  },
+  {
+   "main": "Attack",
+   "sub": "Critical",
+   "name": "bigchop",
+   "src": "skel_attack",
+   "increment": 90
+  },
+  {
+   "main": "Attack",
+   "sub": "Critical",
+   "name": "lunge",
+   "src": "skel_attack",
+   "increment": 90
+  },
+  {
+   "main": "Defend",
+   "sub": "Parry",
+   "name": "parry",
+   "src": "skel_idle",
+   "increment": 105
+  },
+  {
+   "main": "Idle",
+   "sub": "Normal",
+   "name": "idle",
+   "src": "skel_idle",
+   "increment": 130
+  },
+  {
+   "main": "Idle",
+   "sub": "Battle",
+   "name": "stance",
+   "src": "skel_idle",
+   "increment": 130
+  },
+  {
+   "main": "Idle",
+   "sub": "Battle",
+   "name": "ready",
+   "src": "skel_idle",
+   "increment": 130
+  },
+  {
+   "main": "Idle",
+   "sub": "Pant",
+   "name": "pant",
+   "src": "skel_idle",
+   "increment": 300
+  },
+  {
+   "main": "Idle",
+   "sub": "Victory",
+   "name": "victory",
+   "src": "skel_idle",
+   "increment": 95
+  },
+  {
+   "main": "Death",
+   "sub": "Normal",
+   "name": "death",
+   "src": "skel_death",
+   "increment": 95
+  },
+  {
+   "main": "Death",
+   "sub": "Normal",
+   "name": "deathb",
+   "src": "skel_death",
+   "increment": 95
+  },
+  {
+   "main": "Move",
+   "sub": "Walk",
+   "name": "walk",
+   "src": "skel_walk",
+   "increment": 130
+  },
+  {
+   "main": "Move",
+   "sub": "Run",
+   "name": "run",
+   "src": "skel_walk",
+   "increment": 100
+  },
+  {
+   "main": "Move",
+   "sub": "Flee",
+   "name": "flee",
+   "src": "skel_walk",
+   "increment": 100
+  }
+ ]
+}
