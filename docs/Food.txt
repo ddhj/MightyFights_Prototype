@@ -1,0 +1,45 @@
+      We’ll use percentage numbers (%) for all sources of food.  The following 6 vocations provide food automatically every week (turn) regardless of how large your population is:
+      
+      Hog Farming	300%	60% Chance of Predation
+      Beef Cattle	200%	40% Chance of Predation
+      Goats & Sheep	150%	30% Chance of Predation
+      Poultry	 75%	15% Chance of Predation
+      Fishing	 50%	 No Chance of Predation
+      Fruit Orchards	 25%	 No Chance of Predation
+      
+      …which means that every week, Hog Farming will provide 300% of your population’s needed food, and there is a 60% chance a Hungry Giant or a pack of Trolls will attack.  You may choose not to defend your livestock (because your army is too weak, or needed elsewhere) and allow the giant to wander in and have a snack.  This will greatly affect Food production (might even eliminate it completely) and it’ll stay that way until you pay money to replenish your predated stock.  However, should you choose to fight this incursion you will greatly diminish the rate of predation, even if you incur heavy losses.
+      Think of it like this: you see a trio of trolls approaching your pig pens.  If you retreat to the safety of your cottages the trolls are going to ravage your animals and reduce their 300% food production down to at least 200% - which may be fine for now.  But what if they invade again next week and the loss is even greater?  If you keep allowing the predation, pretty soon your poor hogs are only producing 25% of your needed food a week, which means you’ll need to forage, hunt, or buy food.  
+      
+      If you cannot earn 100% food per turn, members of your village will leave (depending on the percentage).  If your population (or your food) reaches “ZERO” when your turn’s over, the game ends.
+      
+      Anyway, its much better to fight off the Trolls if you can. If we imagine this battle happening near the pigs it’s reasonable that the Trolls might get their hands on a few of them, regardless if they win or lose.  We’ll have to crunch the numbers; how long the fight lasts, how many trolls die, etc.  But generally, if you put up a fight you’ll protect your Food Production, even if your forces get completely wiped out.  In any case, you’ll need to reinvest (pay money) to bring your Hog production back up to 300%
+      
+      It’s worth noting that Goats & Sheep are statistically a very safe option.  They will provide more than enough food every turn and are unlikely to be attacked most of the time.  
+      
+      —————————————————
+      
+      At the start of the first week (turn) you can already see where your food production is at.  If your vocations provide 100% or more, you do not need to forage/hunt/buy any more food before pressing the “NEXT WEEK” (the turn-ending button) on your village screen.  This will further be indicated by little window that says something like:
+      
+      [Food needs met, 200% available to sell]
+      
+      The amount of food can grow over the course of the week (turn) if you assign certain duties to villagers.  Before you go to the NEXT WEEK, you have the option of selling surplus food to Market.  Pretty soon you’ll have additional things to sell (more on that soon) but regardless, selling at Market is the primary way you’ll earn coin, which is needed to upgrade the town, build scout towers, hire soldiers and outfit them with weapons.  Any food you do not sell will be stored for future weeks, though at risk of spoiling.
+      
+      START NEXT WEEK
+      
+      The moment you press this button - and after selecting “yes” when we ask “are you sure?” - You will be notified of any Hostile intrusions.
+      
+      Additionally, all other commodities/goods/materials you have produced for Market over the course of the last week will be listed at the start of the next.  You’ll see stuff like this:
+      
+     LAST WEEK’S YIELD
+      [Barley Feed	22lbs	Sell/Keep]
+      [Wool Spools	5	Sell/Keep]
+      [Herbs	2busc	Sell/Keep]
+      
+      [10gal Hog Roughage Sold for 5 char pennies]
+      you’ll always sell roughage to Hog Farmers
+      
+      You should almost always Sell.  The benefit of Keeping materials is that the Market price fluctuates (We’ll add a random green UP arrow or a red DOWN arrow) so if you can afford to hold out and wait for a better price, its usually pays to do so.  Also, every now and again a bartering opportunity may occur.
+      
+      FORAGING FOR FOOD
+      
+      You can assign any of your villagers to forage and they will attempt to do so over the course of the week.  This is a one time attempt that immediately resolves.  The success of a Forage attempt depends on the type of land the village is on, plus any skills the villager has gained.

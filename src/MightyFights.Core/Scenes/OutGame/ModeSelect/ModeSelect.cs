@@ -24,7 +24,7 @@ namespace MightyFights_Prototype
 		SpriteFont		_cFont;
 		Cursor			_cCursor;
 
-		string[]		_saEntries = new string[] { "Skirmish", "Kaiju Hunt", "Back to Title" };
+		string[]		_saEntries = new string[] { "Skirmish", "Kaiju Hunt", "War Battle", "Village", "Back to Title" };
 		Rectangle[]		_caEntryRects;
 		int				_iHovered = -1;
 
@@ -143,7 +143,19 @@ namespace MightyFights_Prototype
 							DataStore.cInstance.cSceneMgr.AddScene(nScene);
 					} break;
 
-					case 2:		// back to title
+					case 2: {	// War Battle -- large-scale army battle (docs/WAR_BATTLE_DESIGN.md)
+						IGameScene	nScene = new WarBattle();
+						if(nScene.Init())
+							DataStore.cInstance.cSceneMgr.AddScene(nScene);
+					} break;
+
+					case 3: {	// Village -- settlement/economy layer (docs/my_vision.txt + docs/food.txt)
+						IGameScene	nScene = new Village();
+						if(nScene.Init())
+							DataStore.cInstance.cSceneMgr.AddScene(nScene);
+					} break;
+
+					case 4:		// back to title
 						DataStore.cInstance.cSceneMgr.RemoveScene(this);
 					break;
 				}

@@ -1,0 +1,82 @@
+   Start New Game
+   Load Saved Game
+   Settings
+      
+    Start New Game brings you to the following prompts:
+      
+     Village Name (whatever you want, randomize)
+      
+     Coat of Arms (select shield pattern, 2 color boxes, randomize)
+      
+      Then:
+      
+     (  village name  ) is known for the following (pick 2):
+      
+     Market Hogs
+      Copious pork at little cost (3x Food).  Pigs will eat almost anything but you may need to purchase feed sometimes.
+      Sell surplus cuts at Market.
+      Increased Large Beast encounters
+      
+     Goats & Sheep
+      Steady amounts of cheese and meat (1.5x Food) - and you needn’t worry about feed.
+      Excess wool can be sold at Market
+      Occasional brush clearing for hire
+      Increased Large Beast encounters
+      
+     Poultry
+      A moderate source of food (0.75x Food) and a constant supply of feathers
+      Sell feathers at Market
+      Archers (& arrows) are cheaper
+      Increased Small Beast encounters
+      
+     Fruit Orchards
+      Provides a little food (0.25x Food)
+      Cider and Jam can be sold at market
+      Roughage can be sold for hog feed
+      
+     Herb Gardening
+      Medicinal packs are free
+      Herbs are sold consistently at Market
+      Mages are cheaper
+      
+     Cattle Pastures (requires pastureland)
+      Plenty of Beef (2x Food)
+      Sell Butter, Cheese, Surplus Beef & Oxen at Market
+      Yeomen are cheaper
+      
+     Horse Breeding (requires pastureland)
+      Sell Breeding services
+      Sell Steeds, Sumpters, will need to purchase feed
+      Knights are cheaper
+      
+     Barley Fields (requires open fields)
+      Make & sell Ale
+      Sell Livestock Feed
+      
+     Grape Vineyards (requires open fields)
+      Make & sell Wine
+      Sell Hog Feed
+      
+     Forestry (requires woods)
+      Sell Lumber
+      Axe-fighting bonus
+      Build outposts cheaper
+      Increased monster encounters
+      
+     Stone Masonry (requires mountains)
+      Can Build Castles and Walls
+      can find gemstones!
+      May bother underworld
+      
+     Fishing (requires water access)
+      Pull meals from the water (0.5x Food), sell oil
+      Boating is cheaper
+      Increased Water monster encounters
+      
+      I imagine each of the professions providing random income every so often, and providing some bonuses as the game progresses.  Don’t care too much about balancing these out, just want to make them entertaining.  These are mostly pre & post-battle bonuses, narrative flairs.  Anyway, clicking on a region of the Map will bring up a list of available vocations (2 of which you can pick).
+      
+      THE MAP will be a new piece of art I make, depicting an area nowhere near as big as Middle Earth, with rivers and mountains and forests and a coast.  We’ll have pre-determined regions to choose from, each with its own name.  You select one to live in. (This map will come into play later & is the only map we need to worry about).
+      
+   CUT TO…
+      
+      Your Village!

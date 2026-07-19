@@ -1680,3 +1680,23 @@
 /importer:TextureImporter
 /processor:TextureProcessor
 /build:Sprite Data/Troopers/Drau/Drau.png
+
+#begin In Game/Village/region_map.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Village/region_map.png
+
+#begin In Game/Village/vocations_bg.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Village/vocations_bg.png
+
+#begin In Game/Village/village_bg.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Village/village_bg.png
+
+#begin In Game/Village/skyline.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:In Game/Village/skyline.png
