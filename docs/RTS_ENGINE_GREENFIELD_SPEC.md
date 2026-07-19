@@ -86,6 +86,18 @@ click-to-order.
 Single click, drag-box select, right-click move/attack/gather, **control groups (0–9)**, shift-queued
 orders, attack-move. (v1 can ship single+box+right-click and defer groups/queue.)
 
+### 3.7 Particles & FX (harvest the in-repo shim)
+**Correction to §1/§8:** "leave Mercury" means leave the *dead upstream binary* — **harvest
+`src/MightyFights.Particles/`**, the project's own full C# reimplementation of the Mercury sim
+(Emitters / Modifiers / Renderers / Serialization). It's self-contained, MonoGame-only, and
+engine-agnostic enough to copy into the new repo near-verbatim. **The pipeline we leverage:**
+effect definitions are **XML** (`content/Particles/*.xml`, ~15 exist), **parsed at runtime** (not
+MGCB-built) into effects you `Trigger(worldPos)` — so designers/AI can author/tune effects as data
+without recompiling. Wire a `ParticleManager` into the sim (spawn on events) and draw it in the
+world pass, culled to view. Uses: unit-hit sparks, death puffs, explosions, wizard spells, muzzle/
+impact, building rubble, buff sparkles. Keep the XML schema; port `stitch.py`-style authoring notes
+if new effects are needed.
+
 ## 4. RTS game mechanics (the feature set)
 
 - **Resources**: 1–2 resource types; **worker gather loop** (harvest → return-to-depot → deposit) via

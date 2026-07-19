@@ -88,6 +88,18 @@ faction pressure.
 Camera follows ship (with look-ahead toward aim). HUD: hull/shield bars, credits/XP, current weapon,
 score, and a **radar/minimap** ring showing nearby enemies + objectives.
 
+### 3.11 Particles & FX (core juice — harvest the in-repo shim)
+A twin-stick shooter *is* particles, so this is P1-adjacent, not polish. **Harvest
+`src/MightyFights.Particles/`** — the project's own C# Mercury reimplementation (Emitters/Modifiers/
+Renderers/Serialization), self-contained and copyable into the new repo. **Pipeline to leverage:**
+effects are **XML** (`content/Particles/*.xml`), **parsed at runtime** and `Trigger(pos)`-ed — so
+weapons, thrusters, and explosions are data-authored and tunable without recompiling. FX map:
+**engine thrust trails** (emitter parented to the ship, rate ∝ throttle), **muzzle flash** per shot,
+**bullet impact** sparks, **shield-hit ripple**, **ship explosions** (scaled by hull size — big for
+Kaiju-model capital ships), **pickup shimmer**, **jump/warp** between sectors. Pool aggressively
+(thousands of particles alongside thousands of bullets); draw in the world pass, culled. Overrides
+the greenfield "leave Mercury" note the same way: leave the dead binary, keep the shim.
+
 ## 4. Phase plan (grow organically from P1)
 
 | Phase | Deliverable | Gate |
