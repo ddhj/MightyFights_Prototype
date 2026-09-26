@@ -41,4 +41,35 @@
     <None Include="..\..\content\**\*.xml" Link="Content\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <!-- THE UNIT BRIDGE (the artist's GIMP round trip, tools/gimp_bridge) is built by every publish, as its
+       own folder and zip BESIDE the game's publish folder (publish/UnitBridge and publish/UnitBridge.zip
+       with the win-x64 profile), so it can be sent to the artist on its own. build_bridge.py freezes
+       UnitBridge.exe and proves it round-trips before it succeeds.
+
+       It needs Python with Pillow, numpy and PyInstaller on the PUBLISHING machine only; the artist needs
+       GIMP and nothing else. It FAILS rather than skipping when they are missing, so a publish never
+       quietly leaves the tool out. Opt out with the property BuildUnitBridge=false; UnitBridgePython
+       picks the interpreter. -->
+  <PropertyGroup>
+    <BuildUnitBridge Condition="'$(BuildUnitBridge)' == ''">true</BuildUnitBridge>
+    <UnitBridgePython Condition="'$(UnitBridgePython)' == ''">python</UnitBridgePython>
+  </PropertyGroup>
+
+  <Target Name="PublishUnitBridge" AfterTargets="Publish" Condition="'$(BuildUnitBridge)' == 'true'">
+    <PropertyGroup>
+      <_BridgeScript>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\..\tools\gimp_bridge\build_bridge.py'))</_BridgeScript>
+      <_BridgePublishDir>$([System.IO.Path]::GetFullPath($([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(PublishDir)'))))</_BridgePublishDir>
+      <_BridgeOut>$([System.IO.Path]::GetFullPath('$(_BridgePublishDir)..\UnitBridge'))</_BridgeOut>
+      <_BridgeStamp>$([System.DateTime]::Now.ToString('yyyy-MM-dd HH:mm'))</_BridgeStamp>
+    </PropertyGroup>
+    <Message Importance="high" Text="Unit Bridge: building and proving into $(_BridgeOut) (a minute or two; BuildUnitBridge=false skips)" />
+    <Exec Command="&quot;$(UnitBridgePython)&quot; -c &quot;import PyInstaller, PIL, numpy&quot;" ContinueOnError="true" StandardOutputImportance="low">
+      <Output TaskParameter="ExitCode" PropertyName="_BridgeDeps" />
+    </Exec>
+    <Error Condition="'$(_BridgeDeps)' != '0'" Text="The Unit Bridge needs Python with Pillow, numpy and PyInstaller on this machine: python -m pip install --user pillow numpy pyinstaller. Or publish with -p:BuildUnitBridge=false to leave it out." />
+    <Exec Command="&quot;$(UnitBridgePython)&quot; &quot;$(_BridgeScript)&quot; --out &quot;$(_BridgeOut)&quot; --stamp &quot;$(_BridgeStamp)&quot;" />
+    <ZipDirectory SourceDirectory="$(_BridgeOut)" DestinationFile="$(_BridgeOut).zip" Overwrite="true" />
+    <Message Importance="high" Text="Unit Bridge: $(_BridgeOut).zip is ready to send to the artist" />
+  </Target>
+
 </Project>

@@ -1,0 +1,22 @@
+{
+	"name": "NinjaAdventureCharacter",
+	"grid": {
+		"sheet": "C:/dev/art assets raw/ninja_adventure/character.png",
+		"cell": [16, 16],
+		"axis": "cols-are-directions",
+		"directions": ["Down", "Up", "Left", "Right"]
+	},
+	"actions": [
+		{ "main": "Idle",   "sub": "{dir}", "name": "idle{dir}", "row": 0, "frames": 1, "increment": 166 },
+		{ "main": "Move",   "sub": "{dir}", "name": "walk{dir}", "row": 0, "frames": 4, "increment": 166 },
+		{ "main": "Move",   "sub": "{dir}", "name": "run{dir}",  "row": 0, "frames": 4, "increment": 110 },
+		{ "main": "Attack", "sub": "{dir}", "name": "chop{dir}", "row": 4, "frames": 1, "increment": 166 },
+		{ "main": "Move",   "sub": "{dir}", "name": "jump{dir}", "row": 5, "frames": 1, "increment": 166 },
+		{ "row": 6, "frames": 1, "increment": 166, "variants": [
+			{ "main": "Death",   "sub": "Normal", "name": "death" },
+			{ "main": "Item",    "sub": "Normal", "name": "item" },
+			{ "main": "Ability", "sub": "Normal", "name": "ability" },
+			{ "main": "Ability", "sub": "Normal", "name": "ability2" }
+		] }
+	]
+}

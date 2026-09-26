@@ -1,0 +1,18 @@
+{
+	"name": "LPCCharacter",
+	"grid": {
+		"sheet": "C:/dev/art assets raw/lpc/character.png",
+		"cell": [64, 64],
+		"directions": ["Up", "Left", "Down", "Right"]
+	},
+	"actions": [
+		{ "main": "Idle",   "sub": "{dir}",   "name": "idle{dir}",  "row": 8,  "col": 0, "frames": 1,  "increment": 130 },
+		{ "main": "Move",   "sub": "{dir}",   "name": "walk{dir}",  "row": 8,  "col": 1, "frames": 8,  "increment": 100 },
+		{ "main": "Move",   "sub": "{dir}",   "name": "run{dir}",   "row": 8,  "col": 1, "frames": 8,  "increment": 70  },
+		{ "main": "Attack", "sub": "{dir}",   "name": "cast{dir}",  "row": 0,  "col": 0, "frames": 7,  "increment": 100 },
+		{ "main": "Attack", "sub": "{dir}",   "name": "stab{dir}",  "row": 4,  "col": 0, "frames": 8,  "increment": 105 },
+		{ "main": "Attack", "sub": "{dir}",   "name": "chop{dir}",  "row": 12, "col": 0, "frames": 6,  "increment": 100 },
+		{ "main": "Attack", "sub": "{dir}",   "name": "shoot{dir}", "row": 16, "col": 0, "frames": 13, "increment": 90  },
+		{ "main": "Death",  "sub": "Normal",  "name": "death",      "row": 20, "col": 0, "frames": 6,  "increment": 95, "dirs": ["Down"] }
+	]
+}

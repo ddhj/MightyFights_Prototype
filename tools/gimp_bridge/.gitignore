@@ -1,0 +1,4 @@
+# artist exports and import output: working files, never committed
+work/
+out/
+__pycache__/

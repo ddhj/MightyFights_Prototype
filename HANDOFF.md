@@ -16,6 +16,15 @@ destination. Fix: `stitch.py` gained a `"recenter"` config option + a flip-jump 
 and SwordHero were re-stitched (movement-frame flip-jump now 0–2px, was 48/18px), content rebuilds
 clean. New: `docs/AI_ART_PIPELINE.md` — the template contract for generating new units (artist or
 AI) + tool options. All uncommitted alongside the owner's own working-tree edits.
+**2026-09-26: the artist's GIMP bridge landed** (`tools/gimp_bridge/`, see its README). It exports a
+unit as one layered GIMP file (a row per action, a column per frame, spare columns to add frames, a `#hit`
+layer for Collision keyframes), starts new units from a blank template, and imports the result back with
+checks. Every `dotnet publish` of Desktop now also builds and proves `publish/UnitBridge/` +
+`UnitBridge.zip` for the artist (`-p:BuildUnitBridge=false` skips it). **Finding while building it:**
+none of the stitched units (Peasant, Bandit, SwordHero, Drau, Griggan, Skeleton) has a `Collision`
+keyframe, and `TrooperActMgr.ProcessKeyFrame` is the only place `DealDamage` is called, so their attacks
+never deal damage. Only the Halberd (and the Chaplain's heal) have keyframes. Hit frames can now be
+marked in GIMP through the bridge, or added to the stitch configs.
 **The project has pivoted from porting to building** — read `docs/DESIGN_DIRECTION.md` first for
 the owner's decisions, the kaiju design, the art pipeline, and the reconstructed original design.
 

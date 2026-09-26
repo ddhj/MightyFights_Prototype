@@ -39,6 +39,62 @@ Config shape (see peasant.config.json next to this script):
       ...
     ]
   }
+
+Grid mode (see lpc_character.config.json next to this script): instead of "source"/"gifs",
+give a "grid" block and slice ONE fixed-cell sheet -- the top-down 4-facing layouts, where
+an animation is a block of cells with one FACING AXIS and one FRAME AXIS. Which axis is
+which is the "axis" option; both layouts are first-class:
+
+  "axis": "rows-are-directions"  (DEFAULT) one row per facing, frames run left-to-right.
+                                 LPC "Universal Spritesheet" art -- lpc_character.config.json
+  "axis": "cols-are-directions"  one COLUMN per facing, frames run top-to-bottom. The
+                                 transposed convention -- ninja_adventure_character.config.json
+
+  {
+    "name": "LPCCharacter",
+    "grid": {
+      "sheet": "path/to/character.png",
+      "cell": [64, 64],                               # per-asset; see the cell note below
+      "axis": "rows-are-directions",                  # optional, this is the default
+      "directions": ["Up", "Left", "Down", "Right"],  # axis order; rename these freely
+      "mirror": { "Right": "Left" }                   # optional, see below
+    },
+    "actions": [
+      { "main": "Move", "sub": "{dir}", "name": "walk{dir}", "row": 8, "frames": 9,
+        "col": 0, "increment": 100 },                 # "col"/"dirs"/"mirror" optional
+      { "main": "Death", "sub": "Normal", "name": "death", "row": 20, "frames": 6,
+        "dirs": ["Down"] }                            # single lane, non-directional
+    ]
+  }
+  * "row"/"col" are the top-left cell of the action's block and "frames" is its length
+    along the FRAME axis. The action then consumes one consecutive lane along the FACING
+    axis per entry in its direction list (per-action "dirs", else the sheet's
+    "directions") -- consecutive rows under "rows-are-directions", consecutive columns
+    under "cols-are-directions". "{dir}" in main/sub/name is substituted with the
+    direction name, so the facing can sit at ANY of the engine's three taxonomy levels.
+  * "{dir}" MUST appear in "name" for a directional action: AnimationDataLoader keys
+    frames by action name GLOBALLY (it recovers the name from the frame filename), so
+    two facings cannot both be called "walk" even under different main/sub.
+  * "variants" replaces the facing axis for one action, for the sheets that reuse it as a
+    chooser instead of a direction (e.g. the transposed pack's last row, whose 4 columns
+    are dead/item/ability/ability2, not facings). One lane per entry, in order, each with
+    its own full taxonomy key and no "{dir}" substitution:
+      { "row": 6, "frames": 1, "variants": [
+          { "main": "Death",   "sub": "Normal", "name": "death" },
+          { "main": "Ability", "sub": "Normal", "name": "ability", "increment": 120 } ] }
+    It is mutually exclusive with "dirs"/"mirror" (they address the same axis).
+  * "mirror": {"Right": "Left"} builds Right by mirroring Left's lane and consumes no lane
+    of its own -- the legitimate space saving for sheets that ship only 3 facings. It is
+    grid-only and unrelated to "flipX"/"recenter".
+  * "cell" is per-config, not per-pack: point a config at a bigger sprite (the boss sheets)
+    and just set its own cell size. Guess wrong and load_grid_sheet refuses the sheet and
+    lists the square cell sizes that DO divide it evenly -- that is how you find the real
+    cell size of an unmeasured sheet.
+  * The cell IS the canvas here (omit "canvas", or set it equal to "cell"): top-down
+    frames are anchored by their cell, so fit_to_canvas's bottom-center anchoring must
+    never run. "recenter" is rejected in grid mode for the same reason -- its single
+    constant dx exists to fix the side-view bDir flip-jump (see main()) and is meaningless
+    when every facing needs its own anchor.
 """
 
 import argparse
@@ -59,6 +115,117 @@ def load_frames_from_gif(path):
     """Frames from an animated GIF, composited to RGBA (handles palette/disposal)."""
     im = Image.open(path)
     return [frame.convert("RGBA") for frame in ImageSequence.Iterator(im)]
+
+
+def load_grid_sheet(path, cell):
+    """Open a grid-mode sheet and check it divides evenly into cell-sized cells.
+    Returns (image, columns, rows)."""
+    cw, ch = cell
+    if cw < 1 or ch < 1:
+        raise SystemExit(f"grid cell must be positive, got {list(cell)}")
+    if not os.path.isfile(path):
+        raise SystemExit(f"grid sheet not found: {path}")
+    sheet = Image.open(path).convert("RGBA")
+    if sheet.width % cw or sheet.height % ch:
+        # the "fits" hint is the intended way to discover an unmeasured sheet's real cell
+        # size (the boss sprites nobody has downloaded yet) -- guess, read, correct
+        fits = [n for n in range(8, 257) if not (sheet.width % n or sheet.height % n)]
+        raise SystemExit(
+            f"grid sheet {path} is {sheet.width}x{sheet.height}, not a whole number of "
+            f"{cw}x{ch} cells ({sheet.width % cw}px left over across, "
+            f"{sheet.height % ch}px down)"
+            + (f"; square cell sizes that DO divide it evenly: {fits}" if fits else ""))
+    return sheet, sheet.width // cw, sheet.height // ch
+
+
+def load_frames_from_grid(sheet, cell, row, col, count, down=False):
+    """Frames from one lane of a grid sheet: `count` cells starting at (row, col), walking
+    down rows when `down` ("cols-are-directions"), else across columns (the default)."""
+    cw, ch = cell
+    dr, dc = (1, 0) if down else (0, 1)
+    return [sheet.crop(((col + dc * i) * cw, (row + dr * i) * ch,
+                        (col + dc * i + 1) * cw, (row + dr * i + 1) * ch))
+            for i in range(count)]
+
+
+def expand_grid_actions(cfg):
+    """Grid mode frame acquisition: slice one fixed-cell sheet into the same action
+    dicts the folder/GIF path feeds the main loop, with the frames already loaded (key
+    "frames"). Everything downstream -- canvas fit, flip, trim, pack, JSON -- is shared.
+    See the module docstring for the config shape."""
+    grid = cfg["grid"]
+    cell = tuple(grid["cell"])
+    sheet, cols, rows = load_grid_sheet(grid["sheet"], cell)
+    axis = grid.get("axis", "rows-are-directions")
+    if axis not in ("rows-are-directions", "cols-are-directions"):
+        raise SystemExit(f"grid \"axis\" must be \"rows-are-directions\" (default) or"
+                         f" \"cols-are-directions\", got \"{axis}\"")
+    down = axis == "cols-are-directions"    # facings across columns, frames down rows
+    def_dirs = grid.get("directions", ["Up", "Left", "Down", "Right"])
+    def_mirror = grid.get("mirror", {})
+
+    out = []
+    for act in cfg["actions"]:
+        row0, count, col0 = act.get("row", 0), act["frames"], act.get("col", 0)
+        variants = act.get("variants")
+        label = act.get("name", f"@row{row0},col{col0}")
+        if count < 1 or row0 < 0 or col0 < 0:
+            raise SystemExit(f"grid action '{label}': bad row/col/frames "
+                             f"({row0}/{col0}/{count})")
+
+        # An action's lanes along the facing axis are normally facings; "variants" swaps
+        # them for named one-off animations, for the sheets that reuse that axis as a
+        # chooser (dead/item/ability) rather than a direction.
+        if variants is not None:
+            if "dirs" in act or "mirror" in act:
+                raise SystemExit(f"grid action '{label}': \"variants\" replaces the facing axis"
+                                 f" and cannot be combined with \"dirs\"/\"mirror\"")
+            if not variants:
+                raise SystemExit(f"grid action '{label}': empty variant list")
+            lanes = [v["name"] for v in variants]
+            if len(set(lanes)) != len(lanes):
+                raise SystemExit(f"grid action '{label}': variant names must be unique, got {lanes}")
+            mirror = {}
+        else:
+            lanes, mirror = act.get("dirs", def_dirs), act.get("mirror", def_mirror)
+            if not lanes:
+                raise SystemExit(f"grid action '{label}': empty direction list")
+            if len(lanes) > 1 and "{dir}" not in act["name"]:
+                raise SystemExit(f"grid action '{label}': directional actions need "
+                                 f"\"{{dir}}\" in \"name\" (the loader keys actions by name globally)")
+
+        by_lane, k = {}, 0
+        for d in lanes:                         # lanes are consumed in order along the facing
+            if d in mirror:                     # axis, mirrored facings taking none of their own
+                continue
+            r, c = (row0, col0 + k) if down else (row0 + k, col0)
+            r1, c1 = (r + count - 1, c) if down else (r, c + count - 1)
+            if r1 >= rows or c1 >= cols:
+                raise SystemExit(
+                    f"grid action '{label}' lane '{d}' wants rows {r}-{r1} x columns {c}-{c1},"
+                    f" but {grid['sheet']} is only {cols} columns x {rows} rows of cells")
+            by_lane[d] = load_frames_from_grid(sheet, cell, r, c, count, down)
+            k += 1
+        for d in lanes:
+            if d in mirror:
+                if mirror[d] not in by_lane:
+                    raise SystemExit(f"grid action '{label}': mirror '{d}' <- '{mirror[d]}',"
+                                     f" but '{mirror[d]}' is not a sliced facing of this action")
+                by_lane[d] = [fr.transpose(Image.FLIP_LEFT_RIGHT) for fr in by_lane[mirror[d]]]
+
+        if variants is not None:
+            for v in variants:
+                out.append({"main": v["main"], "sub": v["sub"], "name": v["name"],
+                            "increment": v.get("increment", act.get("increment", 100)),
+                            "frames": by_lane[v["name"]]})
+        else:
+            for d in lanes:
+                out.append({"main": act["main"].replace("{dir}", d),
+                            "sub": act["sub"].replace("{dir}", d),
+                            "name": act["name"].replace("{dir}", d),
+                            "increment": act.get("increment", 100),
+                            "frames": by_lane[d]})
+    return out
 
 
 def fit_to_canvas(frame, canvas):
@@ -123,6 +290,20 @@ def main():
     canvas = tuple(cfg.get("canvas", [100, 64]))
     source = cfg.get("source")
     gifs = cfg.get("gifs", {})
+    grid = cfg.get("grid")
+    if grid:
+        # In grid mode the cell IS the canvas: top-down frames are anchored by their own
+        # cell, so neither fit_to_canvas's bottom-center anchoring nor the side-view
+        # "recenter" dx may run (both would move every facing by the same amount).
+        cell = tuple(grid["cell"])
+        canvas = tuple(cfg["canvas"]) if "canvas" in cfg else cell
+        if canvas != cell:
+            raise SystemExit(f"grid mode: canvas {list(canvas)} must equal cell {list(cell)}"
+                             f" (or just omit \"canvas\")")
+        if cfg.get("recenter"):
+            raise SystemExit("grid mode: \"recenter\" is side-view-only; grid cells are already"
+                             " anchored (use per-facing art, not one constant dx)")
+    actions = expand_grid_actions(cfg) if grid else cfg["actions"]
     os.makedirs(args.out, exist_ok=True)
 
     # ---- optional horizontal recentering ----
@@ -157,13 +338,15 @@ def main():
     taxonomy = {}           # MainType -> SubType -> [ {sAction, iIncrement} ]
     seen_names = set()
 
-    for act in cfg["actions"]:
-        out_name, src = act["name"], act["src"]
+    for act in actions:
+        out_name, src = act["name"], act.get("src")
         if out_name in seen_names:
             raise SystemExit(f"duplicate output action name: {out_name}")
         seen_names.add(out_name)
 
-        if src in gifs:
+        if "frames" in act:                 # grid mode: rows were sliced up front
+            frames = act["frames"]
+        elif src in gifs:
             frames = load_frames_from_gif(gifs[src])
         else:
             folder = os.path.join(source, src)
