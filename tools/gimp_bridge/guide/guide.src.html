@@ -1,0 +1,335 @@
+<title>Unit Bridge Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=Pixelify+Sans:wght@500;700&display=swap">
+<style>
+:root{
+  --bg:#eef1f5; --panel:#ffffff; --ink:#1b2130; --muted:#586174; --line:#d3d9e3;
+  --accent:#2d6aa3; --accent-soft:#dce8f4; --warn:#b4541f; --warn-soft:#f8e6da; --hit:#ffd6c4;
+  --code:#e6ebf2;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#11151c; --panel:#171c25; --ink:#e3e8ef; --muted:#9aa4b4; --line:#2a3240;
+    --accent:#72a9dc; --accent-soft:#1d2a39; --warn:#e38a55; --warn-soft:#2e211a; --hit:#4a2f24;
+    --code:#1f2632;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#11151c; --panel:#171c25; --ink:#e3e8ef; --muted:#9aa4b4; --line:#2a3240;
+  --accent:#72a9dc; --accent-soft:#1d2a39; --warn:#e38a55; --warn-soft:#2e211a; --hit:#4a2f24;
+  --code:#1f2632;
+}
+body{background:var(--bg); color:var(--ink); font:16px/1.6 "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;}
+.wrap{max-width:1180px; margin:0 auto; padding-inline:20px; padding-block:28px 64px; display:grid; grid-template-columns:230px minmax(0,1fr); gap:44px;}
+@media (max-width:900px){ .wrap{grid-template-columns:1fr; gap:20px;} nav.toc{position:static !important; max-height:none !important;} }
+nav.toc{position:sticky; top:calc(env(safe-area-inset-top,0px) + 20px); align-self:start; max-height:calc(100vh - 40px); overflow:auto; font-size:14px;}
+nav.toc p{font:600 12px/1 "IBM Plex Mono", monospace; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 10px;}
+nav.toc ol{list-style:none; margin:0; padding:0; display:grid; gap:4px; counter-reset:t;}
+nav.toc a{color:var(--ink); text-decoration:none; display:block; padding:3px 8px; border-radius:4px;}
+nav.toc a:hover, nav.toc a:focus-visible{background:var(--accent-soft); outline:none;}
+main{min-width:0;}
+header.top{display:grid; gap:14px; padding-bottom:24px; border-bottom:2px solid var(--line); margin-bottom:12px;}
+.eyebrow{font:600 12px/1 "IBM Plex Mono", monospace; letter-spacing:.1em; text-transform:uppercase; color:var(--accent);}
+h1,h2,h3{font-family:"Pixelify Sans", "IBM Plex Mono", monospace; text-wrap:balance; line-height:1.15; margin:0;}
+h1{font-size:clamp(2rem, 5vw, 3.1rem); font-weight:700;}
+h2{font-size:1.65rem; font-weight:700; margin-top:52px; margin-bottom:12px; display:flex; gap:12px; align-items:baseline;}
+h2 .n{font:600 .85rem/1 "IBM Plex Mono", monospace; color:var(--accent); min-width:2.2em;}
+h3{font-size:1.15rem; font-weight:500; margin-top:26px; margin-bottom:6px;}
+p, li{max-width:68ch;}
+.lede{font-size:1.1rem; color:var(--muted); max-width:62ch; margin:0;}
+a{color:var(--accent);}
+code, kbd, .mono{font-family:"IBM Plex Mono", ui-monospace, monospace; font-size:.9em;}
+code{background:var(--code); padding:1px 5px; border-radius:3px;}
+kbd{border:1px solid var(--line); border-bottom-width:2px; padding:0 5px; border-radius:3px; background:var(--panel);}
+pre{background:var(--code); padding:14px 16px; border-radius:6px; overflow-x:auto; font:14px/1.5 "IBM Plex Mono", monospace; margin:12px 0;}
+figure{margin:18px 0 22px; display:grid; gap:8px;}
+figure .sheet{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:12px; overflow-x:auto;}
+figure img{image-rendering:pixelated; display:block; max-width:none; height:auto;}
+figure img.fit{max-width:100%;}
+figcaption{font-size:.9rem; color:var(--muted); max-width:72ch;}
+.axis{display:flex; gap:0; font:500 11px/1 "IBM Plex Mono", monospace; color:var(--muted); margin-top:6px;}
+.axis span{text-align:center; flex:none;}
+.steps{counter-reset:s; list-style:none; padding:0; margin:14px 0; display:grid; gap:14px;}
+.steps>li{counter-increment:s; display:grid; grid-template-columns:2.4em 1fr; gap:10px; max-width:74ch;}
+.steps>li::before{content:counter(s); font:700 1.05rem/1.9 "Pixelify Sans", monospace; color:var(--accent); background:var(--accent-soft); border-radius:6px; text-align:center; height:1.9em;}
+.table{overflow-x:auto; margin:14px 0; border:1px solid var(--line); border-radius:6px; background:var(--panel);}
+table{border-collapse:collapse; width:100%; font-size:.93rem; font-variant-numeric:tabular-nums;}
+th, td{text-align:left; padding:8px 12px; border-bottom:1px solid var(--line); vertical-align:top;}
+th{font:600 12px/1.3 "IBM Plex Mono", monospace; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); background:var(--bg);}
+tr:last-child td{border-bottom:0;}
+td.num{font-family:"IBM Plex Mono", monospace; white-space:nowrap;}
+.note{background:var(--accent-soft); border-left:3px solid var(--accent); padding:12px 16px; border-radius:0 6px 6px 0; margin:16px 0; max-width:74ch;}
+.warn{background:var(--warn-soft); border-left:3px solid var(--warn); padding:12px 16px; border-radius:0 6px 6px 0; margin:16px 0; max-width:74ch;}
+.note p, .warn p{margin:.3em 0;}
+.two{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:18px; align-items:start;}
+.chip{display:inline-block; white-space:nowrap; margin:2px 6px 2px 0;}
+.swatch{display:inline-block; width:.95em; height:.95em; border-radius:2px; vertical-align:-.12em; border:1px solid var(--line); margin-right:4px;}
+dl.gloss{display:grid; grid-template-columns:max-content 1fr; gap:6px 18px; max-width:78ch;}
+dl.gloss dt{font:600 .92rem "IBM Plex Mono", monospace;}
+dl.gloss dd{margin:0; color:var(--ink);}
+@media (max-width:560px){ dl.gloss{grid-template-columns:1fr;} dl.gloss dd{margin-bottom:8px;} }
+footer{margin-top:60px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.88rem;}
+@media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto !important;} }
+html{scroll-behavior:smooth;}
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <p>Contents</p>
+  <ol>
+    <li><a href="#start">Quick start</a></li>
+    <li><a href="#engine">How the game animates a unit</a></li>
+    <li><a href="#file">The file: rows and frames</a></li>
+    <li><a href="#layers">The layers</a></li>
+    <li><a href="#animations">The animations</a></li>
+    <li><a href="#timing">How the game times them</a></li>
+    <li><a href="#frames">Adding and removing frames</a></li>
+    <li><a href="#midline">Face left, stay on the midline</a></li>
+    <li><a href="#hits">Hit frames</a></li>
+    <li><a href="#new">Starting a new unit</a></li>
+    <li><a href="#units">The units</a></li>
+    <li><a href="#rules">Rules for the file</a></li>
+    <li><a href="#check">Checking your work</a></li>
+    <li><a href="#send">Sending it back</a></li>
+    <li><a href="#glossary">Glossary</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="top">
+  <span class="eyebrow">MightyFights · UnitBridge.exe · for the artist</span>
+  <h1>Unit Bridge Field Guide</h1>
+  <p class="lede">How the game plays a unit's animations, and exactly how to paint them in GIMP so your work drops straight back into the game: repaint what's there, add frames, or draw a whole new unit.</p>
+  <figure style="margin:6px 0 0">
+    <div class="sheet"><img class="fit" src="{{IMG:hero}}" width="{{W:hero}}" height="{{H:hero}}" alt="The Peasant's critical spear thrust, every other frame"></div>
+    <figcaption>The Peasant's <code>bigchop</code>, the critical-hit thrust: every other frame. This is exactly the art the game draws, taken straight from its sheet.</figcaption>
+  </figure>
+</header>
+
+<section id="start">
+<h2><span class="n">01</span>Quick start</h2>
+<p>You need <strong>GIMP 2.10 or 3.0</strong> (gimp.org). Nothing else: UnitBridge carries everything it needs.</p>
+<ol class="steps">
+  <li><div><strong>Keep the <code>UnitBridge</code> folder together.</strong> <code>UnitBridge.exe</code> reads the game's art from the <code>content\</code> folder beside it. It writes only into <code>work\</code> and <code>out\</code> in the same folder.</div></li>
+  <li><div><strong>Double-click <code>UnitBridge.exe</code>.</strong> A window opens with a menu:
+<pre>UNIT BRIDGE -- paint MightyFights units in GIMP
+  1  Export a unit to a GIMP file            (writes into work\)
+  2  Start a NEW unit                        (writes a blank template into work\)
+  3  Check my painted files                  (reads work\, writes out\)
+  4  List the units
+  q  Quit</pre></div></li>
+  <li><div><strong>Type <kbd>1</kbd>, then the unit's number</strong> (for example the Bandit). If GIMP is installed it offers to save a <code>.xcf</code> too; say yes. You get <code>work\Bandit.ora</code> (and <code>work\Bandit.xcf</code>).</div></li>
+  <li><div><strong>Open it in GIMP and paint.</strong> Read <a href="#file">the file</a> and <a href="#rules">the rules</a> first: five minutes that save a round trip.</div></li>
+  <li><div><strong>Save</strong> with <em>File › Save</em> (<code>.xcf</code>) or <em>File › Export As…</em> (<code>.ora</code>). Keep the file name.</div></li>
+  <li><div><strong>Back in UnitBridge, type <kbd>3</kbd>.</strong> It reads everything in <code>work\</code>, tells you what changed row by row, warns about anything the game will get wrong, and writes animated previews you can watch. See <a href="#check">checking your work</a>.</div></li>
+  <li><div><strong>Send the painted <code>.ora</code>/<code>.xcf</code> back</strong> to the developer. That's the whole loop.</div></li>
+</ol>
+<div class="note"><p>You can also drag <code>.ora</code>/<code>.xcf</code> files onto <code>UnitBridge.exe</code> to check just those.</p></div>
+</section>
+
+<section id="engine">
+<h2><span class="n">02</span>How the game animates a unit</h2>
+<p>Every unit is <strong>one picture</strong> (a sprite sheet) holding all of its frames, plus a small data file saying which frames belong to which animation, how fast each plays and what happens on special frames. You never touch the data file: the bridge rebuilds both from your GIMP file.</p>
+<ul>
+  <li><strong>Every frame is the same size</strong>: the unit's <em>frame size</em> (Peasant 100×64, Bandit 100×70, …). Your art sits somewhere inside that box; the empty space is trimmed away automatically.</li>
+  <li><strong>The unit stands on the bottom of its box.</strong> Feet (and shadow) near the bottom edge, like the existing units.</li>
+  <li><strong>Units are drawn facing left.</strong> When one turns to face right, the game mirrors the frame. There is no separate right-facing art.</li>
+  <li><strong>The game asks for animations by name</strong>: <code>walk</code> when a unit moves, one of five attacks at random when it swings, <code>death</code> when it falls. That's why the rows have fixed names and why every row needs at least one frame.</li>
+</ul>
+</section>
+
+<section id="file">
+<h2><span class="n">03</span>The file: rows and frames</h2>
+<p>You get <strong>one GIMP file per unit</strong>, laid out as a grid:</p>
+<ul>
+  <li>Every <strong>row</strong> is one animation. The magenta label says its name, its type and its speed, e.g. <code>walk  Move/Walk  130ms</code>.</li>
+  <li>Every <strong>column</strong> is a frame, left to right. The small number in each cell's bottom-right corner is the frame number.</li>
+  <li>Each cell is the unit's frame size. <em>Image › Configure Grid</em> set to that size, plus <em>View › Show Grid</em>, lines GIMP's grid up with the cells.</li>
+  <li>After each row's last frame come <strong>spare empty cells</strong>. Paint in them to <a href="#frames">add frames</a>.</li>
+  <li>The <strong>dotted blue line</strong> down the middle of every cell is the <a href="#midline">midline</a>.</li>
+</ul>
+<figure>
+  <div class="sheet"><img src="{{IMG:canvas}}" width="{{W:canvas}}" height="{{H:canvas}}" alt="The Bandit's GIMP file: rows of attack animations, frames across, spare cells on the right"></div>
+  <figcaption>The top of <code>Bandit.ora</code> as GIMP shows it. Six of its nineteen rows; three frames each, then spare cells. (All eight of the Bandit's attacks are currently the same three frames — they're placeholders waiting for real, different swings.)</figcaption>
+</figure>
+</section>
+
+<section id="layers">
+<h2><span class="n">04</span>The layers</h2>
+<div class="table"><table>
+  <thead><tr><th>Layer</th><th>What it is</th><th>Goes into the game?</th></tr></thead>
+  <tbody>
+    <tr><td><code>#guides unit=… (ignored on import)</code></td><td>Cell borders, labels, frame numbers, the midline. Its name tells the bridge which unit the file is — don't rename or delete it.</td><td>No</td></tr>
+    <tr><td><code>#hit frames (…)</code></td><td>Red dots marking the frame each attack lands on. See <a href="#hits">hit frames</a>.</td><td>As data, not pixels</td></tr>
+    <tr><td><code>art: Bandit</code></td><td>The unit's pixels. Paint here.</td><td>Yes</td></tr>
+    <tr><td><code>#reference Peasant (…)</code></td><td>Only in a <a href="#new">new unit</a>: an existing unit shown faintly, for size and baseline.</td><td>No</td></tr>
+    <tr><td>any layer you add</td><td>If it's <strong>visible</strong> and its name doesn't start with <code>#</code>, it's merged into the art, top over bottom.</td><td>Yes, if visible</td></tr>
+  </tbody>
+</table></div>
+<p>So you can work the way you like: paint straight on <code>art</code>, or put a new weapon on its own layer, or keep sketches on a layer named <code>#sketch</code> (ignored) or simply hidden (left out).</p>
+</section>
+
+<section id="animations">
+<h2><span class="n">05</span>The animations</h2>
+<p>Every trooper has the same rows, in this order. The speeds here are the Peasant's; each unit has its own.</p>
+<div class="table"><table>
+  <thead><tr><th>Row</th><th>Type</th><th>Speed</th><th>When the game plays it</th><th>Plays</th></tr></thead>
+  <tbody>
+{{ANIMATIONS}}
+  </tbody>
+</table></div>
+<div class="note"><p><strong>Attacks are picked at random.</strong> A normal swing is one of <code>low</code>, <code>stab</code>, <code>stick</code>, <code>chop</code>, <code>chopb</code>; a critical is <code>bigchop</code> or <code>lunge</code> and does triple damage. Five genuinely different swings make a unit look alive; five copies of one swing make it look like a machine.</p></div>
+</section>
+
+<section id="timing">
+<h2><span class="n">06</span>How the game times them</h2>
+<p>Each animation has one speed: <strong>how many milliseconds each frame stays on screen</strong>. <code>100ms</code> is ten frames a second. The game steps through the row's frames at that speed, then either <strong>loops</strong> (idle, walk, run…) or <strong>plays once</strong> (attacks, parry, death).</p>
+<ul>
+  <li>So <strong>frame count is duration</strong>: a 6-frame attack at 100ms takes 0.6 seconds; add two frames and it takes 0.8. Units fight at the speed of their animations.</li>
+  <li>The speed itself isn't in the GIMP file. If a row feels too fast or slow after you've drawn it, tell the developer the new speed — it's a one-number change.</li>
+  <li>Watch the previews (<a href="#check">menu 3</a>): they play at the game's real speed.</li>
+</ul>
+</section>
+
+<section id="frames">
+<h2><span class="n">07</span>Adding and removing frames</h2>
+<p>A row's frames run from its first cell to its <strong>last cell with anything in it</strong>.</p>
+<ul>
+  <li><strong>To add a frame</strong>, paint into the first spare cell after the row's last frame. Need more room than the spares? Tell the developer, or export again with more spares.</li>
+  <li><strong>To remove frames</strong>, erase the row's last cells completely (every pixel, shadow included).</li>
+  <li>A <strong>gap in the middle</strong> — an empty cell with frames after it — stays as a blank frame (the unit vanishes for one frame). That's almost never what you want.</li>
+  <li>A few units (Drau) end some animations on blank frames on purpose; those are kept as long as you leave them blank.</li>
+</ul>
+<figure>
+  <div class="sheet"><img src="{{IMG:addframe}}" width="{{W:addframe}}" height="{{H:addframe}}" alt="The Bandit's walk row before and after painting a new frame into the first spare cell"></div>
+  <figcaption>The Bandit's <code>walk</code>: five frames and spare cells (top). Paint into cell <code>05</code> and the walk has six frames (bottom).</figcaption>
+</figure>
+</section>
+
+<section id="midline">
+<h2><span class="n">08</span>Face left, stay on the midline</h2>
+<p>This is the one rule that breaks the game when it's missed. When a unit turns around, the game <strong>mirrors the frame across its middle</strong>. A body standing on the middle stays put; a body standing off to one side jumps to the other side — and the unit's position in the fight jumps with it, which can make it twitch back and forth while it walks.</p>
+<figure>
+  <div class="sheet"><img src="{{IMG:midline}}" width="{{W:midline}}" height="{{H:midline}}" alt="Left pair: a centred unit and its mirror, standing in the same place. Right pair: an off-centre unit and its mirror, jumping sideways."></div>
+  <figcaption>Illustration. <strong>Left pair:</strong> body on the dotted midline, and its mirror — same spot. <strong>Right pair:</strong> the same frame moved off the line, and its mirror — it jumps about 50px every time it turns.</figcaption>
+</figure>
+<ul>
+  <li>Keep the <strong>body</strong> (not the weapon) centred on the dotted blue line, especially in <code>walk</code>, <code>run</code> and <code>flee</code>.</li>
+  <li>Lunges and steps <em>inside</em> an attack are fine: it's where the body stands on average that matters.</li>
+  <li>The check (menu 3) measures this on the movement rows and warns if it's off.</li>
+</ul>
+</section>
+
+<section id="hits">
+<h2><span class="n">09</span>Hit frames</h2>
+<p>An attack only <strong>does damage on one frame</strong>: the moment the weapon connects. That frame is marked with a <strong>red dot</strong> on the <code>#hit frames</code> layer.</p>
+<figure>
+  <div class="sheet"><img src="{{IMG:hit}}" width="{{W:hit}}" height="{{H:hit}}" alt="The Halberd footman's chop, eleven frames, with frame 04 highlighted and marked with a red dot"></div>
+  <figcaption>The Halberd footman's <code>chop</code>. The hit lands on frame <code>04</code>, the full sweep of the blade. Everything before is wind-up, everything after is recovery.</figcaption>
+</figure>
+<ul>
+  <li><strong>One dot per attack row</strong>, in the cell of the frame where the blow lands. Where in the cell doesn't matter.</li>
+  <li><strong>Move the hit</strong> by erasing the dot and painting one in another cell of the same row.</li>
+  <li>An attack row <strong>with no dot never deals damage</strong>. The check warns about every one. (Right now most units have none — placing them is some of the most useful work you can do.)</li>
+  <li>If you add or remove frames, check the dot is still on the right one.</li>
+</ul>
+</section>
+
+<section id="new">
+<h2><span class="n">10</span>Starting a new unit</h2>
+<p>Menu <kbd>2</kbd> makes a blank template for a brand-new unit. It asks for:</p>
+<ol class="steps">
+  <li><div><strong>A name</strong> — letters and digits, e.g. <code>Goblin</code>.</div></li>
+  <li><div><strong>A unit to copy</strong> — the new one gets its rows and speeds (Enter picks the Peasant). Its frames appear <strong>faintly behind</strong> on the <code>#reference</code> layer, so you can match size, baseline and the swing's timing.</div></li>
+  <li><div><strong>A frame size</strong> — Enter keeps that unit's size; a bigger unit can ask for more, e.g. <code>140x96</code>.</div></li>
+</ol>
+<figure>
+  <div class="sheet"><img src="{{IMG:newunit}}" width="{{W:newunit}}" height="{{H:newunit}}" alt="A blank new-unit template with the Peasant faintly visible behind the grid"></div>
+  <figcaption>A new <code>Goblin</code>: empty rows, with the Peasant faintly behind as a guide.</figcaption>
+</figure>
+<p>Every row needs at least one frame before the check will accept it. You can start rough: one frame per row gets a unit into the game; fill in the rest later.</p>
+</section>
+
+<section id="units">
+<h2><span class="n">11</span>The units</h2>
+<div class="table"><table>
+  <thead><tr><th>Unit</th><th>Frame size</th><th>Rows</th><th>Frames</th><th>Hit frames</th></tr></thead>
+  <tbody>
+{{UNITS}}
+  </tbody>
+</table></div>
+<p>The <strong>Halberd footman</strong> isn't here yet: its one layout is shared by fourteen recoloured versions, so it can't be repainted one colour at a time. The <strong>Chaplain</strong> is the healer, with its own rows.</p>
+</section>
+
+<section id="rules">
+<h2><span class="n">12</span>Rules for the file</h2>
+<div class="table"><table>
+  <thead><tr><th>Don't</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>resize or crop the canvas</td><td>the cells stop lining up with frames (the check refuses it)</td></tr>
+    <tr><td>move rows up or down, or reorder them</td><td>a row's position is its name: walk frames would become run frames</td></tr>
+    <tr><td>delete or rename the <code>#guides</code> layer</td><td>it tells the bridge which unit the file is (without it, the file name must be the unit's name)</td></tr>
+    <tr><td>leave a row completely empty</td><td>the game asks for every row by name</td></tr>
+    <tr><td>use blend modes other than Normal</td><td>only plain layers merge correctly (opacity is fine)</td></tr>
+    <tr><td>draw facing right</td><td>the game mirrors the art to face right itself</td></tr>
+  </tbody>
+</table></div>
+<div class="note"><p>Layers whose names start with <code>#</code> never go into the game, so a <code>#notes</code> layer for the developer is welcome.</p></div>
+</section>
+
+<section id="check">
+<h2><span class="n">13</span>Checking your work</h2>
+<p>Menu <kbd>3</kbd> reads every file in <code>work\</code> and reports, per unit:</p>
+<pre>Bandit: changed (80 frames)
+  walk       5 -> 6 frames; repainted 05
+  chop       hit none -> 02
+warning: Bandit.ora: attack 'low' has no hit frame -- it will never deal damage</pre>
+<ul>
+  <li><strong>Previews:</strong> one looping GIF per animation in <code>out\_preview\&lt;Unit&gt;\</code>, three times size, at the game's speed. The hit frame shows a small red square. Open them in any browser or image viewer.</li>
+  <li><strong>The rebuilt sheet</strong> goes in <code>out\</code>. That's the file the game would load — only for your curiosity; you don't need to send it.</li>
+  <li><strong>warning</strong> means "the game will take this, but check it". <strong>ERROR</strong> means nothing was written: fix what it says (usually a resized canvas or an empty row) and run it again.</li>
+</ul>
+<div class="table"><table>
+  <thead><tr><th>Message says</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>row '…' is empty</td><td>give that animation at least one frame</td></tr>
+    <tr><td>canvas is … was the canvas resized or cropped?</td><td>undo the resize, or export a fresh file and paint over again</td></tr>
+    <tr><td>has no hit frame</td><td>put a red dot on the frame the blow lands</td></tr>
+    <tr><td>body is off the canvas midline</td><td>move the body onto the dotted blue line</td></tr>
+    <tr><td>a hit mark on frame …, but its last frame is …</td><td>the dot is in a spare cell; move it onto a real frame</td></tr>
+    <tr><td>sheet changed after this file was exported</td><td>the developer changed that unit since your export; tell them (they can still take your file)</td></tr>
+    <tr><td>layer '…' is hidden -- left out</td><td>fine if you meant it; make it visible if you didn't</td></tr>
+  </tbody>
+</table></div>
+</section>
+
+<section id="send">
+<h2><span class="n">14</span>Sending it back</h2>
+<ul>
+  <li>Send the <strong><code>.ora</code> / <code>.xcf</code> files you painted</strong>, from <code>work\</code>. They are the source of your edit; the developer imports them.</li>
+  <li>Using <strong>GIMP 3</strong>? Send a <code>.ora</code> too (<em>File › Export As…</em>) — GIMP 2.10 may not open a GIMP 3 <code>.xcf</code>.</li>
+  <li>A <code>#notes</code> layer is a good place for anything you want the developer to know: "speed this up", "chopb isn't finished".</li>
+</ul>
+</section>
+
+<section id="glossary">
+<h2><span class="n">15</span>Glossary</h2>
+<dl class="gloss">
+  <dt>sheet</dt><dd>the one picture holding all of a unit's frames, packed tightly</dd>
+  <dt>frame size</dt><dd>the box every frame of a unit is drawn in (one cell of the grid)</dd>
+  <dt>row / animation</dt><dd>one named animation: <code>walk</code>, <code>chop</code>, <code>death</code>…</dd>
+  <dt>speed</dt><dd>milliseconds each frame stays on screen</dd>
+  <dt>hit frame</dt><dd>the one frame of an attack where damage happens (a red dot)</dd>
+  <dt>midline</dt><dd>the dotted blue line the game mirrors each frame across when the unit turns</dd>
+  <dt>spare cells</dt><dd>empty cells after a row's last frame; painting there adds frames</dd>
+  <dt>.ora</dt><dd>OpenRaster, a layered image format GIMP opens and saves; needs nothing extra to check</dd>
+  <dt>.xcf</dt><dd>GIMP's own format; checking one needs GIMP installed</dd>
+</dl>
+</section>
+
+<footer>Unit Bridge field guide · pictures drawn from the game's own sheets · built {{STAMP}}</footer>
+</main>
+</div>

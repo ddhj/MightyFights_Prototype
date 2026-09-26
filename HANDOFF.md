@@ -19,8 +19,8 @@ AI) + tool options. All uncommitted alongside the owner's own working-tree edits
 **2026-09-26: the artist's GIMP bridge landed** (`tools/gimp_bridge/`, see its README). It exports a
 unit as one layered GIMP file (a row per action, a column per frame, spare columns to add frames, a `#hit`
 layer for Collision keyframes), starts new units from a blank template, and imports the result back with
-checks. Every `dotnet publish` of Desktop now also builds and proves `publish/UnitBridge/` +
-`UnitBridge.zip` for the artist (`-p:BuildUnitBridge=false` skips it). **Finding while building it:**
+checks. Every `dotnet publish` of Desktop now also builds and proves `publish/win-x64/UnitBridge/`
+inside the game folder, so the usual publish zip carries it (`-p:BuildUnitBridge=false` skips it). **Finding while building it:**
 none of the stitched units (Peasant, Bandit, SwordHero, Drau, Griggan, Skeleton) has a `Collision`
 keyframe, and `TrooperActMgr.ProcessKeyFrame` is the only place `DealDamage` is called, so their attacks
 never deal damage. Only the Halberd (and the Chaplain's heal) have keyframes. Hit frames can now be

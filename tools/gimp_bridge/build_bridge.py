@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the SENDABLE Unit Bridge: one folder with UnitBridge.exe and every unit sheet it reads.
 
-    python tools/gimp_bridge/build_bridge.py --out publish/UnitBridge
+    python tools/gimp_bridge/build_bridge.py --out publish/win-x64/UnitBridge
 
 Built the way SettlementARPG's DollBridge is (its tools/gimp_bridge/build_bridge.py): a FROZEN .exe
 (no Python on the artist's machine) and exactly the files it reads, laid out as the repo in miniature so
@@ -13,6 +13,7 @@ this (the PublishUnitBridge target in MightyFights.Desktop.csproj).
     work/                             where exports land, and where the artist paints
     out/                              where an import writes, and the ONLY place it may
     README.txt                        for whoever receives it
+    ARTIST_GUIDE.html                 the illustrated field guide (make_guide.py)
 
 IT IS NOT DONE UNTIL THE .EXE HAS ROUND-TRIPPED SOMETHING. Through the FROZEN exe, reading the PACKAGED
 sheets: every unit exported and imported unchanged comes back pixel-equal with the same frames, taxonomy
@@ -43,6 +44,9 @@ README = """UNIT BRIDGE -- paint MightyFights units in GIMP, and check they go b
 WHAT YOU NEED
   GIMP 2.10 or 3.0 (gimp.org). Nothing else -- no Python, nothing to install for UnitBridge itself.
   Unzip this folder anywhere and keep it together: UnitBridge.exe reads the unit sheets in content\\.
+
+READ ARTIST_GUIDE.html FIRST -- open it in any web browser. It explains, with pictures, how the game
+plays a unit's animations, and everything below in more detail.
 
 RUN IT
   Double-click UnitBridge.exe. A window opens with a menu:
@@ -175,7 +179,11 @@ def build(out, stamp):
     os.makedirs(os.path.join(out, 'out'))
     with open(os.path.join(out, 'README.txt'), 'w', encoding='utf-8') as fh:
         fh.write(README.format(stamp=stamp))
-    print('     %d units: %s' % (len(units), ', '.join(units)))
+    #### THE FIELD GUIDE -- regenerated here so the package never ships a stale one: its pictures and
+    #### tables come from the same sheets this package carries
+    run([sys.executable, os.path.join(HERE, 'make_guide.py')])
+    shutil.copy2(os.path.join(HERE, 'ARTIST_GUIDE.html'), out)
+    print('     %d units: %s; ARTIST_GUIDE.html' % (len(units), ', '.join(units)))
     before = files_under(out)
     pkg_work, pkg_out = os.path.join(out, 'work'), os.path.join(out, 'out')
 

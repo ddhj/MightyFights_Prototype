@@ -6,8 +6,12 @@ MightyFights unit is: **one sheet + one AnimationData JSON** (`content/Sprite Da
 
 ## For the artist
 
-The packaged `UnitBridge.exe` carries its own `README.txt`, which is the artist's guide. The short
-version:
+**The full field guide is `ARTIST_GUIDE.html`**: one self-contained page covering how the game plays a
+unit, the grid, every animation and when it plays, timing, adding frames, the midline, hit frames, new
+units, and what each check message means. `python tools/gimp_bridge/make_guide.py` rebuilds it. The
+pictures come from the game's own sheets through the bridge's own exporter (`guide/guide_art.py`) and
+the prose lives in `guide/guide.src.html`. `build_bridge.py` rebuilds it on every build and ships it in
+the package next to `README.txt`. The short version:
 
 - **One GIMP file per unit.** Every **row** is an animation (idle, low, stab, ... walk, run, flee),
   every **column** a frame, and each cell is the unit's frame size. Magenta labels give the animation,
@@ -59,8 +63,8 @@ python tools/gimp_bridge/build_bridge.py --out <dir>                            
 ### Packaging: `UnitBridge.exe`
 
 Every `dotnet publish` of `MightyFights.Desktop` (the `win-x64` profile included) runs the
-`PublishUnitBridge` target. It calls `build_bridge.py`, which writes `publish/UnitBridge/` and
-`publish/UnitBridge.zip` beside the game's publish folder: a frozen `unit_bridge.py` (one exe,
+`PublishUnitBridge` target. It calls `build_bridge.py`, which writes `UnitBridge/` INSIDE the game's
+publish folder (`publish/win-x64/UnitBridge/`), so zipping the publish folder sends the game and the tool together: a frozen `unit_bridge.py` (one exe,
 subcommands `list` / `export` / `new` / `import`, a menu on double-click), every unit sheet, a
 `README.txt`, and empty `work/` and `out/`. The build **proves the frozen exe** before it succeeds:
 

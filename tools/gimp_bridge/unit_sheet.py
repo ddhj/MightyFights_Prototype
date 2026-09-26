@@ -121,9 +121,13 @@ def action_of(filename):
 class UnitSheet:
     """One unit's sheet, decoded to per-frame crops on the unit's canvas."""
 
-    def __init__(self, name, root=SPRITE_DATA):
+    def __init__(self, name, root=SPRITE_DATA, paths=None):
+        """paths=(png, json) reads a sheet find_units() skips, e.g. one Halberd texture (the guide does)."""
         self.name = name
-        self.png, self.json, self.rel = unit_paths(name, root)
+        if paths:
+            self.png, self.json, self.rel = paths[0], paths[1], None
+        else:
+            self.png, self.json, self.rel = unit_paths(name, root)
         with open(self.json, "r", encoding="utf-8-sig") as f:
             self.doc = json.load(f)
         self.sheet = Image.open(self.png).convert("RGBA")

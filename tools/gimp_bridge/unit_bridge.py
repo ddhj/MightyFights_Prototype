@@ -82,7 +82,7 @@ def menu():
     work = os.path.join(us.HERE, "work")
     gimp = us.find_gimp()
     while True:
-        print("\nUNIT BRIDGE -- paint MightyFights units in GIMP")
+        print("\nUNIT BRIDGE -- paint MightyFights units in GIMP   (new here? open ARTIST_GUIDE.html first)")
         print("  1  Export a unit to a GIMP file            (writes into work\\)")
         print("  2  Start a NEW unit                        (writes a blank template into work\\)")
         print("  3  Check my painted files                  (reads work\\, writes out\\)")
